@@ -12,15 +12,17 @@
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-typescript": "^7.24.7",
     "@types/react": "^18.3.3",
+    "babel-loader": "^9.1.3",
     "typescript": "^4.0.0",
     "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "scripts": {
     "build": "npx babel src --out-dir dist --extensions .tsx && npx webpack --config webpack.config.js",
     "lint": "eslint . --ext .ts,.tsx",
     "babel": "npx babel src --out-dir dist --extensions .tsx",
     "webpack": "npx webpack --config webpack.config.js",
-    "start": ""
+    "start": "webpack serve --config webpack.config.js"
   }
 }
