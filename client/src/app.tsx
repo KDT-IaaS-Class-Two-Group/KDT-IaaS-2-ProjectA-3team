@@ -1,7 +1,15 @@
-import React from 'react';
-
+import React from "react";
+import Input from "./components/Input";
+import Button from "./components/Button";
+import useDataServeEvent from "./hooks/useDataServeEvent";
 const App: React.FC = () => {
-  return <div>Hello, React!</div>;
+  const { inputValue, setInputValue, sendDataToServer } = useDataServeEvent();
+  return (
+    <div>
+      <Input inputValue={inputValue} setInputValue={setInputValue} />
+      <Button eventFunc={sendDataToServer} />
+    </div>
+  );
 };
 
 export default App;
