@@ -1,15 +1,15 @@
 {
   "name": "kdt-iaas-2-projecta-3team",
   "version": "0.0.1",
-  "scripts": {
-    "build": "npm run build --workspaces",
-    "start": "npm run start --workspaces"
-  },
   "workspaces": [
     "client",
     "server",
     "shared"
   ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "start": "npm run start --workspaces=server"
+  },
   "keywords": [],
   "author": "Team Zootopia",
   "license": "ISC",

@@ -20,6 +20,7 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts,.tsx",
     "babel": "npx babel src --out-dir dist --extensions .tsx",
-    "webpack": "npx webpack --config webpack.config.js"
+    "webpack": "npx webpack --config webpack.config.js",
+    "start": ""
   }
 }
