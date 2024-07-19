@@ -8,6 +8,7 @@ const port = process.env.PORT;
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 app.use(express.static(`${process.cwd()}/../client/dist`));
 
 app.get("/", (req, res) => {
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/useDataServeEvent", (req, res) => {
-  console.log(1);
+  console.log(req.body);
 });
 
 app.listen(port, () => {
