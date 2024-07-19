@@ -9,9 +9,18 @@ const app = express();
 
 app.use(express.static(`${process.cwd()}/../client/dist`))
 
+
+app.post('/login', (req,res) => {
+  // 엔드포인트 정의
+})
+
+
+
+
 app.get('/', (req, res) => {
   res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
