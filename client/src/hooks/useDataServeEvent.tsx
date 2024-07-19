@@ -27,6 +27,8 @@ const useDataServeEvent = () => {
 
   return {
     inputValue,
+    setInputValue,
+    sendDataToServer,
   };
 };
 
