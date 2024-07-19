@@ -28,13 +28,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
+var cors = require("cors");
 dotenv.config({ path: "".concat(__dirname, "/../../.env") });
-console.log("".concat(__dirname, "/../../.env"));
 var port = process.env.PORT;
 var app = (0, express_1["default"])();
+app.use(cors());
 app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
-app.get('/', function (req, res) {
+app.get("/", function (req, res) {
     res.sendFile(process.cwd() + "/../client/dist/index.html");
+});
+app.post("/useDataServeEvent", function (req, res) {
+    console.log(1);
 });
 app.listen(port, function () {
     console.log("Server is running at http://localhost:".concat(port));
