@@ -3,8 +3,10 @@ import express from 'express';
 const app = express();
 const port = 3000;
 
+app.use(express.static(`${process.cwd()}/../client/dist`))
+
 app.get('/', (req, res) => {
-  res.send('Hello, Express!');
+  res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
 
 app.listen(port, () => {
