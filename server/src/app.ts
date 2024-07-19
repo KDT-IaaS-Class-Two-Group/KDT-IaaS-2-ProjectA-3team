@@ -12,6 +12,7 @@ app.use(express.static(`${process.cwd()}/../client/dist`))
 
 app.post('/login', (req,res) => {
   // 엔드포인트 정의
+  console.log(req.body);
 })
 
 
