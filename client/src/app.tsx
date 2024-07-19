@@ -1,8 +1,6 @@
 import React from "react";
 import Input from "./components/Input";
-const Button: React.FC = () => {
-  return <button>Submit</button>;
-};
+import Button from "./components/Button";
 const App: React.FC = () => {
   return (
     <div>
