@@ -35,78 +35,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-exports.__esModule = true;
-var express_1 = __importDefault(require("express"));
-var path_1 = __importDefault(require("path"));
+Object.defineProperty(exports, "__esModule", { value: true });
 var pg_1 = require("pg");
-var cors = require("cors");
-var app = (0, express_1["default"])();
-app.use(express_1["default"].json());
-var port = process.env.PORT || 3001;
 var pool = new pg_1.Pool({
-    user: 'postgres',
+    user: "postgres",
     host: 'localhost',
     database: 'postgres',
     password: '1234',
-    port: parseInt(process.env.DB_PORT || "5432", 10)
+    port: 5432,
 });
-// Middleware 설정
-app.use(cors());
-app.use(express_1["default"].static(path_1["default"].join(__dirname, "../../client/dist")));
-// Root route
-app.get("/", function (req, res) {
-    res.sendFile(path_1["default"].join(__dirname, "../../client/dist/index.html"));
-});
-// 데이터 저장
-app.post("/send", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var content, result, err_1;
+(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                content = req.body.content;
-                res.json({ content: content });
-                _a.label = 1;
+                _a.trys.push([0, 2, 3, 5]);
+                // 테이블 생성 쿼리 실행
+                return [4 /*yield*/, pool.query('CREATE TABLE IF NOT EXISTS realTest (content VARCHAR(50) NOT NULL)')];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, pool.query("INSERT INTO realtest (content) VALUES ($1)", [content])];
+                // 테이블 생성 쿼리 실행
+                _a.sent();
+                console.log('테이블 생성 완료.');
+                return [3 /*break*/, 5];
             case 2:
-                result = _a.sent();
-                res.status(201).json(result.rows[0]);
-                return [3 /*break*/, 4];
-            case 3:
                 err_1 = _a.sent();
-                console.error("Error saving data:", err_1);
-                res.status(500).send("Error saving data");
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                console.error('오류 발생:', err_1);
+                return [3 /*break*/, 5];
+            case 3: 
+            // 연결 해제
+            return [4 /*yield*/, pool.end()];
+            case 4:
+                // 연결 해제
+                _a.sent();
+                return [7 /*endfinally*/];
+            case 5: return [2 /*return*/];
         }
     });
-}); });
-// 데이터 조회
-app.get("/send", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, names, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, pool.query("SELECT content FROM realtest")];
-            case 1:
-                result = _a.sent();
-                names = result.rows.map(function (row) { return row.name; });
-                res.json(names);
-                return [3 /*break*/, 3];
-            case 2:
-                err_2 = _a.sent();
-                console.error("Error fetching data:", err_2);
-                res.status(500).send("Error fetching data");
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); });
-app.listen(port, function () {
-    console.log("Server is running at http://localhost:".concat(port));
-});
+}); })();

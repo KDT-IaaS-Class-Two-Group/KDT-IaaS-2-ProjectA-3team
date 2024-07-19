@@ -1,20 +1,47 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import path from "path";
+import { Pool } from "pg";
+import bodyParser from "body-parser";
 
-
-dotenv.config({ path: `${__dirname}/../../.env` });
-const port = process.env.PORT;
+const cors = require("cors")
 const app = express();
+app.use(express.json());
+const port = process.env.PORT || 3001;
 
-app.use(express.json()); //! 이거 중요 ... 이거 없으면 안됨. //서버에서 받은 것 (객체 머시기)
-
-app.use(express.static(path.join(__dirname, "../../client/dist")));
-// /send 경로에 대한 POST 요청 처리
-app.post("/send", (req, res) => { //fetch post로 받은 것 
-  const { content } = req.body;
-  res.json({ content }); //파싱한 것, 풀어서 읽은 것 클라이언트로 보내는 값
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'postgres',
+  password: '1234',
+  port: parseInt(process.env.DB_PORT || "5432", 10),
 });
+
+// Middleware 설정
+app.use(cors());
+app.use(express.static(path.join(__dirname, "../../client/dist")));
+
+// Root route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
+});
+
+// 데이터 저장
+app.post("/send", async (req, res) => {
+  const { content } = req.body;
+  res.json({content}); //! 클라이언트에 보내주는 코드 
+  try {
+    const result = await pool.query(
+      "INSERT INTO realtest (content) VALUES ($1)",
+      [content]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Error saving data:", err);
+    res.status(500).send("Error saving data");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
