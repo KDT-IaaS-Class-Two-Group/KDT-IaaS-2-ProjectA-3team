@@ -1,27 +1,27 @@
-import express from 'express';
-import * as dotenv from 'dotenv';
-import path from 'path';
+//#region Package Module
+import express, { Express } from 'express';
+//#endregion 
 
-dotenv.config({ path: `${__dirname}/../../.env` });
+//#region MiddleWare
+import servingStatic from './middleWare/servingStatic';
+//#endregion
 
-const port = process.env.PORT;
-const app = express();
+//#region Router
+import GetIndexRouter from "./routes/get/getIndexRouter"
+import PostLoginRouter from "./routes/post/postLoginRouter"
+import logger from './middleWare/logger';
+//#endregion
 
-app.use(express.static(path.resolve(__dirname, '../../client/dist')));
-app.use(express.static(path.resolve(__dirname, '../../client/public')));
+const app: Express = express();
 
-app.post('/login', (req, res) => {
-  // 엔드포인트 정의
-  console.log(req.body);
-})
+//middleware
+app.use(logger)
+app.use(express.json());
+servingStatic(app);
 
-app.get('/', (req, res) => {
-  const filePath = path.resolve(__dirname, '../../client/public/index.html');
-  console.log('Serving file from:', filePath);
-  res.sendFile(filePath);
-});
+//route
+app.use('/login', PostLoginRouter);
+app.use('/', GetIndexRouter);
 
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+export default app;
