@@ -1,13 +1,11 @@
 //데이터 받아서 서버로 전송하는 이벤트 함수
 import { useState } from "react";
-
 const useDataServeEvent = () => {
   const [inputValue, setInputValue] = useState<string>("");
-
   // 서버로 데이터를 전송하는 함수
   const sendDataToServer = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/data`, {
+      const response = await fetch(`http://localhost:3000/useDataServeEvent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
