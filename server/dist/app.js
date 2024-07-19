@@ -28,13 +28,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
+var path_1 = __importDefault(require("path"));
+var body_parser_1 = __importDefault(require("body-parser"));
 dotenv.config({ path: "".concat(__dirname, "/../../.env") });
-console.log("".concat(__dirname, "/../../.env"));
 var port = process.env.PORT;
 var app = (0, express_1["default"])();
-app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
+app.use(body_parser_1["default"].json()); // JSON 형식의 요청 본문을 파싱하기 위해 body-parser 미들웨어 사용
+// 정적 파일 서비스 설정
+app.use(express_1["default"].static(path_1["default"].join(__dirname, '../../client/dist')));
 app.get('/', function (req, res) {
-    res.sendFile(process.cwd() + "/../client/dist/index.html");
+    res.sendFile(path_1["default"].join(__dirname, '../../client/dist/index.html'));
+});
+// /send 경로에 대한 POST 요청 처리
+app.post('/send', function (req, res) {
+    var content = req.body.content;
+    var a = res.json({ content: content });
+    console.log(a);
 });
 app.listen(port, function () {
     console.log("Server is running at http://localhost:".concat(port));

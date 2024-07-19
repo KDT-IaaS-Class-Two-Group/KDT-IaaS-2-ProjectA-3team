@@ -7,10 +7,12 @@ dotenv.config({ path: `${__dirname}/../../.env` });
 const port = process.env.PORT;
 const app = express();
 
-app.use(express.static(`${process.cwd()}/../client/dist`))
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-app.get('/', (req, res) => {
-  res.sendFile(process.cwd() + "/../client/dist/index.html");
+// /send 경로에 대한 POST 요청 처리
+app.post('/send', (req, res) => {
+  const { content } = req.body;
+  res.json({ content });
 });
 
 app.listen(port, () => {
