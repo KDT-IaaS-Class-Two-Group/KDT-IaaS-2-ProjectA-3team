@@ -7,19 +7,18 @@ dotenv.config({ path: `${__dirname}/../../.env` });
 const port = process.env.PORT;
 const app = express();
 
-app.use(express.static(`${process.cwd()}/../client/dist`))
+app.use(express.static(path.resolve(__dirname, '../../client/dist')));
+app.use(express.static(path.resolve(__dirname, '../../client/public')));
 
-
-app.post('/login', (req,res) => {
+app.post('/login', (req, res) => {
   // 엔드포인트 정의
   console.log(req.body);
 })
 
-
-
-
 app.get('/', (req, res) => {
-  res.sendFile(process.cwd() + "/../client/dist/index.html");
+  const filePath = path.resolve(__dirname, '../../client/public/index.html');
+  console.log('Serving file from:', filePath);
+  res.sendFile(filePath);
 });
 
 
