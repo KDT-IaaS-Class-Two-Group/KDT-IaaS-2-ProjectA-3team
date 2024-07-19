@@ -1,7 +1,13 @@
-import React from 'react';
-
+import React from "react";
+const Input: React.FC = () => {
+  return <input type="text" placeholder="Enter your input here" />;
+};
 const App: React.FC = () => {
-  return <div>Hello, React!</div>;
+  return (
+    <div>
+      <Input />
+    </div>
+  );
 };
 
 export default App;
