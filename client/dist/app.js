@@ -1,10 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var App = function App() {
+  return /*#__PURE__*/_react["default"].createElement("div", null, "Hello, React!");
 };
-exports.__esModule = true;
-var react_1 = __importDefault(require("react"));
-var App = function () {
-    return react_1["default"].createElement("div", null, "Hello, React!");
-};
-exports["default"] = App;
+var _default = exports["default"] = App;

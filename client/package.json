@@ -17,7 +17,7 @@
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npx babel src --out-dir dist --extensions .tsx && npx webpack --config webpack.config.js",
     "lint": "eslint . --ext .ts,.tsx",
     "babel": "npx babel src --out-dir dist --extensions .tsx",
     "webpack": "npx webpack --config webpack.config.js",
