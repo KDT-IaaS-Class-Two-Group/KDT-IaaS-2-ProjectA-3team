@@ -33,12 +33,13 @@ dotenv.config({ path: "".concat(__dirname, "/../../.env") });
 var port = process.env.PORT;
 var app = (0, express_1["default"])();
 app.use(cors());
+app.use(express_1["default"].json());
 app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
 app.get("/", function (req, res) {
     res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
 app.post("/useDataServeEvent", function (req, res) {
-    console.log(1);
+    console.log(req.body);
 });
 app.listen(port, function () {
     console.log("Server is running at http://localhost:".concat(port));
