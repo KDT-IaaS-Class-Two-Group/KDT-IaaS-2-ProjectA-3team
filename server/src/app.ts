@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
   res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
 
+app.post("/useDataServeEvent", (req, res) => {
+  console.log(1);
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
