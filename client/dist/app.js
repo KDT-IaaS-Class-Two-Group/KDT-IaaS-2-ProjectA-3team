@@ -14,7 +14,10 @@ var App = function App() {
     inputValue = _useDataServeEvent.inputValue,
     setInputValue = _useDataServeEvent.setInputValue,
     sendDataToServer = _useDataServeEvent.sendDataToServer;
-  return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement(_Input["default"], null), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
+  return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement(_Input["default"], {
+    inputValue: inputValue,
+    setInputValue: setInputValue
+  }), /*#__PURE__*/_react["default"].createElement(_Button["default"], {
     eventFunc: sendDataToServer
   }));
 };
