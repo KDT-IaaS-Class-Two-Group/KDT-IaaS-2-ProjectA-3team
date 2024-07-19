@@ -1,6 +1,18 @@
 // src/middlewares/logger.ts
 import { Request, Response, NextFunction } from 'express';
 
+/**
+ * * Function : logger
+ * 작성자 : @naviadev / 2024-07-19
+ * 편집자 : @naviadev / 2024-07-19
+ * Issue : 
+ * @function logger 
+ * @description : 요청, 처리, 시간을 출력하는 log 모듈
+ * @param req: Request
+ * @param res: Response
+ * @param next: NextFunction
+ */
+
 const logger = (req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
 

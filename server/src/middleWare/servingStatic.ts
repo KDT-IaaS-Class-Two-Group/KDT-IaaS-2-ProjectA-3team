@@ -12,6 +12,15 @@ dotenv.config();
  * @param app: Express
  */
 
+/**
+ * * Function : servingStatic
+ * 작성자 : @naviadev / 2024-07-19
+ * 편집자 : @naviadev / 2024-07-19
+ * Issue : 
+ * @function servingStatic
+ * @description : 정적 파일을 서빙하는 미들웨어 모듈
+ * @param app: Express
+ */
 const servingStatic = (app: Express) => {
   const DIST_DIR = process.env.DIST_DIR || path.resolve(__dirname, '../../client/dist');
   const PUBLIC_DIR = process.env.PUBLIC_DIR || path.resolve(__dirname, '../../client/public');
