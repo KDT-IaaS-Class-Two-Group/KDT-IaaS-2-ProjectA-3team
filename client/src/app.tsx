@@ -1,7 +1,7 @@
-import React from 'react';
-
+import React from "react";
+import LoginForm from "./component/auth/loginForm";
 const App: React.FC = () => {
-  return <div>Hello, React!</div>;
+  return <LoginForm />;
 };
 
 export default App;
