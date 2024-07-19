@@ -1,7 +1,5 @@
 import React from "react";
-const Input: React.FC = () => {
-  return <input type="text" placeholder="Enter your input here" />;
-};
+import Input from "./components/Input";
 const Button: React.FC = () => {
   return <button>Submit</button>;
 };
