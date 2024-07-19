@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "paths": {
-      "@shared/*": ["../../shared/src/*"]
+      "@validate/*": ["model/auth/validate/*"],
+      "@request/*" : ["model/auth/request/*"]
     }
   },
   "include": ["src"],
