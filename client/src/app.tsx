@@ -6,7 +6,7 @@ const App: React.FC = () => {
   const { inputValue, setInputValue, sendDataToServer } = useDataServeEvent();
   return (
     <div>
-      <Input />
+      <Input inputValue={inputValue} setInputValue={setInputValue} />
       <Button eventFunc={sendDataToServer} />
     </div>
   );
