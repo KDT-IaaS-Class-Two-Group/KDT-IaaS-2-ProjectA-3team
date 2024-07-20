@@ -35,7 +35,7 @@ var useDataServeEvent = function useDataServeEvent() {
                 "Content-Type": "application/json"
               },
               body: JSON.stringify({
-                data: inputValue
+                input: inputValue
               }) // 입력값을 서버로 전송
             });
           case 3:

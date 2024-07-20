@@ -10,7 +10,7 @@ const useDataServeEvent = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: inputValue }), // 입력값을 서버로 전송
+        body: JSON.stringify({ input: inputValue }), // 입력값을 서버로 전송
       });
 
       if (!response.ok) {
