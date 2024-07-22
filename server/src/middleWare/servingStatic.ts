@@ -22,8 +22,10 @@ dotenv.config();
  * @param app: Express
  */
 const servingStatic = (app: Express) => {
-  const DIST_DIR = process.env.DIST_DIR || path.resolve(__dirname, '../../client/dist');
-  const PUBLIC_DIR = process.env.PUBLIC_DIR || path.resolve(__dirname, '../../client/public');
+  const DIST_DIR = process.env.DIST_DIR || path.resolve(__dirname, '../../../client/dist');
+  const PUBLIC_DIR = process.env.PUBLIC_DIR || path.resolve(__dirname, '../../../client/public');
+  console.log(DIST_DIR);
+  console.log(PUBLIC_DIR)
   app.use(express.static(DIST_DIR));
   app.use(express.static(PUBLIC_DIR));
 }
