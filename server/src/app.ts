@@ -1,9 +1,7 @@
 import express from "express";
 import * as dotenv from "dotenv";
-import path from "path";
 import cors from "cors";
 import { Pool } from "pg";
-import { MongoClient } from "mongodb";
 dotenv.config({ path: `${__dirname}/../../.env` });
 
 const port = process.env.PORT || 3000;
@@ -17,31 +15,29 @@ const pool = new Pool({
   password: process.env.DB_PASS,
   port: 5432,
 });
-// //Mongo DB 연결 설정
-// const mongoUrl = process.env.MONGODB_URL || "mongodb://localhost:27017";
-// const mongoClient = new MongoClient(mongoUrl);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(`${process.cwd()}/../client/dist`));
-//Mongo DB 연결
-
-// mongoClient
-//   .connect()
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
 // 테이블 생성 함수
 const createTable = async () => {
   const client = await pool.connect();
   try {
     const queryText = `
-      CREATE TABLE IF NOT EXISTS test (
+      CREATE TABLE IF NOT EXISTS userdb (
         id SERIAL PRIMARY KEY,
-        input_data TEXT NOT NULL
+        name TEXT NOT NULL,
+        password TEXT NOT NULL,
+        phonenumber TEXT NOT NULL,
+        address TEXT NOT NULL,
+        birth DATE NOT NULL,
+        start DATE NOT NULL,
+        email TEXT NOT NULL
       );
     `;
     await client.query(queryText);
-    console.log("Table 'test' is ready");
+    console.log("Table 'userdb' is ready");
   } catch (error) {
     console.error("Error creating table", error);
   } finally {
@@ -58,24 +54,39 @@ app.get("/", (req, res) => {
 
 app.post("/useDataServeEvent", async (req, res) => {
   console.log("Request body:", req.body); // 요청 본문 로그 출력
-  const { input } = req.body; // 입력값을 서버로부터 받음
+  const { id, name, password, phonenumber, address, birth, start, email } =
+    req.body; // 입력값을 서버로부터 받음
 
-  if (!input) {
-    return res.status(400).send("Input data is required");
+  if (
+    !id ||
+    !name ||
+    !password ||
+    !phonenumber ||
+    !address ||
+    !birth ||
+    !start ||
+    !email
+  ) {
+    return res.status(400).send("All fields are required");
   }
+
+  // 날짜 형식 변환
+  const formattedBirth = new Date(birth).toISOString().split("T")[0];
+  const formattedStart = new Date(start).toISOString().split("T")[0];
 
   try {
     const client = await pool.connect();
     const queryText =
-      "INSERT INTO userdb (id,password,name,phonenumber,address,birth,start,email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+      "INSERT INTO userdb (id, name, password, phonenumber, address, birth, start, email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
     const values = [
-      1,
-      "John Doe",
-      "1234567890",
-      "123 Main St",
-      "2000-01-01", // 날짜 형식
-      "2024-07-23", // 날짜 형식
-      "johndoe@example.com",
+      id,
+      name,
+      password,
+      phonenumber,
+      address,
+      formattedBirth, // 변환된 날짜 형식
+      formattedStart, // 변환된 날짜 형식
+      email,
     ];
     await client.query(queryText, values);
     client.release();
@@ -91,11 +102,9 @@ app.get("/api/inputMake", async (req, res) => {
   console.log(req.body);
   try {
     const client = await pool.connect();
-    //user_db의 userdb columns 조회
     const result = await client.query(
       "SELECT column_name FROM information_schema.columns WHERE table_name = 'userdb'"
     );
-    // console.log(result);
     client.release();
     res.status(200).json(result.rows.map((row) => row.column_name));
   } catch (error) {
@@ -103,6 +112,7 @@ app.get("/api/inputMake", async (req, res) => {
     res.status(500).send("Error fetching data");
   }
 });
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

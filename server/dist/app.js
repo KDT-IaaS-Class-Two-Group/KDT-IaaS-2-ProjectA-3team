@@ -77,17 +77,9 @@ var pool = new pg_1.Pool({
     password: process.env.DB_PASS,
     port: 5432
 });
-// //Mongo DB 연결 설정
-// const mongoUrl = process.env.MONGODB_URL || "mongodb://localhost:27017";
-// const mongoClient = new MongoClient(mongoUrl);
 app.use((0, cors_1["default"])());
 app.use(express_1["default"].json());
 app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
-//Mongo DB 연결
-// mongoClient
-//   .connect()
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch((err) => console.error("Failed to connect to MongoDB", err));
 // 테이블 생성 함수
 var createTable = function () { return __awaiter(void 0, void 0, void 0, function () {
     var client, queryText, error_1;
@@ -99,11 +91,11 @@ var createTable = function () { return __awaiter(void 0, void 0, void 0, functio
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, 5, 6]);
-                queryText = "\n      CREATE TABLE IF NOT EXISTS test (\n        id SERIAL PRIMARY KEY,\n        input_data TEXT NOT NULL\n      );\n    ";
+                queryText = "\n      CREATE TABLE IF NOT EXISTS userdb (\n        id SERIAL PRIMARY KEY,\n        name TEXT NOT NULL,\n        password TEXT NOT NULL,\n        phonenumber TEXT NOT NULL,\n        address TEXT NOT NULL,\n        birth DATE NOT NULL,\n        start DATE NOT NULL,\n        email TEXT NOT NULL\n      );\n    ";
                 return [4 /*yield*/, client.query(queryText)];
             case 3:
                 _a.sent();
-                console.log("Table 'test' is ready");
+                console.log("Table 'userdb' is ready");
                 return [3 /*break*/, 6];
             case 4:
                 error_1 = _a.sent();
@@ -122,39 +114,49 @@ app.get("/", function (req, res) {
     res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
 app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var input, client, queryText, values, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, id, name, password, phonenumber, address, birth, start, email, formattedBirth, formattedStart, client, queryText, values, error_2;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 console.log("Request body:", req.body); // 요청 본문 로그 출력
-                input = req.body.input;
-                if (!input) {
-                    return [2 /*return*/, res.status(400).send("Input data is required")];
+                _a = req.body, id = _a.id, name = _a.name, password = _a.password, phonenumber = _a.phonenumber, address = _a.address, birth = _a.birth, start = _a.start, email = _a.email;
+                if (!id ||
+                    !name ||
+                    !password ||
+                    !phonenumber ||
+                    !address ||
+                    !birth ||
+                    !start ||
+                    !email) {
+                    return [2 /*return*/, res.status(400).send("All fields are required")];
                 }
-                _a.label = 1;
+                formattedBirth = new Date(birth).toISOString().split("T")[0];
+                formattedStart = new Date(start).toISOString().split("T")[0];
+                _b.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _b.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, pool.connect()];
             case 2:
-                client = _a.sent();
-                queryText = "INSERT INTO userdb (id,password,name,phonenumber,address,birth,start,email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+                client = _b.sent();
+                queryText = "INSERT INTO userdb (id, name, password, phonenumber, address, birth, start, email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
                 values = [
-                    1,
-                    "John Doe",
-                    "1234567890",
-                    "123 Main St",
-                    "2000-01-01",
-                    "2024-07-23",
-                    "johndoe@example.com",
+                    id,
+                    name,
+                    password,
+                    phonenumber,
+                    address,
+                    formattedBirth,
+                    formattedStart,
+                    email,
                 ];
                 return [4 /*yield*/, client.query(queryText, values)];
             case 3:
-                _a.sent();
+                _b.sent();
                 client.release();
                 res.status(200).send("Data inserted successfully");
                 return [3 /*break*/, 5];
             case 4:
-                error_2 = _a.sent();
+                error_2 = _b.sent();
                 console.error(error_2);
                 res.status(500).send("Error inserting data");
                 return [3 /*break*/, 5];
@@ -178,7 +180,6 @@ app.get("/api/inputMake", function (req, res) { return __awaiter(void 0, void 0,
                 return [4 /*yield*/, client.query("SELECT column_name FROM information_schema.columns WHERE table_name = 'userdb'")];
             case 3:
                 result = _a.sent();
-                // console.log(result);
                 client.release();
                 res.status(200).json(result.rows.map(function (row) { return row.column_name; }));
                 return [3 /*break*/, 5];
