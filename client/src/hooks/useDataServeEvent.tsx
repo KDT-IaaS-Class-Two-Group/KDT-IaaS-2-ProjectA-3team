@@ -17,7 +17,7 @@ const useDataServeEvent = () => {
         throw new Error("Network response was not ok");
       }
 
-      console.log(`${inputValue} 전송됨`);
+      // console.log(`${inputValue} 전송됨`);
     } catch (error) {
       console.error("Failed to send data:", error);
     }

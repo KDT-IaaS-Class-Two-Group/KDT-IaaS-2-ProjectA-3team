@@ -14,58 +14,57 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } //데이터 받아서 서버로 전송하는 이벤트 함수
-var useDataServeEvent = function useDataServeEvent() {
-  var _useState = (0, _react.useState)(""),
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+var useFetchInputData = function useFetchInputData() {
+  var _useState = (0, _react.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    inputValue = _useState2[0],
-    setInputValue = _useState2[1];
-  // 서버로 데이터를 전송하는 함수
-  var sendDataToServer = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var response;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return fetch("http://localhost:3000/useDataServeEvent", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                input: inputValue
-              }) // 입력값을 서버로 전송
-            });
-          case 3:
-            response = _context.sent;
-            if (response.ok) {
-              _context.next = 6;
+    columns = _useState2[0],
+    setColumns = _useState2[1];
+  (0, _react.useEffect)(function () {
+    var fetchColumns = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response, result;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return fetch("http://localhost:3000/api/inputMake");
+            case 3:
+              response = _context.sent;
+              if (response.ok) {
+                _context.next = 6;
+                break;
+              }
+              throw new Error("Network response was not ok");
+            case 6:
+              console.log("Fetching");
+              _context.next = 9;
+              return response.json();
+            case 9:
+              result = _context.sent;
+              // console.log(result);
+              setColumns(result);
+              _context.next = 16;
               break;
-            }
-            throw new Error("Network response was not ok");
-          case 6:
-            _context.next = 11;
-            break;
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](0);
-            console.error("Failed to send data:", _context.t0);
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee, null, [[0, 8]]);
-    }));
-    return function sendDataToServer() {
-      return _ref.apply(this, arguments);
-    };
-  }();
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](0);
+              console.error(_context.t0);
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 13]]);
+      }));
+      return function fetchColumns() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+    fetchColumns();
+  }, []);
   return {
-    inputValue: inputValue,
-    setInputValue: setInputValue,
-    sendDataToServer: sendDataToServer
+    columns: columns
   };
 };
-var _default = exports["default"] = useDataServeEvent;
+var _default = exports["default"] = useFetchInputData;

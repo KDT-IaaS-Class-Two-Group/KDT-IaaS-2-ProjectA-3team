@@ -64,7 +64,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
-var cors = require("cors");
+var cors_1 = __importDefault(require("cors"));
 var pg_1 = require("pg");
 dotenv.config({ path: "".concat(__dirname, "/../../.env") });
 var port = process.env.PORT || 3000;
@@ -80,9 +80,9 @@ var pool = new pg_1.Pool({
 // //Mongo DB 연결 설정
 // const mongoUrl = process.env.MONGODB_URL || "mongodb://localhost:27017";
 // const mongoClient = new MongoClient(mongoUrl);
-// app.use(cors());
-// app.use(express.json());
-// app.use(express.static(`${process.cwd()}/../client/dist`));
+app.use((0, cors_1["default"])());
+app.use(express_1["default"].json());
+app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
 //Mongo DB 연결
 // mongoClient
 //   .connect()
@@ -128,7 +128,6 @@ app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, vo
             case 0:
                 console.log("Request body:", req.body); // 요청 본문 로그 출력
                 input = req.body.input;
-                console.log(input);
                 if (!input) {
                     return [2 /*return*/, res.status(400).send("Input data is required")];
                 }
@@ -138,16 +137,20 @@ app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, vo
                 return [4 /*yield*/, pool.connect()];
             case 2:
                 client = _a.sent();
-                queryText = "INSERT INTO test (input_data) VALUES ($1)";
-                values = [input];
+                queryText = "INSERT INTO userdb (id,password,name,phonenumber,address,birth,start,email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+                values = [
+                    1,
+                    "John Doe",
+                    "1234567890",
+                    "123 Main St",
+                    "2000-01-01",
+                    "2024-07-23",
+                    "johndoe@example.com",
+                ];
                 return [4 /*yield*/, client.query(queryText, values)];
             case 3:
                 _a.sent();
                 client.release();
-                // const mongo = mongoClient.db("test");
-                // const collection = mongo.collection("tests");
-                // const mongoResult = await collection.insertOne({ data: input });
-                // console.log(`${values} insert to mongo`, mongoResult);
                 res.status(200).send("Data inserted successfully");
                 return [3 /*break*/, 5];
             case 4:
@@ -165,23 +168,26 @@ app.get("/api/inputMake", function (req, res) { return __awaiter(void 0, void 0,
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, pool.connect()];
+                console.log(req.body);
+                _a.label = 1;
             case 1:
-                client = _a.sent();
-                return [4 /*yield*/, client.query("SELECT * FROM user_db")];
+                _a.trys.push([1, 4, , 5]);
+                return [4 /*yield*/, pool.connect()];
             case 2:
-                result = _a.sent();
-                console.log(result);
-                client.release();
-                res.status(200).json(result.rows);
-                return [3 /*break*/, 4];
+                client = _a.sent();
+                return [4 /*yield*/, client.query("SELECT column_name FROM information_schema.columns WHERE table_name = 'userdb'")];
             case 3:
+                result = _a.sent();
+                // console.log(result);
+                client.release();
+                res.status(200).json(result.rows.map(function (row) { return row.column_name; }));
+                return [3 /*break*/, 5];
+            case 4:
                 error_3 = _a.sent();
                 console.error(error_3);
                 res.status(500).send("Error fetching data");
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });
