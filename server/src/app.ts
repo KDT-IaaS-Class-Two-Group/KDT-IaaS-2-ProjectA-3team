@@ -13,7 +13,7 @@ const app = express();
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
-  database: "test",
+  database: "user_db",
   password: process.env.DB_PASS,
   port: 5432,
 });
@@ -81,7 +81,19 @@ app.post("/useDataServeEvent", async (req, res) => {
     res.status(500).send("Error inserting data");
   }
 });
-
+// 데이터 조회 API
+app.get("/api/inputMake", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query("SELECT * FROM user_db");
+    console.log(result);
+    client.release();
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching data");
+  }
+});
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

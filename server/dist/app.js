@@ -66,7 +66,6 @@ var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
 var cors = require("cors");
 var pg_1 = require("pg");
-var mongodb_1 = require("mongodb");
 dotenv.config({ path: "".concat(__dirname, "/../../.env") });
 var port = process.env.PORT || 3000;
 var app = (0, express_1["default"])();
@@ -74,20 +73,21 @@ var app = (0, express_1["default"])();
 var pool = new pg_1.Pool({
     user: "postgres",
     host: "localhost",
-    database: "test",
+    database: "user_db",
     password: process.env.DB_PASS,
     port: 5432
 });
-//Mongo DB 연결 설정
-var mongoUrl = process.env.MONGODB_URL || "mongodb://localhost:27017";
-var mongoClient = new mongodb_1.MongoClient(mongoUrl);
-app.use(cors());
-app.use(express_1["default"].json());
-app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
+// //Mongo DB 연결 설정
+// const mongoUrl = process.env.MONGODB_URL || "mongodb://localhost:27017";
+// const mongoClient = new MongoClient(mongoUrl);
+// app.use(cors());
+// app.use(express.json());
+// app.use(express.static(`${process.cwd()}/../client/dist`));
 //Mongo DB 연결
-mongoClient
-    .connect()
-    .then(function () { return console.log("Connected to MongoDB"); })["catch"](function (err) { return console.error("Failed to connect to MongoDB", err); });
+// mongoClient
+//   .connect()
+//   .then(() => console.log("Connected to MongoDB"))
+//   .catch((err) => console.error("Failed to connect to MongoDB", err));
 // 테이블 생성 함수
 var createTable = function () { return __awaiter(void 0, void 0, void 0, function () {
     var client, queryText, error_1;
@@ -122,21 +122,19 @@ app.get("/", function (req, res) {
     res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
 app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var input, client, queryText, values, mongo, collection, mongoResult, error_2;
+    var input, client, queryText, values, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 console.log("Request body:", req.body); // 요청 본문 로그 출력
                 input = req.body.input;
                 console.log(input);
-                console.log("ASd");
-                console.log(req.body);
                 if (!input) {
                     return [2 /*return*/, res.status(400).send("Input data is required")];
                 }
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 5, , 6]);
+                _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, pool.connect()];
             case 2:
                 client = _a.sent();
@@ -146,23 +144,48 @@ app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, vo
             case 3:
                 _a.sent();
                 client.release();
-                mongo = mongoClient.db("test");
-                collection = mongo.collection("tests");
-                return [4 /*yield*/, collection.insertOne({ data: input })];
-            case 4:
-                mongoResult = _a.sent();
-                console.log("".concat(values, " insert to mongo"), mongoResult);
+                // const mongo = mongoClient.db("test");
+                // const collection = mongo.collection("tests");
+                // const mongoResult = await collection.insertOne({ data: input });
+                // console.log(`${values} insert to mongo`, mongoResult);
                 res.status(200).send("Data inserted successfully");
-                return [3 /*break*/, 6];
-            case 5:
+                return [3 /*break*/, 5];
+            case 4:
                 error_2 = _a.sent();
                 console.error(error_2);
                 res.status(500).send("Error inserting data");
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
+// 데이터 조회 API
+app.get("/api/inputMake", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var client, result, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, pool.connect()];
+            case 1:
+                client = _a.sent();
+                return [4 /*yield*/, client.query("SELECT * FROM user_db")];
+            case 2:
+                result = _a.sent();
+                console.log(result);
+                client.release();
+                res.status(200).json(result.rows);
+                return [3 /*break*/, 4];
+            case 3:
+                error_3 = _a.sent();
+                console.error(error_3);
+                res.status(500).send("Error fetching data");
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
 app.listen(port, function () {
     console.log("Server is running at http://localhost:".concat(port));
 });
+//# sourceMappingURL=app.js.map
