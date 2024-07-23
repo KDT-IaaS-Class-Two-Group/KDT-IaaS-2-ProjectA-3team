@@ -49,26 +49,29 @@ var pool = new pg_1.Pool({
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, 3, 5]);
+                _a.trys.push([0, 3, 4, 6]);
                 // 테이블 생성 쿼리 실행
-                return [4 /*yield*/, pool.query('CREATE TABLE IF NOT EXISTS realTest (content VARCHAR(50) NOT NULL)')];
+                return [4 /*yield*/, pool.query('CREATE TABLE IF NOT EXISTS user_Test (id SERIAL PRIMARY KEY, password VARCHAR(20) NOT NULL, name VARCHAR(5) NOT NULL, phoneNumber VARCHAR(20) NOT NULL, address VARCHAR(100) NOT NULL, birth DATE NOT NULL, "join" DATE NOT NULL)')];
             case 1:
                 // 테이블 생성 쿼리 실행
                 _a.sent();
-                console.log('테이블 생성 완료.');
-                return [3 /*break*/, 5];
+                return [4 /*yield*/, pool.query('CREATE TABLE IF NOT EXISTS auth_Test (id BIGINT REFERENCES user_Test(id), Field INTEGER)')];
             case 2:
+                _a.sent();
+                console.log('테이블 생성 완료.');
+                return [3 /*break*/, 6];
+            case 3:
                 err_1 = _a.sent();
                 console.error('오류 발생:', err_1);
-                return [3 /*break*/, 5];
-            case 3: 
+                return [3 /*break*/, 6];
+            case 4: 
             // 연결 해제
             return [4 /*yield*/, pool.end()];
-            case 4:
+            case 5:
                 // 연결 해제
                 _a.sent();
                 return [7 /*endfinally*/];
-            case 5: return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); })();
