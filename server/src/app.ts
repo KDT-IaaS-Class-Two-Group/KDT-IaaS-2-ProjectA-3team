@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import path from "path";
 const cors = require("cors");
 import { Pool } from "pg";
-
+import { MongoClient } from "mongodb";
 dotenv.config({ path: `${__dirname}/../../.env` });
 
 const port = process.env.PORT || 3000;
@@ -17,10 +17,18 @@ const pool = new Pool({
   password: process.env.DB_PASS,
   port: 5432,
 });
-
+//Mongo DB 연결 설정
+const mongoUrl = process.env.MONGODB_URL || "mongodb://localhost:27017";
+const mongoClient = new MongoClient(mongoUrl);
 app.use(cors());
 app.use(express.json());
 app.use(express.static(`${process.cwd()}/../client/dist`));
+//Mongo DB 연결
+
+mongoClient
+  .connect()
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB", err));
 
 // 테이블 생성 함수
 const createTable = async () => {
@@ -65,7 +73,10 @@ app.post("/useDataServeEvent", async (req, res) => {
 
     await client.query(queryText, values);
     client.release();
-
+    const mongo = mongoClient.db("test");
+    const collection = mongo.collection("tests");
+    const mongoResult = await collection.insertOne({ data: input });
+    console.log(`${values} insert to mongo`, mongoResult);
     res.status(200).send("Data inserted successfully");
   } catch (error) {
     console.error(error);
