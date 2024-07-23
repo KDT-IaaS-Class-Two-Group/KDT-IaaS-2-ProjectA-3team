@@ -1,13 +1,17 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
+"compilerOptions": {
     "jsx": "react",
-    "baseUrl": "./src",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@shared/*": ["../../shared/src/*"]
-    }
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "lib": ["dom", "es2015"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

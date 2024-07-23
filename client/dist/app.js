@@ -18,26 +18,27 @@ var App = function App() {
   var _useState = (0, _react.useState)(""),
     _useState2 = _slicedToArray(_useState, 2),
     content = _useState2[0],
-    newContent = _useState2[1];
+    newContent = _useState2[1]; // 클라이언트가 갖는 현재 상태 값과 변경 함수 
   var _useState3 = (0, _react.useState)(""),
     _useState4 = _slicedToArray(_useState3, 2),
     innerContent = _useState4[0],
-    newInnerContent = _useState4[1];
+    newInnerContent = _useState4[1]; //서버가 갖는 현재 상태 값과 변경 함수 
   var send = function send() {
     var data = {
-      content: content
+      content: content //객체로 보냄 - 내가 적은 값
     };
     fetch("http://localhost:3001/send", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json" //객체니까 json으로 보낸다.
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data) // 서버로 보낸 값
     }).then(function (response) {
       return response.json();
-    }).then(function (data) {
+    }) // await async랑 비슷한 것  파싱해준 것 서버에서 받은 값
+    .then(function (data) {
       return newInnerContent(data.content);
-    });
+    }); // 이게 진짜 값
   };
   return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("input", {
     type: "text",
