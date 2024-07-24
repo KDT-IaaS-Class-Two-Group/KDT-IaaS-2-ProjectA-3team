@@ -26,8 +26,10 @@ app.use(bodyParser.json());
 
 app.get("/users", async (req, res) => {
   try {
-    const result = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name = 'test_user' AND column_name NOT IN ('id')");
-    console.log(result.rows)
+    const result = await pool.query(
+      "SELECT column_name FROM information_schema.columns WHERE table_name = 'test_user' AND column_name NOT IN ('id')"
+    );
+    console.log(result.rows);
     res.json(result.rows);
   } catch (err) {
     console.error("유저 목록 가져오기 오류:", err);
@@ -35,20 +37,23 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.post("/send",async(req,res)=>{
-  const {birth, password, name, phonenumber,address} = req.body;
-  const value = [birth, password, name, phonenumber,address];
+app.post("/send", async (req, res) => {
+  const { birth, password, name, phonenumber, address } = req.body;
+  const value = [birth, password, name, phonenumber, address];
 
   const client = await pool.connect();
   try {
-    await client.query("INSERT INTO test_user (birth, password, name, phonenumber,address) VALUES ($1,$2,$3,$4,$5)", value);
+    await client.query(
+      "INSERT INTO test_user (birth, password, name, phonenumber,address) VALUES ($1,$2,$3,$4,$5)",
+      value
+    );
     console.log(`'${value}'  추가완료`);
   } catch (err) {
-    console.log('쿼리 실행 오류 : ' , err)
+    console.log("쿼리 실행 오류 : ", err);
   } finally {
     client.release();
   }
-})
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

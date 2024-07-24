@@ -1,10 +1,10 @@
-import { Pool } from 'pg';
+import { Pool } from "pg";
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'postgres',
-  password: '1234',
+  user: "postgres",
+  host: "localhost",
+  database: "postgres",
+  password: "1234",
   port: 5432,
 });
 
@@ -22,7 +22,7 @@ const pool = new Pool({
       );
     `);
 
-    console.log('test_user 테이블 생성 완료.');
+    console.log("test_user 테이블 생성 완료.");
 
     // test_orders 테이블 생성 쿼리 실행
     await pool.query(`
@@ -32,9 +32,9 @@ const pool = new Pool({
       );
     `);
 
-    console.log('test_orders 테이블 생성 완료.');
+    console.log("test_orders 테이블 생성 완료.");
   } catch (err) {
-    console.error('오류 발생:', err);
+    console.error("오류 발생:", err);
   } finally {
     // 연결 해제
     await pool.end();
