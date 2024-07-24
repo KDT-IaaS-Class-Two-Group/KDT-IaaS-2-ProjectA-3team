@@ -35,40 +35,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var pg_1 = require("pg");
 var pool = new pg_1.Pool({
-    user: "postgres",
+    user: 'postgres',
     host: 'localhost',
     database: 'postgres',
     password: '1234',
-    port: 5432,
+    port: 5432
 });
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, 3, 5]);
-                // 테이블 생성 쿼리 실행
-                return [4 /*yield*/, pool.query('CREATE TABLE IF NOT EXISTS realTest (content VARCHAR(50) NOT NULL)')];
+                _a.trys.push([0, 3, 4, 6]);
+                // test_user 테이블 생성 쿼리 실행
+                return [4 /*yield*/, pool.query("\n      CREATE TABLE IF NOT EXISTS test_user (\n        id SERIAL PRIMARY KEY,\n        password VARCHAR(255) NOT NULL,\n        name VARCHAR(100) NOT NULL,\n        phoneNumber VARCHAR(15),\n        address VARCHAR(255),\n        birth DATE\n      );\n    ")];
             case 1:
-                // 테이블 생성 쿼리 실행
+                // test_user 테이블 생성 쿼리 실행
                 _a.sent();
-                console.log('테이블 생성 완료.');
-                return [3 /*break*/, 5];
+                console.log('test_user 테이블 생성 완료.');
+                // test_orders 테이블 생성 쿼리 실행
+                return [4 /*yield*/, pool.query("\n      CREATE TABLE IF NOT EXISTS test_orders\n      ( user_id INT REFERENCES test_user(id),\n        field INTEGER\n      );\n    ")];
             case 2:
+                // test_orders 테이블 생성 쿼리 실행
+                _a.sent();
+                console.log('test_orders 테이블 생성 완료.');
+                return [3 /*break*/, 6];
+            case 3:
                 err_1 = _a.sent();
                 console.error('오류 발생:', err_1);
-                return [3 /*break*/, 5];
-            case 3: 
+                return [3 /*break*/, 6];
+            case 4: 
             // 연결 해제
             return [4 /*yield*/, pool.end()];
-            case 4:
+            case 5:
                 // 연결 해제
                 _a.sent();
                 return [7 /*endfinally*/];
-            case 5: return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); })();

@@ -1,12 +1,13 @@
-const mongoose = require("mongoose");
 import express from "express";
 import * as dotenv from "dotenv";
 import path from "path";
 import { Pool } from "pg";
 import bodyParser from "body-parser";
+import mongoose from "mongoose";
 const cors = require("cors");
+
+dotenv.config();
 const app = express();
-app.use(express.json());
 const port = process.env.PORT || 3001;
 
 const pool = new Pool({
@@ -19,45 +20,35 @@ const pool = new Pool({
 
 // Middleware 설정
 app.use(cors());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "../../client/dist")));
+app.use(bodyParser.json());
 
-mongoose
-  .connect("mongodb://localhost:27017/test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"));
-
-const mongoSchema = new mongoose.Schema({
-  data: String,
-});
-const MongoModel = mongoose.model("test", mongoSchema);
-
-// Root route
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
-});
-
-// 데이터 저장
-app.post("/send", async (req, res) => {
-  const { content } = req.body;
-  res.json({ content }); //! 클라이언트에 보내주는 코드
+app.get("/users", async (req, res) => {
   try {
-    const mongoDoc = new MongoModel({ data: content });
-    const savedDoc = await mongoDoc.save();
-    console.log("MongoDB data saved:", savedDoc); // 로그 추가
-
-    res.status(200).send("Data saved successfully");
-    const result = await pool.query(
-      "INSERT INTO realtest (content) VALUES ($1)",
-      [content]
-    );
-    res.status(201).json(result.rows[0]);
+    const result = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name = 'test_user' AND column_name NOT IN ('id')");
+    console.log(result.rows)
+    res.json(result.rows);
   } catch (err) {
-    console.error("Error saving data:", err);
-    res.status(500).send("Error saving data");
+    console.error("유저 목록 가져오기 오류:", err);
+    res.status(500).send("서버 오류");
   }
 });
+
+app.post("/send",async(req,res)=>{
+  const {birth, password, name, phonenumber,address} = req.body;
+  const value = [birth, password, name, phonenumber,address];
+
+  const client = await pool.connect();
+  try {
+    await client.query("INSERT INTO test_user (birth, password, name, phonenumber,address) VALUES ($1,$2,$3,$4,$5)", value);
+    console.log(`'${value}'  추가완료`);
+  } catch (err) {
+    console.log('쿼리 실행 오류 : ' , err)
+  } finally {
+    client.release();
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

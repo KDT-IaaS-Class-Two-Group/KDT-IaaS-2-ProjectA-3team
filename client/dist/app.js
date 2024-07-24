@@ -8,6 +8,11 @@ exports["default"] = void 0;
 var _react = _interopRequireWildcard(require("react"));
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -15,42 +20,61 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var App = function App() {
-  var _useState = (0, _react.useState)(""),
+  var _useState = (0, _react.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    content = _useState2[0],
-    newContent = _useState2[1]; // 클라이언트가 갖는 현재 상태 값과 변경 함수 
-  var _useState3 = (0, _react.useState)(""),
+    innerContent = _useState2[0],
+    setInnerContent = _useState2[1]; // 서버에서 가져온 데이터
+  var _useState3 = (0, _react.useState)({}),
     _useState4 = _slicedToArray(_useState3, 2),
-    innerContent = _useState4[0],
-    newInnerContent = _useState4[1]; //서버가 갖는 현재 상태 값과 변경 함수 
+    users = _useState4[0],
+    setUsers = _useState4[1]; // 사용자가 작성한 데이터
+  // 데이터베이스에서 유저 목록을 가져오는 함수
+  (0, _react.useEffect)(function () {
+    fetch("http://localhost:3001/users").then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      console.log("Fetched data:", data);
+      setInnerContent(data);
+    })["catch"](function (error) {
+      return console.error('Error fetching users', error);
+    });
+  }, []);
+  var handleChange = function handleChange(event) {
+    var _event$target = event.target,
+      name = _event$target.name,
+      value = _event$target.value;
+    setUsers(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+    });
+  };
+
+  // 서버에 데이터 전송 함수
   var send = function send() {
-    var data = {
-      content: content //객체로 보냄 - 내가 적은 값
-    };
-    fetch("http://localhost:3001/send", {
-      method: "POST",
+    fetch('http://localhost:3001/send', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json" //객체니까 json으로 보낸다.
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data) // 서버로 보낸 값
+      body: JSON.stringify(users)
     }).then(function (response) {
       return response.json();
-    }) // await async랑 비슷한 것  파싱해준 것 서버에서 받은 값
-    .then(function (data) {
-      return newInnerContent(data.content);
-    }); // 이게 진짜 값
+    }).then(function (data) {
+      return console.log(data.message);
+    })["catch"](function (error) {
+      console.error('send fetch error', error);
+    });
   };
-  return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("input", {
-    type: "text",
-    value: content,
-    onChange: function onChange(element) {
-      return newContent(element.target.value);
-    },
-    placeholder: "\uB0B4\uC6A9\uC744 \uC785\uB825\uD558\uC138\uC694"
+  return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("h1", null, "Users"), innerContent.map(function (column) {
+    return /*#__PURE__*/_react["default"].createElement("div", {
+      key: column.column_name
+    }, /*#__PURE__*/_react["default"].createElement("label", null, column.column_name), /*#__PURE__*/_react["default"].createElement("input", {
+      type: "text",
+      name: column.column_name,
+      value: users[column.column_name] || '',
+      onChange: handleChange
+    }));
   }), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: send
-  }, "\uC804\uC1A1\uD558\uAE30"), /*#__PURE__*/_react["default"].createElement("ul", {
-    id: "inner"
-  }, /*#__PURE__*/_react["default"].createElement("li", null, innerContent)));
+  }, "gg"));
 };
 var _default = exports["default"] = App;
