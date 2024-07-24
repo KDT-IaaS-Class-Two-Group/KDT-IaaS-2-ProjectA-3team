@@ -7,15 +7,18 @@ interface Column {
 const App: React.FC = () => {
   const [innerContent, setInnerContent] = useState<Column[]>([]); // 서버에서 가져온 데이터
   const [users, setUsers] = useState<Record<string, string>>({}); // 사용자가 작성한 데이터
-  const [isTableVisible, setIsTableVisible] = useState(false); // '여기가 바뀜' 테이블 표시 여부 상태 추가
-  const [nameToCheck, setNameToCheck] = useState(""); // '여기가 바뀜' 확인할 이름 입력 상태 추가
-  const [validationMessage, setValidationMessage] = useState(""); // '여기가 바뀜' 검증 결과 메시지 상태 추가
+  const [submittedData, setSubmittedData] = useState<Record<string, string>>({}); // 제출된 데이터
+  const [checkName, setCheckName] = useState<string>(""); // 이름 확인 입력값
+  const [checkResult, setCheckResult] = useState<string>(""); // 이름 확인 결과
 
   // 데이터베이스에서 유저 목록을 가져오는 함수
   useEffect(() => {
     fetch("http://localhost:3001/users")
       .then((response) => response.json())
-      .then((data) => setInnerContent(data))
+      .then((data) => {
+        console.log("Fetched data:", data);
+        setInnerContent(data);
+      })
       .catch((error) => console.error("Error fetching users", error));
   }, []);
 
@@ -37,21 +40,29 @@ const App: React.FC = () => {
       body: JSON.stringify(users),
     })
       .then((response) => response.json())
-      .then(() => {
-        setIsTableVisible(true); // '여기가 바뀜' 테이블을 표시
+      .then((data) => {
+        console.log(data.message);
+        setSubmittedData(users);
       })
       .catch((error) => {
         console.error("send fetch error", error);
       });
   };
 
-  // 이름 확인 함수 '여기가 바뀜'
-  const checkName = () => {
-    if (users.name === nameToCheck) {
-      setValidationMessage("사용자가 맞습니다");
-    } else {
-      setValidationMessage("사용자가 아닙니다");
-    }
+  // 서버에서 name 값을 조회하는 함수
+  const checkNameExists = () => {
+    fetch(`http://localhost:3001/check-name/${checkName}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.exists) {
+          setCheckResult("사용자가 맞습니다");
+        } else {
+          setCheckResult("사용자가 아닙니다");
+        }
+      })
+      .catch((error) => {
+        console.error("checkName fetch error", error);
+      });
   };
 
   return (
@@ -68,40 +79,39 @@ const App: React.FC = () => {
           />
         </div>
       ))}
-      <button onClick={send}>gg</button>
-      {isTableVisible && (
-        <div>
-          <h2>테이블</h2>
-          <table>
-            <thead>
-              <tr>
-                {innerContent.map((column) => (
-                  <th key={column.column_name}>{column.column_name}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {innerContent.map((column) => (
-                  <td key={column.column_name}>
-                    {users[column.column_name]}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-          <div>
-            <input
-              type="text"
-              value={nameToCheck}
-              onChange={(e) => setNameToCheck(e.target.value)}
-              placeholder="이름을 입력하세요"
-            />
-            <button onClick={checkName}>확인</button>
-            {validationMessage && <p>{validationMessage}</p>}
-          </div>
-        </div>
+      <button onClick={send}>Submit</button>
+
+      {/* 제출된 데이터를 테이블로 출력하는 부분 */}
+      {Object.keys(submittedData).length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              {innerContent.map((column) => (
+                <th key={column.column_name}>{column.column_name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {innerContent.map((column) => (
+                <td key={column.column_name}>{submittedData[column.column_name]}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
       )}
+
+      {/* 이름 확인 입력 필드와 결과 출력 */}
+      <div>
+        <input
+          type="text"
+          placeholder="Enter name to check"
+          value={checkName}
+          onChange={(e) => setCheckName(e.target.value)}
+        />
+        <button onClick={checkNameExists}>Check Name</button>
+        {checkResult && <p>{checkResult}</p>}
+      </div>
     </div>
   );
 };

@@ -83,6 +83,7 @@ app.use(cors());
 app.use(express_1["default"].json());
 app.use(express_1["default"].static(path_1["default"].join(__dirname, "../../client/dist")));
 app.use(body_parser_1["default"].json());
+// 기존 유저 목록 가져오기
 app.get("/users", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_1;
     return __generator(this, function (_a) {
@@ -104,6 +105,7 @@ app.get("/users", function (req, res) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); });
+// 데이터 전송
 app.post("/send", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, birth, password, name, phonenumber, address, value, client, err_2;
     return __generator(this, function (_b) {
@@ -117,21 +119,50 @@ app.post("/send", function (req, res) { return __awaiter(void 0, void 0, void 0,
                 _b.label = 2;
             case 2:
                 _b.trys.push([2, 4, 5, 6]);
-                return [4 /*yield*/, client.query("INSERT INTO test_user (birth, password, name, phonenumber,address) VALUES ($1,$2,$3,$4,$5)", value)];
+                return [4 /*yield*/, client.query("INSERT INTO test_user (birth, password, name, phonenumber, address) VALUES ($1, $2, $3, $4, $5)", value)];
             case 3:
                 _b.sent();
-                console.log("'".concat(value, "' \uCD94\uAC00\uC644\uB8CC"));
-                res.status(201).json({ message: "Data saved successfully" }); // 여기가 바뀜
+                console.log("".concat(value, " \uCD94\uAC00\uC644\uB8CC"));
+                res.status(201).json({ message: "Data saved successfully" });
                 return [3 /*break*/, 6];
             case 4:
                 err_2 = _b.sent();
                 console.log("쿼리 실행 오류 : ", err_2);
-                res.status(500).json({ message: "Error saving data" }); // 여기가 바뀜
+                res.status(500).json({ message: "Error saving data" });
                 return [3 /*break*/, 6];
             case 5:
                 client.release();
                 return [7 /*endfinally*/];
             case 6: return [2 /*return*/];
+        }
+    });
+}); });
+// name 값 조회
+app.get("/check-name/:name", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var name, result, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                name = req.params.name;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, pool.query("SELECT * FROM test_user WHERE name = $1", [name])];
+            case 2:
+                result = _a.sent();
+                if (result.rows.length > 0) {
+                    res.json({ exists: true });
+                }
+                else {
+                    res.json({ exists: false });
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                err_3 = _a.sent();
+                console.error("쿼리 실행 오류 : ", err_3);
+                res.status(500).json({ message: "Error checking name" });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
