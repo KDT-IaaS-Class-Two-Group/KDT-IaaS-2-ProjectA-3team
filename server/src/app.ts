@@ -112,6 +112,19 @@ app.get("/api/inputMake", async (req, res) => {
     res.status(500).send("Error fetching data");
   }
 });
+//사용자 조회 API
+app.get("/api/divMake", async (req, res) => {
+  console.log(req.body);
+  try {
+    const client = await pool.connect();
+    const result = await client.query("SELECT name FROM userdb");
+    client.release();
+    res.status(200).json(result.rows.map((row) => row.name));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching data");
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
