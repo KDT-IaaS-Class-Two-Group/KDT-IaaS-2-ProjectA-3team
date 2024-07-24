@@ -70,9 +70,9 @@ app.post("/useDataServeEvent", async (req, res) => {
     return res.status(400).send("All fields are required");
   }
 
-  // 날짜 형식 변환
-  const formattedBirth = new Date(birth).toISOString().split("T")[0];
-  const formattedStart = new Date(start).toISOString().split("T")[0];
+  // // 날짜 형식 변환
+  // const formattedBirth = new Date(birth).toISOString().split("T")[0];
+  // const formattedStart = new Date(start).toISOString().split("T")[0];
 
   try {
     const client = await pool.connect();
@@ -84,8 +84,8 @@ app.post("/useDataServeEvent", async (req, res) => {
       password,
       phonenumber,
       address,
-      formattedBirth, // 변환된 날짜 형식
-      formattedStart, // 변환된 날짜 형식
+      birth, // 변환된 날짜 형식
+      start, // 변환된 날짜 형식
       email,
     ];
     await client.query(queryText, values);

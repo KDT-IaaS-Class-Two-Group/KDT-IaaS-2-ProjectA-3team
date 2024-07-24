@@ -114,7 +114,7 @@ app.get("/", function (req, res) {
     res.sendFile(process.cwd() + "/../client/dist/index.html");
 });
 app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, id, name, password, phonenumber, address, birth, start, email, formattedBirth, formattedStart, client, queryText, values, error_2;
+    var _a, id, name, password, phonenumber, address, birth, start, email, client, queryText, values, error_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -130,8 +130,6 @@ app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, vo
                     !email) {
                     return [2 /*return*/, res.status(400).send("All fields are required")];
                 }
-                formattedBirth = new Date(birth).toISOString().split("T")[0];
-                formattedStart = new Date(start).toISOString().split("T")[0];
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 4, , 5]);
@@ -145,8 +143,8 @@ app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, vo
                     password,
                     phonenumber,
                     address,
-                    formattedBirth,
-                    formattedStart,
+                    birth,
+                    start,
                     email,
                 ];
                 return [4 /*yield*/, client.query(queryText, values)];
