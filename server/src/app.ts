@@ -1,7 +1,6 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import path from 'path';
-import cors from 'cors'; // CORS 패키지 임포트
 import { Pool } from 'pg';
 
 dotenv.config({ path: `${__dirname}/../../.env` });
@@ -17,7 +16,6 @@ const pool = new Pool({
 const port = process.env.PORT || 3001; // 기본 포트 설정 추가
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000' })); // CORS 설정
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../../client/dist')));

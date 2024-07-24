@@ -65,7 +65,7 @@ exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
 var path_1 = __importDefault(require("path"));
-var cors_1 = __importDefault(require("cors")); // CORS 패키지 임포트
+// import cors from 'cors'; // CORS 패키지 임포트
 var pg_1 = require("pg");
 dotenv.config({ path: "".concat(__dirname, "/../../.env") });
 var pool = new pg_1.Pool({
@@ -77,7 +77,7 @@ var pool = new pg_1.Pool({
 });
 var port = process.env.PORT || 3001; // 기본 포트 설정 추가
 var app = (0, express_1["default"])();
-app.use((0, cors_1["default"])({ origin: 'http://localhost:3000' })); // CORS 설정
+// app.use(cors({ origin: 'http://localhost:3000' })); // CORS 설정
 app.use(express_1["default"].json());
 app.use(express_1["default"].static(path_1["default"].join(__dirname, '../../client/dist')));
 app.get('/api/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
