@@ -7,6 +7,9 @@ interface Column {
 const App: React.FC = () => {
   const [inputData, setInputData] = useState<Record<string, string>>({}); //사용자가 입력한 값
   const [columns, setColumns] = useState<Column[]>([]); //서버에서 가져온 데이터
+  const [authSel, setAuthSel] = useState(''); //사용자 입력
+  const [authSelServer, setAuthSelServer] = useState(''); //서버 데이터
+
 
   useEffect(() => {
     fetch('http://localhost:3001/api/users')
@@ -47,6 +50,21 @@ const App: React.FC = () => {
       })
   }
 
+  const select = () =>{
+    fetch('http://localhost:3001/select',{
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(authSel)
+    })
+    .then(response=>response.json())
+    .then(data=>console.log(data.message))
+    .catch((err)=>{
+      console.error('select fetch error',err)
+    })
+}
+
   return (
     <div>
       {columns.map((column) => (
@@ -58,6 +76,14 @@ const App: React.FC = () => {
         </div>
       ))}
       <button onClick={send}>전송하기</button>
+      <div>
+        <label>
+          사용자 이름 조회:
+          <input type="text" value={authSel} onChange={(ele)=>setAuthSel(ele.target.value)}/>
+        </label>
+      <button onClick={select}>조회하기</button>
+      {/* <div>{authSelServer}</div> */}
+      </div>
     </div>
   );
 };

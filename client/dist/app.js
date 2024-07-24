@@ -20,14 +20,22 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var App = function App() {
-  var _useState = (0, _react.useState)([]),
+  var _useState = (0, _react.useState)({}),
     _useState2 = _slicedToArray(_useState, 2),
-    columns = _useState2[0],
-    setColumns = _useState2[1]; //서버에서 가져온 데이터
-  var _useState3 = (0, _react.useState)({}),
+    inputData = _useState2[0],
+    setInputData = _useState2[1]; //사용자가 입력한 값
+  var _useState3 = (0, _react.useState)([]),
     _useState4 = _slicedToArray(_useState3, 2),
-    inputData = _useState4[0],
-    setInputData = _useState4[1]; //사용자가 입력한 값
+    columns = _useState4[0],
+    setColumns = _useState4[1]; //서버에서 가져온 데이터
+  var _useState5 = (0, _react.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    authSel = _useState6[0],
+    setAuthSel = _useState6[1]; //사용자 입력
+  var _useState7 = (0, _react.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    authSelServer = _useState8[0],
+    setAuthSelServer = _useState8[1]; //서버 데이터
 
   (0, _react.useEffect)(function () {
     fetch('http://localhost:3001/api/users').then(function (response) {
@@ -64,6 +72,21 @@ var App = function App() {
       console.error('send fetch error', err);
     });
   };
+  var select = function select() {
+    fetch('http://localhost:3001/select', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(authSel)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      return console.log(data.message);
+    })["catch"](function (err) {
+      console.error('select fetch error', err);
+    });
+  };
   return /*#__PURE__*/_react["default"].createElement("div", null, columns.map(function (column) {
     return /*#__PURE__*/_react["default"].createElement("div", {
       key: column.column_name
@@ -75,6 +98,14 @@ var App = function App() {
     })));
   }), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: send
-  }, "\uC804\uC1A1\uD558\uAE30"));
+  }, "\uC804\uC1A1\uD558\uAE30"), /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("label", null, "\uC0AC\uC6A9\uC790 \uC774\uB984 \uC870\uD68C:", /*#__PURE__*/_react["default"].createElement("input", {
+    type: "text",
+    value: authSel,
+    onChange: function onChange(ele) {
+      return setAuthSel(ele.target.value);
+    }
+  })), /*#__PURE__*/_react["default"].createElement("button", {
+    onClick: select
+  }, "\uC870\uD68C\uD558\uAE30")));
 };
 var _default = exports["default"] = App;
