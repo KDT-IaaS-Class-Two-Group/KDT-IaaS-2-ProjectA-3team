@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useFetchInputData = () => {
+const useFetchDivData = () => {
   const [columns, setColumns] = useState<string[]>([]);
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const useFetchInputData = () => {
   };
 };
 
-export default useFetchInputData;
+export default useFetchDivData;
