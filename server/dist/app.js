@@ -65,7 +65,6 @@ exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
 var path_1 = __importDefault(require("path"));
-// import cors from 'cors'; // CORS 패키지 임포트
 var pg_1 = require("pg");
 dotenv.config({ path: "".concat(__dirname, "/../../.env") });
 var pool = new pg_1.Pool({
@@ -77,7 +76,6 @@ var pool = new pg_1.Pool({
 });
 var port = process.env.PORT || 3001; // 기본 포트 설정 추가
 var app = (0, express_1["default"])();
-// app.use(cors({ origin: 'http://localhost:3000' })); // CORS 설정
 app.use(express_1["default"].json());
 app.use(express_1["default"].static(path_1["default"].join(__dirname, '../../client/dist')));
 app.get('/api/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -127,6 +125,34 @@ app.post('/send', function (req, res) { return __awaiter(void 0, void 0, void 0,
                 client.release(); // 연결 종료
                 return [7 /*endfinally*/];
             case 6: return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/select', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var nameResult, result, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                nameResult = req.body;
+                console.log(nameResult);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, pool.query("\n      SELECT ".concat(nameResult, "\n      FROM user_test\n    "))];
+            case 2:
+                result = _a.sent();
+                if (result) {
+                    console.log(result, "있음");
+                    res.json(result);
+                }
+                console.log(result, "없음");
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _a.sent();
+                console.error('사용자 조회 실패:', error_2);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
