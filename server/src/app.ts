@@ -24,7 +24,11 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/api/users', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM user_test');
+    const result = await pool.query(`
+      SELECT column_name
+      FROM information_schema.columns
+      WHERE table_name = 'user_test'
+    `);
     console.log(result.rows); // 데이터 확인을 위해 로그 출력
     res.json(result.rows);
   } catch (error) {
