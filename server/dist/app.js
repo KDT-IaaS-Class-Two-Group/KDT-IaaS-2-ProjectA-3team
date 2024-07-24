@@ -65,7 +65,9 @@ exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
 var path_1 = __importDefault(require("path"));
+var cors_1 = __importDefault(require("cors")); // CORS 패키지 임포트
 var pg_1 = require("pg");
+dotenv.config({ path: "".concat(__dirname, "/../../.env") });
 var pool = new pg_1.Pool({
     user: "postgres",
     host: 'localhost',
@@ -73,38 +75,29 @@ var pool = new pg_1.Pool({
     password: '1234',
     port: 5432
 });
-dotenv.config({ path: "".concat(__dirname, "/../../.env") });
-var port = process.env.PORT;
+var port = process.env.PORT || 3001; // 기본 포트 설정 추가
 var app = (0, express_1["default"])();
-app.use(express_1["default"].json()); //!w 집에서 확인
+app.use((0, cors_1["default"])({ origin: 'http://localhost:3000' })); // CORS 설정
+app.use(express_1["default"].json());
 app.use(express_1["default"].static(path_1["default"].join(__dirname, '../../client/dist')));
-// /send 경로에 대한 POST 요청 처리
-app.post('/send', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var content, client, err_1;
+app.get('/api/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                content = req.body.content;
-                res.json({ content: content });
-                return [4 /*yield*/, pool.connect()];
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, pool.query("\n      SELECT column_name\n      FROM information_schema.columns\n      WHERE table_name = 'user_test'\n    ")];
             case 1:
-                client = _a.sent();
-                _a.label = 2;
+                result = _a.sent();
+                console.log(result.rows); // 데이터 확인을 위해 로그 출력
+                res.json(result.rows);
+                return [3 /*break*/, 3];
             case 2:
-                _a.trys.push([2, 4, 5, 6]);
-                return [4 /*yield*/, client.query('INSERT INTO realtest(content) VALUES($1)', [content])];
-            case 3:
-                _a.sent();
-                console.log("'".concat(content, "' \uCD94\uAC00 \uC644\uB8CC"));
-                return [3 /*break*/, 6];
-            case 4:
-                err_1 = _a.sent();
-                console.error('쿼리 실행 오류:', err_1);
-                return [3 /*break*/, 6];
-            case 5:
-                client.release(); // 연결 종료
-                return [7 /*endfinally*/];
-            case 6: return [2 /*return*/];
+                error_1 = _a.sent();
+                console.error('Error fetching users:', error_1);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
