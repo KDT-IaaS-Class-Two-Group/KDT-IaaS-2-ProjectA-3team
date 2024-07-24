@@ -3,6 +3,7 @@ import Input from "./components/Input";
 import Button from "./components/Button";
 import useDataServeEvent from "./hooks/useDataServeEvent";
 import DynamicInputForm from "./components/DynamicInputForm";
+import ManageDiv from "./components/ManageDiv";
 const App: React.FC = () => {
   const { inputValue, setInputValue, sendDataToServer } = useDataServeEvent();
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       {/* <Input inputValue={inputValue} setInputValue={setInputValue} />
       <Button eventFunc={sendDataToServer} /> */}
       <DynamicInputForm />
+      <ManageDiv />
     </div>
   );
 };
