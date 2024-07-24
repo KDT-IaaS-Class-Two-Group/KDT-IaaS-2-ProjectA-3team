@@ -28,15 +28,27 @@ var App = function App() {
     _useState4 = _slicedToArray(_useState3, 2),
     users = _useState4[0],
     setUsers = _useState4[1]; // 사용자가 작성한 데이터
+  var _useState5 = (0, _react.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    isTableVisible = _useState6[0],
+    setIsTableVisible = _useState6[1]; // '여기가 바뀜' 테이블 표시 여부 상태 추가
+  var _useState7 = (0, _react.useState)(""),
+    _useState8 = _slicedToArray(_useState7, 2),
+    nameToCheck = _useState8[0],
+    setNameToCheck = _useState8[1]; // '여기가 바뀜' 확인할 이름 입력 상태 추가
+  var _useState9 = (0, _react.useState)(""),
+    _useState10 = _slicedToArray(_useState9, 2),
+    validationMessage = _useState10[0],
+    setValidationMessage = _useState10[1]; // '여기가 바뀜' 검증 결과 메시지 상태 추가
+
   // 데이터베이스에서 유저 목록을 가져오는 함수
   (0, _react.useEffect)(function () {
     fetch("http://localhost:3001/users").then(function (response) {
       return response.json();
     }).then(function (data) {
-      console.log("Fetched data:", data);
-      setInnerContent(data);
+      return setInnerContent(data);
     })["catch"](function (error) {
-      return console.error('Error fetching users', error);
+      return console.error("Error fetching users", error);
     });
   }, []);
   var handleChange = function handleChange(event) {
@@ -50,19 +62,28 @@ var App = function App() {
 
   // 서버에 데이터 전송 함수
   var send = function send() {
-    fetch('http://localhost:3001/send', {
-      method: 'POST',
+    fetch("http://localhost:3001/send", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(users)
     }).then(function (response) {
       return response.json();
-    }).then(function (data) {
-      return console.log(data.message);
+    }).then(function () {
+      setIsTableVisible(true); // '여기가 바뀜' 테이블을 표시
     })["catch"](function (error) {
-      console.error('send fetch error', error);
+      console.error("send fetch error", error);
     });
+  };
+
+  // 이름 확인 함수 '여기가 바뀜'
+  var checkName = function checkName() {
+    if (users.name === nameToCheck) {
+      setValidationMessage("사용자가 맞습니다");
+    } else {
+      setValidationMessage("사용자가 아닙니다");
+    }
   };
   return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("h1", null, "Users"), innerContent.map(function (column) {
     return /*#__PURE__*/_react["default"].createElement("div", {
@@ -70,11 +91,28 @@ var App = function App() {
     }, /*#__PURE__*/_react["default"].createElement("label", null, column.column_name), /*#__PURE__*/_react["default"].createElement("input", {
       type: "text",
       name: column.column_name,
-      value: users[column.column_name] || '',
+      value: users[column.column_name] || "",
       onChange: handleChange
     }));
   }), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: send
-  }, "gg"));
+  }, "gg"), isTableVisible && /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("h2", null, "\uD14C\uC774\uBE14"), /*#__PURE__*/_react["default"].createElement("table", null, /*#__PURE__*/_react["default"].createElement("thead", null, /*#__PURE__*/_react["default"].createElement("tr", null, innerContent.map(function (column) {
+    return /*#__PURE__*/_react["default"].createElement("th", {
+      key: column.column_name
+    }, column.column_name);
+  }))), /*#__PURE__*/_react["default"].createElement("tbody", null, /*#__PURE__*/_react["default"].createElement("tr", null, innerContent.map(function (column) {
+    return /*#__PURE__*/_react["default"].createElement("td", {
+      key: column.column_name
+    }, users[column.column_name]);
+  })))), /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("input", {
+    type: "text",
+    value: nameToCheck,
+    onChange: function onChange(e) {
+      return setNameToCheck(e.target.value);
+    },
+    placeholder: "\uC774\uB984\uC744 \uC785\uB825\uD558\uC138\uC694"
+  }), /*#__PURE__*/_react["default"].createElement("button", {
+    onClick: checkName
+  }, "\uD655\uC778"), validationMessage && /*#__PURE__*/_react["default"].createElement("p", null, validationMessage))));
 };
 var _default = exports["default"] = App;

@@ -38,7 +38,7 @@ app.get("/users", async (req, res) => {
 });
 
 app.post("/send", async (req, res) => {
-  const { birth, password, name, phonenumber, address } = req.body;
+  const { birth, password, name, phonenumber, address } = req.body; // 여기가 바뀜
   const value = [birth, password, name, phonenumber, address];
 
   const client = await pool.connect();
@@ -47,9 +47,11 @@ app.post("/send", async (req, res) => {
       "INSERT INTO test_user (birth, password, name, phonenumber,address) VALUES ($1,$2,$3,$4,$5)",
       value
     );
-    console.log(`'${value}'  추가완료`);
+    console.log(`'${value}' 추가완료`);
+    res.status(201).json({ message: "Data saved successfully" }); // 여기가 바뀜
   } catch (err) {
     console.log("쿼리 실행 오류 : ", err);
+    res.status(500).json({ message: "Error saving data" }); // 여기가 바뀜
   } finally {
     client.release();
   }

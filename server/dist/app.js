@@ -83,18 +83,6 @@ app.use(cors());
 app.use(express_1["default"].json());
 app.use(express_1["default"].static(path_1["default"].join(__dirname, "../../client/dist")));
 app.use(body_parser_1["default"].json());
-// mongoose
-//   .connect("mongodb://localhost:27017/test")
-//   .then(() => console.log("MongoDB connected"))
-//   .catch((err: Error) => console.error("MongoDB connection error:", err));
-// const mongoSchema = new mongoose.Schema({
-//   data: String,
-// });
-// const MongoModel = mongoose.model("test", mongoSchema);
-// Root route
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
-// });
 app.get("/users", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_1;
     return __generator(this, function (_a) {
@@ -132,11 +120,13 @@ app.post("/send", function (req, res) { return __awaiter(void 0, void 0, void 0,
                 return [4 /*yield*/, client.query("INSERT INTO test_user (birth, password, name, phonenumber,address) VALUES ($1,$2,$3,$4,$5)", value)];
             case 3:
                 _b.sent();
-                console.log("'".concat(value, "'  \uCD94\uAC00\uC644\uB8CC"));
+                console.log("'".concat(value, "' \uCD94\uAC00\uC644\uB8CC"));
+                res.status(201).json({ message: "Data saved successfully" }); // 여기가 바뀜
                 return [3 /*break*/, 6];
             case 4:
                 err_2 = _b.sent();
-                console.log('쿼리 실행 오류 : ', err_2);
+                console.log("쿼리 실행 오류 : ", err_2);
+                res.status(500).json({ message: "Error saving data" }); // 여기가 바뀜
                 return [3 /*break*/, 6];
             case 5:
                 client.release();
@@ -145,50 +135,6 @@ app.post("/send", function (req, res) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); });
-// 데이터 저장
-// app.post("/send", async (req, res) => {
-//   const { content } = req.body;
-//   try {
-//     const mongoDoc = new MongoModel({ data: content });
-//     const savedDoc = await mongoDoc.save();
-//     console.log("MongoDB data saved:", savedDoc); // 로그 추가
-//     const result = await pool.query(
-//       "INSERT INTO realtest (content) VALUES ($1)",
-//       [content]
-//     );
-//     res.status(201).json(result.rows[0]);
-//   } catch (err) {
-//     console.error("Error saving data:", err);
-//     res.status(500).send("Error saving data");
-//   }
-// });
-// app.post("/users", async (req, res) => {
-//   const { content } = req.body;
-//   console.log(req.body);
-//   try {
-//     const mongoDoc = new MongoModel({ data: content });
-//     const savedDoc = await mongoDoc.save();
-//     console.log("MongoDB data saved:", savedDoc); // 로그 추가
-//     const result = await pool.query(
-//       "INSERT INTO realtest (content) VALUES ($1)",
-//       [content]
-//     );
-//     res.status(201).json(result.rows[0]);
-//   } catch (err) {
-//     console.error("Error saving data:", err);
-//     res.status(500).send("Error saving data");
-//   }
-// });
-// users 테이블 생성 (예시)
-// app.get("/test_user", async (req, res) => {
-//   try {
-//     const result = await pool.query("SELECT * FROM users");
-//     res.json(result.rows);
-//   } catch (err) {
-//     console.error("오류 발생:", err);
-//     res.status(500).send("서버 오류");
-//   }
-// });
 app.listen(port, function () {
     console.log("Server is running at http://localhost:".concat(port));
 });
