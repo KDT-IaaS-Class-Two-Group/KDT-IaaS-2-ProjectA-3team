@@ -86,7 +86,7 @@ app.get('/api/users', function (req, res) { return __awaiter(void 0, void 0, voi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, pool.query("\n      SELECT column_name\n      FROM information_schema.columns\n      WHERE table_name = 'user_test'\n    ")];
+                return [4 /*yield*/, pool.query("\n      SELECT column_name\n      FROM information_schema.columns\n      WHERE table_name = 'user_test'\n      AND column_name NOT IN ('id')\n    ")];
             case 1:
                 result = _a.sent();
                 console.log(result.rows); // 데이터 확인을 위해 로그 출력
@@ -98,6 +98,35 @@ app.get('/api/users', function (req, res) { return __awaiter(void 0, void 0, voi
                 res.status(500).send('Internal Server Error');
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/send', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, birth, join, address, phonenumber, password, name, values, client, err_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, birth = _a.birth, join = _a.join, address = _a.address, phonenumber = _a.phonenumber, password = _a.password, name = _a.name;
+                values = [birth, join, address, phonenumber, password, name];
+                return [4 /*yield*/, pool.connect()];
+            case 1:
+                client = _b.sent();
+                _b.label = 2;
+            case 2:
+                _b.trys.push([2, 4, 5, 6]);
+                return [4 /*yield*/, client.query('INSERT INTO user_test(birth, "join", address, phonenumber, password, name) VALUES($1,$2,$3,$4,$5,$6)', values)];
+            case 3:
+                _b.sent();
+                console.log("'".concat(values, "' \uCD94\uAC00 \uC644\uB8CC"));
+                return [3 /*break*/, 6];
+            case 4:
+                err_1 = _b.sent();
+                console.error('쿼리 실행 오류:', err_1);
+                return [3 /*break*/, 6];
+            case 5:
+                client.release(); // 연결 종료
+                return [7 /*endfinally*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
