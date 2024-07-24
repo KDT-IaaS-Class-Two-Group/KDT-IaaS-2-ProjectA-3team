@@ -74,10 +74,15 @@ var pool = new pg_1.Pool({
     user: "postgres",
     host: "localhost",
     database: "user_db",
-    password: process.env.DB_PASS,
+    password: "3662",
     port: 5432
 });
-app.use((0, cors_1["default"])());
+// CORS 설정 추가
+app.use((0, cors_1["default"])({
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
 app.use(express_1["default"].json());
 app.use(express_1["default"].static("".concat(process.cwd(), "/../client/dist")));
 // 테이블 생성 함수
@@ -155,16 +160,57 @@ app.post("/useDataServeEvent", function (req, res) { return __awaiter(void 0, vo
                 return [3 /*break*/, 5];
             case 4:
                 error_2 = _b.sent();
-                console.error(error_2);
+                console.error("Error inserting data", error_2);
                 res.status(500).send("Error inserting data");
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
     });
 }); });
+app.post("/api/submitOption", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, role, client, userResult, userId, queryText, values, error_3;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                console.log("Request body:", req.body); // 요청 본문 로그 출력
+                _a = req.body, name = _a.name, role = _a.role;
+                if (!name || !role) {
+                    return [2 /*return*/, res.status(400).send("Name and role are required")];
+                }
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, pool.connect()];
+            case 2:
+                client = _b.sent();
+                return [4 /*yield*/, client.query("SELECT id FROM userdb WHERE name = $1", [name])];
+            case 3:
+                userResult = _b.sent();
+                if (userResult.rows.length === 0) {
+                    client.release();
+                    return [2 /*return*/, res.status(404).send("User not found")];
+                }
+                userId = userResult.rows[0].id;
+                queryText = "INSERT INTO managedb (id, role) VALUES ($1, $2)";
+                values = [userId, role];
+                return [4 /*yield*/, client.query(queryText, values)];
+            case 4:
+                _b.sent();
+                client.release();
+                res.status(200).send("Option submitted successfully");
+                return [3 /*break*/, 6];
+            case 5:
+                error_3 = _b.sent();
+                console.error(error_3);
+                res.status(500).send("Error submitting option");
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
 // 데이터 조회 API
 app.get("/api/inputMake", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var client, result, error_3;
+    var client, result, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -179,17 +225,17 @@ app.get("/api/inputMake", function (req, res) { return __awaiter(void 0, void 0,
                 res.status(200).json(result.rows.map(function (row) { return row.column_name; }));
                 return [3 /*break*/, 4];
             case 3:
-                error_3 = _a.sent();
-                console.error(error_3);
+                error_4 = _a.sent();
+                console.error("Error fetching data", error_4);
                 res.status(500).send("Error fetching data");
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); });
-//사용자 조회 API
+// 사용자 조회 API
 app.get("/api/divMake", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var client, result, error_4;
+    var client, result, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -200,19 +246,20 @@ app.get("/api/divMake", function (req, res) { return __awaiter(void 0, void 0, v
                 return [4 /*yield*/, client.query("SELECT name FROM userdb")];
             case 2:
                 result = _a.sent();
-                console.log(result);
                 client.release();
                 res.status(200).json(result.rows.map(function (row) { return row.name; }));
                 return [3 /*break*/, 4];
             case 3:
-                error_4 = _a.sent();
-                console.error(error_4);
+                error_5 = _a.sent();
+                console.error("Error fetching data", error_5);
                 res.status(500).send("Error fetching data");
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); });
+// 프리플라이트 요청 처리
+app.options("*", (0, cors_1["default"])());
 app.listen(port, function () {
     console.log("Server is running at http://localhost:".concat(port));
 });
