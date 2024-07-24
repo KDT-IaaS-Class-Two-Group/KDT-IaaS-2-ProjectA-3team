@@ -1,15 +1,24 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends" : "../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react",
-    "baseUrl": "./src",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@validate/*": ["model/auth/validate/*"],
-      "@request/*" : ["model/auth/request/*"]
-    }
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
   },
-  "include": ["src"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
