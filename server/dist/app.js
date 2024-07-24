@@ -168,25 +168,48 @@ app.get("/api/inputMake", function (req, res) { return __awaiter(void 0, void 0,
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(req.body);
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 4, , 5]);
+                _a.trys.push([0, 3, , 4]);
                 return [4 /*yield*/, pool.connect()];
-            case 2:
+            case 1:
                 client = _a.sent();
                 return [4 /*yield*/, client.query("SELECT column_name FROM information_schema.columns WHERE table_name = 'userdb'")];
-            case 3:
+            case 2:
                 result = _a.sent();
                 client.release();
                 res.status(200).json(result.rows.map(function (row) { return row.column_name; }));
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 4];
+            case 3:
                 error_3 = _a.sent();
                 console.error(error_3);
                 res.status(500).send("Error fetching data");
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+//사용자 조회 API
+app.get("/api/divMake", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var client, result, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, pool.connect()];
+            case 1:
+                client = _a.sent();
+                return [4 /*yield*/, client.query("SELECT name FROM userdb")];
+            case 2:
+                result = _a.sent();
+                console.log(result);
+                client.release();
+                res.status(200).json(result.rows.map(function (row) { return row.name; }));
+                return [3 /*break*/, 4];
+            case 3:
+                error_4 = _a.sent();
+                console.error(error_4);
+                res.status(500).send("Error fetching data");
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });

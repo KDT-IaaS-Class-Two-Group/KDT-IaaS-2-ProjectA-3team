@@ -99,7 +99,7 @@ app.post("/useDataServeEvent", async (req, res) => {
 
 // 데이터 조회 API
 app.get("/api/inputMake", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const client = await pool.connect();
     const result = await client.query(
@@ -114,10 +114,10 @@ app.get("/api/inputMake", async (req, res) => {
 });
 //사용자 조회 API
 app.get("/api/divMake", async (req, res) => {
-  console.log(req.body);
   try {
     const client = await pool.connect();
     const result = await client.query("SELECT name FROM userdb");
+    console.log(result);
     client.release();
     res.status(200).json(result.rows.map((row) => row.name));
   } catch (error) {
