@@ -40,6 +40,14 @@ var App = function App() {
     _useState10 = _slicedToArray(_useState9, 2),
     checkResult = _useState10[0],
     setCheckResult = _useState10[1]; // 이름 확인 결과
+  var _useState11 = (0, _react.useState)(null),
+    _useState12 = _slicedToArray(_useState11, 2),
+    userId = _useState12[0],
+    setUserId = _useState12[1]; // 사용자 ID
+  var _useState13 = (0, _react.useState)(""),
+    _useState14 = _slicedToArray(_useState13, 2),
+    field = _useState14[0],
+    setField = _useState14[1]; // field 값
 
   // 데이터베이스에서 유저 목록을 가져오는 함수
   (0, _react.useEffect)(function () {
@@ -86,12 +94,37 @@ var App = function App() {
     }).then(function (data) {
       if (data.exists) {
         setCheckResult("사용자가 맞습니다");
+        setUserId(data.userId); // 사용자 ID 저장
       } else {
         setCheckResult("사용자가 아닙니다");
+        setUserId(null); // 사용자 ID 초기화
       }
     })["catch"](function (error) {
       console.error("checkName fetch error", error);
     });
+  };
+
+  // 서버에 field 값을 전송하는 함수
+  var addField = function addField() {
+    if (userId !== null) {
+      fetch("http://localhost:3001/add-field", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId: userId,
+          field: parseInt(field, 10)
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data.message);
+        setField(""); // 입력 필드 초기화
+      })["catch"](function (error) {
+        console.error("addField fetch error", error);
+      });
+    }
   };
   return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("h1", null, "Users"), innerContent.map(function (column) {
     return /*#__PURE__*/_react["default"].createElement("div", {
@@ -121,6 +154,15 @@ var App = function App() {
     }
   }), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: checkNameExists
-  }, "Check Name"), checkResult && /*#__PURE__*/_react["default"].createElement("p", null, checkResult)));
+  }, "Check Name"), checkResult && /*#__PURE__*/_react["default"].createElement("p", null, checkResult)), userId !== null && /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("input", {
+    type: "number",
+    placeholder: "Enter field value",
+    value: field,
+    onChange: function onChange(e) {
+      return setField(e.target.value);
+    }
+  }), /*#__PURE__*/_react["default"].createElement("button", {
+    onClick: addField
+  }, "Add Field")));
 };
 var _default = exports["default"] = App;

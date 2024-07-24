@@ -147,11 +147,11 @@ app.get("/check-name/:name", function (req, res) { return __awaiter(void 0, void
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, pool.query("SELECT * FROM test_user WHERE name = $1", [name])];
+                return [4 /*yield*/, pool.query("SELECT id FROM test_user WHERE name = $1", [name])];
             case 2:
                 result = _a.sent();
                 if (result.rows.length > 0) {
-                    res.json({ exists: true });
+                    res.json({ exists: true, userId: result.rows[0].id });
                 }
                 else {
                     res.json({ exists: false });
@@ -163,6 +163,36 @@ app.get("/check-name/:name", function (req, res) { return __awaiter(void 0, void
                 res.status(500).json({ message: "Error checking name" });
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
+        }
+    });
+}); });
+// test_orders에 데이터 삽입
+app.post("/add-field", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, userId, field, client, err_4;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, userId = _a.userId, field = _a.field;
+                return [4 /*yield*/, pool.connect()];
+            case 1:
+                client = _b.sent();
+                _b.label = 2;
+            case 2:
+                _b.trys.push([2, 4, 5, 6]);
+                return [4 /*yield*/, client.query("INSERT INTO test_orders (user_id, field) VALUES ($1, $2)", [userId, field])];
+            case 3:
+                _b.sent();
+                res.status(201).json({ message: "Field added successfully" });
+                return [3 /*break*/, 6];
+            case 4:
+                err_4 = _b.sent();
+                console.log("쿼리 실행 오류 : ", err_4);
+                res.status(500).json({ message: "Error adding field" });
+                return [3 /*break*/, 6];
+            case 5:
+                client.release();
+                return [7 /*endfinally*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
