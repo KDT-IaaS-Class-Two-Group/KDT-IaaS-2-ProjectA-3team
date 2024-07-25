@@ -10,7 +10,9 @@ const fetchLogin = async (test: LoginDTO) => {
     credentials: "include",
   });
   if (response.ok) {
-    console.log(response);
+    return true;
+  } else {
+    return false;
   }
 };
 

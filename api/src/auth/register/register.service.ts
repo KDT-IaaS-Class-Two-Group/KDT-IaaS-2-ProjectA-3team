@@ -65,3 +65,5 @@ export class RegisterService {
     }
   }
 }
+
+// 권한처리
