@@ -7,12 +7,12 @@ import * as validate from "../model/auth/validateRegisterData";
 const useLoginHooks = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const handleLogin = async () => {
     if (validate.validateEmail(email) && validate.ValidatePassword(password)) {
-      fetchLogin({ email, password });
+      setIsLoggedIn(await fetchLogin({ email, password }));
     } else {
-      return false;
+      setIsLoggedIn(false);
     }
   };
   return {
@@ -20,6 +20,7 @@ const useLoginHooks = () => {
     setEmail,
     password,
     setPassword,
+    isLoggedIn,
     handleLogin,
   };
 };
