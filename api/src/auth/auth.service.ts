@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database.service';
-import { CreateUserInterface, LoginDTO } from '@shared/DTO/SharedDTO';
+import { CreateUserInterface } from '@shared/DTO/SharedDTO';
 
 /**
  * * Class : AuthService
