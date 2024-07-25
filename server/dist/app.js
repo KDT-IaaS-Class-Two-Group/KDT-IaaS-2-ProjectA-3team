@@ -129,30 +129,41 @@ app.post('/send', function (req, res) { return __awaiter(void 0, void 0, void 0,
     });
 }); });
 app.post('/select', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nameResult, result, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, name, field, client, result, userId, error_2;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                nameResult = req.body;
-                console.log(nameResult);
-                _a.label = 1;
+                _a = req.body, name = _a.name, field = _a.field;
+                return [4 /*yield*/, pool.connect()];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, pool.query("\n      SELECT ".concat(nameResult, "\n      FROM user_test\n    "))];
+                client = _b.sent();
+                _b.label = 2;
             case 2:
-                result = _a.sent();
-                if (result) {
-                    console.log(result, "있음");
-                    res.json(result);
-                }
-                console.log(result, "없음");
-                return [3 /*break*/, 4];
+                _b.trys.push([2, 7, 8, 9]);
+                return [4 /*yield*/, client.query("\n      SELECT id\n      FROM user_test\n      WHERE name =$1\n    ", [name])];
             case 3:
-                error_2 = _a.sent();
+                result = _b.sent();
+                console.log(result.rows);
+                if (!(result.rows.length > 0)) return [3 /*break*/, 5];
+                userId = result.rows[0].id;
+                return [4 /*yield*/, client.query('INSERT INTO auth_test(id, field) VALUES($1, $2)', [userId, field])];
+            case 4:
+                _b.sent();
+                res.json({ message: '존재하고 권한 부여 완료' });
+                return [3 /*break*/, 6];
+            case 5:
+                res.json({ message: "존재안함" });
+                _b.label = 6;
+            case 6: return [3 /*break*/, 9];
+            case 7:
+                error_2 = _b.sent();
                 console.error('사용자 조회 실패:', error_2);
                 res.status(500).send('Internal Server Error');
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 8:
+                client.release(); // 연결 종료
+                return [7 /*endfinally*/];
+            case 9: return [2 /*return*/];
         }
     });
 }); });
