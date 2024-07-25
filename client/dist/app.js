@@ -36,6 +36,10 @@ var App = function App() {
     _useState8 = _slicedToArray(_useState7, 2),
     authSelServer = _useState8[0],
     setAuthSelServer = _useState8[1]; //서버 데이터
+  var _useState9 = (0, _react.useState)(''),
+    _useState10 = _slicedToArray(_useState9, 2),
+    field = _useState10[0],
+    setfield = _useState10[1]; //사용자 입력
 
   (0, _react.useEffect)(function () {
     fetch('http://localhost:3001/api/users').then(function (response) {
@@ -78,11 +82,14 @@ var App = function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(authSel)
+      body: JSON.stringify({
+        name: authSel,
+        field: field
+      })
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      return console.log(data.message);
+      return setAuthSelServer(data.message);
     })["catch"](function (err) {
       console.error('select fetch error', err);
     });
@@ -104,8 +111,14 @@ var App = function App() {
     onChange: function onChange(ele) {
       return setAuthSel(ele.target.value);
     }
+  })), /*#__PURE__*/_react["default"].createElement("label", null, "\uAD8C\uD55C \uBD80\uC5EC", /*#__PURE__*/_react["default"].createElement("input", {
+    type: "text",
+    value: field,
+    onChange: function onChange(ele) {
+      return setfield(ele.target.value);
+    }
   })), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: select
-  }, "\uC870\uD68C\uD558\uAE30")));
+  }, "\uC870\uD68C\uD558\uAE30"), /*#__PURE__*/_react["default"].createElement("div", null, authSelServer)));
 };
 var _default = exports["default"] = App;
