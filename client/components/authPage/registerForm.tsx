@@ -1,4 +1,13 @@
+// RegisterForm.tsx
 import useRegisterHooks from "client/viewModel/registerHooks";
+
+import {
+  registerForm,
+  formGroup,
+  label,
+  input,
+  button,
+} from "../../styles/register.css";
 
 const RegisterForm = () => {
   const {
@@ -14,75 +23,95 @@ const RegisterForm = () => {
   } = useRegisterHooks();
 
   return (
-    <div className="register-form">
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
+    <div className={registerForm}>
+      <div className={formGroup}>
+        <label htmlFor="email" className={label}>
+          Email
+        </label>
         <input
           id="email"
           type="email"
           placeholder="example@example.com"
           onChange={(e) => setEmail(e.target.value)}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="name">Name</label>
+      <div className={formGroup}>
+        <label htmlFor="name" className={label}>
+          Name
+        </label>
         <input
           id="name"
           type="text"
           placeholder="Enter your name"
           onChange={(e) => setName(e.target.value)}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
+      <div className={formGroup}>
+        <label htmlFor="password" className={label}>
+          Password
+        </label>
         <input
           id="password"
           type="password"
           placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="passwordCheck">Confirm Password</label>
+      <div className={formGroup}>
+        <label htmlFor="passwordCheck" className={label}>
+          Confirm Password
+        </label>
         <input
           id="passwordCheck"
           type="password"
           placeholder="Confirm your password"
           onChange={(e) => setPasswordCheck(e.target.value)}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="phoneNumber">Phone Number</label>
+      <div className={formGroup}>
+        <label htmlFor="phoneNumber" className={label}>
+          Phone Number
+        </label>
         <input
           id="phoneNumber"
           type="tel"
           placeholder="123-456-7890"
           onChange={(e) => setPhoneNumber(e.target.value)}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="address">Address</label>
+      <div className={formGroup}>
+        <label htmlFor="address" className={label}>
+          Address
+        </label>
         <input
           id="address"
           type="text"
           placeholder="Enter your address"
           onChange={(e) => setAddress(e.target.value)}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="birth">Date of Birth</label>
+      <div className={formGroup}>
+        <label htmlFor="birth" className={label}>
+          Date of Birth
+        </label>
         <input
           id="birth"
           type="date"
@@ -91,11 +120,14 @@ const RegisterForm = () => {
             setBirth(dateObject);
           }}
           required
+          className={input}
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="joinDate">Join Date</label>
+      <div className={formGroup}>
+        <label htmlFor="joinDate" className={label}>
+          Join Date
+        </label>
         <input
           id="joinDate"
           type="date"
@@ -104,15 +136,11 @@ const RegisterForm = () => {
             setJoinDate(dateObject);
           }}
           required
+          className={input}
         />
       </div>
 
-      <button
-        type="button"
-        onClick={() => {
-          handleRegister();
-        }}
-      >
+      <button type="button" onClick={() => handleRegister()} className={button}>
         Send
       </button>
     </div>
