@@ -5,7 +5,7 @@ import { loginDTO } from "model/auth/interface/authDTO";
 import ValidatePassword from "@validate/validatePassword";
 
 
-const loginViewModel = () => {
+const useLoginHooks = () => {
 
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -42,4 +42,4 @@ const loginViewModel = () => {
   };
 };
 
-export default loginViewModel;
+export default useLoginHooks;
