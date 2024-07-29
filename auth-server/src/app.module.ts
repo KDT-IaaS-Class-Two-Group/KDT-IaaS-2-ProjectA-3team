@@ -1,7 +1,7 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
 
-import { LoggingMiddleware } from './logger.middleware';
-import { AuthModule } from './auth.module';
+import { LoggingMiddleware } from './middleware/logger.middleware';
+import { AuthModule } from './api/auth/auth.module';
 
 @Module({
   imports: [AuthModule],
