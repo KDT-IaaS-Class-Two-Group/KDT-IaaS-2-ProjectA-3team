@@ -9,11 +9,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import {
-  RegisterDataDTO,
-  LoginDTO,
-  SessionUserInterface,
-} from '@shared/DTO/SharedDTO';
+import { RegisterDataDTO, LoginDTO, SessionDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
 
 @Controller('login')
@@ -33,7 +29,7 @@ export class LoginController {
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWithoutPassword } = userData as RegisterDataDTO;
-      req.session.user = userWithoutPassword as SessionUserInterface;
+      req.session.user = userWithoutPassword as SessionDTO;
       return res.json({ message: 'Login successful' });
     } else {
       return res
