@@ -1,20 +1,20 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { Client } from 'pg';
+import { Pool } from 'pg';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 @Injectable()
 export class DatabaseService implements OnModuleDestroy {
-  private client: Client;
+  private client: Pool;
 
   constructor() {
-    this.client = new Client({
+    this.client = new Pool({
       user: process.env.DB_USER,
       host: process.env.DB_HOST,
-      database: process.env.DB_DATABASE,
+      database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
-      port: process.env.DB_PORT,
+      port: Number(process.env.DB_PORT),
     });
 
     this.connect();
