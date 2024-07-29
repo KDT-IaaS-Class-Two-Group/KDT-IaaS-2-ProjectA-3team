@@ -10,7 +10,7 @@ import {
 import { Request, Response } from 'express';
 
 import {
-  CreateUserInterface,
+  RegisterDataDTO,
   LoginDTO,
   SessionUserInterface,
 } from '@shared/DTO/SharedDTO';
@@ -32,8 +32,7 @@ export class LoginController {
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userWithoutPassword } =
-        userData as CreateUserInterface;
+      const { password, ...userWithoutPassword } = userData as RegisterDataDTO;
       req.session.user = userWithoutPassword as SessionUserInterface;
       return res.json({ message: 'Login successful' });
     } else {

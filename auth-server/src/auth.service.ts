@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database.service';
-import { CreateUserInterface } from '@shared/DTO/SharedDTO';
+import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 
 /**
  * * Class : AuthService
@@ -18,7 +18,7 @@ export class AuthService {
 
   async findUserEmailInDatabase(
     email: string,
-  ): Promise<CreateUserInterface | null> {
+  ): Promise<RegisterDataDTO | null> {
     const result = await this.databaseService.query(
       'SELECT * FROM users WHERE email = $1',
       [email],

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInterface } from '@shared/DTO/SharedDTO';
+import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 
 import { AuthService } from '../auth.service';
 
@@ -9,7 +9,7 @@ export class LoginService {
   async validateUser(
     email: string,
     password: string,
-  ): Promise<CreateUserInterface | null> {
+  ): Promise<RegisterDataDTO | null> {
     const user = await this.authService.findUserEmailInDatabase(email);
 
     if (user && password === user.password) {

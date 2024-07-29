@@ -5,17 +5,17 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { DatabaseService } from 'src/database.service';
-import { CreateUserInterface } from '@shared/DTO/SharedDTO';
+import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 import { AuthService } from '../auth.service';
 @Injectable()
 export class RegisterService {
   constructor(
     private readonly databaseService: DatabaseService,
-    private readonly authServer: AuthService,
+    private readonly authService: AuthService,
   ) {}
 
-  async registerUser(data: CreateUserInterface) {
-    const duplicateResult = await this.authServer.findUserEmailInDatabase(
+  async register(data: RegisterDataDTO) {
+    const duplicateResult = await this.authService.findUserEmailInDatabase(
       data.email,
     );
     //null이 아니라면, 즉 값이 포함되었다면 아래 if문을 들어가 에러를 리턴.
@@ -65,5 +65,3 @@ export class RegisterService {
     }
   }
 }
-
-// 권한처리
