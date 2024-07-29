@@ -1,4 +1,4 @@
-import useLoginHooks from "client/viewModel/loginHooks";
+import useLoginHooks from "client/hooks/loginHooks";
 
 import { container, input, button } from "../../styles/login.css";
 const LoginForm = () => {
