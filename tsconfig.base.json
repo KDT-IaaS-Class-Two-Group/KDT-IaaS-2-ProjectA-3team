@@ -6,7 +6,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@shared/*" : ["shared/src/*"]
+      "@shared/*": [
+        "shared/src/*"
+      ]
     }
   }
 }
