@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import fetchRegisterData from "client/model/auth/fetchRegisterData";
 
-import { CreateUserInterface } from "../../shared/DTO/SharedDTO";
+import { RegisterDataDTO } from "../../shared/DTO/SharedDTO";
 import * as validate from "../model/auth/validateRegisterData";
 
 const useRegisterHooks = () => {
@@ -18,7 +18,7 @@ const useRegisterHooks = () => {
   const [joinDate, setJoinDate] = useState<Date>(new Date());
 
   const handleRegister = () => {
-    const data: CreateUserInterface = {
+    const data: RegisterDataDTO = {
       email,
       id: 1,
       password,
