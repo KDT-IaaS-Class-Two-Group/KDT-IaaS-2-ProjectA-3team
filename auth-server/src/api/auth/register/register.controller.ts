@@ -20,10 +20,7 @@ export class RegsiterController {
       if (error instanceof HttpException) {
         throw error;
       }
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException('Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

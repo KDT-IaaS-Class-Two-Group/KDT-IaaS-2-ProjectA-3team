@@ -1,5 +1,5 @@
 // RegisterForm.tsx
-import useRegisterHooks from "client/viewModel/registerHooks";
+import useRegisterHooks from "client/hooks/registerHooks";
 
 import {
   registerForm,

@@ -9,7 +9,7 @@ export interface RegisterDataDTO {
   position?: number;
   join_date: Date;
 }
-export interface SessionUserInterface {
+export interface SessionDTO {
   email: string;
   id: number;
   name: string;
