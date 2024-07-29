@@ -12,6 +12,9 @@ const MainPage: React.FC = () => {
       <Link href="/register" passHref>
         <button className={styles.buttonLink}>회원가입</button>
       </Link>
+      <Link href="/user" passHref>
+        <button className={styles.buttonLink}>사용자 페이지</button>
+      </Link>
       <div className={styles.content}>
         <h2>asdfadsfsda asdfadsfsda asdfadsfsda</h2>
         <p>
