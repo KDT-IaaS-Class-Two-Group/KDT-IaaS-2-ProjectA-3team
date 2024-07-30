@@ -25,8 +25,8 @@ const LoginForm = () => {
       <button
         className={button}
         type="button"
-        onClick={() => {
-          handleLogin();
+        onClick={async () => {
+          await handleLogin();
         }}
       >
         Login

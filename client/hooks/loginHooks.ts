@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import fetchLogin from "client/model/auth/fetchLoginData";
 
@@ -8,9 +9,22 @@ const useLoginHooks = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const router = useRouter();
+
   const handleLogin = async () => {
     if (validate.validateEmail(email) && validate.ValidatePassword(password)) {
-      setIsLoggedIn(await fetchLogin({ email, password }));
+      const result = await fetchLogin({ email, password });
+
+      setIsLoggedIn((value) => {
+        value = result;
+        return value;
+      });
+
+      if (result) {
+        router.push("/project/main");
+      } else {
+        console.log("실패");
+      }
     } else {
       setIsLoggedIn(false);
     }

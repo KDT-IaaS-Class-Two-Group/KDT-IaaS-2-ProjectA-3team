@@ -9,7 +9,7 @@ const fetchLogin = async (test: LoginDTO) => {
     body: JSON.stringify(test),
     credentials: "include",
   });
-  if (response.ok) {
+  if (response.status === 200) {
     return true;
   } else {
     return false;
