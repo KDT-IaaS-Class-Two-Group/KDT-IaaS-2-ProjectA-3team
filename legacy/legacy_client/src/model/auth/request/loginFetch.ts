@@ -1,13 +1,13 @@
 const loginFetch = async <T>(data: T): Promise<boolean> => {
-  console.log('fetch on')
+  console.log("fetch on");
   const response = await fetch("http://localhost:3001/login", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
     credentials: "include",
-  })
+  });
 
   if (!response.ok) {
     throw new Error("Network Error");
@@ -18,6 +18,6 @@ const loginFetch = async <T>(data: T): Promise<boolean> => {
   } else {
     return false;
   }
-}
+};
 
 export default loginFetch;

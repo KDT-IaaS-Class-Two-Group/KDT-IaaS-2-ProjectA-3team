@@ -21,6 +21,6 @@ export interface SessionDTO {
 }
 
 export interface LoginDTO {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }

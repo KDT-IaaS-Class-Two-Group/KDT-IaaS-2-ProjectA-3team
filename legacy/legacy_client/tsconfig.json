@@ -7,7 +7,7 @@
     "rootDir": "./src",
     "paths": {
       "@validate/*": ["model/auth/validate/*"],
-      "@request/*" : ["model/auth/request/*"]
+      "@request/*": ["model/auth/request/*"]
     }
   },
   "include": ["src"],

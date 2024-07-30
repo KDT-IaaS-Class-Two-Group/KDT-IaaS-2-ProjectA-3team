@@ -4,9 +4,7 @@ import loginFetch from "@request/loginFetch";
 import { loginDTO } from "model/auth/interface/authDTO";
 import ValidatePassword from "@validate/validatePassword";
 
-
 const useLoginHooks = () => {
-
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -22,7 +20,7 @@ const useLoginHooks = () => {
     }
     const success = await loginFetch<loginDTO>({
       email: id,
-      password: password
+      password: password,
     });
     if (success) {
       setIsLoggedIn(true);
