@@ -15,13 +15,28 @@ const mainHeader: React.FC = () => {
           <div>+</div>
         </div>
         <div className={styles.mainFavoritPeople}>
-          <div>첫번째 사람</div>
+          <div className={styles.mainFriend}>
+            <div>프로필 사진</div>
+            <div>이름</div>
+            <div className={styles.mainFriendDetail}>
+              <div>전화번호</div>
+              <div>친구끊기</div>
+              <div>메세지</div>
+            </div>
+          </div>
           <div>두번째 사람</div>
           <div>세번째 사람</div>
         </div>
       </div>
       <div className={styles.mainProjectContent}>
-        <div className={styles.mainProjectKanban}>칸반보드</div>
+        <div className={styles.mainProjectKanban}>
+          <div>project Kanban board</div>
+          <div className={styles.mainProjectDetail}>
+            <div>To-do</div>
+            <div>Doing</div>
+            <div>Done</div>
+          </div>
+        </div>
         <div className={styles.mainProjectStatus}>프로젝트 상태</div>
         <div className={styles.mainProjectCalender}>캘린더</div>
         <div className={styles.mainProjectToDo}>Todo-list</div>
