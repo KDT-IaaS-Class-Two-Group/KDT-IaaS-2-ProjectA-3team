@@ -1,19 +1,22 @@
 import { style } from "@vanilla-extract/css";
 
+// user.tsx css부분
 export const mainPage = style({
   display:'flex',
-  width:"20vw",
+  width:"100vw",
   height:"100vh"
 })
 export const mainLeft =style({
-  width:"20vw",
+  width:"15%",
   height:"100vh"
 })
 
-export const mainHeader = style ({
-  width:"80vw",
+export const mainContent = style ({
+  width:"80%",
+  height:"100vh"
 })
 
+// userLeftContent.tsx css부분
 export const leftAllContentFooter = style({
   display:'flex',
   flexDirection:'column',
@@ -123,7 +126,3 @@ export const leftFooterUserTitle = style({
 export const UserStar = style({
   alignContent:'center'
 })
-
-export const header = style({
-  marginBottom: "20px",
-});
