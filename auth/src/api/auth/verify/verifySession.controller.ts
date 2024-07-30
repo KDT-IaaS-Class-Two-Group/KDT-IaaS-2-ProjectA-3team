@@ -11,7 +11,7 @@ export class VerifySessionController {
       console.log(req.session.user);
       return res.json({ message: 'Login successful' });
     } else {
-      return res.status(HttpStatus.UNAUTHORIZED);
+      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'X' });
     }
   }
 }
