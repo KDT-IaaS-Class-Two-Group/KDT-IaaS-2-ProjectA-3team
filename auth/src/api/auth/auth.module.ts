@@ -1,16 +1,21 @@
 import { Module } from '@nestjs/common';
-import { RegsiterController } from './register/register.controller';
-import { RegisterService } from './register/register.service';
-import { DatabaseService } from 'src/database/database.service';
-import { LoginService } from './login/login.service';
-
 import { LoginController } from './login/login.controller';
-import UserRepository from 'src/database/users.repository';
+import { LoginService } from './login/login.service';
+import { RegisterController } from './register/register.controller';
+import { RegisterService } from './register/register.service';
 import { LogoutController } from './login/logout.controller';
+import UserRepository from 'src/database/users.repository';
+
+import { DatabaseService } from 'src/database/database.service';
+import { VerifySessionController } from './verify/verifySession.controller';
 
 @Module({
-  imports: [],
-  controllers: [RegsiterController, LoginController, LogoutController],
-  providers: [RegisterService, DatabaseService, LoginService, UserRepository],
+  controllers: [
+    LoginController,
+    RegisterController,
+    LogoutController,
+    VerifySessionController,
+  ],
+  providers: [LoginService, RegisterService, UserRepository, DatabaseService],
 })
 export class AuthModule {}
