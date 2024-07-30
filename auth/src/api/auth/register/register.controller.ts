@@ -8,7 +8,7 @@ import {
 import { RegisterService } from './register.service';
 import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 @Controller('register')
-export class RegsiterController {
+export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
   @Post()
