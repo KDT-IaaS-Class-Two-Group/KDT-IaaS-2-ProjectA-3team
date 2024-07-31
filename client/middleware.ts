@@ -1,7 +1,14 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+/**
+ * * Function : middleware
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue : 
+ * @function middleware
+ * @description Next.js 라우팅 제어 미들웨어 (권한이 필요한 페이지에 접근을 막는 역할)
 
+ */
 export const middleware = async (req: NextRequest) => {
   const { pathname } = req.nextUrl;
 
