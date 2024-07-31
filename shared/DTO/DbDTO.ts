@@ -6,19 +6,15 @@
  * @class NoticeDTO
 
 
- * @param userId:string, title: string, content: string, date: Date
+ * @param title: string, content: string
  * @description 
  */
 export class NoticeDTO {
-  userId: string;
   title: string;
   content: string;
-  date: Date;
   
-  constructor(userId:string ,title: string, content: string, date: Date) {
-    this.userId = userId;
+  constructor(title: string, content: string) {
     this.title = title;
     this.content = content;
-    this.date = date;
   }
 }
