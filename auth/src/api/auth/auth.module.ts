@@ -8,8 +8,8 @@ import UserRepository from 'src/database/users.repository';
 
 import { DatabaseService } from 'src/database/database.service';
 import { VerifySessionController } from './verify/verifySession.controller';
+import { NoticeService } from './notice/notice.service';
 import { NoticeController } from './notice/notice.controller';
-
 @Module({
   controllers: [
     LoginController,
@@ -23,6 +23,7 @@ import { NoticeController } from './notice/notice.controller';
     RegisterService,
     UserRepository,
     DatabaseService,
+    NoticeService
   ],
 })
 export class AuthModule {}
