@@ -12,18 +12,18 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validateName = (name: string): boolean => {
-  const nameRegex = /^[가-힣A-Za-z\s]+$/;
-  return nameRegex.test(name) && name.length > 0;
+  const idRegex = /^[a-z0-9]{5,12}$/;
+
+  return idRegex.test(name) && name.length > 0;
 };
 
 export const validateAddress = (address: string): boolean => {
   return address.length > 0;
 };
 
-export const validateDate = (date: Date): boolean => {
-  const formattedDate = date.toISOString().split("T")[0];
+export const validateDate = (dateString: string): boolean => {
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  return dateRegex.test(formattedDate);
+  return dateRegex.test(dateString);
 };
 
 export const ValidatePassword = (pw: string): boolean => {

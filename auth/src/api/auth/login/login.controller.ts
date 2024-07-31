@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { RegisterDataDTO, LoginDTO, SessionDTO } from '@shared/DTO/SharedDTO';
+import { PendingUserDTO, SessionDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
 /**
  * * Class : LoginController
@@ -26,16 +26,16 @@ export class LoginController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async login(
-    @Body() data: LoginDTO,
+    @Body() data: PendingUserDTO,
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const { email, password } = data;
-    const userData = await this.loginService.validateUser(email, password);
+    const { username, password } = data;
+    const userData = await this.loginService.validateUser(username, password);
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userWithoutPassword } = userData as RegisterDataDTO;
+      const { password, ...userWithoutPassword } = userData as PendingUserDTO;
       req.session.user = userWithoutPassword as SessionDTO;
       console.log(req.session.user);
       return res.json({ message: 'Login successful' });

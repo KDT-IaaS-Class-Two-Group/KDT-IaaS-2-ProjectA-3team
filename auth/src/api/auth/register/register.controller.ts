@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { RegisterService } from './register.service';
-import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
+import { PendingUserDTO } from '@shared/DTO/SharedDTO';
 /**
  * * Class : RegisterController
  * 작성자 : @naviadev / 2024-07-31
@@ -21,7 +21,7 @@ export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
   @Post()
-  async register(@Body() data: RegisterDataDTO) {
+  async register(@Body() data: PendingUserDTO) {
     try {
       await this.registerService.register(data);
       return { message: '성공' };

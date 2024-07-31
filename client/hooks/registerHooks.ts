@@ -2,79 +2,101 @@ import { useState } from "react";
 
 import fetchRegisterData from "client/model/auth/fetchRegisterData";
 
-import { RegisterDataDTO } from "../../shared/DTO/SharedDTO";
+import { PendingUserDTO } from "../../shared/DTO/SharedDTO";
 import * as validate from "../model/validator/validateRegisterData";
 
 /**
  * * Function : useRegisterHooks
  * 작성자 : @naviadev / 2024-07-31
  * 편집자 : @naviadev / 2024-07-31
- * Issue :
+ * Issue : 
  * @function useRegisterHooks
- * @description : 회원가입 Form의 상태를 관찰하고 적절한 모델을 사용할 수 있도록 클로저 패턴을 사용.
+  * @description : 회원가입 Form의 상태를 관찰하고 적절한 모델을 사용할 수 있도록 클로저 패턴을 사용.
+
  */
 const useRegisterHooks = () => {
   const [email, setEmail] = useState<string>("");
-  const [id, setId] = useState<number>(1);
-  const [name, setName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   const [address, setAddress] = useState<string>("");
-  const [birth, setBirth] = useState<Date>(new Date());
-  const [position, setPosition] = useState<number>(1);
-  const [joinDate, setJoinDate] = useState<Date>(new Date());
+  const [birthDate, setBirthDate] = useState<string>("");
 
-  const handleRegister = () => {
-    const data: RegisterDataDTO = {
-      email,
-      id: 1,
-      password,
-      name,
-      phone_number: phoneNumber,
+  const validateAndRegister = () => {
+    const data: PendingUserDTO = {
+      user_id: "",
+      username,
+      birth_date: birthDate,
       address,
-      birth,
-      position: 1,
-      join_date: joinDate,
+      phone,
+      email,
+      password,
     };
 
-    if (
-      validate.validateEmail(email) &&
-      validate.validateName(name) &&
-      validate.ValidatePassword(password) &&
-      validate.validateAddress(address) &&
-      validate.validateDate(birth) &&
-      password == passwordCheck
-    ) {
-      fetchRegisterData(data);
-    } else {
-      return false;
+    let isValid = true;
+
+    // Email validation
+    if (!validate.validateEmail(email)) {
+      console.log("이메일 형식이 잘못되었습니다.");
+      isValid = false;
     }
-    console.log("성공");
+
+    // Username validation
+    if (!validate.validateName(username)) {
+      console.log("사용자 이름이 잘못되었습니다.");
+      isValid = false;
+    }
+
+    // Password validation
+    if (!validate.ValidatePassword(password)) {
+      console.log("비밀번호가 요구 사항을 충족하지 않습니다.");
+      isValid = false;
+    }
+
+    // Address validation
+    if (!validate.validateAddress(address)) {
+      console.log("주소 형식이 잘못되었습니다.");
+      isValid = false;
+    }
+
+    // Date validation
+    if (!validate.validateDate(birthDate)) {
+      console.log("생년월일 형식이 잘못되었습니다.");
+      isValid = false;
+    }
+
+    // Password check
+    if (password !== passwordCheck) {
+      console.log("비밀번호 확인이 일치하지 않습니다.");
+      isValid = false;
+    }
+
+    // If all validations pass, proceed with data registration
+    if (isValid) {
+      fetchRegisterData(data);
+      console.log("성공");
+    } else {
+      console.log("회원가입에 실패했습니다.");
+    }
   };
 
   return {
     email,
     setEmail,
-    id,
-    setId,
-    name,
-    setName,
+    username,
+    setUsername,
     password,
     setPassword,
     passwordCheck,
     setPasswordCheck,
-    phoneNumber,
-    setPhoneNumber,
+    phone,
+    setPhone,
     address,
     setAddress,
-    birth,
-    setBirth,
-    position,
-    setPosition,
-    joinDate,
-    setJoinDate,
-    handleRegister,
+    birthDate,
+    setBirthDate,
+    handleRegister: validateAndRegister, // validateAndRegister 함수 호출로 변경
   };
 };
 
