@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PendingUserDTO } from '@shared/DTO/SharedDTO';
+import { UserDTO } from '@shared/DTO/SharedDTO';
 
-import UserRepository from 'src/database/users.repository';
+import UserRepository from '../../../database/pending_users.repository';
 /**
  * * Class : LoginService
  * 작성자 : @naviadev / 2024-07-31
@@ -17,10 +17,10 @@ import UserRepository from 'src/database/users.repository';
 export class LoginService {
   constructor(private userRepository: UserRepository) {}
   async validateUser(
-    userName: string,
+    user_id: string,
     password: string,
-  ): Promise<PendingUserDTO | null> {
-    const user = await this.userRepository.findOneByUser(userName);
+  ): Promise<UserDTO | null> {
+    const user = await this.userRepository.findOneByUser(user_id);
     if (user && password === user.password) {
       return user;
     }

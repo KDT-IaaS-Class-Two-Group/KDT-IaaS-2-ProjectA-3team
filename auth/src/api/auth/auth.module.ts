@@ -8,6 +8,7 @@ import UserRepository from 'src/database/users.repository';
 
 import { DatabaseService } from 'src/database/database.service';
 import { VerifySessionController } from './verify/verifySession.controller';
+import PendingUserRepository from 'src/database/pending_users.repository';
 
 @Module({
   controllers: [
@@ -16,6 +17,12 @@ import { VerifySessionController } from './verify/verifySession.controller';
     LogoutController,
     VerifySessionController,
   ],
-  providers: [LoginService, RegisterService, UserRepository, DatabaseService],
+  providers: [
+    LoginService,
+    RegisterService,
+    UserRepository,
+    DatabaseService,
+    PendingUserRepository,
+  ],
 })
 export class AuthModule {}

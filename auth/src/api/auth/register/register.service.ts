@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import UserRepository from 'src/database/users.repository';
+import PendingUserRepository from 'src/database/pending_users.repository';
 import { PendingUserDTO } from '@shared/DTO/SharedDTO';
 /**
  * * Class : RegisterService
@@ -18,18 +18,18 @@ import { PendingUserDTO } from '@shared/DTO/SharedDTO';
  */
 @Injectable()
 export class RegisterService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly pendingUserRepository: PendingUserRepository) {}
 
-  private async ValidateDuplicate(username: string): Promise<boolean> {
-    const duplicateResult = await this.userRepository.findOneByUser(username);
+  private async ValidateDuplicate(user_id: string): Promise<boolean> {
+    const duplicateResult =
+      await this.pendingUserRepository.findOneByUser(user_id);
     if (duplicateResult) {
       return false;
     }
     return true;
   }
   async register(userData: PendingUserDTO) {
-    const isCheck = await this.ValidateDuplicate(userData.username);
-
+    const isCheck = await this.ValidateDuplicate(userData.user_id);
     // 만약 해당 Email의 레코드값이 존재한다면 에러를 던질 수 있도록
     if (!isCheck) {
       throw new HttpException('중복된 사용자', HttpStatus.BAD_REQUEST);
@@ -37,7 +37,7 @@ export class RegisterService {
 
     // 회원가입 처리 시작.
     try {
-      await this.userRepository.InsertNewUser(userData);
+      await this.pendingUserRepository.InsertNewUser(userData);
     } catch (error) {
       throw new InternalServerErrorException('가입 실패');
     }
