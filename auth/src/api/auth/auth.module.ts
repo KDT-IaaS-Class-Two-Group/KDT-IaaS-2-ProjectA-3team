@@ -8,6 +8,7 @@ import UserRepository from 'src/database/users.repository';
 
 import { DatabaseService } from 'src/database/database.service';
 import { VerifySessionController } from './verify/verifySession.controller';
+import { NoticeController } from './notice/notice.controller';
 
 @Module({
   controllers: [
@@ -15,6 +16,7 @@ import { VerifySessionController } from './verify/verifySession.controller';
     RegisterController,
     LogoutController,
     VerifySessionController,
+    NoticeController
   ],
   providers: [LoginService, RegisterService, UserRepository, DatabaseService],
 })
