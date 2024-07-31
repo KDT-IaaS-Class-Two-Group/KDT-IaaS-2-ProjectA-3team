@@ -11,16 +11,16 @@ import { container, input, button } from "../../styles/login.css";
  * @description : 로그인 Form
  */
 const LoginForm = () => {
-  const { setEmail, setPassword, handleLogin } = useLoginHooks();
+  const { setId, setPassword, handleLogin } = useLoginHooks();
   return (
     <div className={container}>
       <h1>Login</h1>
       <input
-        type="email"
+        type="text"
         className={input}
-        placeholder="email"
+        placeholder="id"
         onChange={(e) => {
-          setEmail(e.target.value);
+          setId(e.target.value);
         }}
       />
       <input

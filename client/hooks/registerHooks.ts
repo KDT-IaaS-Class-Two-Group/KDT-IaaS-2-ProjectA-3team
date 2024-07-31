@@ -15,17 +15,18 @@ import * as validate from "../model/validator/validateRegisterData";
 
  */
 const useRegisterHooks = () => {
-  const [email, setEmail] = useState<string>("");
+  const [user_id, setId] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [birthDate, setBirthDate] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const validateAndRegister = () => {
     const data: PendingUserDTO = {
-      user_id: "",
+      user_id,
       username,
       birth_date: birthDate,
       address,
@@ -42,7 +43,12 @@ const useRegisterHooks = () => {
       isValid = false;
     }
 
-    // Username validation
+    // id validation
+    if (!validate.validateId(user_id)) {
+      console.log("사용자 ID가 잘못되었습니다.");
+      isValid = false;
+    }
+
     if (!validate.validateName(username)) {
       console.log("사용자 이름이 잘못되었습니다.");
       isValid = false;
@@ -82,6 +88,8 @@ const useRegisterHooks = () => {
   };
 
   return {
+    user_id,
+    setId,
     email,
     setEmail,
     username,
@@ -96,7 +104,7 @@ const useRegisterHooks = () => {
     setAddress,
     birthDate,
     setBirthDate,
-    handleRegister: validateAndRegister, // validateAndRegister 함수 호출로 변경
+    handleRegister: validateAndRegister,
   };
 };
 

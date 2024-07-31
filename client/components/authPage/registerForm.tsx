@@ -18,6 +18,7 @@ import {
 const RegisterForm = () => {
   const {
     setEmail,
+    setId,
     setUsername,
     setPassword,
     setPasswordCheck,
@@ -52,6 +53,20 @@ const RegisterForm = () => {
           type="text"
           placeholder="Enter your username"
           onChange={(e) => setUsername(e.target.value)}
+          required
+          className={input}
+        />
+      </div>
+
+      <div className={formGroup}>
+        <label htmlFor="id" className={label}>
+          id
+        </label>
+        <input
+          id="user_id"
+          type="text"
+          placeholder="Enter your id"
+          onChange={(e) => setId(e.target.value)}
           required
           className={input}
         />

@@ -12,9 +12,13 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validateName = (name: string): boolean => {
+  const nameRegex = /^[가-힣A-Za-z\s]+$/;
+  return nameRegex.test(name) && name.length > 0;
+};
+export const validateId = (id: string): boolean => {
   const idRegex = /^[a-z0-9]{5,12}$/;
 
-  return idRegex.test(name) && name.length > 0;
+  return idRegex.test(id) && id.length > 0;
 };
 
 export const validateAddress = (address: string): boolean => {

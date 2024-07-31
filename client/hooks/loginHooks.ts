@@ -14,14 +14,14 @@ import * as validate from "../model/validator/validateRegisterData";
  * @description : useLoginHooks에서 Form의 상태를 관찰할 수 있도록 state를 통해 메서드, 클로저 패턴을 활용하고, model 호출 등을 통해 로직을 수행할 수 있도록 한다.
  */
 const useLoginHooks = () => {
-  const [email, setEmail] = useState("");
+  const [user_id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
   const handleLogin = async () => {
-    if (validate.validateEmail(email) && validate.ValidatePassword(password)) {
-      const result = await fetchLogin({ email, password });
+    if (validate.validateId(user_id) && validate.ValidatePassword(password)) {
+      const result = await fetchLogin({ user_id, password });
 
       setIsLoggedIn((value) => {
         value = result;
@@ -38,8 +38,8 @@ const useLoginHooks = () => {
     }
   };
   return {
-    email,
-    setEmail,
+    user_id,
+    setId,
     password,
     setPassword,
     isLoggedIn,
