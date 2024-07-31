@@ -2,6 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
 import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 @Injectable()
+/**
+ * * Class : UserRepository
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue :
+ * @class UserRepository
+ * @param private readonly dbService: DatabaseService
+ * @description : users 테이블을 제어하는 repository
+ */
 class UserRepository {
   constructor(private readonly dbService: DatabaseService) {}
 

@@ -5,6 +5,15 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 @Injectable()
+/**
+ * * Class : DatabaseService
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue :
+ * @class DatabaseService
+ * @implements OnModuleDestroy
+ * @description : 데이터베이스 관리 모듈. 인스턴스부터 쿼리문 실행까지 수행할 수 있다.
+ */
 export class DatabaseService implements OnModuleDestroy {
   private client: Pool;
 

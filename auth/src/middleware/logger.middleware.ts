@@ -1,14 +1,20 @@
-// src/middleware/logging.middleware.ts
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
 @Injectable()
+/**
+ * * Class : LoggingMiddleware
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue :
+ * @class LoggingMiddleware
+ * @implements NestMiddleware
+ * @description : req, res 로깅용 미들웨어
+ */
 export class LoggingMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
-    // 요청 정보 로그
     console.log(`Incoming request: ${req.method} ${req.originalUrl}`);
 
-    // 응답 정보 로그 (응답이 완료된 후 로그)
     res.on('finish', () => {
       console.log(`Response status: ${res.statusCode}`);
     });

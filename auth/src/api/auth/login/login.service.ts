@@ -4,6 +4,17 @@ import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 import UserRepository from 'src/database/users.repository';
 
 @Injectable()
+/**
+ * * Class : LoginService
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue : 
+ * @class LoginService
+
+
+ * @param private userRepository: UserRepository
+ * @description : UserRepository 를 통해 Database에 접근, 유효성 검사 실행. 
+ */
 export class LoginService {
   constructor(private userRepository: UserRepository) {}
   async validateUser(
