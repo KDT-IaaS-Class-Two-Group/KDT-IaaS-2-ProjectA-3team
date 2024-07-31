@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 
 import UserRepository from 'src/database/users.repository';
-import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
+import { PendingUserDTO } from '@shared/DTO/SharedDTO';
 /**
  * * Class : RegisterService
  * 작성자 : @naviadev / 2024-07-29
- * 편집자 : @naviadev / 2024-07-29
+ * 편집자 : @naviadev / 2024-07-31
  * Issue :
  * @class RegisterService
  * @param private readonly userRepository: UserRepository
@@ -20,15 +20,15 @@ import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
 export class RegisterService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  private async ValidateDuplicate(email: string): Promise<boolean> {
-    const duplicateResult = await this.userRepository.findOneByEmail(email);
+  private async ValidateDuplicate(username: string): Promise<boolean> {
+    const duplicateResult = await this.userRepository.findOneByUser(username);
     if (duplicateResult) {
       return false;
     }
     return true;
   }
-  async register(userData: RegisterDataDTO) {
-    const isCheck = await this.ValidateDuplicate(userData.email);
+  async register(userData: PendingUserDTO) {
+    const isCheck = await this.ValidateDuplicate(userData.username);
 
     // 만약 해당 Email의 레코드값이 존재한다면 에러를 던질 수 있도록
     if (!isCheck) {

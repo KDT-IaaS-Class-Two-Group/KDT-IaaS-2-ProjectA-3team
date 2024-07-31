@@ -1,74 +1,57 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
-import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
+import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
+
 @Injectable()
-/**
- * * Class : UserRepository
- * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-07-31
- * Issue :
- * @class UserRepository
- * @param private readonly dbService: DatabaseService
- * @description : users 테이블을 제어하는 repository
- */
-class UserRepository {
+class UsersRepository {
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
-    const result = await this.dbService.query('SELECT * FROM users');
+    const result = await this.dbService.query('SELECT * FROM pending_users'); // 'users' -> 'pending_users'
     return result.rows;
   }
 
-  async findOneByEmail(email: string) {
+  async findOneByUser(username: string) {
     const result = await this.dbService.query(
-      'SELECT * FROM users WHERE email = $1',
-      [email],
+      'SELECT * FROM pending_users WHERE username = $1', // 'users' -> 'pending_users'
+      [username],
     );
     return result.rows[0];
   }
-  async InsertNewUser(userData: RegisterDataDTO) {
-    const {
-      email,
-      id,
-      password,
-      name,
-      phone_number,
-      address,
-      birth,
-      position,
-      join_date,
-    } = userData;
+
+  async InsertNewUser(userData: PendingUserDTO) {
+    const { email, user_id, password, username, phone, address, birth_date } =
+      userData;
+
     const params = [
-      email,
-      id,
-      password,
-      name,
-      phone_number,
+      user_id,
+      username,
+      birth_date,
       address,
-      birth,
-      position,
-      join_date,
+      phone,
+      email,
+      password,
     ];
+
     const text = `
-    INSERT INTO users (
-        email, 
-        id, 
-        password, 
-        name, 
-        phone_number, 
-        address, 
-        birth, 
-        position, 
-        join_date
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-  `;
+      INSERT INTO pending_users (
+          user_id,
+          username,
+          birth_date,
+          address,
+          phone,
+          email,
+          password
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    `;
+
     try {
       await this.dbService.query(text, params);
     } catch (error) {
-      console.error('Error executing query:', error);
+      console.error('executing Query Error - 쿼리문 실행 불가 . :', error);
       throw new Error('Database error');
     }
   }
 }
 
-export default UserRepository;
+export default UsersRepository;
