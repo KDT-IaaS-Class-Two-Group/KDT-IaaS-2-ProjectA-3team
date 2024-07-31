@@ -1,3 +1,4 @@
+// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -17,7 +18,6 @@ export const middleware = async (req: NextRequest) => {
 
     if (res.status === 401) {
       const url = new URL("/login", req.url);
-
       return NextResponse.redirect(url);
     }
   }

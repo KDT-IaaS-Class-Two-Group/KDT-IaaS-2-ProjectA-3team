@@ -1,7 +1,6 @@
 import { Controller, Get, Req, Res, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-@Controller('verify-session')
 /**
  * * Class : VerifySessionController
  * 작성자 : @naviadev / 2024-07-31
@@ -10,6 +9,7 @@ import { Request, Response } from 'express';
  * @class VerifySessionController
  * @description : 세션 검증 엔드포인트
  */
+@Controller('verify-session')
 export class VerifySessionController {
   constructor() {}
 

@@ -7,8 +7,6 @@ import {
 
 import UserRepository from 'src/database/users.repository';
 import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
-
-@Injectable()
 /**
  * * Class : RegisterService
  * 작성자 : @naviadev / 2024-07-29
@@ -18,6 +16,7 @@ import { RegisterDataDTO } from '@shared/DTO/SharedDTO';
  * @param private readonly userRepository: UserRepository
  * @description : UserRepository를 주입받고 사용하는 형태. 중복된 회원 검증과 가입 로직을 수행한다.
  */
+@Injectable()
 export class RegisterService {
   constructor(private readonly userRepository: UserRepository) {}
 

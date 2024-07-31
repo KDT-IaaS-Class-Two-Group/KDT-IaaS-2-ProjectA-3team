@@ -13,6 +13,7 @@ const fetchLogin = async (test: LoginDTO) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify(test),
   });
   if (response.status === 200) {
