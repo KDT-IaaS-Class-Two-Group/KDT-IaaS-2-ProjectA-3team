@@ -1,4 +1,3 @@
-// RegisterForm.tsx
 import useRegisterHooks from "client/hooks/registerHooks";
 
 import {
@@ -11,22 +10,20 @@ import {
 
 /**
  * * Function : RegisterForm
+ *  * @function RegisterForm
  * 작성자 : @naviadev / 2024-07-31
  * 편집자 : @naviadev / 2024-07-31
- * Issue :
- * @function RegisterForm
  * @description : 회원가입 Form
  */
 const RegisterForm = () => {
   const {
     setEmail,
-    setName,
+    setUsername,
     setPassword,
     setPasswordCheck,
-    setPhoneNumber,
+    setPhone,
     setAddress,
-    setBirth,
-    setJoinDate,
+    setBirthDate,
     handleRegister,
   } = useRegisterHooks();
 
@@ -47,14 +44,14 @@ const RegisterForm = () => {
       </div>
 
       <div className={formGroup}>
-        <label htmlFor="name" className={label}>
-          Name
+        <label htmlFor="username" className={label}>
+          Username
         </label>
         <input
-          id="name"
+          id="username"
           type="text"
-          placeholder="Enter your name"
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter your username"
+          onChange={(e) => setUsername(e.target.value)}
           required
           className={input}
         />
@@ -89,14 +86,14 @@ const RegisterForm = () => {
       </div>
 
       <div className={formGroup}>
-        <label htmlFor="phoneNumber" className={label}>
+        <label htmlFor="phone" className={label}>
           Phone Number
         </label>
         <input
-          id="phoneNumber"
+          id="phone"
           type="tel"
           placeholder="123-456-7890"
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          onChange={(e) => setPhone(e.target.value)}
           required
           className={input}
         />
@@ -117,39 +114,20 @@ const RegisterForm = () => {
       </div>
 
       <div className={formGroup}>
-        <label htmlFor="birth" className={label}>
+        <label htmlFor="birthDate" className={label}>
           Date of Birth
         </label>
         <input
-          id="birth"
+          id="birthDate"
           type="date"
-          onChange={(e) => {
-            const dateObject = new Date(e.target.value);
-            setBirth(dateObject);
-          }}
-          required
-          className={input}
-        />
-      </div>
-
-      <div className={formGroup}>
-        <label htmlFor="joinDate" className={label}>
-          Join Date
-        </label>
-        <input
-          id="joinDate"
-          type="date"
-          onChange={(e) => {
-            const dateObject = new Date(e.target.value);
-            setJoinDate(dateObject);
-          }}
+          onChange={(e) => setBirthDate(e.target.value)}
           required
           className={input}
         />
       </div>
 
       <button type="button" onClick={() => handleRegister()} className={button}>
-        Send
+        Register
       </button>
     </div>
   );
