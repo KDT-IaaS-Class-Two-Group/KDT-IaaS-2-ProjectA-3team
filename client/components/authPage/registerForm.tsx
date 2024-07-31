@@ -9,6 +9,14 @@ import {
   button,
 } from "../../styles/register.css";
 
+/**
+ * * Function : RegisterForm
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue :
+ * @function RegisterForm
+ * @description : 회원가입 Form
+ */
 const RegisterForm = () => {
   const {
     setEmail,

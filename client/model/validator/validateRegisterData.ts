@@ -1,3 +1,11 @@
+/**
+ * * Function : validate*
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-07-31
+ * Issue :
+ * @description : Client에서 수행되는 유효성 검사 모듈
+ */
+
 export const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
