@@ -1,6 +1,4 @@
-import {MongoClient} from "mongodb";
-
-
+import { MongoClient } from "mongodb";
 
 /**
  * * Function : create
@@ -11,16 +9,16 @@ import {MongoClient} from "mongodb";
  * @description 
 
  */
-async function create(){
+async function create() {
   const uri = "mongodb://localhost:27017";
   const client = new MongoClient(uri);
 
-  try{
+  try {
     await client.connect();
-    const database = client.db('notice');
-    await database.createCollection('noticeTable')
+    const database = client.db("notice");
+    await database.createCollection("noticeTable");
     console.log("noticeTable 생성 완료");
-  }finally{
+  } finally {
     await client.close();
   }
 }
