@@ -33,6 +33,19 @@ export class LoginController {
     const { user_id, password } = data;
 
     const userData = await this.loginService.validateUser(user_id, password);
+    if (userData.user_id.startsWith('Admin')) {
+      // -> role.name -> 보고 만약에 "관리자" 라는 이름으로 되어있으면 그때 Admin TABLE 다시 검증하고
+      /**
+       * qwe123, qwe123@ -> 확인 검증이되면 한번 그럼 아예 따로 둬도 된다. -> user -> 로그인 되면 
+       * 
+       * {
+          name : "aasdf"
+          level : 5 -> 5에 맞는 response -> Client -> Component
+          Https Redis 고려 나중에 aws -> Request , Javascript로 쿠키 접근이 불가능하도록 수정. 암호화된 Session 식별자.
+          ->
+        }
+       */
+    }
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

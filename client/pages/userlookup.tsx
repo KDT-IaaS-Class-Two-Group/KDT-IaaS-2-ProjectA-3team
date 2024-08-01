@@ -1,12 +1,12 @@
-import getUser from "client/model/services/getUsers";
+import userlookup from "client/model/services/userlookup";
 
 const TestPage: React.FC = () => {
   return (
     <div>
-      <h1>사용자 조회하기</h1>
+      <h1>사용자를 조회해보자</h1>
       <button
         onClick={() => {
-          getUser();
+          userlookup();
         }}
       >
         조회하기
