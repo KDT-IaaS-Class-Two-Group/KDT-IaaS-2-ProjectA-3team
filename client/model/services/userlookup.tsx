@@ -37,6 +37,31 @@ const UserLookup = () => {
         {users.map((user, index) => (
           <li key={index}>
             <strong>이름:</strong> {user.username}
+            <div>
+              <label htmlFor="salary">월급:</label>
+              <input
+                id="salary"
+                type="number"
+                name="salary"
+                placeholder="월급을 입력하세요"
+              />
+            </div>
+            <div>
+              <label htmlFor="role">권한:</label>
+              <select id="role" name="role">
+                <option value="admin">1</option>
+                <option value="user">2</option>
+                <option value="guest">3</option>
+                <option value="editor">4</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="field">분야:</label>
+              <select id="field" name="field">
+                <option value="front">frontdend egineer</option>
+                <option value="back">backend egineer</option>
+              </select>
+            </div>
           </li>
         ))}
       </ul>
