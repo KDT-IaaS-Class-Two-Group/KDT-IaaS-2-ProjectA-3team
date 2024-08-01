@@ -1,14 +1,19 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get } from '@nestjs/common';
 
 import { NoticeService } from './notice.service';
 
 import { NoticeDTO } from '@shared/DTO/DbDTO';
 
-@Controller('send')
+@Controller()
 export class NoticeController {
   constructor(private readonly noticeService: NoticeService) {}
 
-  @Post()
+  @Get('notices')
+  async getAllNotices() {
+    return await this.noticeService.getNotices();
+  }
+
+  @Post('send')
   async noticeCreate(@Body() noticeDTO: NoticeDTO) {
     return await this.noticeService.createNotice(noticeDTO);
   }
