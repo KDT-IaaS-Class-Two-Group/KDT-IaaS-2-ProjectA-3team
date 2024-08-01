@@ -4,24 +4,26 @@ import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
 
 @Injectable()
 class PendingUserRepository {
+  private readonly tableName: string = 'pendingusers';
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
-    const result = await this.dbService.query('SELECT * FROM pendingusers');
+    const result = await this.dbService.query(
+      `SELECT * FROM ${this.tableName}`,
+    );
     return result.rows;
   }
 
   async findOneByUser(user_id: string) {
     const result = await this.dbService.query(
-      'SELECT * FROM pendingusers WHERE user_id = $1',
+      `SELECT * FROM ${this.tableName} WHERE user_id = $1`,
       [user_id],
     );
     return result.rows[0];
   }
 
   async InsertNewUser(userData: PendingUserDTO) {
-    //  user_id | username | birth_date | address | phone | email | password
-
+    // user_id | username | birth_date | address | phone | email | password
     const { user_id, username, birth_date, address, phone, email, password } =
       userData;
 
@@ -36,7 +38,7 @@ class PendingUserRepository {
     ];
 
     const text = `
-      INSERT INTO pendingusers (
+      INSERT INTO ${this.tableName} (
           user_id,
           username,
           birth_date,

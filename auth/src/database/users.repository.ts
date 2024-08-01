@@ -4,16 +4,19 @@ import { UserDTO } from '../../../shared/DTO/SharedDTO';
 
 @Injectable()
 class UsersRepository {
+  private readonly tableName: string = 'users';
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
-    const result = await this.dbService.query('SELECT * FROM users');
+    const result = await this.dbService.query(
+      `SELECT * FROM ${this.tableName}`,
+    );
     return result.rows;
   }
 
   async findOneByUser(user_id: string) {
     const result = await this.dbService.query(
-      'SELECT * FROM users WHERE user_id = $1',
+      `SELECT * FROM ${this.tableName} WHERE user_id = $1`,
       [user_id],
     );
     return result.rows[0];
@@ -47,7 +50,7 @@ class UsersRepository {
     ];
 
     const text = `
-      INSERT INTO users (
+      INSERT INTO ${this.tableName} (
         user_id,
         username,
         birth_date,
