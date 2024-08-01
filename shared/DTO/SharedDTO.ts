@@ -1,4 +1,4 @@
-export interface SessionDTO {  
+export interface SessionDTO {
   user_id: string;
   username: string;
   birth_date: string;
