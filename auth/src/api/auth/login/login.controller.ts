@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { UserDTO, SessionDTO } from '@shared/DTO/SharedDTO';
+import { UserDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
 /**
  * * Class : LoginController
@@ -36,13 +36,12 @@ export class LoginController {
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userWithoutPassword } = userData as UserDTO;
-      req.session.user = userWithoutPassword as SessionDTO;
-      console.log(req.session.user);
+      const session = this.loginService.createSession(data);
+      req.session.user = await session;
       return res.json({ message: 'Login successful' });
     } else {
       return res
-        .status(HttpStatus.UNAUTHORIZED)
+        .status(HttpStatus.UNAUTHORIZED) //401 인증 실패
         .json({ message: 'Invalid credentials' });
     }
   }
