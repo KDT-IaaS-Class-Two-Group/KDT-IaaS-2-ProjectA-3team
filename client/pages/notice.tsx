@@ -1,6 +1,6 @@
 import NoticeBoard from "client/components/authPage/noticePage";
 
-const NoticeMainPage: React.FC = () => {
+const NoticePage: React.FC = () => {
   return (
     <div>
       <NoticeBoard />
@@ -8,4 +8,4 @@ const NoticeMainPage: React.FC = () => {
   );
 };
 
-export default NoticeMainPage;
+export default NoticePage;
