@@ -7,28 +7,25 @@ const Team: React.FC = () => {
         <label htmlFor="teamName">팀 이름:</label>
         <input type="text" id="teamName" name="teamName" />
       </div>
-
+<div>팀장 : </div>
       <div>
-        <label htmlFor="teamLeader">팀장 선택:</label>
-        <select id="teamLeader" name="teamLeader">
-          <option value="">팀장 선택</option>
-          <option value="leader1">팀장 1</option>
-          <option value="leader2">팀장 2</option>
-        </select>
+        <li onClick={이 리스트의 text를 팀장 div에 list 형식으로 삽입}>팀장1</li>
+        <li>팀장2</li>
       </div>
+      <div>팀원 : </div>
 
       <div>
-        <label htmlFor="teamMembers">팀원 선택:</label>
-        <select id="teamMembers" name="teamMembers" multiple>
-          <option value="member1">팀원 1</option>
-          <option value="member2">팀원 2</option>
-        </select>
+        <lionClick={이 리스트의 text를 팀원 div에 list 형식으로 삽입}>팀원1</lionClick=>
+        <li>팀원2</li>
       </div>
 
       <div>
         <label htmlFor="teamDescription">팀 특징 서술:</label>
         <textarea id="teamDescription" name="teamDescription"></textarea>
       </div>
+      <div>추가</div>
+      <div>삭제</div>
+      <button>전송</button>
     </div>
   );
 };
