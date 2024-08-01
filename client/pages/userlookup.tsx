@@ -15,6 +15,7 @@ const TestPage: React.FC = () => {
       >
         조회하기
       </button>
+      <button>저장하기</button>
     </div>
   );
 };
