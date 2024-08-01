@@ -14,7 +14,7 @@ export class NoticeService {
       const collection = database.collection('noticeTable');
 
       const currentDate = new Date();
-      const custom = dateSet(currentDate)
+      const custom = dateSet(currentDate);
       const noticeData = {
         ...NoticeDTO,
         createdAt: custom, // 현재 날짜와 시간 추가
