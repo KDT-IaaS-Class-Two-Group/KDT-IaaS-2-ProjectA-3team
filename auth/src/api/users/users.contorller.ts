@@ -7,7 +7,9 @@ export class UsersController {
 
   @Get('/all')
   async CheckUser() {
+    console.log(2);
     const obj = this.queryBuilder.SELECT(['*'], 'users').execution();
+    console.log(obj);
     // -> SELECT * FROM users; 가 된다. 쿼리문 조합기
     return obj;
   }
