@@ -12,7 +12,7 @@ const MainPage: React.FC = () => {
       <Link href="/register" passHref>
         <button className={styles.buttonLink}>회원가입</button>
       </Link>
-      <Link href="/notice" passHref>
+      <Link href="/noticeMain" passHref>
         <button className={styles.buttonLink}>게시판</button>
       </Link>
       <div className={styles.content}>
