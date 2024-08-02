@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { UserDTO } from '@shared/DTO/SharedDTO';
+import { UserDTO, SessionDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
 /**
  * * Class : LoginController
@@ -36,9 +36,22 @@ export class LoginController {
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const session = this.loginService.createSession(data);
+      const session: SessionDTO = await this.loginService.createSession(data);
       req.session.user = await session;
-      return res.json({ message: 'Login successful' });
+
+      if (session.role_name === 'admin') {
+        return res.json({
+          status: 'success',
+          redirect: '/admin/dashBoard',
+          role: 'admin',
+        });
+      }
+
+      return res.json({
+        status: 'success',
+        redirect: '/user/home',
+        role: 'user',
+      });
     } else {
       return res
         .status(HttpStatus.UNAUTHORIZED) //401 인증 실패
