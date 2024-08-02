@@ -20,7 +20,7 @@ const test: React.FC = () => {
         <p>ModalTest</p>
       </Modal>
       <button>
-        <Link href={"/team"}>Team</Link>
+        <Link href={"/user/team"}>Team</Link>
       </button>
     </div>
   );
