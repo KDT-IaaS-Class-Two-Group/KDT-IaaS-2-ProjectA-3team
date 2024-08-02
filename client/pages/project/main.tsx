@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 
 import * as style from "client/styles/project/root.css";
 import Main from "client/components/main/mainComponent";
@@ -18,6 +19,9 @@ const test: React.FC = () => {
         <h2>모달</h2>
         <p>ModalTest</p>
       </Modal>
+      <button>
+        <Link href={"/team"}>Team</Link>
+      </button>
     </div>
   );
 };

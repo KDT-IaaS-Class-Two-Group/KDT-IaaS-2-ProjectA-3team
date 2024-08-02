@@ -13,10 +13,8 @@ const MainPage: React.FC = () => {
         <button className={styles.buttonLink}>회원가입</button>
       </Link>
       <div className={styles.content}>
-        <h2>asdfadsfsda asdfadsfsda asdfadsfsda</h2>
-        <p>
-          asdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsda
-        </p>
+        <h2>TEST INDEX PAGE</h2>
+        <p>야호</p>
       </div>
     </div>
   );
