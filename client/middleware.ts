@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-=======
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { ResponseJson } from "../shared/DTO/SharedDTO";
->>>>>>> naviadev/issue50
 /**
  * * Function : middleware
  * 작성자 : @naviadev / 2024-07-31
@@ -18,21 +13,12 @@ import { ResponseJson } from "../shared/DTO/SharedDTO";
  */
 export const middleware = async (req: NextRequest) => {
   const { pathname } = req.nextUrl;
-<<<<<<< HEAD
-
-  if (pathname.startsWith('/project')) {
-    const cookieHeader = req.headers.get('cookie') || '';
-    console.log(cookieHeader);
-    const res = await fetch('http://localhost:3001/verify-session', {
-      method: 'GET',
-=======
   console.log(pathname);
   if (pathname.startsWith("/admin") || pathname.startsWith("/user")) {
     console.log(pathname);
     const cookieHeader = req.headers.get("cookie") || "";
     const res = await fetch("http://localhost:3001/verify-session", {
       method: "GET",
->>>>>>> naviadev/issue50
       headers: {
         'Content-Type': 'application/json',
         Cookie: cookieHeader,
@@ -70,9 +56,5 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-<<<<<<< HEAD
-  matcher: ['/project/:path*'],
-=======
   matcher: ["/admin/:path*", "/user/:path*"],
->>>>>>> naviadev/issue50
 };
