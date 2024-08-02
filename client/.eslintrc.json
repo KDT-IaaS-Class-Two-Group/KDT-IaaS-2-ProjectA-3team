@@ -63,17 +63,7 @@
         "newlines-between": "always"
       }
     ],
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto",
-        "singleQuote": false,
-        "trailingComma": "all",
-        "tabWidth": 2,
-        "printWidth": 80,
-        "semi": true
-      }
-    ]
+    "prettier/prettier": ["error"]
   },
   "env": {
     "browser": true,
