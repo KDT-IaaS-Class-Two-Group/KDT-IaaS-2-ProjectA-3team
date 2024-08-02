@@ -23,15 +23,11 @@ const useLoginHooks = () => {
     if (validate.validateId(user_id) && validate.ValidatePassword(password)) {
       const result = await fetchLogin({ user_id, password });
 
-      setIsLoggedIn((value) => {
-        value = result;
-        return value;
-      });
-
-      if (result) {
-        router.push("/project/main");
+      if (result !== false) {
+        setIsLoggedIn(true);
+        router.push(result);
       } else {
-        console.log("실패");
+        console.log("로그인 실패");
       }
     } else {
       setIsLoggedIn(false);
