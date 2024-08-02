@@ -48,14 +48,14 @@ const Team: React.FC = () => {
   // 팀원 삭제 함수
   const removeMember = (user: User) => {
     setSelectedMembers((prev) =>
-      prev.filter((member) => member.user_id !== user.user_id),
+      prev.filter((member) => member.user_id !== user.user_id)
     );
   };
 
   // 팀 정보 전송 함수
   const fetchTeam = async () => {
     try {
-      const response = await fetch("http://localhost:3001/getUser/all", {
+      const response = await fetch("http://localhost:3001/team/create", {
         // URL 수정
         method: "POST",
         headers: {
@@ -65,6 +65,9 @@ const Team: React.FC = () => {
           teamName,
           leader: selectedLeader,
           members: selectedMembers,
+          description:
+            (document.getElementById("teamDescription") as HTMLTextAreaElement)
+              ?.value || "",
         }),
       });
 
@@ -120,7 +123,7 @@ const Team: React.FC = () => {
               {user.username}
               <button onClick={() => addMember(user)}>추가</button>
               {selectedMembers.some(
-                (member) => member.user_id === user.user_id,
+                (member) => member.user_id === user.user_id
               ) && <button onClick={() => removeMember(user)}>삭제</button>}
             </li>
           ))}
