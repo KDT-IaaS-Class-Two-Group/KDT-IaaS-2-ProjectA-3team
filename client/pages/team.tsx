@@ -1,10 +1,9 @@
-// pages/team.tsx
 import React, { useState, useEffect } from "react";
 
 // 팀장과 팀원 인터페이스
 interface User {
-  id: number;
-  name: string;
+  user_id: string;
+  username: string;
 }
 
 const Team: React.FC = () => {
@@ -17,8 +16,9 @@ const Team: React.FC = () => {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch("/api/getUser/all");
+        const response = await fetch("http://localhost:3001/getUser/all");
         const data = await response.json();
+        console.log(data);
         setUsers(data);
       } catch (error) {
         console.error("Failed to fetch users:", error);
@@ -29,6 +29,7 @@ const Team: React.FC = () => {
 
   // 팀장 추가 함수
   const addLeader = (user: User) => {
+    console.log("Adding leader:", user);
     setSelectedLeader(user);
   };
 
@@ -39,13 +40,14 @@ const Team: React.FC = () => {
 
   // 팀원 추가 함수
   const addMember = (user: User) => {
+    console.log("Adding member:", user);
     setSelectedMembers((prev) => [...prev, user]);
   };
 
   // 팀원 삭제 함수
   const removeMember = (user: User) => {
     setSelectedMembers((prev) =>
-      prev.filter((member) => member.id !== user.id),
+      prev.filter((member) => member.user_id !== user.user_id)
     );
   };
 
@@ -62,14 +64,14 @@ const Team: React.FC = () => {
         />
       </div>
 
-      <div>팀장 : {selectedLeader ? selectedLeader.name : "없음"}</div>
+      <div>팀장 : {selectedLeader ? selectedLeader.username : "없음"}</div>
       <div>
         <ul>
           {users.map((user) => (
-            <li key={user.id}>
-              {user.name}
+            <li key={user.user_id}>
+              <strong>이름:</strong> {user.username}
               <button onClick={() => addLeader(user)}>추가</button>
-              {selectedLeader && selectedLeader.id === user.id && (
+              {selectedLeader && selectedLeader.user_id === user.user_id && (
                 <button onClick={removeLeader}>삭제</button>
               )}
             </li>
@@ -79,17 +81,17 @@ const Team: React.FC = () => {
 
       <div>
         팀원 :{" "}
-        {selectedMembers.map((member) => member.name).join(", ") || "없음"}
+        {selectedMembers.map((member) => member.username).join(", ") || "없음"}
       </div>
       <div>
         <ul>
           {users.map((user) => (
-            <li key={user.id}>
-              {user.name}
+            <li key={user.user_id}>
+              {user.username}
               <button onClick={() => addMember(user)}>추가</button>
-              {selectedMembers.some((member) => member.id === user.id) && (
-                <button onClick={() => removeMember(user)}>삭제</button>
-              )}
+              {selectedMembers.some(
+                (member) => member.user_id === user.user_id
+              ) && <button onClick={() => removeMember(user)}>삭제</button>}
             </li>
           ))}
         </ul>
@@ -99,9 +101,18 @@ const Team: React.FC = () => {
         <label htmlFor="teamDescription">팀 특징 서술:</label>
         <textarea id="teamDescription" name="teamDescription"></textarea>
       </div>
-      <button>전송</button>
+      <button onClick={fetchTeam()}>전송</button>
     </div>
   );
 };
-
+function fetchTeam() {
+  // try {
+  //   const response = await fetch("http://localhost:3001/getUser/all");
+  //   const data = await response.json();
+  //   console.log(data);
+  //   setUsers(data);
+  // } catch (error) {
+  //   console.error("Failed to fetch users:", error);
+  // }
+}
 export default Team;
