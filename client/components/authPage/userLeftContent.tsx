@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import React from 'react';
 
 import * as styles from '../../styles/user.css';
@@ -57,7 +59,9 @@ const LeftContent: React.FC = () => {
               <div className={styles.Managerstar}>★</div>
               <div>Manager</div>
             </div>
-            <div>게시물</div>
+            <Link href="/noticeMain" passHref>
+              <div>게시물</div>
+            </Link>
           </div>
           <div className={styles.leftFooterUser}>
             <div className={styles.leftFooterUserTitle}>
