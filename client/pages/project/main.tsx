@@ -2,8 +2,10 @@ import { useState } from 'react';
 
 import * as style from 'client/styles/project/root.css';
 import Main from 'client/components/main/mainComponent';
-import Side from 'client/components/side/sideContainer';
+import Side from 'client/components/authPage/userLeftContent';
 import Modal from 'client/components/modal/modal';
+import Content from 'client/components/authPage/mainHeader'
+
 const test: React.FC = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +15,7 @@ const test: React.FC = () => {
   return (
     <div className={style.root}>
       <Side></Side>
+      <Content />
       <Main openModal={openModal}></Main>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2>모달</h2>
