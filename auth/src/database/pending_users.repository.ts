@@ -4,7 +4,7 @@ import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
 
 @Injectable()
 class PendingUserRepository {
-  private readonly tableName: string = 'pendingusers';
+  private readonly tableName: string = 'pending_users';
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
