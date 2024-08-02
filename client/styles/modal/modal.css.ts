@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-export const overlay = style({
+export const modalBackdrop = style({
   position: "fixed",
   top: 0,
   left: 0,
@@ -10,23 +10,19 @@ export const overlay = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  zIndex: 1000,
+  zIndex: 999,
 });
 
-export const modal = style({
-  backgroundColor: "white",
+export const modalContent = style({
+  backgroundColor: "red",
   borderRadius: "8px",
   padding: "20px",
-  width: "80%",
-  maxWidth: "500px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  position: "relative",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  width: "800px",
+  height: "500px",
 });
 
 export const closeButton = style({
-  position: "absolute",
-  top: "10px",
-  right: "10px",
-  cursor: "pointer",
-  fontSize: "16px",
+  border: "solid 1px",
+  fontSize: "1.5rem",
 });
