@@ -1,17 +1,20 @@
-import useLoginHooks from 'client/hooks/loginHooks';
+import useLoginHooks from 'client/hooks/auth_hooks/loginHooks';
 
 import { container, input, button } from '../../styles/login.css';
+import { useRouter } from 'next/router';
 
 /**
  * * Function : LoginForm
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-08-02
  * Issue :
  * @function LoginForm
  * @description : 로그인 Form
  */
 const LoginForm = () => {
-  const { setId, setPassword, handleLogin } = useLoginHooks();
+  const router = useRouter()
+  const { setId, setPassword, handleLogin, isLoggedIn, } = useLoginHooks();
+  
   return (
     <div className={container}>
       <h1>Login</h1>

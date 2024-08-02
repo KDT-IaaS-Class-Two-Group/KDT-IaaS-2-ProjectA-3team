@@ -1,4 +1,4 @@
-import useRegisterHooks from 'client/hooks/registerHooks';
+import useRegisterHooks from 'client/hooks/auth_hooks/registerHooks';
 
 import {
   registerForm,
@@ -12,7 +12,7 @@ import {
  * * Function : RegisterForm
  *  * @function RegisterForm
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-08-02
  * @description : 회원가입 Form
  */
 const RegisterForm = () => {
