@@ -1,18 +1,17 @@
 import { useState } from 'react';
 
-import fetchRegisterData from 'client/model/auth/fetchRegisterData';
+import fetchRegisterData from 'client/model/services/auth/fetchRegisterData';
 
-import { PendingUserDTO } from '../../shared/DTO/SharedDTO';
-import * as validate from '../model/validator/validateRegisterData';
+import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
+import * as validate from '../../model/validator/validateRegisterData';
 
 /**
  * * Function : useRegisterHooks
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-08-02
  * Issue : 
  * @function useRegisterHooks
-  * @description : 회원가입 Form의 상태를 관찰하고 적절한 모델을 사용할 수 있도록 클로저 패턴을 사용.
-
+ * @description : 회원가입 Form의 상태를 관찰하고 적절한 모델을 사용할 수 있도록 클로저 패턴을 사용.
  */
 const useRegisterHooks = () => {
   const [user_id, setId] = useState<string>('');

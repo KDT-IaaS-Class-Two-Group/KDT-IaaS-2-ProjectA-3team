@@ -1,9 +1,9 @@
-import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
+import { PendingUserDTO } from '../../../../shared/DTO/SharedDTO';
 
 /**
  * * Function : fetchRegisterData
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-08-02
  * Issue :
  * @description : 회원가입 요청 모듈
  */
@@ -17,9 +17,9 @@ const fetchRegisterData = async (userData: PendingUserDTO) => {
   });
 
   if (response.ok) {
-    console.log('Registration successful:', await response.json());
+    console.log('회원가입 성공', await response.json());
   } else {
-    console.error('Registration failed:', await response.text());
+    console.error('회원가입 실패', await response.text());
   }
 };
 

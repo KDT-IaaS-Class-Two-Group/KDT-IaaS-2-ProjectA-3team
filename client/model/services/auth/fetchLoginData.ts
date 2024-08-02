@@ -1,4 +1,4 @@
-import { LoginDTO, ResponseJson } from "../../../shared/DTO/SharedDTO";
+import { LoginDTO, ResponseJson } from "../../../../shared/DTO/SharedDTO";
 /**
  * * Function : fetchLogin
  * 작성자 : @naviadev / 2024-07-31
