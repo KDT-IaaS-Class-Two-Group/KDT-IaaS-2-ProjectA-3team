@@ -8,7 +8,7 @@ dotenv.config();
 /**
  * * Class : DatabaseService
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-07-31
+ * 편집자 : @zoeznm / 2024-08-02
  * Issue :
  * @class DatabaseService
  * @implements OnModuleDestroy
