@@ -24,6 +24,7 @@ const Team: React.FC = () => {
         console.error("Failed to fetch users:", error);
       }
     }
+
     fetchUsers();
   }, []);
 
@@ -47,8 +48,37 @@ const Team: React.FC = () => {
   // 팀원 삭제 함수
   const removeMember = (user: User) => {
     setSelectedMembers((prev) =>
-      prev.filter((member) => member.user_id !== user.user_id)
+      prev.filter((member) => member.user_id !== user.user_id),
     );
+  };
+
+  // 팀 정보 전송 함수
+  const fetchTeam = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/getUser/all", {
+        // URL 수정
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teamName,
+          leader: selectedLeader,
+          members: selectedMembers,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.json();
+      console.log("Team successfully created:", result);
+      alert("팀이 성공적으로 생성되었습니다!");
+    } catch (error) {
+      console.error("Failed to create team:", error);
+      alert("팀 생성에 실패했습니다.");
+    }
   };
 
   return (
@@ -90,29 +120,19 @@ const Team: React.FC = () => {
               {user.username}
               <button onClick={() => addMember(user)}>추가</button>
               {selectedMembers.some(
-                (member) => member.user_id === user.user_id
+                (member) => member.user_id === user.user_id,
               ) && <button onClick={() => removeMember(user)}>삭제</button>}
             </li>
           ))}
         </ul>
       </div>
-
       <div>
         <label htmlFor="teamDescription">팀 특징 서술:</label>
         <textarea id="teamDescription" name="teamDescription"></textarea>
       </div>
-      <button onClick={fetchTeam()}>전송</button>
+      <button onClick={fetchTeam}>전송</button>
     </div>
   );
 };
-function fetchTeam() {
-  // try {
-  //   const response = await fetch("http://localhost:3001/getUser/all");
-  //   const data = await response.json();
-  //   console.log(data);
-  //   setUsers(data);
-  // } catch (error) {
-  //   console.error("Failed to fetch users:", error);
-  // }
-}
+
 export default Team;
