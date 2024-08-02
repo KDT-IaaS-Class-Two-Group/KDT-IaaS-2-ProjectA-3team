@@ -1,6 +1,6 @@
-import UserHome from '../components/authPage/mainHeader';
+import UserHome from '../components/userMainPage/mainHeader';
 
-import LeftContent from '../components/authPage/userLeftContent';
+import LeftContent from '../components/userMainPage/userLeftContent';
 
 import * as styles from '../styles/user.css';
 

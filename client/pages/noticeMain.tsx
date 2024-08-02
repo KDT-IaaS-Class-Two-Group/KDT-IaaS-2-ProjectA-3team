@@ -1,6 +1,6 @@
-import NoticeTitle from 'client/components/authPage/noticeMainTitle';
-import NoticeContent from 'client/components/authPage/noticeMainContent';
-import NoticeFooter from 'client/components/authPage/noticeMainFooter';
+import NoticeTitle from 'client/components/userMainPage/noticeMainTitle';
+import NoticeContent from 'client/components/userMainPage/noticeMainContent';
+import NoticeFooter from 'client/components/userMainPage/noticeMainFooter';
 
 const NoticeMainPage: React.FC = () => {
   return (

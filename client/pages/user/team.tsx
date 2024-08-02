@@ -6,6 +6,8 @@ interface User {
   username: string;
 }
 
+//CHECKLIST 
+// [ ] 권한 관리 시스템 설계
 const Team: React.FC = () => {
   const [teamName, setTeamName] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);

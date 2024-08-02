@@ -3,7 +3,7 @@ const Dash: React.FC = () => {
   return (
     <div>
       <button>
-        <Link href={"/pending"}>대기</Link>
+        <Link href={"/admin/pendingRegister"}>대기</Link>
       </button>
     </div>
   );
