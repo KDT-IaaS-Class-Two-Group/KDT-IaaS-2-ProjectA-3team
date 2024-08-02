@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { QueryBuilder } from 'src/database/queryBuilder';
-
 @Controller('/getUser')
 export class UsersController {
   constructor(private readonly queryBuilder: QueryBuilder) {}
