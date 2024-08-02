@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 interface ListNotice {
   list_num: string;
@@ -19,10 +19,10 @@ const NoticeMainContent = () => {
   const [list, setList] = useState<ListNotice[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/notices")
+    fetch('http://localhost:3001/notices')
       .then((response) => {
         if (!response.ok) {
-          throw new Error("네트워크 응답에 문제가 있습니다.");
+          throw new Error('네트워크 응답에 문제가 있습니다.');
         }
         return response.json();
       })
@@ -30,7 +30,7 @@ const NoticeMainContent = () => {
         setList(data);
       })
       .catch((err) => {
-        console.error("데이터를 가져오는 중 오류 발생:", err);
+        console.error('데이터를 가져오는 중 오류 발생:', err);
       });
   }, []);
 

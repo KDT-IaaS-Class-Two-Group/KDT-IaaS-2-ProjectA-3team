@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 /**
  * * Function : middleware
  * 작성자 : @naviadev / 2024-07-31
@@ -12,19 +12,19 @@ import type { NextRequest } from "next/server";
 export const middleware = async (req: NextRequest) => {
   const { pathname } = req.nextUrl;
 
-  if (pathname.startsWith("/project")) {
-    const cookieHeader = req.headers.get("cookie") || "";
+  if (pathname.startsWith('/project')) {
+    const cookieHeader = req.headers.get('cookie') || '';
     console.log(cookieHeader);
-    const res = await fetch("http://localhost:3001/verify-session", {
-      method: "GET",
+    const res = await fetch('http://localhost:3001/verify-session', {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Cookie: cookieHeader,
       },
     });
 
     if (res.status === 401) {
-      const url = new URL("/login", req.url);
+      const url = new URL('/login', req.url);
       return NextResponse.redirect(url);
     }
   }
@@ -33,7 +33,7 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/project/:path*"],
+  matcher: ['/project/:path*'],
 };
 
 // dispatchEvent

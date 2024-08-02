@@ -27,7 +27,7 @@ import { NoticeController } from './notice/notice.controller';
     DatabaseService,
     PendingUserRepository,
     QueryBuilder,
-    NoticeService
+    NoticeService,
   ],
 })
 export class AuthModule {}

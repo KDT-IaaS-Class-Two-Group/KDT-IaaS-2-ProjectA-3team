@@ -1,4 +1,4 @@
-import * as style from "client/styles/project/side.css";
+import * as style from 'client/styles/project/side.css';
 const ProfileBoard = () => {
   return (
     <div className={style.info}>

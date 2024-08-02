@@ -1,4 +1,4 @@
-import NoticeBoard from "client/components/authPage/noticePage";
+import NoticeBoard from 'client/components/authPage/noticePage';
 
 const NoticePage: React.FC = () => {
   return (

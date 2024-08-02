@@ -8,7 +8,7 @@ export class NoticeService {
   private readonly uri = 'mongodb://localhost:27017';
   private readonly client = new MongoClient(this.uri);
 
-  async createNotice(noticeDTO: NoticeDTO){
+  async createNotice(noticeDTO: NoticeDTO) {
     try {
       await this.client.connect();
       const database = this.client.db('notice');
@@ -28,10 +28,12 @@ export class NoticeService {
     }
   }
 
-  async getNotices(){
+  async getNotices() {
     try {
       await this.client.connect();
-      const collection = this.client.db('notice').collection<NoticeDTO>('noticeTable');
+      const collection = this.client
+        .db('notice')
+        .collection<NoticeDTO>('noticeTable');
 
       // NoticeDTO 타입으로 직접 반환
       return await collection.find().toArray();

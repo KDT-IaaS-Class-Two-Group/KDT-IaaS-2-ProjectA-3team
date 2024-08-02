@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 // 팀장과 팀원 인터페이스
 interface User {
@@ -7,7 +7,7 @@ interface User {
 }
 
 const Team: React.FC = () => {
-  const [teamName, setTeamName] = useState<string>("");
+  const [teamName, setTeamName] = useState<string>('');
   const [users, setUsers] = useState<User[]>([]);
   const [selectedLeader, setSelectedLeader] = useState<User | null>(null);
   const [selectedMembers, setSelectedMembers] = useState<User[]>([]);
@@ -16,12 +16,12 @@ const Team: React.FC = () => {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch("http://localhost:3001/getUser/all");
+        const response = await fetch('http://localhost:3001/getUser/all');
         const data = await response.json();
         console.log(data);
         setUsers(data);
       } catch (error) {
-        console.error("Failed to fetch users:", error);
+        console.error('Failed to fetch users:', error);
       }
     }
 
@@ -30,7 +30,7 @@ const Team: React.FC = () => {
 
   // 팀장 추가 함수
   const addLeader = (user: User) => {
-    console.log("Adding leader:", user);
+    console.log('Adding leader:', user);
     setSelectedLeader(user);
   };
 
@@ -41,46 +41,46 @@ const Team: React.FC = () => {
 
   // 팀원 추가 함수
   const addMember = (user: User) => {
-    console.log("Adding member:", user);
+    console.log('Adding member:', user);
     setSelectedMembers((prev) => [...prev, user]);
   };
 
   // 팀원 삭제 함수
   const removeMember = (user: User) => {
     setSelectedMembers((prev) =>
-      prev.filter((member) => member.user_id !== user.user_id),
+      prev.filter((member) => member.user_id !== user.user_id)
     );
   };
 
   // 팀 정보 전송 함수
   const fetchTeam = async () => {
     try {
-      const response = await fetch("http://localhost:3001/team/create", {
+      const response = await fetch('http://localhost:3001/team/create', {
         // URL 수정
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           teamName,
           leader: selectedLeader,
           members: selectedMembers,
           description:
-            (document.getElementById("teamDescription") as HTMLTextAreaElement)
-              ?.value || "",
+            (document.getElementById('teamDescription') as HTMLTextAreaElement)
+              ?.value || '',
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not ok');
       }
 
       const result = await response.json();
-      console.log("Team successfully created:", result);
-      alert("팀이 성공적으로 생성되었습니다!");
+      console.log('Team successfully created:', result);
+      alert('팀이 성공적으로 생성되었습니다!');
     } catch (error) {
-      console.error("Failed to create team:", error);
-      alert("팀 생성에 실패했습니다.");
+      console.error('Failed to create team:', error);
+      alert('팀 생성에 실패했습니다.');
     }
   };
 
@@ -97,7 +97,7 @@ const Team: React.FC = () => {
         />
       </div>
 
-      <div>팀장 : {selectedLeader ? selectedLeader.username : "없음"}</div>
+      <div>팀장 : {selectedLeader ? selectedLeader.username : '없음'}</div>
       <div>
         <ul>
           {users.map((user) => (
@@ -113,8 +113,8 @@ const Team: React.FC = () => {
       </div>
 
       <div>
-        팀원 :{" "}
-        {selectedMembers.map((member) => member.username).join(", ") || "없음"}
+        팀원 :{' '}
+        {selectedMembers.map((member) => member.username).join(', ') || '없음'}
       </div>
       <div>
         <ul>
@@ -123,7 +123,7 @@ const Team: React.FC = () => {
               {user.username}
               <button onClick={() => addMember(user)}>추가</button>
               {selectedMembers.some(
-                (member) => member.user_id === user.user_id,
+                (member) => member.user_id === user.user_id
               ) && <button onClick={() => removeMember(user)}>삭제</button>}
             </li>
           ))}

@@ -1,6 +1,6 @@
-import useLoginHooks from "client/hooks/loginHooks";
+import useLoginHooks from 'client/hooks/loginHooks';
 
-import { container, input, button } from "../../styles/login.css";
+import { container, input, button } from '../../styles/login.css';
 
 /**
  * * Function : LoginForm

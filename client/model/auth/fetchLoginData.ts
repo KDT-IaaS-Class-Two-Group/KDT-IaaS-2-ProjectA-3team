@@ -1,4 +1,4 @@
-import { LoginDTO } from "../../../shared/DTO/SharedDTO";
+import { LoginDTO } from '../../../shared/DTO/SharedDTO';
 /**
  * * Function : fetchLogin
  * 작성자 : @naviadev / 2024-07-31
@@ -8,12 +8,12 @@ import { LoginDTO } from "../../../shared/DTO/SharedDTO";
  * @description : 로그인 요청 모듈
  */
 const fetchLogin = async (loginData: LoginDTO) => {
-  const response = await fetch("http://localhost:3001/login", {
-    method: "POST",
+  const response = await fetch('http://localhost:3001/login', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    credentials: "include",
+    credentials: 'include',
     body: JSON.stringify(loginData),
   });
   if (response.status === 200) {

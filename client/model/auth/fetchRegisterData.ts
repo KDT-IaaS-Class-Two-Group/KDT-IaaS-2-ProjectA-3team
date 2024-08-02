@@ -1,4 +1,4 @@
-import { PendingUserDTO } from "../../../shared/DTO/SharedDTO";
+import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
 
 /**
  * * Function : fetchRegisterData
@@ -8,18 +8,18 @@ import { PendingUserDTO } from "../../../shared/DTO/SharedDTO";
  * @description : 회원가입 요청 모듈
  */
 const fetchRegisterData = async (userData: PendingUserDTO) => {
-  const response = await fetch("http://localhost:3001/register", {
-    method: "POST",
+  const response = await fetch('http://localhost:3001/register', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(userData),
   });
 
   if (response.ok) {
-    console.log("Registration successful:", await response.json());
+    console.log('Registration successful:', await response.json());
   } else {
-    console.error("Registration failed:", await response.text());
+    console.error('Registration failed:', await response.text());
   }
 };
 

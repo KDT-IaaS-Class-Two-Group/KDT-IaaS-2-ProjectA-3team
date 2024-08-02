@@ -2,7 +2,7 @@ import {
   modalBackdrop,
   modalContent,
   closeButton,
-} from "client/styles/modal/modal.css";
+} from 'client/styles/modal/modal.css';
 
 interface ModalProps {
   isOpen: boolean;

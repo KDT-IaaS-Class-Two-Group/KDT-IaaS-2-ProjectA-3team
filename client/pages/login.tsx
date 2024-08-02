@@ -1,4 +1,4 @@
-import LoginForm from "client/components/authPage/loginForm";
+import LoginForm from 'client/components/authPage/loginForm';
 
 const LoginPage: React.FC = () => {
   return (

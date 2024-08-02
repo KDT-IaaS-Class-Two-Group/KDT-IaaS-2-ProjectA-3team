@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import * as styles from "../../styles/user.css";
+import * as styles from '../../styles/user.css';
 
 const LeftContent: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import React, { useState } from "react";
+import Link from 'next/link';
+import React, { useState } from 'react';
 
 /**
  * * Function : RegisterForm
@@ -11,14 +11,14 @@ import React, { useState } from "react";
  */
 
 const NoticeBoard: React.FC = () => {
-  const [state, setState] = useState("");
-  const [stateContent, setStateContent] = useState("");
+  const [state, setState] = useState('');
+  const [stateContent, setStateContent] = useState('');
 
   const send = () => {
-    fetch("http://localhost:3001/send", {
-      method: "POST",
+    fetch('http://localhost:3001/send', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title: state, content: stateContent }),
     })
@@ -29,10 +29,10 @@ const NoticeBoard: React.FC = () => {
         return response.text();
       })
       .then((data) => {
-        console.log("Success", data);
+        console.log('Success', data);
       })
       .catch((error) => {
-        console.error("에러나어엉", error);
+        console.error('에러나어엉', error);
       });
   };
 

@@ -1,4 +1,4 @@
-import * as style from "client/styles/project/main.css";
+import * as style from 'client/styles/project/main.css';
 interface mainProps {
   openModal: () => void;
 }
