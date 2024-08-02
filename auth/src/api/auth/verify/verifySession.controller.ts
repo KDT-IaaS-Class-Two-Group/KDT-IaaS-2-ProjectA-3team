@@ -17,7 +17,11 @@ export class VerifySessionController {
   async verifySession(@Req() req: Request, @Res() res: Response) {
     if (req.session.user) {
       console.log(req.session.user);
-      return res.json({ message: 'Login successful' });
+      return res.json({
+        status: 'success',
+        redirect: '',
+        role: req.session.user.role_name,
+      });
     } else {
       return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'X' });
     }
