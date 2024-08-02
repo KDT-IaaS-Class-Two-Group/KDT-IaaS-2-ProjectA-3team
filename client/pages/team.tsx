@@ -48,7 +48,7 @@ const Team: React.FC = () => {
   // 팀원 삭제 함수
   const removeMember = (user: User) => {
     setSelectedMembers((prev) =>
-      prev.filter((member) => member.user_id !== user.user_id)
+      prev.filter((member) => member.user_id !== user.user_id),
     );
   };
 
@@ -123,7 +123,7 @@ const Team: React.FC = () => {
               {user.username}
               <button onClick={() => addMember(user)}>추가</button>
               {selectedMembers.some(
-                (member) => member.user_id === user.user_id
+                (member) => member.user_id === user.user_id,
               ) && <button onClick={() => removeMember(user)}>삭제</button>}
             </li>
           ))}
