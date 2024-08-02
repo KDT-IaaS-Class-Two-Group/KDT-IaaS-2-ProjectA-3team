@@ -1,12 +1,16 @@
 export interface SessionDTO {
   user_id: string;
-  username: string;
-  // role_name : string;
+  role_name : string;
 }
 
 export interface LoginDTO {
   user_id: string;
   password: string;
+}
+export interface ResponseJson {
+  status: string;
+  redirect: string;
+  role: string;
 }
 
 export interface UserDTO {
