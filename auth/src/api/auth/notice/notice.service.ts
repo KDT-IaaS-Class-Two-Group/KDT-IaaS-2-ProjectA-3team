@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MongoClient, WithId, Document } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import { NoticeDTO } from '../../../../../shared/DTO/DbDTO';
 import { dateSet } from './utils/dateUtils';
 

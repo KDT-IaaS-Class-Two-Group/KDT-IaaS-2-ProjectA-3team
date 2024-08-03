@@ -17,13 +17,13 @@ export class UsersController {
   @Get('/all')
   async CheckUser(@Body() data) {
     console.log(data);
-    const obj = this.queryBuilder.SELECT(['*'], 'users').execution();
+    const obj = this.queryBuilder.SELECT('users').execution();
     return obj;
   }
 
   @Get('pending')
   async CheckPendingUser() {
-    const obj = this.queryBuilder.SELECT(['*'], 'pending_users').execution();
+    const obj = this.queryBuilder.SELECT('pending_users').execution();
     return obj;
   }
 }

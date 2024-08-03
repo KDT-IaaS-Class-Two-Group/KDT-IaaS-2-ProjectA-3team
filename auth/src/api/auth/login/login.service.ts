@@ -28,7 +28,7 @@ export class LoginService {
     password: string,
   ): Promise<UserDTO | null> {
     const userData = await this.queryBuild
-      .SELECT(['*'], this.tableName)
+      .SELECT(this.tableName)
       .WHERE('user_id = $1', user_id)
       .execution();
 
@@ -41,7 +41,7 @@ export class LoginService {
   async createSession(data: UserDTO) {
     try {
       const role_Object: SessionDTO = (await this.queryBuild
-        .SELECT(['*'], this.roleTableName)
+        .SELECT(this.roleTableName)
         .WHERE('user_id = $1', data.user_id)
         .execution()) as SessionDTO;
       return role_Object[0];
