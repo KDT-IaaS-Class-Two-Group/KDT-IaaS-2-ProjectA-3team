@@ -9,19 +9,32 @@ import { LoginDTO, ResponseJson } from "../../../../shared/DTO/SharedDTO";
  */
 
 const fetchLogin = async (loginData: LoginDTO): Promise<string | false> => {
-  const response = await fetch("http://localhost:3001/login", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(loginData),
-  });
+  try {
+    const response = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(loginData),
+    });
 
-  if (response.status === 200) {
-    const data: ResponseJson = await response.json();
-    return data.redirect;
-  } else {
+    if (response.ok) { // response.status === 200
+      const data: ResponseJson = await response.json();
+
+      if (data.redirect) {
+        return data.redirect;
+      } else {
+        console.error('Redirect path not found in response:', data);
+        return false;
+      }
+    } else {
+      const errorData = await response.json();
+      console.error('Login failed with status:', response.status, 'Error:', errorData);
+      return false;
+    }
+  } catch (error) {
+    console.error('Fetch request failed:', error);
     return false;
   }
 };
