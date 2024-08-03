@@ -10,15 +10,11 @@
  * @description 
  */
 export class NoticeDTO {
-  userId : string;
   title: string;
   content: string;
-  roleLevel?: number;
 
-  constructor(userId: string, title: string, content: string, roleLevel?: number) {
-    this.userId = userId;
+  constructor(userId: string, title: string, content: string) {
     this.title = title;
     this.content = content;
-    this.roleLevel = roleLevel;
   }
 }
