@@ -36,7 +36,10 @@ export class LoginController {
 
     if (userData) {
       const session: SessionDTO = await this.loginService.createSession(data);
-      req.session.user = await session;
+      req.session.user = {
+        user_id: session.user_id,
+        role_name: session.role_name,
+      };
 
       if (session.role_name === 'admin') {
         return res.json({
@@ -49,7 +52,7 @@ export class LoginController {
       return res.json({
         status: 'success',
         redirect: '/user/home',
-        role: 'user',
+        role: 'employee',
       });
     } else {
       return res

@@ -1,4 +1,6 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get, Req } from '@nestjs/common';
+
+import { Request } from 'express';
 
 import { NoticeService } from './notice.service';
 
@@ -14,7 +16,11 @@ export class NoticeController {
   }
 
   @Post('send')
-  async noticeCreate(@Body() noticeDTO: NoticeDTO) {
-    return await this.noticeService.createNotice(noticeDTO);
+  async noticeCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
+    const user_id = req.session.user.user_id;
+    if (!user_id) {
+      return { status: 'fail', message: 'session is not 존재' };
+    }
+    return await this.noticeService.createNotice(noticeDTO, user_id);
   }
 }

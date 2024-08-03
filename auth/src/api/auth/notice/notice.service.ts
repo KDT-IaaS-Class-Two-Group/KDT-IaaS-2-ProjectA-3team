@@ -16,19 +16,8 @@ export class NoticeService {
     port: Number(process.env.DB_PORT),
   });
 
-  //게시물 추가하는 부분
-  async createNotice(noticeDTO: NoticeDTO) {
-    const pgClient = await this.pgPool.connect();
+  async createNotice(noticeDTO: NoticeDTO, user_id: string) {
     try {
-      const pgSelect = await pgClient.query(
-        `SELECT user_id,role_name FROM delan WHERE id = $1`,
-        [noticeDTO.userId],
-      );
-
-      if (pgSelect.rows.length === 0) {
-        throw new Error('User not found');
-      }
-
       await this.client.connect();
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
@@ -39,25 +28,25 @@ export class NoticeService {
       const noticeData = {
         ...noticeDTO,
         createdAt: custom, // 현재 날짜와 시간 추가
+        user_id,
       };
 
-      const mongoInsert = await mongoCollection.insertOne(noticeData);
-      return `New document inserted with _id: ${mongoInsert.insertedId}`;
+      const result = await mongoCollection.insertOne(noticeData);
+      return `New document inserted with _id: ${result.insertedId}`;
     } finally {
       await this.client.close();
     }
   }
 
-  //게시판 띄우는 부분
   async getNotices() {
     try {
       await this.client.connect();
-      const collection = this.client
+      const mongoCollection = this.client
         .db('notice')
         .collection<NoticeDTO>('noticeTable');
 
       // NoticeDTO 타입으로 직접 반환
-      return await collection.find().toArray();
+      return await mongoCollection.find().toArray();
     } finally {
       await this.client.close();
     }
