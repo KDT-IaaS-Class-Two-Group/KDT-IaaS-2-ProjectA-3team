@@ -27,6 +27,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@nestjs/config": "^3.2.3",
     "@types/mongodb": "^4.0.7",
     "mongodb": "^6.8.0"
   }
