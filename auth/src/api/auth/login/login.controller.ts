@@ -9,16 +9,12 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { UserDTO, SessionDTO } from '@shared/DTO/SharedDTO';
+import { UserDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginResponseDTO } from './DTO/LoginResponseDTO';
+import { REDIRECT_PATH } from './Enum/REDIRECT_PATH.enum';
+import { ROLE } from './Enum/ROLE.enum';
 
 /**
  * * Class : LoginController
@@ -32,6 +28,7 @@ import { LoginResponseDTO } from './DTO/LoginResponseDTO';
 @Controller('login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
+
   @ApiOperation({ summary: '로그인 요청을 처리하는 엔드포인트' })
   @ApiResponse({
     status: 200,
@@ -42,21 +39,9 @@ export class LoginController {
     status: 401,
     description: '로그인 실패 = 401 반환, 유효하지 않은 요청',
   })
-  @ApiBody({ type: UserDTO, description: '사용자 로그인 데이터' })
-  @ApiParam({
-    name: 'data',
-    type: '@body',
-    description: '사용자 요청 객체 (로그인 정보)',
-  })
-  @ApiParam({
-    name: 'req',
-    type: 'Request',
-    description: '요청 객체. (req.session을 통해 세션키 생성)',
-  })
-  @ApiParam({
-    name: 'res',
-    type: 'Response',
-    description: '사용자 반환 객체 (세션키 반환)',
+  @ApiBody({
+    description: '사용자 로그인 데이터',
+    type: UserDTO,
   })
   @Post()
   @HttpCode(HttpStatus.OK)
@@ -70,26 +55,26 @@ export class LoginController {
     const userData = await this.loginService.validateUser(user_id, password);
 
     if (userData) {
-      const session: SessionDTO = await this.loginService.createSession(data);
-      req.session.user = await session;
+      const session = await this.loginService.createSession(data);
+      req.session.user = session;
 
-      if (session.role_name === 'admin') {
+      if (session.role_name === ROLE.ADMIN) {
         return res.json({
           status: 'success',
-          redirect: '/admin/dashBoard',
-          role: 'admin',
+          redirect: REDIRECT_PATH.ADMIN_MAIN,
+          role: ROLE.ADMIN,
         });
       }
 
       return res.json({
         status: 'success',
-        redirect: '/user/home',
-        role: 'user',
+        redirect: REDIRECT_PATH.USER_MAIN,
+        role: ROLE.USER,
       });
     } else {
       return res
         .status(HttpStatus.UNAUTHORIZED)
-        .json({ message: 'Invalid credentials' });
+        .json({ message: '유효하지 않은 인증' });
     }
   }
 }
