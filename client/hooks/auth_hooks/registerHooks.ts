@@ -4,6 +4,7 @@ import fetchRegisterData from 'client/model/services/auth/fetchRegisterData';
 
 import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
 import * as validate from '../../model/validator/validateRegisterData';
+import { useRouter } from 'next/router';
 
 /**
  * * Function : useRegisterHooks
@@ -14,6 +15,7 @@ import * as validate from '../../model/validator/validateRegisterData';
  * @description : 회원가입 Form의 상태를 관찰하고 적절한 모델을 사용할 수 있도록 클로저 패턴을 사용.
  */
 const useRegisterHooks = () => {
+  const router = useRouter();
   const [user_id, setId] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -23,7 +25,9 @@ const useRegisterHooks = () => {
   const [birthDate, setBirthDate] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  const validateAndRegister = () => {
+  const validateAndRegister = async () => {
+    
+
     const data: PendingUserDTO = {
       user_id,
       username,
@@ -77,12 +81,14 @@ const useRegisterHooks = () => {
       isValid = false;
     }
 
-    // If all validations pass, proceed with data registration
+    // [ ] alert -> Modal, 
     if (isValid) {
-      fetchRegisterData(data);
-      console.log('성공');
+      const result = await fetchRegisterData(data);
+      result === true ? 
+      router.push('/login') : 
+      alert('중복된 사용자')
     } else {
-      console.log('회원가입에 실패했습니다.');
+      alert('회원가입 실패')
     }
   };
 

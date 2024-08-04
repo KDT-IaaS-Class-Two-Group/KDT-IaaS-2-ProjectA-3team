@@ -7,7 +7,7 @@ import { PendingUserDTO } from '../../../../shared/DTO/SharedDTO';
  * Issue :
  * @description : 회원가입 요청 모듈
  */
-const fetchRegisterData = async (userData: PendingUserDTO) => {
+const fetchRegisterData = async (userData: PendingUserDTO) : Promise<boolean>=> {
   const response = await fetch('http://localhost:3001/register', {
     method: 'POST',
     headers: {
@@ -18,8 +18,10 @@ const fetchRegisterData = async (userData: PendingUserDTO) => {
 
   if (response.ok) {
     console.log('회원가입 성공', await response.json());
+    return true;
   } else {
     console.error('회원가입 실패', await response.text());
+    return false;
   }
 };
 
