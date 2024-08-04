@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { UserDTO } from '@shared/DTO/SharedDTO';
+import { UserDTO } from './DTO/UserDTO';
 import { LoginService } from './login.service';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginResponseDTO } from './DTO/LoginResponseDTO';
