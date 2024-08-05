@@ -29,12 +29,15 @@ export class QueryBuilder {
   }
 
   SELECT(tableName: string, columns: columns = '*') {
+    console.log(columns);
     this.RESET();
-    if (columns === '*') {
-      this.queryString = `SELECT * FROM ${tableName}`;
-    } else if (typeof columns === 'object') {
+    if (Array.isArray(columns)) {
       this.queryString = `SELECT ${columns.join(', ')} FROM ${tableName}`;
+    } else if (columns === '*') {
+      console.log('자동');
+      this.queryString = `SELECT * FROM ${tableName}`;
     } else {
+      console.log('예외');
       this.queryString = `SELECT ${columns} FROM ${tableName}`;
     }
     return this;
