@@ -1,0 +1,46 @@
+import {
+  IsString,
+  IsDateString,
+  IsEmail,
+  IsNotEmpty,
+  MinLength,
+} from 'class-validator';
+
+/**
+ * * Class : PendingUserDTO
+ * 작성자 : @naviadev / 2024-08-04
+ * 편집자 : @naviadev / 2024-08-04
+ * Issue :
+ * @class PendingUserDTO
+ * @description : 회원가입 요청 객체
+ */
+export class PendingUserDTO {
+  @IsNotEmpty()
+  @IsString()
+  user_id: string;
+
+  @IsNotEmpty()
+  @IsString()
+  username: string;
+
+  @IsNotEmpty()
+  @IsDateString()
+  birth_date: string;
+
+  @IsNotEmpty()
+  @IsString()
+  address: string;
+
+  @IsNotEmpty()
+  @IsString()
+  phone: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(6)
+  password: string;
+}
