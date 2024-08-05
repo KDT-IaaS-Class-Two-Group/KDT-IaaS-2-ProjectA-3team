@@ -1,7 +1,17 @@
-const getPendingUsers = async () : Promise<[{[key:string] : any}]> => {
+import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
 
-  const response = await fetch('http://localhost:3001/getUser/pending', {
-    method: "GET", headers: {
+/**
+ * * Function : getPendingUsers
+ * 작성자 : @naviadev / 2024-07-31
+ * 편집자 : @naviadev / 2024-08-05
+ * Issue :
+ * @description : 대기중인 회원들을 [{}] 형태로 가져올 수 있는 Fetch 함수.
+ */
+const getPendingUsers = async (): Promise<[{ [key: string]: any }]> => {
+
+  const response = await fetch(REQUEST_URL.__GET_PENDING_USERS, {
+    method: "GET",
+    headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'include',

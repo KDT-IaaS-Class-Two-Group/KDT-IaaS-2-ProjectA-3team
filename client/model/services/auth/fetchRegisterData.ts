@@ -1,4 +1,4 @@
-import { PendingUserDTO } from '../../../../shared/DTO/SharedDTO';
+import { PendingUser } from 'client/ts/Interface/PendingData.interface'
 
 /**
  * * Function : fetchRegisterData
@@ -7,7 +7,7 @@ import { PendingUserDTO } from '../../../../shared/DTO/SharedDTO';
  * Issue :
  * @description : 회원가입 요청 모듈
  */
-const fetchRegisterData = async (userData: PendingUserDTO) : Promise<boolean>=> {
+const fetchRegisterData = async (userData: PendingUser): Promise<boolean> => {
   const response = await fetch('http://localhost:3001/register', {
     method: 'POST',
     headers: {

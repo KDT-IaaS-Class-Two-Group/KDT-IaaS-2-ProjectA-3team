@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
-import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
+import { PendingUserDTO } from 'src/api/auth/register/DTO/PendingUserDTO';
 
 @Injectable()
 class PendingUserRepository {

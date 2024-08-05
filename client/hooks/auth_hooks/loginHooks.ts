@@ -13,7 +13,6 @@ import * as validate from '../../model/validator/validateRegisterData';
  * @function useLoginHooks
  * @description : useLoginHooks에서 Form의 상태를 관찰할 수 있도록 state를 통해 메서드, 클로저 패턴을 활용하고, model 호출 등을 통해 로직을 수행할 수 있도록 한다.
  */
-// [ ] 주석처리 State 위 주석을 통해서 상세하게 서술.
 const useLoginHooks = () => {
   // id Input Value
   const [user_id, setId] = useState('');

@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 import fetchRegisterData from 'client/model/services/auth/fetchRegisterData';
 
-import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
+import { PendingUser } from 'client/ts/Interface/PendingData.interface';
 import * as validate from '../../model/validator/validateRegisterData';
 import { useRouter } from 'next/router';
 
 /**
  * * Function : useRegisterHooks
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
+ * 편집자 : @naviadev / 2024-08-05
  * Issue : 
  * @function useRegisterHooks
  * @description : 회원가입 Form의 상태를 관찰하고 적절한 모델을 사용할 수 있도록 클로저 패턴을 사용.
@@ -28,7 +28,7 @@ const useRegisterHooks = () => {
   const validateAndRegister = async () => {
     
 
-    const data: PendingUserDTO = {
+    const data: PendingUser = {
       user_id,
       username,
       birth_date: birthDate,
