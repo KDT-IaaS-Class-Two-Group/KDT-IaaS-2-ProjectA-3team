@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as style from 'client/styles/project/root.css';
 import Main from 'client/components/main/mainComponent';
 import Side from 'client/components/userMainPage/userLeftContent';
-import Modal from 'client/components/modal/modal';
+// import Modal from 'client/components/modal/modal';
 import Content from 'client/components/userMainPage/mainHeader';
 import Link from 'next/link';
 
