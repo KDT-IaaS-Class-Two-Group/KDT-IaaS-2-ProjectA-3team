@@ -9,6 +9,8 @@ import { DatabaseService } from 'src/database/database.service';
 import { VerifySessionController } from './verify/verifySession.controller';
 import PendingUserRepository from 'src/database/pending_users.repository';
 import { QueryBuilder } from 'src/database/queryBuilder';
+import { NoticeService } from './notice/notice.service';
+import { NoticeController } from './notice/notice.controller';
 
 @Module({
   controllers: [
@@ -16,6 +18,7 @@ import { QueryBuilder } from 'src/database/queryBuilder';
     RegisterController,
     LogoutController,
     VerifySessionController,
+    NoticeController,
   ],
   providers: [
     LoginService,
@@ -24,6 +27,7 @@ import { QueryBuilder } from 'src/database/queryBuilder';
     DatabaseService,
     PendingUserRepository,
     QueryBuilder,
+    NoticeService,
   ],
 })
 export class AuthModule {}

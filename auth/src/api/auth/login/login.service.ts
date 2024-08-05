@@ -5,7 +5,7 @@ import { QueryBuilder } from 'src/database/queryBuilder';
  *
  * * Class : LoginService
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-01
+ * 편집자 : @naviadev / 2024-08-02
  * Issue :
  * @class LoginService
  * @param private queryBuilder : QueryBuilder
@@ -20,13 +20,15 @@ import { QueryBuilder } from 'src/database/queryBuilder';
 @Injectable()
 export class LoginService {
   private tableName = 'users';
+  private roleTableName = 'relation_users_role';
+
   constructor(private readonly queryBuild: QueryBuilder) {}
   async validateUser(
     user_id: string,
     password: string,
   ): Promise<UserDTO | null> {
     const userData = await this.queryBuild
-      .SELECT(['*'], this.tableName)
+      .SELECT(this.tableName)
       .WHERE('user_id = $1', user_id)
       .execution();
 
@@ -39,13 +41,13 @@ export class LoginService {
   async createSession(data: UserDTO) {
     try {
       const role_Object: SessionDTO = (await this.queryBuild
-        .SELECT(['*'], 'relation_users_role')
+        .SELECT(this.roleTableName)
         .WHERE('user_id = $1', data.user_id)
         .execution()) as SessionDTO;
       return role_Object[0];
     } catch (error) {
-      console.error('Failed Create Session : ', error);
-      throw new Error('CREATE SESSION ERROR');
+      console.error('세션 생성 실패 : ', error);
+      throw new Error('세션 생성 실패');
     }
   }
 }
