@@ -23,18 +23,18 @@ export class NoticeController {
   @Post('send')
   async noticeCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
     const session = req.session.user;
-    const user_id = session.user_id;
+    const user_id = session?.user_id;
     const role = session.role_name;
     console.log(user_id,role);
     return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 
-  @Post('authSend')
-  async noticeAuthCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
-    const session = req.session.user;
-    const user_id = session.user_id;
-    const role = session.role_name;
-    console.log(user_id,role);
-    return await this.noticeService.createAuthNotice(noticeDTO, user_id, role);
-  }
+  // @Post('authSend')
+  // async noticeAuthCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
+  //   const session = req.session.user;
+  //   const user_id = session?.user_id;
+  //   const role = session.role_name;
+  //   console.log(user_id,role);
+  //   return await this.noticeService.createAuthNotice(noticeDTO, user_id, role);
+  // }
 }
