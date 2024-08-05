@@ -1,6 +1,6 @@
-import { ResponseJson } from 'client/ts/Interface/LoginResponse.interface'
+import { ResponseJson } from "client/ts/Interface/LoginResponse.interface";
 import { LoginData } from "client/ts/Interface/LoginData.interface";
-import REQUEST_URL from 'client/ts/enum/REQUEST_URL.ENUM';
+import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
 /**
  * * Function : fetchLogin
  * 작성자 : @naviadev / 2024-07-31
@@ -14,9 +14,9 @@ const fetchLogin = async (loginData: LoginData): Promise<string | false> => {
   const response = await fetch(REQUEST_URL.__LOGIN, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    credentials: 'include',
+    credentials: "include",
     body: JSON.stringify(loginData),
   });
 

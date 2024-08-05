@@ -48,7 +48,7 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
   const handleInputChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    field_name: keyof User,
+    field_name: keyof User
   ) => {
     const value =
       field_name === "salary" ? Number(e.target.value) : e.target.value;
@@ -58,7 +58,7 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
             ...u,
             [field_name]: value,
           }
-        : u,
+        : u
     );
     setUsers(updatedUsers);
   };

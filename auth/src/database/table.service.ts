@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from './database.service';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { DatabaseService } from "./database.service";
 
 @Injectable()
 export class TableService {
@@ -7,7 +7,7 @@ export class TableService {
 
   async getAllRows(tableName: string) {
     const table = await this.databaseService.query(
-      `SELECT * FROM ${tableName}`,
+      `SELECT * FROM ${tableName}`
     );
     if (!table) {
       throw new NotFoundException(`Table ${tableName} not found`);
@@ -16,18 +16,18 @@ export class TableService {
   }
 
   async addRow(tableName: string, rowData: any) {
-    const keys = Object.keys(rowData).join(', ');
+    const keys = Object.keys(rowData).join(", ");
     const values = Object.values(rowData);
-    const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
+    const placeholders = values.map((_, index) => `$${index + 1}`).join(", ");
 
     console.log(
       `Executing query: INSERT INTO ${tableName} (${keys}) VALUES (${placeholders})`,
-      values,
+      values
     );
 
     await this.databaseService.query(
       `INSERT INTO ${tableName} (${keys}) VALUES (${placeholders})`,
-      values,
+      values
     );
     return rowData;
   }
@@ -35,21 +35,21 @@ export class TableService {
   async updateRow(tableName: string, rowId: string, rowData: any) {
     const updates = Object.keys(rowData)
       .map((key, index) => `${key} = $${index + 1}`)
-      .join(', ');
+      .join(", ");
     const values = [...Object.values(rowData), rowId];
 
     console.log(
       `Executing query: UPDATE ${tableName} SET ${updates} WHERE id = $${values.length}`,
-      values,
+      values
     );
 
     const result = await this.databaseService.query(
       `UPDATE ${tableName} SET ${updates} WHERE id = $${values.length}`,
-      values,
+      values
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${tableName}`,
+        `Row with ID ${rowId} not found in table ${tableName}`
       );
     }
     return rowData;
@@ -58,11 +58,11 @@ export class TableService {
   async deleteRow(tableName: string, rowId: string) {
     const result = await this.databaseService.query(
       `DELETE FROM ${tableName} WHERE id = $1`,
-      [rowId],
+      [rowId]
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${tableName}`,
+        `Row with ID ${rowId} not found in table ${tableName}`
       );
     }
     return { id: rowId };
@@ -71,7 +71,7 @@ export class TableService {
   async getTableStructure(tableName: string) {
     const structure = await this.databaseService.query(
       `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1`,
-      [tableName],
+      [tableName]
     );
     if (!structure) {
       throw new NotFoundException(`Table ${tableName} not found`);
@@ -82,7 +82,7 @@ export class TableService {
   async getTableData(tableName: string, limit: number = 5) {
     const data = await this.databaseService.query(
       `SELECT * FROM ${tableName} LIMIT $1`,
-      [limit],
+      [limit]
     );
     return data.rows;
   }

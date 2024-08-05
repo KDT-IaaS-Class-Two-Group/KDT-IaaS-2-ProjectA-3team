@@ -16,7 +16,7 @@ const TestPage: React.FC = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ users }),
-        },
+        }
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

@@ -16,7 +16,7 @@ export const validateName = (name: string): boolean => {
   return nameRegex.test(name) && name.length > 0;
 };
 export const validateId = (id: string): boolean => {
-  const idRegex = /^[a-z0-9]{5,12}$/;
+  const idRegex = /^[a-z0-9]{4,12}$/;
 
   return idRegex.test(id) && id.length > 0;
 };

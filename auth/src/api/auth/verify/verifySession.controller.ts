@@ -1,5 +1,5 @@
-import { Controller, Get, Req, Res, HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Controller, Get, Req, Res, HttpStatus } from "@nestjs/common";
+import { Request, Response } from "express";
 
 /**
  * * Class : VerifySessionController
@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
  * @class VerifySessionController
  * @description : 세션 검증 엔드포인트
  */
-@Controller('verify-session')
+@Controller("verify-session")
 export class VerifySessionController {
   constructor() {}
 
@@ -17,9 +17,9 @@ export class VerifySessionController {
   async verifySession(@Req() req: Request, @Res() res: Response) {
     if (req.session.user) {
       console.log(req.session.user);
-      return res.json({ message: 'Login successful' });
+      return res.json({ message: "Login successful" });
     } else {
-      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'X' });
+      return res.status(HttpStatus.UNAUTHORIZED).json({ message: "X" });
     }
   }
 }

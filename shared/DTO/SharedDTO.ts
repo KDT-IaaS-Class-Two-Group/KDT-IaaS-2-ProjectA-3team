@@ -1,7 +1,7 @@
 export interface SessionDTO {
   user_id: string;
   // username: string;
-  role_name : string;
+  role_name: string;
 }
 
 export interface LoginDTO {

@@ -4,7 +4,7 @@ import {
   IsEmail,
   IsNotEmpty,
   MinLength,
-} from 'class-validator';
+} from "class-validator";
 
 /**
  * * Class : PendingUserDTO

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface Table {
   table_name: string;
@@ -11,7 +11,7 @@ const TableListPage = () => {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/tables');
+        const response = await fetch("http://localhost:3001/api/tables");
         if (!response.ok) {
           throw new Error(`Error fetching tables: ${response.statusText}`);
         }
@@ -21,7 +21,7 @@ const TableListPage = () => {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError('Unknown error occurred');
+          setError("Unknown error occurred");
         }
       }
     };

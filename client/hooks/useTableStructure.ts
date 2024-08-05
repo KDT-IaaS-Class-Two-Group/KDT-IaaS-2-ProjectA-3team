@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useTableStructure = (tableName: string) => {
   const [structure, setStructure] = useState<
