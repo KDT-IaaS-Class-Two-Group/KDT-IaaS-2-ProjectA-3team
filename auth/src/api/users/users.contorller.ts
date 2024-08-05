@@ -12,6 +12,16 @@ export class UsersController {
       .execution();
     return obj;
   }
+  @Get('/userpersonal')
+  async UserPersonal() {
+    const obj = await this.queryBuilder.SELECT(['*'], 'users').execution();
+    return obj;
+  }
+  @Get('/userprofile')
+  async UserProfile() {
+    const obj = await this.queryBuilder.SELECT(['*'], 'Profile').execution();
+    return obj;
+  }
 
   @Get('/fields') // 추가된 API 엔드포인트
   async GetFields() {
