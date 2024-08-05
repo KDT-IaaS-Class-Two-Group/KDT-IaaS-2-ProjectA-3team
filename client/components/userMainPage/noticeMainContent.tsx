@@ -16,28 +16,28 @@ interface ListNotice {
 
  */
 const NoticeMainContent = () => {
-  const [list, setList] = useState<ListNotice[]>([]);
+  const [userList, setUserList] = useState<ListNotice[]>([]); // empolyee 서버에서 건너오는 게시물 데이터
 
   useEffect(() => {
-    fetch('http://localhost:3001/notices')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('네트워크 응답에 문제가 있습니다.');
-        }
-        return response.json();
-      })
-      .then((data: ListNotice[]) => {
-        setList(data);
-      })
-      .catch((err) => {
-        console.error('데이터를 가져오는 중 오류 발생:', err);
-      });
+    const fetchNotices = () => {
+      fetch('http://localhost:3001/notices')
+        .then((response) => {
+          return response.json();
+        })
+        .then((data: ListNotice[]) => {
+          setUserList(data);
+        })
+        .catch((err) => {
+          console.error('데이터를 가져오는 중 오류 발생:', err);
+        });
+    };
+    fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, []);
 
   return (
     <div>
-      {list.length > 0 ? (
-        list.map((notice) => (
+      {userList.length > 0 ? (
+        userList.map((notice) => (
           <div key={notice.list_num}>
             <h3>{notice.title}</h3>
             <p>{notice.content}</p>
