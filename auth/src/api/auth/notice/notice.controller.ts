@@ -1,4 +1,6 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get, Req } from '@nestjs/common';
+
+import { Request } from 'express';
 
 import { NoticeService } from './notice.service';
 
@@ -14,8 +16,12 @@ export class NoticeController {
   }
 
   @Post('send')
-  async noticeCreate(@Body() noticeDTO: NoticeDTO) {
-    return await this.noticeService.createNotice(noticeDTO);
+  async noticeCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
+    const session = req.session.user;
+    const user_id = session.user_id;
+    const role = session.role_name;
+    console.log(user_id,role);
+    return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 
   @Post('authNotices')

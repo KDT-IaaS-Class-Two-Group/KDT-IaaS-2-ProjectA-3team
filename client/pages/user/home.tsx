@@ -6,20 +6,19 @@ import Side from 'client/components/userMainPage/userLeftContent';
 import Modal from 'client/components/modal/modal';
 import Content from 'client/components/userMainPage/mainHeader';
 import Link from 'next/link';
+
 const test: React.FC = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  
   return (
     <div className={style.root}>
       <Side></Side>
       <Content />
-      <Main openModal={openModal}></Main>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>모달</h2>
-        <p>ModalTest</p>
-      </Modal>
+      <button>
+        <Link href={'/user/project/project'}>project</Link>
+      </button>
       <button>
         <Link href={'/user/team'}>Team</Link>
       </button>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-import { ResponseJson } from "../shared/DTO/SharedDTO";
+import { ResponseJson } from "./ts/Interface/LoginResponse.interface";
 
 // * ENUM
 import ROUTE_PATH from "../shared/ENUM/PATHS.ENUM"
@@ -15,7 +15,7 @@ import REQUEST_HEADER from "./ts/enum/REQUEST_HEADER.ENUM";
 /**
  * * Function : middleware
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
+ * 편집자 : @naviadev / 2024-08-05
  * Issue : 
  * @function middleware
  * @description Next.js 라우팅 제어 미들웨어 (권한이 필요한 페이지에 접근을 막는 역할)

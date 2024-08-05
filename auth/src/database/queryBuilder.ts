@@ -7,20 +7,23 @@ export class QueryBuilder {
   private params: any[] = [];
 
   constructor(private readonly databaseService: DatabaseService) {}
-  // 항상 SQL 구문 시작시 reset 메서드를 통해 모든 쿼리문과 params를 초기화함.
+
   RESET() {
     this.queryString = '';
     this.params = [];
   }
+
   async execution() {
     try {
+      console.log('Executing query:', this.queryString); // 쿼리 문자열 출력
+      console.log('With params:', this.params); // 쿼리 파라미터 출력
       const result = await this.databaseService.query(
         this.queryString,
         this.params,
       );
       return result.rows;
     } catch (error) {
-      console.error('Failed execution :', error);
+      console.error('Failed execution :', error); // 오류 출력
       throw new Error('database Error');
     }
   }
@@ -37,8 +40,8 @@ export class QueryBuilder {
     return this;
   }
 
-  WHERE(searchColumn: string, value: any) {
-    this.queryString += ` WHERE ${searchColumn}`;
+  WHERE(condition: string, value: any) {
+    this.queryString += ` WHERE ${condition}`;
     this.params.push(value);
     return this;
   }
@@ -47,7 +50,7 @@ export class QueryBuilder {
     this.RESET();
     const columns = Object.keys(data);
     const values = Object.values(data);
-    const placeholders = columns.map((_, index) => `$${index + 1}`).join(', '); // $1, $2, $3 ...
+    const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
 
     this.queryString = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`;
     this.params = values;
@@ -81,8 +84,3 @@ export class QueryBuilder {
     return this;
   }
 }
-
-// this.db.insert('users', 'user_id', '이재영').exe();
-// -> INSERT INTO users (user_id) VALUES ('이재영');
-
-// SELECT FROM WHERE

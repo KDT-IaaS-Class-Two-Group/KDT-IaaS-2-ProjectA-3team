@@ -1,4 +1,4 @@
-import useRegisterHooks from 'client/hooks/auth_hooks/registerHooks';
+import useRegisterHooks from './hook/registerHooks';
 
 import {
   registerForm,
@@ -6,7 +6,7 @@ import {
   label,
   input,
   button,
-} from '../../styles/register.css';
+} from './style/register.css';
 
 /**
  * * Function : RegisterForm

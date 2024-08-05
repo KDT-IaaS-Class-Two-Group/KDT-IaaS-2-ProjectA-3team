@@ -1,6 +1,6 @@
-import useLoginHooks from 'client/hooks/auth_hooks/loginHooks';
+import useLoginHooks from './hook/loginHooks';
 
-import { container, input, button } from '../../styles/login.css';
+import { container, input, button } from './style/login.css';
 import { useRouter } from 'next/router';
 
 /**

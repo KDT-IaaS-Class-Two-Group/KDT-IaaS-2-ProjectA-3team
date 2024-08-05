@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import session from 'express-session';
+import { setupSwagger } from './swagger.setup';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ async function bootstrap() {
       cookie: { secure: false, maxAge: null },
     }),
   );
+  setupSwagger(app);
 
   await app.listen(process.env.API_PORT || 3001);
 }

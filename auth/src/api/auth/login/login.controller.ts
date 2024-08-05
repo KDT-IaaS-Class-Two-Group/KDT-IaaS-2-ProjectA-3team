@@ -9,8 +9,13 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { UserDTO, SessionDTO } from '@shared/DTO/SharedDTO';
+import { UserDTO } from './DTO/UserDTO';
 import { LoginService } from './login.service';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LoginResponseDTO } from './DTO/LoginResponseDTO';
+import { REDIRECT_PATH } from './Enum/REDIRECT_PATH.enum';
+import { ROLE } from './Enum/ROLE.enum';
+
 /**
  * * Class : LoginController
  * 작성자 : @naviadev / 2024-07-31
@@ -19,10 +24,25 @@ import { LoginService } from './login.service';
  * @param private readonly loginService: LoginService
  * @description : /login 요청을 처리하는 컨트롤러. 기본적인 유효성 검사와 Database 검사 후, 세션 키 발급 로직을 수행함.
  */
+@ApiTags('로그인 엔드포인트')
 @Controller('login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
+  @ApiOperation({ summary: '로그인 요청을 처리하는 엔드포인트' })
+  @ApiResponse({
+    status: 200,
+    description: '로그인 성공 = 200 반환, 세션 생성',
+    type: LoginResponseDTO,
+  })
+  @ApiResponse({
+    status: 401,
+    description: '로그인 실패 = 401 반환, 유효하지 않은 요청',
+  })
+  @ApiBody({
+    description: '사용자 로그인 데이터',
+    type: UserDTO,
+  })
   @Post()
   @HttpCode(HttpStatus.OK)
   async login(
@@ -33,28 +53,41 @@ export class LoginController {
     const { user_id, password } = data;
 
     const userData = await this.loginService.validateUser(user_id, password);
+    if (userData.user_id.startsWith('Admin')) {
+      // -> role.name -> 보고 만약에 "관리자" 라는 이름으로 되어있으면 그때 Admin TABLE 다시 검증하고
+      /**
+       * qwe123, qwe123@ -> 확인 검증이되면 한번 그럼 아예 따로 둬도 된다. -> user -> 로그인 되면 
+       * 
+       * {
+          name : "aasdf"
+          level : 5 -> 5에 맞는 response -> Client -> Component
+          Https Redis 고려 나중에 aws -> Request , Javascript로 쿠키 접근이 불가능하도록 수정. 암호화된 Session 식별자.
+          ->
+        }
+       */
+    }
 
     if (userData) {
-      const session: SessionDTO = await this.loginService.createSession(data);
-      req.session.user = await session;
+      const session = await this.loginService.createSession(data);
+      req.session.user = session;
 
-      if (session.role_name === 'admin') {
+      if (session.role_name === ROLE.ADMIN) {
         return res.json({
           status: 'success',
-          redirect: '/admin/dashBoard',
-          role: 'admin',
+          redirect: REDIRECT_PATH.ADMIN_MAIN,
+          role: ROLE.ADMIN,
         });
       }
 
       return res.json({
         status: 'success',
-        redirect: '/user/home',
-        role: 'user',
+        redirect: REDIRECT_PATH.USER_MAIN,
+        role: ROLE.USER,
       });
     } else {
       return res
         .status(HttpStatus.UNAUTHORIZED)
-        .json({ message: 'Invalid credentials' });
+        .json({ message: '유효하지 않은 인증' });
     }
   }
 }
