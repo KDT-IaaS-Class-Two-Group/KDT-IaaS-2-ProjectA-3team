@@ -7,7 +7,9 @@ export class PendingProcessController {
   constructor(private readonly approveService: ApproveService) {}
 
   @Post('/approve')
-  async approveUser(@Body() data: PendingUserDTO) {}
+  async approveUser(@Body() data: PendingUserDTO) {
+    console.log(data);
+  }
   @Post('/cancle')
   cancleUser() {}
 }
