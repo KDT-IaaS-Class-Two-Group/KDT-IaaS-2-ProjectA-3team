@@ -17,4 +17,9 @@ export class NoticeController {
   async noticeCreate(@Body() noticeDTO: NoticeDTO) {
     return await this.noticeService.createNotice(noticeDTO);
   }
+
+  @Post('authNotices')
+  async noticeAuthCreate(@Body() noticeDTO: NoticeDTO) {
+    return await this.noticeService.createAuthNotice(noticeDTO);
+  }
 }

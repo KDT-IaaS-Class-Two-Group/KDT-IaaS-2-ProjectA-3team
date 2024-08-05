@@ -28,6 +28,16 @@ export class NoticeService {
     }
   }
 
+  async createAuthNotice(notcieDTO: NoticeDTO) {
+    try {
+      await this.client.connect();
+      const database = this.client.db('notice');
+      const collection = database.collection<NoticeDTO>('noticeAuthTable');
+    } finally {
+      await this.client.close();
+    }
+  }
+
   async getNotices() {
     try {
       await this.client.connect();
