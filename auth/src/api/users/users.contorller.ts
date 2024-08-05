@@ -14,16 +14,29 @@ import { QueryBuilder } from 'src/database/queryBuilder';
 export class UsersController {
   constructor(private readonly queryBuilder: QueryBuilder) {}
 
+  private nonePasswordObject = [
+    'user_id',
+    'username',
+    'birth_date',
+    'address',
+    'phone',
+    'email',
+  ];
+
   @Get('/all')
   async CheckUser(@Body() data) {
     console.log(data);
-    const obj = this.queryBuilder.SELECT('users').execution();
+    const obj = this.queryBuilder
+      .SELECT('users', this.nonePasswordObject)
+      .execution();
     return obj;
   }
 
   @Get('pending')
   async CheckPendingUser() {
-    const obj = this.queryBuilder.SELECT('pending_users').execution();
+    const obj = this.queryBuilder
+      .SELECT('pending_users', this.nonePasswordObject)
+      .execution();
     return obj;
   }
 
