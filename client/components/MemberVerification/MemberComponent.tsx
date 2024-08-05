@@ -1,7 +1,7 @@
 import * as style from 'client/styles/pending/pending_component.css';
 
-import { approveHandler } from './services/approveHandler';
-import { cancleHandler } from './services/cancleHandler';
+import { approveHandler } from './services/fetchApproveData';
+import { cancleHandler } from './services/fetchCancleData';
 import { MemberProps } from './interface/MemberProps.interface';
 
 const MemberComponent: React.FC<MemberProps> = ({ memberData }) => {
