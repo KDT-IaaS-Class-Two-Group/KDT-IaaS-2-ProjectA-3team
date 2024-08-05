@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
 export interface User {
-  id: string; // 사용자 ID
+  id: string;
   username: string;
   salary?: number;
   role_name?: string;
   field_name?: string;
 }
-
+interface Field {
+  field_name: string;
+}
 interface UserLookupProps {
   onSave: (users: User[]) => Promise<void>;
 }
@@ -15,16 +17,24 @@ interface UserLookupProps {
 const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fields, setFields] = useState<string[]>([]); // 추가된 상태
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3001/getUser/all");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        const [userResponse, fieldResponse] = await Promise.all([
+          fetch("http://localhost:3001/getUser/all"),
+          fetch("http://localhost:3001/getUser/fields"), // field 데이터 가져오기
+        ]);
+
+        if (!userResponse.ok || !fieldResponse.ok) {
+          throw new Error(`HTTP error! Status: ${userResponse.status}`);
         }
-        const resJson = await response.json();
-        setUsers(resJson);
+
+        const usersData = await userResponse.json();
+        const fieldsData = await fieldResponse.json();
+        setUsers(usersData);
+        setFields(fieldsData.map((field: Field) => field.field_name)); // 필드명만 추출
       } catch (error) {
         console.error("사용자 조회 실패:", error);
       } finally {
@@ -96,8 +106,11 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
                 value={user.field_name || ""}
                 onChange={(e) => handleInputChange(index, e, "field_name")}
               >
-                <option value="front">Frontend Engineer</option>
-                <option value="back">Backend Engineer</option>
+                {fields.map((field) => (
+                  <option key={field} value={field}>
+                    {field}
+                  </option> // 동적 필드 옵션
+                ))}
               </select>
             </div>
           </li>

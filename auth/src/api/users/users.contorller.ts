@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { QueryBuilder } from 'src/database/queryBuilder';
+
 @Controller('/getUser')
 export class UsersController {
   constructor(private readonly queryBuilder: QueryBuilder) {}
@@ -12,6 +13,14 @@ export class UsersController {
     return obj;
   }
 
+  @Get('/fields') // 추가된 API 엔드포인트
+  async GetFields() {
+    const fields = await this.queryBuilder
+      .SELECT(['field_name'], 'field')
+      .execution();
+    return fields;
+  }
+
   @Post('/all')
   async SaveUsers(@Body() body) {
     const users = body.users;
@@ -21,26 +30,23 @@ export class UsersController {
           throw new Error(`사용자 ID가 없습니다: ${JSON.stringify(user)}`);
         }
 
-        // salary 값을 문자열에서 숫자로 변환
         const salary = parseFloat(user.salary);
         if (isNaN(salary)) {
           throw new Error(`유효하지 않은 급여 값: ${user.salary}`);
         }
 
-        // 기존 사용자가 있는지 확인
         const existingUser = await this.queryBuilder
           .SELECT(['*'], 'relation_users_role')
           .WHERE('user_id = $1', user.user_id)
           .execution();
 
         if (existingUser.length > 0) {
-          // 업데이트
           await this.queryBuilder
             .UPDATE(
               'relation_users_role',
               {
                 role_name: user.role_name,
-                salary: salary, // 수치로 변환
+                salary: salary,
                 field_name: user.field_name,
               },
               'user_id = $4',
@@ -48,11 +54,10 @@ export class UsersController {
             )
             .execution();
         } else {
-          // 새로 추가
           await this.queryBuilder
             .INSERT('relation_users_role', {
               user_id: user.user_id,
-              salary: salary, // 변환된 숫자 사용
+              salary: salary,
               role_name: user.role_name,
               field_name: user.field_name,
             })
