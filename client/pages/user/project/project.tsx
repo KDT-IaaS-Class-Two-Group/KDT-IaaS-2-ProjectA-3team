@@ -16,9 +16,11 @@ const test: React.FC = () => {
     <div className={style.root}>
       <Side></Side>
       <Content />
-      <button>
-        <Link href={'/user/project/project'}>project</Link>
-      </button>
+      <Main openModal={openModal}></Main>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2>모달</h2>
+        <p>ModalTest</p>
+      </Modal>
       <button>
         <Link href={'/user/team'}>Team</Link>
       </button>
