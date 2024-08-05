@@ -15,6 +15,11 @@ export class NoticeController {
     return await this.noticeService.getNotices();
   }
 
+  @Get('Authnotices')
+  async getAuthNotices() {
+    return await this.noticeService.getAuthNotices();
+  }
+
   @Post('send')
   async noticeCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
     const session = req.session.user;
@@ -24,8 +29,12 @@ export class NoticeController {
     return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 
-  @Post('authNotices')
-  async noticeAuthCreate(@Body() noticeDTO: NoticeDTO) {
-    return await this.noticeService.createAuthNotice(noticeDTO);
+  @Post('authSend')
+  async noticeAuthCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
+    const session = req.session.user;
+    const user_id = session.user_id;
+    const role = session.role_name;
+    console.log(user_id,role);
+    return await this.noticeService.createAuthNotice(noticeDTO, user_id, role);
   }
 }

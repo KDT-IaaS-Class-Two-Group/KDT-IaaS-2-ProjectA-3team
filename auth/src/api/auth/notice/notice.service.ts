@@ -33,17 +33,30 @@ export class NoticeService {
       };
 
       const result = await mongoCollection.insertOne(noticeData);
-      return `New document inserted with _id: ${result.insertedId}`;
+      return `insert완료 ${result.insertedId}`;
     } finally {
       await this.client.close();
     }
   }
 
-  async createAuthNotice(notcieDTO: NoticeDTO) {
+  async createAuthNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     try {
       await this.client.connect();
-      const database = this.client.db('notice');
-      const collection = database.collection<NoticeDTO>('noticeAuthTable');
+      const mongoDatabase = this.client.db('notice');
+      const mongoCollection =
+        mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
+
+      const currentDate = new Date();
+      const custom = dateSet(currentDate);
+      const noticeData = {
+        ...noticeDTO,
+        createdAt: custom, // 현재 날짜와 시간 추가
+        user_id,
+        role,
+      };
+
+      const result = await mongoCollection.insertOne(noticeData);
+      return `insert완료 ${result.insertedId}`;
     } finally {
       await this.client.close();
     }
@@ -55,6 +68,20 @@ export class NoticeService {
       const mongoCollection = this.client
         .db('notice')
         .collection<NoticeDTO>('noticeTable');
+
+      // NoticeDTO 타입으로 직접 반환
+      return await mongoCollection.find().toArray();
+    } finally {
+      await this.client.close();
+    }
+  }
+
+  async getAuthNotices() {
+    try {
+      await this.client.connect();
+      const mongoCollection = this.client
+        .db('notice')
+        .collection<NoticeDTO>('noticeAuthTable');
 
       // NoticeDTO 타입으로 직접 반환
       return await mongoCollection.find().toArray();

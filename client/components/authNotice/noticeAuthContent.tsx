@@ -11,7 +11,7 @@ const NoticeAuthContent = () => {
 
   useEffect(() => {
     const fetchNotices = () => {
-      fetch('http://localhost:3001/authNotices')
+      fetch('http://localhost:3001/Authnotices')
         .then((response) => {
           return response.json();
         })
