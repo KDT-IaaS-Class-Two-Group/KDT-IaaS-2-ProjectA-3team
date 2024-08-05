@@ -15,7 +15,7 @@ const NoticeBoard: React.FC = () => {
   const [stateContent, setStateContent] = useState('');
 
   const send = () => {
-    fetch('http://localhost:3001/authSend', {
+    fetch('http://localhost:3001/send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
