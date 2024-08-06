@@ -1,7 +1,7 @@
-import { Controller, Get } from "@nestjs/common";
-import { TableService } from "../../../database/table.service";
+import { Controller, Get } from '@nestjs/common';
+import { TableService } from '../../../database/table.service';
 
-@Controller("api/tables")
+@Controller('api/tables')
 export class TablesController {
   constructor(private readonly tableService: TableService) {}
 

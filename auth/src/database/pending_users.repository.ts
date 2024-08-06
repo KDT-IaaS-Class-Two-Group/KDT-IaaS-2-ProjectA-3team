@@ -1,15 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { DatabaseService } from "./database.service";
-import { PendingUserDTO } from "../../../shared/DTO/SharedDTO";
+import { Injectable } from '@nestjs/common';
+import { DatabaseService } from './database.service';
+import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
 
 @Injectable()
 class PendingUserRepository {
-  private readonly tableName: string = "pendingusers";
+  private readonly tableName: string = 'pendingusers';
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
     const result = await this.dbService.query(
-      `SELECT * FROM ${this.tableName}`
+      `SELECT * FROM ${this.tableName}`,
     );
     return result.rows;
   }
@@ -17,7 +17,7 @@ class PendingUserRepository {
   async findOneByUser(user_id: string) {
     const result = await this.dbService.query(
       `SELECT * FROM ${this.tableName} WHERE user_id = $1`,
-      [user_id]
+      [user_id],
     );
     return result.rows[0];
   }
@@ -52,8 +52,8 @@ class PendingUserRepository {
     try {
       await this.dbService.query(text, params);
     } catch (error) {
-      console.error("executing Query Error - 쿼리문 실행 불가 . :", error);
-      throw new Error("Database error");
+      console.error('executing Query Error - 쿼리문 실행 불가 . :', error);
+      throw new Error('Database error');
     }
   }
 }
