@@ -64,7 +64,7 @@ function UserSelection() {
 
     try {
       // 팀 정보를 저장
-      await fetch("/team/save", {
+      await fetch("http://localhost:3001/getUser/saveTeam", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,8 @@ function UserSelection() {
 
       // 팀장 저장
       if (selectedLeader) {
-        await fetch("/team/save", {
+        console.log("test");
+        await fetch("http://localhost:3001/getUser/saveTeam", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +90,7 @@ function UserSelection() {
 
       // 팀원 저장
       for (const member of selectedMembers) {
-        await fetch("/team/save", {
+        await fetch("http://localhost:3001/getUser/saveTeam", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

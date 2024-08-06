@@ -164,4 +164,45 @@ export class UsersController {
       return { error: '프로필 정보 저장 실패' };
     }
   }
+  @Post('/saveTeam')
+  async saveTeam(@Body() body: any) {
+    const { team_name, description, teamLeader, teamMembers } = body;
+
+    try {
+      // 팀 정보 저장
+      await this.queryBuilder
+        .INSERT('Team', {
+          team_name,
+          description,
+        })
+        .execution();
+
+      // 팀장 저장
+      if (teamLeader) {
+        await this.queryBuilder
+          .INSERT('relation_team_users', {
+            team_name,
+            user_id: teamLeader.user_id,
+            role_name: 'leader',
+          })
+          .execution();
+      }
+
+      // 팀원 저장
+      for (const member of teamMembers) {
+        await this.queryBuilder
+          .INSERT('relation_team_users', {
+            team_name,
+            user_id: member.user_id,
+            role_name: 'employee',
+          })
+          .execution();
+      }
+
+      return { message: '팀 정보와 구성원이 성공적으로 저장되었습니다.' };
+    } catch (error) {
+      console.error('팀 정보 저장 실패:', error);
+      return { error: '팀 정보 저장 실패' };
+    }
+  }
 }
