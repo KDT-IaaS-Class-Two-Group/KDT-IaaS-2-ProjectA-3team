@@ -23,9 +23,6 @@ function UserSelection() {
         const leadersData = await leadersResponse.json();
         const membersData = await membersResponse.json();
 
-        console.log("Leaders:", leadersData); // 데이터 확인
-        console.log("Members:", membersData); // 데이터 확인
-
         setLeaders(leadersData);
         setMembers(membersData);
       } catch (error) {
@@ -56,7 +53,50 @@ function UserSelection() {
     );
   };
 
-  const fetchTeam = async () => {
+  const checkTeamNameExists = async (name: string) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/getUser/checkTeamName",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ team_name: name }),
+        }
+      );
+
+      const result = await response.json();
+      return result.exists; // 서버에서 반환한 결과에 따라서 수정
+    } catch (error) {
+      console.error("Error checking team name:", error);
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!teamName) {
+      alert("팀 이름을 입력해 주세요.");
+      return;
+    }
+
+    const nameExists = await checkTeamNameExists(teamName);
+    if (nameExists) {
+      alert("이미 존재하는 팀 이름입니다. 다른 팀 이름을 입력해 주세요.");
+      return;
+    }
+
+    if (!selectedLeader) {
+      alert("팀장을 선택해 주세요.");
+      return;
+    }
+    if (selectedMembers.length === 0) {
+      alert("팀원을 선택해 주세요.");
+      return;
+    }
+
     const teamData = {
       team_name: teamName,
       description: teamDescription,
@@ -79,10 +119,26 @@ function UserSelection() {
         body: JSON.stringify(teamData),
       });
 
+      // 서버의 응답 상태 코드 확인
+      if (!response.ok) {
+        throw new Error("팀 정보 저장 실패");
+      }
+
       const result = await response.json();
-      console.log(result.message || "팀 정보 저장 성공");
+
+      if (result.error) {
+        alert(result.error);
+      } else {
+        alert(result.message || "팀 정보 저장 성공");
+        // 폼 리셋
+        setTeamName("");
+        setTeamDescription("");
+        setSelectedLeader(null);
+        setSelectedMembers([]);
+      }
     } catch (error) {
       console.error("Error saving team data:", error);
+      alert("팀 정보 저장 중 오류가 발생했습니다.");
     }
   };
 
@@ -141,7 +197,7 @@ function UserSelection() {
           onChange={(e) => setTeamDescription(e.target.value)}
         />
       </div>
-      <button onClick={fetchTeam}>전송</button>
+      <button onClick={handleSubmit}>전송</button>
     </div>
   );
 }
