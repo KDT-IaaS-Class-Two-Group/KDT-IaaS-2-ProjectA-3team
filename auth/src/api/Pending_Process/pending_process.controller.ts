@@ -49,7 +49,7 @@ export class PendingProcessController {
     } catch (error) {
       console.error(error);
       throw new HttpException(
-        'Cancle User 실패',
+        'Cancel User 실패',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

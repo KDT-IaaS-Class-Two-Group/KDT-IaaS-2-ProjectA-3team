@@ -21,11 +21,19 @@ import { QueryBuilder } from 'src/database/queryBuilder';
 @Injectable()
 export class LoginService {
   private tableName = 'users';
-  private roleTableNames = ['admin_role_users', 'leader_role_users', 'sub_admin_role_users', 'employee_role_users'];
+  private roleTableNames = [
+    'admin_role_users',
+    'leader_role_users',
+    'sub_admin_role_users',
+    'employee_role_users',
+  ];
 
   constructor(private readonly queryBuild: QueryBuilder) {}
 
-  async validateUser(user_id: string, password: string): Promise<UserDTO | null> {
+  async validateUser(
+    user_id: string,
+    password: string,
+  ): Promise<UserDTO | null> {
     const userData = await this.queryBuild
       .SELECT(this.tableName)
       .WHERE('user_id = $1', user_id)

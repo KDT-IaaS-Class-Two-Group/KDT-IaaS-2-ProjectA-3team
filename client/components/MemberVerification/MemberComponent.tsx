@@ -1,8 +1,8 @@
 import * as style from 'client/styles/pending/pending_component.css';
-import { approveHandler } from './services/fetchApproveData';
-import { cancelHandler } from './services/fetchCancelData';
+import { approveHandler } from './services/approve/fetchApproveData';
+import { cancelHandler } from './services/cancel/fetchCancelData';
 import { usePendingUsers } from './hook/usePendingUser';
-import UserItem from './utils/userItem';
+import UserItem from './item/userItem';
 
 const MemberComponent: React.FC = () => {
   const [memberData, setMemberData] = usePendingUsers();
@@ -45,7 +45,7 @@ const MemberComponent: React.FC = () => {
           index={index}
           item={item}
           onApprove={handleApprove}
-          onCancle={handleCancel}
+          onCancel={handleCancel}
         />
       ))}
     </div>

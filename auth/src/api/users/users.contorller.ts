@@ -14,6 +14,7 @@ export class UsersController {
     'phone',
     'email',
   ];
+  private role_users = ['user_id'];
 
   @Get('/all')
   async CheckUser(@Body() data) {
@@ -24,13 +25,30 @@ export class UsersController {
     return obj;
   }
 
-  @Get('pending')
+  @Get('/leaders')
+  async CheckLeaders() {
+    const obj = this.queryBuilder
+      .SELECT('leader_role_users', this.role_users)
+      .execution();
+    return obj;
+  }
+
+  @Get('/members')
+  async CheckMembers() {
+    const obj = this.queryBuilder
+      .SELECT('employee_role_users', this.role_users)
+      .execution();
+    return obj;
+  }
+
+  @Get('/pending')
   async CheckPendingUser() {
     const obj = this.queryBuilder
       .SELECT('pending_users', this.nonePasswordObject)
       .execution();
     return obj;
   }
+
   @Get('/userpersonal')
   async UserPersonal(@Req() req: Request) {
     const se = req.session.user?.user_id;
@@ -47,7 +65,7 @@ export class UsersController {
             'email',
             'password',
           ])
-          .WHERE('user_id = $1', se) // 조건과 값을 올바르게 설정
+          .WHERE('user_id = $1', se)
           .execution();
         return obj;
       } catch (error) {
@@ -61,16 +79,14 @@ export class UsersController {
 
   @Get('/userprofile')
   async UserProfile() {
-    const obj = await this.queryBuilder
-      .SELECT('Profile') // 모든 컬럼을 선택
-      .execution();
+    const obj = await this.queryBuilder.SELECT('Profile').execution();
     return obj;
   }
 
   @Get('/fields')
   async GetFields() {
     const fields = await this.queryBuilder
-      .SELECT('field', 'field_name') // 필요한 컬럼만 선택
+      .SELECT('field', 'field_name')
       .execution();
     return fields;
   }
@@ -124,6 +140,21 @@ export class UsersController {
       return { error: '사용자 정보 저장 실패' };
     }
   }
+  @Post('/checkTeamName')
+  async checkTeamName(@Body() body: { team_name: string }) {
+    const { team_name } = body;
+    try {
+      const existingTeam = await this.queryBuilder
+        .SELECT('Team', 'team_name')
+        .WHERE('team_name = $1', team_name)
+        .execution();
+
+      return { exists: existingTeam.length > 0 };
+    } catch (error) {
+      console.error('팀 이름 중복 체크 실패:', error);
+      throw new Error('팀 이름 중복 체크 실패');
+    }
+  }
 
   @Post('/saveProfile')
   async SaveProfile(@Body() body: any) {
@@ -148,6 +179,59 @@ export class UsersController {
     } catch (error) {
       console.error('프로필 정보 저장 실패:', error);
       return { error: '프로필 정보 저장 실패' };
+    }
+  }
+
+  @Post('/saveTeam')
+  async saveTeam(@Body() body: any) {
+    const { team_name, description, teamLeader, teamMembers } = body;
+
+    try {
+      // 팀 이름이 이미 존재하는지 확인
+      const teamExists = await this.queryBuilder
+        .SELECT('Team', 'team_name')
+        .WHERE('team_name = $1', team_name)
+        .execution();
+
+      if (teamExists.length > 0) {
+        // 팀 이름이 이미 존재하는 경우
+        return { error: '팀 이름이 이미 존재합니다.' };
+      }
+
+      // 팀 정보 저장
+      await this.queryBuilder
+        .INSERT('Team', {
+          team_name,
+          description,
+        })
+        .execution();
+
+      // 팀장 저장
+      if (teamLeader) {
+        await this.queryBuilder
+          .INSERT('relation_team_users', {
+            team_name,
+            user_id: teamLeader.user_id,
+            role_name: 'leader',
+          })
+          .execution();
+      }
+
+      // 팀원 저장
+      for (const member of teamMembers) {
+        await this.queryBuilder
+          .INSERT('relation_team_users', {
+            team_name,
+            user_id: member.user_id,
+            role_name: 'employee',
+          })
+          .execution();
+      }
+
+      return { message: '팀 정보와 구성원이 성공적으로 저장되었습니다.' };
+    } catch (error) {
+      console.error('팀 정보 저장 실패:', error);
+      return { error: '팀 정보 저장 실패' };
     }
   }
 }
