@@ -4,10 +4,10 @@ interface UserItemProps {
   item: { [key: string]: any };
   index: number;
   onApprove: (index: number, item: { [key: string]: any }) => void;
-  onCancle: (index: number, item: { [key: string]: any }) => void;
+  onCancel: (index: number, item: { [key: string]: any }) => void;
 }
 
-const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancle }) => {
+const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel }) => {
   return (
     <div className={style.contentWrapper}>
       <h1>{index + 1}</h1>
@@ -19,7 +19,7 @@ const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancle })
         </div>
       ))}
       <button onClick={() => onApprove(index, item)}>승인</button>
-      <button onClick={() => onCancle(index, item)}>취소</button>
+      <button onClick={() => onCancel(index, item)}>취소</button>
     </div>
   );
 };

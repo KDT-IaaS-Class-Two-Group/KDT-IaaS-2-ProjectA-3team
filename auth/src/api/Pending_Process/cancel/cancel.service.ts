@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PendingUserDTO } from 'src/api/auth/register/DTO/PendingUserDTO';
 import { QueryBuilder } from 'src/database/queryBuilder';
 @Injectable()
-export class CancleService {
+export class CancelService {
   private pendingTableName = 'pending_users';
 
   constructor(private readonly queryBuilder: QueryBuilder) {}
@@ -19,7 +19,7 @@ export class CancleService {
     }
   }
 
-  async cancle(data: PendingUserDTO) {
+  async cancel(data: PendingUserDTO) {
     try {
       const result = await this.deletePendingUser(data.user_id);
 
@@ -29,8 +29,8 @@ export class CancleService {
         return false;
       }
     } catch (error) {
-      console.error('cancle 실패', error);
-      throw new Error('cancle Failed');
+      console.error('cance; 실패', error);
+      throw new Error('cancel Failed');
     }
   }
 }

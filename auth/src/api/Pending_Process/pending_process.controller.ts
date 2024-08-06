@@ -8,13 +8,13 @@ import {
 } from '@nestjs/common';
 import { ApproveService } from './approve/approve.service';
 import { PendingUserDTO } from '../auth/register/DTO/PendingUserDTO';
-import { CancleService } from './cancle/cancle.service';
+import { CancelService } from './cancel/cancel.service';
 
 @Controller('/pending-process')
 export class PendingProcessController {
   constructor(
     private readonly approveService: ApproveService,
-    private readonly cancleService: CancleService,
+    private readonly cancelService: CancelService,
   ) {}
 
   @Post('/approve')
@@ -36,10 +36,10 @@ export class PendingProcessController {
     }
   }
 
-  @Post('/cancle')
-  async cancleUser(@Body() data: PendingUserDTO) {
+  @Post('/cancel')
+  async cancelUser(@Body() data: PendingUserDTO) {
     try {
-      const result = await this.cancleService.cancle(data);
+      const result = await this.cancelService.cancel(data);
 
       if (result) {
         return { message: '취소 성공' };

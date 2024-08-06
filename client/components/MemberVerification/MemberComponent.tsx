@@ -1,6 +1,6 @@
 import * as style from 'client/styles/pending/pending_component.css';
 import { approveHandler } from './services/fetchApproveData';
-import { cancleHandler } from './services/fetchCancleData';
+import { cancelHandler } from './services/fetchCancelData';
 import { usePendingUsers } from './hook/usePendingUser';
 import UserItem from './utils/userItem';
 
@@ -22,9 +22,9 @@ const MemberComponent: React.FC = () => {
     }
   };
 
-  const handleCancle = async (index: number, item: { [key: string]: any }) => {
+  const handleCancel = async (index: number, item: { [key: string]: any }) => {
     try {
-      const response = await cancleHandler(index, item);
+      const response = await cancelHandler(index, item);
       if (response.ok) {
         const updatedData = memberData.filter((_, i) => i !== index);
         setMemberData(updatedData);
@@ -45,7 +45,7 @@ const MemberComponent: React.FC = () => {
           index={index}
           item={item}
           onApprove={handleApprove}
-          onCancle={handleCancle}
+          onCancle={handleCancel}
         />
       ))}
     </div>
