@@ -45,6 +45,12 @@ export class QueryBuilder {
 
   WHERE(condition: string, value: any) {
     this.queryString += ` WHERE ${condition}`;
+    if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        this.params.push(value[i]);
+      }
+      return this;
+    }
     this.params.push(value);
     return this;
   }
