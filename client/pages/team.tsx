@@ -60,11 +60,18 @@ function UserSelection() {
     const teamData = {
       team_name: teamName,
       description: teamDescription,
+      teamLeader: selectedLeader
+        ? {
+            user_id: selectedLeader.user_id,
+          }
+        : null,
+      teamMembers: selectedMembers.map((member) => ({
+        user_id: member.user_id,
+      })),
     };
 
     try {
-      // 팀 정보를 저장
-      await fetch("http://localhost:3001/getUser/saveTeam", {
+      const response = await fetch("http://localhost:3001/getUser/saveTeam", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,38 +79,8 @@ function UserSelection() {
         body: JSON.stringify(teamData),
       });
 
-      // 팀장 저장
-      if (selectedLeader) {
-        console.log("test");
-        await fetch("http://localhost:3001/getUser/saveTeam", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            team_name: teamName,
-            user_id: selectedLeader.user_id,
-            role_name: "leader", // 팀장 역할 설정
-          }),
-        });
-      }
-
-      // 팀원 저장
-      for (const member of selectedMembers) {
-        await fetch("http://localhost:3001/getUser/saveTeam", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            team_name: teamName,
-            user_id: member.user_id,
-            role_name: "employee", // 팀원 역할 설정
-          }),
-        });
-      }
-
-      console.log("Team data saved successfully.");
+      const result = await response.json();
+      console.log(result.message || "팀 정보 저장 성공");
     } catch (error) {
       console.error("Error saving team data:", error);
     }
