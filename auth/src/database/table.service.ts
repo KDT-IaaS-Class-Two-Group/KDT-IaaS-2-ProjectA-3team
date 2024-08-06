@@ -6,8 +6,9 @@ export class TableService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async getAllRows(tableName: string) {
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
     const table = await this.databaseService.query(
-      `SELECT * FROM ${tableName}`,
+      `SELECT * FROM ${tableName} ORDER BY ${idField}`,
     );
     if (!table) {
       throw new NotFoundException(`Table ${tableName} not found`);
@@ -29,43 +30,66 @@ export class TableService {
       `INSERT INTO ${tableName} (${keys}) VALUES (${placeholders})`,
       values,
     );
-    return rowData;
+
+    // 추가된 데이터를 반환
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
+    const addedRow = await this.databaseService.query(
+      `SELECT * FROM ${tableName} WHERE ${idField} = $1 ORDER BY ${idField}`,
+      [rowData[idField]],
+    );
+
+    return addedRow.rows[0];
   }
 
   async updateRow(tableName: string, rowId: string, rowData: any) {
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
+    
+    // created_at 필드가 업데이트되지 않도록 rowData에서 제거
+    delete rowData['created_at'];
+    
     const updates = Object.keys(rowData)
       .map((key, index) => `${key} = $${index + 1}`)
       .join(', ');
     const values = [...Object.values(rowData), rowId];
 
     console.log(
-      `Executing query: UPDATE ${tableName} SET ${updates} WHERE id = $${values.length}`,
+      `Executing query: UPDATE ${tableName} SET ${updates} WHERE ${idField} = $${values.length}`,
       values,
     );
 
     const result = await this.databaseService.query(
-      `UPDATE ${tableName} SET ${updates} WHERE id = $${values.length}`,
+      `UPDATE ${tableName} SET ${updates} WHERE ${idField} = $${values.length}`,
       values,
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${tableName}`,
+        `Row with ${idField} ${rowId} not found in table ${tableName}`,
       );
     }
-    return rowData;
+
+    // 업데이트된 데이터를 반환
+    const updatedRow = await this.databaseService.query(
+      `SELECT * FROM ${tableName} WHERE ${idField} = $1 ORDER BY ${idField}`,
+      [rowId],
+    );
+
+    return updatedRow.rows[0];
   }
 
   async deleteRow(tableName: string, rowId: string) {
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
     const result = await this.databaseService.query(
-      `DELETE FROM ${tableName} WHERE id = $1`,
+      `DELETE FROM ${tableName} WHERE ${idField} = $1`,
       [rowId],
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${tableName}`,
+        `Row with ${idField} ${rowId} not found in table ${tableName}`,
       );
     }
-    return { id: rowId };
+
+    // 삭제된 데이터의 ID를 반환
+    return { [idField]: rowId };
   }
 
   async getTableStructure(tableName: string) {
@@ -79,13 +103,14 @@ export class TableService {
     return structure.rows;
   }
 
-  async getTableData(tableName: string, limit: number = 5) {
+  async getTableData(tableName: string) {
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
     const data = await this.databaseService.query(
-      `SELECT * FROM ${tableName} LIMIT $1`,
-      [limit],
+      `SELECT * FROM ${tableName} ORDER BY ${idField}`
     );
     return data.rows;
   }
+  
 
   async getTables(): Promise<{ table_name: string }[]> {
     const res = await this.databaseService.query(`

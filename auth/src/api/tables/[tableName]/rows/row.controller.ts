@@ -12,9 +12,7 @@ export class RowController {
     @Body() rowData: any,
   ) {
     if (!['stack', 'field'].includes(tableName)) {
-      throw new Error(
-        'Only "stack" and "field" tables are allowed for updating rows.',
-      );
+      throw new Error('Only "stack" and "field" tables are allowed for updating rows.');
     }
     return this.tableService.updateRow(tableName, rowId, rowData);
   }

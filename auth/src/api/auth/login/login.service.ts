@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SessionDTO, UserDTO } from '@shared/DTO/SharedDTO';
 import { QueryBuilder } from 'src/database/queryBuilder';
+
 /**
  *
  * * Class : LoginService
@@ -20,29 +21,35 @@ import { QueryBuilder } from 'src/database/queryBuilder';
 @Injectable()
 export class LoginService {
   private tableName = 'users';
+  private roleTableNames = ['admin_role_users', 'leader_role_users', 'sub_admin_role_users', 'employee_role_users'];
+
   constructor(private readonly queryBuild: QueryBuilder) {}
-  async validateUser(
-    user_id: string,
-    password: string,
-  ): Promise<UserDTO | null> {
+
+  async validateUser(user_id: string, password: string): Promise<UserDTO | null> {
     const userData = await this.queryBuild
       .SELECT(this.tableName)
       .WHERE('user_id = $1', user_id)
       .execution();
 
-    if (userData[0] && userData[0].password == password) {
+    if (userData[0] && userData[0].password === password) {
       return userData[0];
     }
     return null;
   }
 
-  async createSession(data: UserDTO) {
+  async createSession(data: UserDTO): Promise<SessionDTO | null> {
     try {
-      const role_Object: SessionDTO = (await this.queryBuild
-        .SELECT('relation_users_role')
-        .WHERE('user_id = $1', data.user_id)
-        .execution()) as SessionDTO;
-      return role_Object[0];
+      for (const roleTableName of this.roleTableNames) {
+        const roleData = await this.queryBuild
+          .SELECT(roleTableName)
+          .WHERE('user_id = $1', data.user_id)
+          .execution();
+
+        if (roleData[0]) {
+          return roleData[0] as SessionDTO;
+        }
+      }
+      throw new Error('해당 사용자의 역할을 찾을 수 없습니다');
     } catch (error) {
       console.error('Failed Create Session : ', error);
       throw new Error('CREATE SESSION ERROR');
