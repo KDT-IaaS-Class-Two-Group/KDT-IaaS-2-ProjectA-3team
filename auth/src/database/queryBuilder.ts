@@ -1,41 +1,49 @@
-import { Injectable } from "@nestjs/common";
-import { DatabaseService } from "./database.service";
+import { Injectable } from '@nestjs/common';
+import { DatabaseService } from './database.service';
+import columns from 'ts/type/querybuilder/columns.type';
 
 @Injectable()
 export class QueryBuilder {
-  private queryString: string = "";
+  private queryString: string = '';
   private params: any[] = [];
 
   constructor(private readonly databaseService: DatabaseService) {}
 
-  private RESET() {
-    this.queryString = "";
+  RESET() {
+    this.queryString = '';
     this.params = [];
   }
 
   async execution() {
     try {
-      console.log("Executing query:", this.queryString);
-      console.log("With params:", this.params);
+      console.log('Executing query:', this.queryString); // 쿼리 문자열 출력
+      console.log('With params:', this.params); // 쿼리 파라미터 출력
       const result = await this.databaseService.query(
         this.queryString,
-        this.params
+        this.params,
       );
       return result.rows; // 결과를 rows로 반환 (PostgreSQL의 경우)
     } catch (error) {
-      console.error("Failed execution:", error);
-      throw new Error("Database error");
+      console.error('Failed execution :', error); // 오류 출력
+      throw new Error('database Error');
     }
   }
 
-  SELECT(columns: string[], tableName: string) {
+  SELECT(tableName: string, columns: columns = '*') {
+    console.log(columns);
     this.RESET();
-    this.queryString = `SELECT ${columns.join(", ")} FROM ${tableName}`;
+    if (Array.isArray(columns)) {
+      this.queryString = `SELECT ${columns.join(', ')} FROM ${tableName}`;
+    } else if (columns === '*') {
+      this.queryString = `SELECT * FROM ${tableName}`;
+    } else {
+      this.queryString = `SELECT ${columns} FROM ${tableName}`;
+    }
     return this;
   }
 
   WHERE(condition: string, value: any) {
-    if (this.queryString.includes("WHERE")) {
+    if (this.queryString.includes('WHERE')) {
       this.queryString += ` AND ${condition}`;
     } else {
       this.queryString += ` WHERE ${condition}`;
@@ -48,9 +56,9 @@ export class QueryBuilder {
     this.RESET();
     const columns = Object.keys(data);
     const values = Object.values(data);
-    const placeholders = columns.map((_, index) => `$${index + 1}`).join(", ");
+    const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
 
-    this.queryString = `INSERT INTO ${tableName} (${columns.join(", ")}) VALUES (${placeholders})`;
+    this.queryString = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`;
     this.params = values;
     return this;
   }
@@ -59,13 +67,13 @@ export class QueryBuilder {
     tableName: string,
     data: { [key: string]: any },
     condition: string,
-    conditionValue: any
+    conditionValue: any,
   ) {
     this.RESET();
     const columns = Object.keys(data);
     const placeholders = columns
       .map((col, index) => `${col} = $${index + 1}`)
-      .join(", ");
+      .join(', ');
 
     const values = Object.values(data);
 

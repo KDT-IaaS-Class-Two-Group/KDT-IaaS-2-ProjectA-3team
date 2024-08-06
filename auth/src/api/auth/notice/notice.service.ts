@@ -1,12 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { MongoClient } from "mongodb";
-import { Pool } from "pg";
-import { NoticeDTO } from "../../../../../shared/DTO/DbDTO";
-import { dateSet } from "./utils/dateUtils";
+import { Injectable } from '@nestjs/common';
+import { MongoClient } from 'mongodb';
+import { Pool } from 'pg';
+import { NoticeDTO } from '../../../../../shared/DTO/DbDTO';
+import { dateSet } from './utils/dateUtils';
 
 @Injectable()
 export class NoticeService {
-  private readonly uri = "mongodb://localhost:27017";
+  private readonly uri = 'mongodb://localhost:27017';
   private readonly client = new MongoClient(this.uri);
   private readonly pgPool = new Pool({
     user: process.env.DB_USER,
@@ -19,9 +19,10 @@ export class NoticeService {
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     try {
       await this.client.connect();
-      const mongoDatabase = this.client.db("notice");
+
+      const mongoDatabase = this.client.db('notice');
       const mongoCollection =
-        mongoDatabase.collection<NoticeDTO>("noticeTable");
+        mongoDatabase.collection<NoticeDTO>('noticeTable');
 
       const currentDate = new Date();
       const custom = dateSet(currentDate);
@@ -43,8 +44,9 @@ export class NoticeService {
     try {
       await this.client.connect();
       const mongoCollection = this.client
-        .db("notice")
-        .collection<NoticeDTO>("noticeTable");
+
+        .db('notice')
+        .collection<NoticeDTO>('noticeTable');
 
       // NoticeDTO 타입으로 직접 반환
       return await mongoCollection.find().toArray();

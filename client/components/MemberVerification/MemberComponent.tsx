@@ -1,37 +1,52 @@
 import * as style from 'client/styles/pending/pending_component.css';
-
 import { approveHandler } from './services/fetchApproveData';
 import { cancleHandler } from './services/fetchCancleData';
-import { MemberProps } from './interface/MemberProps.interface';
+import { usePendingUsers } from './hook/usePendingUser';
+import UserItem from './utils/userItem';
 
-const MemberComponent: React.FC<MemberProps> = ({ memberData }) => {
+const MemberComponent: React.FC = () => {
+  const [memberData, setMemberData] = usePendingUsers();
+
+  const handleApprove = async (index: number, item: { [key: string]: any }) => {
+    try {
+      const response = await approveHandler(index, item);
+      if (response.ok) {
+        const updatedData = memberData.filter((_, i) => i !== index);
+        setMemberData(updatedData);
+        alert('승인 성공');
+      } else {
+        console.error('승인 실패');
+      }
+    } catch (error) {
+      console.error('승인 처리 중 오류 발생', error);
+    }
+  };
+
+  const handleCancle = async (index: number, item: { [key: string]: any }) => {
+    try {
+      const response = await cancleHandler(index, item);
+      if (response.ok) {
+        const updatedData = memberData.filter((_, i) => i !== index);
+        setMemberData(updatedData);
+        alert('취소 성공');
+      } else {
+        console.error('취소 실패');
+      }
+    } catch (error) {
+      console.error('취소 처리 중 오류 발생', error);
+    }
+  };
+
   return (
     <div className={style.container}>
       {memberData.map((item, index) => (
-        <div key={index} className={style.contentWrapper}>
-          <h1>{index + 1}</h1>  
-          {Object.entries(item).map(([key, value]) => (
-            <div key={key} className={style.content}>
-              <p>
-                {key}: {value}
-              </p>
-            </div>
-          ))}
-          <button
-            onClick={async () => {
-              await approveHandler(index, item);
-            }}
-          >
-            승인
-          </button>
-          <button
-            onClick={async () => {
-              await cancleHandler(index, item);
-            }}
-          >
-            취소
-          </button>
-        </div>
+        <UserItem
+          key={index}
+          index={index}
+          item={item}
+          onApprove={handleApprove}
+          onCancle={handleCancle}
+        />
       ))}
     </div>
   );

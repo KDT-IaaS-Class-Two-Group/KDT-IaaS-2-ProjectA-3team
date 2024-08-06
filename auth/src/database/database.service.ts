@@ -1,6 +1,6 @@
-import { Injectable, OnModuleDestroy } from "@nestjs/common";
-import { Pool } from "pg";
-import * as dotenv from "dotenv";
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { Pool } from 'pg';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -32,15 +32,15 @@ export class DatabaseService implements OnModuleDestroy {
   async connect() {
     try {
       await this.client.connect();
-      console.log("Connected to PostgreSQL");
+      console.log('Connected to PostgreSQL');
     } catch (err) {
-      console.error("Error connecting to PostgreSQL", err);
+      console.error('Error connecting to PostgreSQL', err);
     }
   }
 
   async disconnect() {
     await this.client.end();
-    console.log("Disconnected from PostgreSQL");
+    console.log('Disconnected from PostgreSQL');
   }
 
   async query(text: string, params?: any[]) {

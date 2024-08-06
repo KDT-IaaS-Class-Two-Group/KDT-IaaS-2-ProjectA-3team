@@ -1,7 +1,7 @@
 import useLoginHooks from './hook/loginHooks';
 
 import { container, input, button } from './style/login.css';
-import { useRouter } from 'next/router';
+
 
 /**
  * * Function : LoginForm
@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
  * @description : 로그인 Form
  */
 const LoginForm = () => {
-  const router = useRouter()
   const { setId, setPassword, handleLogin, isLoggedIn, } = useLoginHooks();
   
   return (

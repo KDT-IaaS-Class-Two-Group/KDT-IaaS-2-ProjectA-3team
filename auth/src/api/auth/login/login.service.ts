@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { SessionDTO, UserDTO } from "@shared/DTO/SharedDTO";
-import { QueryBuilder } from "src/database/queryBuilder";
+import { Injectable } from '@nestjs/common';
+import { SessionDTO, UserDTO } from '@shared/DTO/SharedDTO';
+import { QueryBuilder } from 'src/database/queryBuilder';
 /**
  *
  * * Class : LoginService
@@ -19,15 +19,15 @@ import { QueryBuilder } from "src/database/queryBuilder";
 
 @Injectable()
 export class LoginService {
-  private tableName = "users";
+  private tableName = 'users';
   constructor(private readonly queryBuild: QueryBuilder) {}
   async validateUser(
     user_id: string,
-    password: string
+    password: string,
   ): Promise<UserDTO | null> {
     const userData = await this.queryBuild
-      .SELECT(["*"], this.tableName)
-      .WHERE("user_id = $1", user_id)
+      .SELECT(this.tableName)
+      .WHERE('user_id = $1', user_id)
       .execution();
 
     if (userData[0] && userData[0].password == password) {
@@ -39,13 +39,13 @@ export class LoginService {
   async createSession(data: UserDTO) {
     try {
       const role_Object: SessionDTO = (await this.queryBuild
-        .SELECT(["*"], "relation_users_role")
-        .WHERE("user_id = $1", data.user_id)
+        .SELECT('relation_users_role')
+        .WHERE('user_id = $1', data.user_id)
         .execution()) as SessionDTO;
       return role_Object[0];
     } catch (error) {
-      console.error("Failed Create Session : ", error);
-      throw new Error("CREATE SESSION ERROR");
+      console.error('Failed Create Session : ', error);
+      throw new Error('CREATE SESSION ERROR');
     }
   }
 }

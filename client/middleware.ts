@@ -51,10 +51,10 @@ export const middleware = async (req: NextRequest) => {
     }
 
     if (pathname.startsWith(ROUTE_PATH.__USER)) {
-      if (userRole === USER_ROLE.__ADMIN || userRole === USER_ROLE.__EMPLOYEE) {
+      if (userRole === USER_ROLE.__ADMIN || USER_ROLE.__EMPLOYEE || USER_ROLE.__LEADER || USER_ROLE.__SUB_ADMIN) {
         return NextResponse.next();
       } else {
-        const url = new URL(ROUTE_PATH.__ADMIN, req.url);
+        const url = new URL(ROUTE_PATH.__LOGIN, req.url);
         return NextResponse.redirect(url);
       }
     }

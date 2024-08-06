@@ -15,28 +15,39 @@ import { QueryBuilder } from "src/database/queryBuilder"; // 실제 경로로 �
 export class UsersController {
   constructor(private readonly queryBuilder: QueryBuilder) {}
 
+  private nonePasswordObject = [
+    "user_id",
+    "username",
+    "birth_date",
+    "address",
+    "phone",
+    "email",
+  ];
+
   @Get("/all")
-  async getAllUsers() {
-    try {
-      const users = await this.queryBuilder.SELECT(["*"], "users").execution();
-      return users;
-    } catch (error) {
-      console.error("모든 사용자 정보 조회 실패:", error);
-      throw new Error("모든 사용자 정보 조회 실패");
-    }
+  async CheckUser(@Body() data) {
+    console.log(data);
+    const obj = this.queryBuilder
+      .SELECT("users", this.nonePasswordObject)
+      .execution();
+    return obj;
   }
 
+  @Get("pending")
+  async CheckPendingUser() {
+    const obj = this.queryBuilder
+      .SELECT("pending_users", this.nonePasswordObject)
+      .execution();
+    return obj;
+  }
   @Get("/userpersonal")
-  async getUserPersonal(@Req() req: Request) {
-    const userId = req.session?.user?.user_id;
-    if (!userId) {
-      return { message: "세션 아이디가 없습니다." };
-    }
-
-    try {
-      const user = await this.queryBuilder
-        .SELECT(
-          [
+  async UserPersonal(@Req() req: Request) {
+    const se = req.session.user?.user_id;
+    console.log(se);
+    if (se) {
+      try {
+        const obj = await this.queryBuilder
+          .SELECT("users", [
             "user_id",
             "username",
             "birth_date",
@@ -44,59 +55,36 @@ export class UsersController {
             "phone",
             "email",
             "password",
-          ],
-          "users"
-        )
-        .WHERE("user_id = $1", userId)
-        .execution();
-
-      if (Array.isArray(user) && user.length > 0) {
-        return user;
-      } else {
-        return { message: "사용자 정보를 찾을 수 없습니다." };
+          ])
+          .WHERE("user_id = $1", se) // 조건과 값을 올바르게 설정
+          .execution();
+        return obj;
+      } catch (error) {
+        console.error("서버에서 오류 발생:", error);
+        throw new Error("서버에서 오류 발생");
       }
-    } catch (error) {
-      console.error("사용자 개인 정보 조회 실패:", error);
-      throw new Error("사용자 개인 정보 조회 실패");
+    } else {
+      return { message: "세션 아이디가 없습니다." };
     }
   }
-
   @Get("/userprofile")
-  async getUserProfile() {
-    try {
-      const profiles = await this.queryBuilder
-        .SELECT(["*"], "Profile")
-        .execution();
-      if (Array.isArray(profiles) && profiles.length > 0) {
-        return profiles;
-      } else {
-        return { message: "프로필 정보를 찾을 수 없습니다." };
-      }
-    } catch (error) {
-      console.error("프로필 조회 오류:", error);
-      throw new Error("프로필 정보를 가져오는 중 오류 발생");
-    }
+  async UserProfile() {
+    const obj = await this.queryBuilder
+      .SELECT("Profile") // 모든 컬럼을 선택
+      .execution();
+    return obj;
   }
 
   @Get("/fields")
-  async getFields() {
-    try {
-      const fields = await this.queryBuilder
-        .SELECT(["field_name"], "field")
-        .execution();
-      if (Array.isArray(fields) && fields.length > 0) {
-        return fields;
-      } else {
-        return { message: "필드 정보를 찾을 수 없습니다." };
-      }
-    } catch (error) {
-      console.error("필드 조회 실패:", error);
-      throw new Error("필드 정보를 조회하는 중 오류 발생");
-    }
+  async GetFields() {
+    const fields = await this.queryBuilder
+      .SELECT("field", "field_name") // 필요한 컬럼만 선택
+      .execution();
+    return fields;
   }
 
   @Post("/all")
-  async saveUsers(@Body() body: any) {
+  async SaveUsers(@Body() body: any) {
     const users = body.users;
     if (!Array.isArray(users)) {
       throw new BadRequestException("잘못된 데이터 형식");
@@ -114,7 +102,7 @@ export class UsersController {
         }
 
         const existingUser = await this.queryBuilder
-          .SELECT(["*"], "relation_users_role")
+          .SELECT("relation_users_role")
           .WHERE("user_id = $1", user.user_id)
           .execution();
 
@@ -159,8 +147,8 @@ export class UsersController {
 
     try {
       const existingProfile = await this.queryBuilder
-        .SELECT(["*"], "Profile")
-        .WHERE("user_id = $1", user_id)
+        .SELECT("Profile")
+        .WHERE("user_id = $1::VARCHAR", user_id)
         .execution();
 
       if (Array.isArray(existingProfile) && existingProfile.length > 0) {
@@ -239,7 +227,7 @@ export class UsersController {
     try {
       // checkusers 테이블에서 사용자 정보를 조회
       const checkUser = await this.queryBuilder
-        .SELECT(["*"], "checkusers")
+        .SELECT("checkusers")
         .execution();
       return checkUser;
 
