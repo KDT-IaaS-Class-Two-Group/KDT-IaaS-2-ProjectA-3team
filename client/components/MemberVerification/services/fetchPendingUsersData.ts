@@ -1,4 +1,5 @@
 import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
+import { PedingUserFetchBody } from "../utils/fetch_body/Get_body_pendingUsers";
 
 /**
  * * Function : getPendingUsers
@@ -9,13 +10,7 @@ import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
  */
 const getPendingUsers = async (): Promise<[{ [key: string]: any }]> => {
 
-  const response = await fetch(REQUEST_URL.__GET_PENDING_USERS, {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  }
+  const response = await fetch(REQUEST_URL.__GET_PENDING_USERS, PedingUserFetchBody()
   );
   const resJson = await response.json();
   return resJson;
