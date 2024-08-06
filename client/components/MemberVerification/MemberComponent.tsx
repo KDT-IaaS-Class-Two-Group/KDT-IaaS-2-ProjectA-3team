@@ -45,7 +45,7 @@ const MemberComponent: React.FC = () => {
           index={index}
           item={item}
           onApprove={handleApprove}
-          onCancle={handleCancel}
+          onCancel={handleCancel}
         />
       ))}
     </div>

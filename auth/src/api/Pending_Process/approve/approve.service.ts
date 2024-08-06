@@ -3,6 +3,16 @@ import { PendingUserDTO } from 'src/api/auth/register/DTO/PendingUserDTO';
 import { QueryBuilder } from 'src/database/queryBuilder';
 
 @Injectable()
+/**
+ * * Class : ApproveService
+ * 작성자 : @naviadev / 2024-08-06
+ * 편집자 : @naviadev / 2024-08-06
+ * Issue :
+ * @class ApproveService
+ * @param private readonly queryBuilder: QueryBuilder
+ * @description : 회원가입 승인을 수행하는 서비스. pending_users 조회 -> users 테이블로 이동, 기존 데이터 삭제 로직을 수행함.
+ * dafult 역할을 지정하여 추가적인 역할을 지정하지 않았을 경우, employee로 할당될 수 있게끔 작성하였다
+ */
 export class ApproveService {
   private pendingTableName = 'pending_users';
   private usersTableName = 'users';

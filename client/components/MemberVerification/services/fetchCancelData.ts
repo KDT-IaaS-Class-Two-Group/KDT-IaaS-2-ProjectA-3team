@@ -3,7 +3,7 @@ import { AdminFetchBody } from "../utils/fetch_body/Post_body_adminData";
 
 export const cancelHandler = async (index: number, item: { [key: string]: any }) => {
   const response = await fetch(
-    REQUEST_URL.__PENDING_CANCLE,
+    REQUEST_URL.__PENDING_CANCEL,
     AdminFetchBody(item)
   );
   return response;
