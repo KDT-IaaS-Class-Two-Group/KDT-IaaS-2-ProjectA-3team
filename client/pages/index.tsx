@@ -14,9 +14,7 @@ const MainPage: React.FC = () => {
       </Link>
       <div className={styles.content}>
         <h2>임시</h2>
-        <p>
-          asdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsda
-        </p>
+        <p>안녕ㅎ</p>
       </div>
     </div>
   );
