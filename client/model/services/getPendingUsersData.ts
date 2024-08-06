@@ -8,15 +8,13 @@ import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
  * @description : 대기중인 회원들을 [{}] 형태로 가져올 수 있는 Fetch 함수.
  */
 const getPendingUsers = async (): Promise<[{ [key: string]: any }]> => {
-
   const response = await fetch(REQUEST_URL.__GET_PENDING_USERS, {
     method: "GET",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    credentials: 'include',
-  }
-  );
+    credentials: "include",
+  });
   const resJson = await response.json();
   console.log(resJson);
   return resJson;

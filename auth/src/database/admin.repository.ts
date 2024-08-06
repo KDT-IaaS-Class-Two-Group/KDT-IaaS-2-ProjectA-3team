@@ -1,20 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { DatabaseService } from './database.service';
-import { UserDTO } from '../../../shared/DTO/SharedDTO';
+import { Injectable } from "@nestjs/common";
+import { DatabaseService } from "./database.service";
+import { UserDTO } from "../../../shared/DTO/SharedDTO";
 
 @Injectable()
 class AdminRepository {
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
-    const result = await this.dbService.query('SELECT * FROM admin');
+    const result = await this.dbService.query("SELECT * FROM admin");
     return result.rows;
   }
 
   async findOneByUser(user_id: string) {
     const result = await this.dbService.query(
-      'SELECT * FROM admin WHERE user_id = $1',
-      [user_id],
+      "SELECT * FROM admin WHERE user_id = $1",
+      [user_id]
     );
     return result.rows[0];
   }
@@ -22,7 +22,7 @@ class AdminRepository {
   async InsertNewUser(userData: UserDTO) {
     const {
       user_id,
-      user_name,
+      username,
       birth_date,
       address,
       phone,
@@ -35,7 +35,7 @@ class AdminRepository {
 
     const params = [
       user_id,
-      user_name,
+      username,
       birth_date,
       address,
       phone,
@@ -65,8 +65,8 @@ class AdminRepository {
     try {
       await this.dbService.query(text, params);
     } catch (error) {
-      console.error('executing Query Error - 쿼리문 실행 불가 . :', error);
-      throw new Error('Database error');
+      console.error("executing Query Error - 쿼리문 실행 불가 . :", error);
+      throw new Error("Database error");
     }
   }
 }

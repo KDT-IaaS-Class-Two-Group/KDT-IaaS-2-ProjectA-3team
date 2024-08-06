@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { SessionDTO, UserDTO } from '@shared/DTO/SharedDTO';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { Injectable } from "@nestjs/common";
+import { SessionDTO, UserDTO } from "@shared/DTO/SharedDTO";
+import { QueryBuilder } from "src/database/queryBuilder";
 /**
  *
  * * Class : LoginService
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
+ * 편집자 : @naviadev / 2024-08-01
  * Issue :
  * @class LoginService
  * @param private queryBuilder : QueryBuilder
@@ -19,17 +19,15 @@ import { QueryBuilder } from 'src/database/queryBuilder';
 
 @Injectable()
 export class LoginService {
-  private tableName = 'users';
-  private roleTableName = 'relation_users_role';
-
+  private tableName = "users";
   constructor(private readonly queryBuild: QueryBuilder) {}
   async validateUser(
     user_id: string,
-    password: string,
+    password: string
   ): Promise<UserDTO | null> {
     const userData = await this.queryBuild
-      .SELECT(this.tableName)
-      .WHERE('user_id = $1', user_id)
+      .SELECT(["*"], this.tableName)
+      .WHERE("user_id = $1", user_id)
       .execution();
 
     if (userData[0] && userData[0].password == password) {
@@ -41,13 +39,13 @@ export class LoginService {
   async createSession(data: UserDTO) {
     try {
       const role_Object: SessionDTO = (await this.queryBuild
-        .SELECT(this.roleTableName)
-        .WHERE('user_id = $1', data.user_id)
+        .SELECT(["*"], "relation_users_role")
+        .WHERE("user_id = $1", data.user_id)
         .execution()) as SessionDTO;
       return role_Object[0];
     } catch (error) {
-      console.error('세션 생성 실패 : ', error);
-      throw new Error('세션 생성 실패');
+      console.error("Failed Create Session : ", error);
+      throw new Error("CREATE SESSION ERROR");
     }
   }
 }

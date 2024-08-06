@@ -1,8 +1,8 @@
-import UserHome from '../components/userMainPage/mainHeader';
+import UserHome from "../components/userMainPage/mainHeader";
 
-import LeftContent from '../components/userMainPage/userLeftContent';
+import LeftContent from "../components/userMainPage/userLeftContent";
 
-import * as styles from '../styles/user.css';
+import * as styles from "../styles/user.css";
 
 const UserPage: React.FC = () => {
   return (

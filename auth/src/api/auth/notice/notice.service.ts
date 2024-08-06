@@ -19,6 +19,7 @@ export class NoticeService {
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     try {
       await this.client.connect();
+
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
         mongoDatabase.collection<NoticeDTO>('noticeTable');
@@ -43,6 +44,7 @@ export class NoticeService {
     try {
       await this.client.connect();
       const mongoCollection = this.client
+
         .db('notice')
         .collection<NoticeDTO>('noticeTable');
 

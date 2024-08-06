@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
-import type columns from '../../ts/type/querybuilder/columns.type';
+import columns from 'ts/type/querybuilder/columns.type';
+
 @Injectable()
 export class QueryBuilder {
   private queryString: string = '';

@@ -17,10 +17,10 @@ export class NoticeController {
 
   @Post('send')
   async noticeCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
-    const user_id = req.session.user.user_id;
-    if (!user_id) {
-      return { status: 'fail', message: 'session is not 존재' };
-    }
-    return await this.noticeService.createNotice(noticeDTO, user_id);
+    const session = req.session.user;
+    const user_id = session.user_id;
+    const role = session.role_name;
+    console.log(user_id, role);
+    return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 }
