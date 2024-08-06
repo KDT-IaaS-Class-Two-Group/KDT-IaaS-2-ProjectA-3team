@@ -7,7 +7,6 @@ export const container = style({
   alignItems: "center",
   justifyContent: "center",
   height: "100vh",
-  backgroundColor: "#f0f0f0",
 });
 
 export const form = style({
