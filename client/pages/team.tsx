@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 
 interface User {
   user_id: string;
-  username: string;
 }
 
 function UserSelection() {
   const [teamName, setTeamName] = useState<string>("");
-  const [users, setUsers] = useState<User[]>([]);
+  const [leaders, setLeaders] = useState<User[]>([]);
+  const [members, setMembers] = useState<User[]>([]);
   const [selectedLeader, setSelectedLeader] = useState<User | null>(null);
   const [selectedMembers, setSelectedMembers] = useState<User[]>([]);
   const [teamDescription, setTeamDescription] = useState<string>("");
@@ -20,10 +20,14 @@ function UserSelection() {
           fetch("http://localhost:3001/getUser/members"),
         ]);
 
-        const leaders = await leadersResponse.json();
-        const members = await membersResponse.json();
+        const leadersData = await leadersResponse.json();
+        const membersData = await membersResponse.json();
 
-        setUsers([...leaders, ...members]);
+        console.log("Leaders:", leadersData); // 데이터 확인
+        console.log("Members:", membersData); // 데이터 확인
+
+        setLeaders(leadersData);
+        setMembers(membersData);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -87,12 +91,12 @@ function UserSelection() {
         />
       </div>
 
-      <div>팀장: {selectedLeader ? selectedLeader.username : "없음"}</div>
+      <div>팀장: {selectedLeader ? selectedLeader.user_id : "없음"}</div>
       <div>
         <ul>
-          {users.map((user) => (
+          {leaders.map((user) => (
             <li key={user.user_id}>
-              <strong>이름:</strong> {user.user_id}
+              <strong>ID:</strong> {user.user_id}
               <button onClick={() => addLeader(user)}>추가</button>
               {selectedLeader && selectedLeader.user_id === user.user_id && (
                 <button onClick={removeLeader}>삭제</button>
@@ -108,9 +112,9 @@ function UserSelection() {
       </div>
       <div>
         <ul>
-          {users.map((user) => (
+          {members.map((user) => (
             <li key={user.user_id}>
-              {user.username}
+              {user.user_id}
               <button onClick={() => addMember(user)}>추가</button>
               {selectedMembers.some(
                 (member) => member.user_id === user.user_id
