@@ -1,7 +1,7 @@
-import * as style from 'client/styles/project/side.css';
+import * as style from './style/side.css';
 
-import ProfileBoard from './profileBoard';
-import NoticeBoard from './noticeBoard';
+import ProfileBoard from './item/profile/profileItem';
+import NoticeBoard from './item/notice/noticeItem';
 const Side = () => {
   return (
     <div className={style.container}>
