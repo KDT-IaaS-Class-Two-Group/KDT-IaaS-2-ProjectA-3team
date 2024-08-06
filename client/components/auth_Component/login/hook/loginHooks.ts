@@ -30,6 +30,7 @@ const useLoginHooks = () => {
       // Fetch 후, 서버로부터 Response를 반환받는다.
       const result = await fetchLogin({ user_id, password });
       if (result !== false) {
+        console.log(result)
         setIsLoggedIn(true);
         router.push(result);
       } else {
