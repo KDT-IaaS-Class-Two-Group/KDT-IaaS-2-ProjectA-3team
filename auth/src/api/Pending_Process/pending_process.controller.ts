@@ -8,10 +8,14 @@ import {
 } from '@nestjs/common';
 import { ApproveService } from './approve/approve.service';
 import { PendingUserDTO } from '../auth/register/DTO/PendingUserDTO';
+import { CancleService } from './cancle/cancle.service';
 
 @Controller('/pending-process')
 export class PendingProcessController {
-  constructor(private readonly approveService: ApproveService) {}
+  constructor(
+    private readonly approveService: ApproveService,
+    private readonly cancleService: CancleService,
+  ) {}
 
   @Post('/approve')
   @HttpCode(200)
@@ -33,5 +37,21 @@ export class PendingProcessController {
   }
 
   @Post('/cancle')
-  cancleUser() {}
+  async cancleUser(@Body() data: PendingUserDTO) {
+    try {
+      const result = await this.cancleService.cancle(data);
+
+      if (result) {
+        return { message: '취소 성공' };
+      } else {
+        return { message: '취소 실패' };
+      }
+    } catch (error) {
+      console.error(error);
+      throw new HttpException(
+        'Cancle User 실패',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }
