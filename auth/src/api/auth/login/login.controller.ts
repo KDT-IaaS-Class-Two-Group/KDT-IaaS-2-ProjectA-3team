@@ -11,6 +11,7 @@ import { Request, Response } from 'express';
 
 import { UserDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
+import { REDIRECT_PATH } from './Enum/REDIRECT_PATH.enum';
 /**
  * * Class : LoginController
  * 작성자 : @naviadev / 2024-07-31
@@ -49,9 +50,15 @@ export class LoginController {
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const session = this.loginService.createSession(data);
-      req.session.user = await session;
-      return res.json({ message: 'Login successful' });
+      const session = await this.loginService.createSession(data);
+      console.log('session', session);
+      req.session.user = session;
+      // ! 임시 기능 (추가된 역할 테이블에 맞도록 구성할 필요가 있음)
+      if (session.role_name == 'admin') {
+        return res.json({ message: 'ok', redirect: REDIRECT_PATH.ADMIN_MAIN });
+      } else {
+        return res.json({ message: 'ok', redirect: REDIRECT_PATH.USER_MAIN });
+      }
     } else {
       return res
         .status(HttpStatus.UNAUTHORIZED) //401 인증 실패
