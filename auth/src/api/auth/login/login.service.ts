@@ -6,7 +6,7 @@ import { QueryBuilder } from 'src/database/queryBuilder';
  *
  * * Class : LoginService
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-01
+ * 편집자 : @naviadev / 2024-08-06
  * Issue :
  * @class LoginService
  * @param private queryBuilder : QueryBuilder
