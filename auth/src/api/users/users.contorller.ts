@@ -22,7 +22,18 @@ export class UsersController {
     if (se) {
       try {
         const obj = await this.queryBuilder
-          .SELECT(["user_id", "username"], "users")
+          .SELECT(
+            [
+              "user_id",
+              "username",
+              "birth_date",
+              "address",
+              "phone",
+              "email",
+              "password",
+            ],
+            "users"
+          )
           .WHERE("user_id = $1", se) // 조건과 값을 올바르게 설정
           .execution();
         return obj;
