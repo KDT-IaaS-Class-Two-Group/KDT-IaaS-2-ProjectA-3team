@@ -56,26 +56,56 @@ function UserSelection() {
     );
   };
 
-  const fetchTeam = () => {
+  const fetchTeam = async () => {
     const teamData = {
-      teamName,
-      teamLeader: selectedLeader,
-      teamMembers: selectedMembers,
-      teamDescription,
+      team_name: teamName,
+      description: teamDescription,
     };
 
-    fetch("/team/save", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(teamData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Team data saved:", data);
-      })
-      .catch((error) => console.error("Error saving team data:", error));
+    try {
+      // 팀 정보를 저장
+      await fetch("/team/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(teamData),
+      });
+
+      // 팀장 저장
+      if (selectedLeader) {
+        await fetch("/team/save", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            team_name: teamName,
+            user_id: selectedLeader.user_id,
+            role_name: "leader", // 팀장 역할 설정
+          }),
+        });
+      }
+
+      // 팀원 저장
+      for (const member of selectedMembers) {
+        await fetch("/team/save", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            team_name: teamName,
+            user_id: member.user_id,
+            role_name: "employee", // 팀원 역할 설정
+          }),
+        });
+      }
+
+      console.log("Team data saved successfully.");
+    } catch (error) {
+      console.error("Error saving team data:", error);
+    }
   };
 
   return (
