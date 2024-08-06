@@ -23,7 +23,7 @@ const Checkprofile: React.FC<CheckprofileProps> = ({ onSave }) => {
     const fetchCheckUsers = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/getUser/checkusers"
+          `http://localhost:3001/getUser/checkprofile`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -57,13 +57,19 @@ const Checkprofile: React.FC<CheckprofileProps> = ({ onSave }) => {
       <ul>
         {users.map((user) => (
           <li key={user.user_id}>
-            <strong>아이디 : </strong> {user.user_id}
-            <strong>이름 : </strong> {user.username}
-            <strong>생년월일 : </strong> {user.birth_date}
-            <strong>주소 : </strong> {user.address}
-            <strong>핸드폰 번호 : </strong> {user.phone}
-            <strong>이메일 : </strong> {user.email}
-            <strong>비밀번호 : </strong> {user.password}
+            <strong>아이디: </strong> {user.user_id}
+            <br />
+            <strong>이름: </strong> {user.username}
+            <br />
+            <strong>생년월일: </strong> {user.birth_date}
+            <br />
+            <strong>주소: </strong> {user.address}
+            <br />
+            <strong>핸드폰 번호: </strong> {user.phone}
+            <br />
+            <strong>이메일: </strong> {user.email}
+            <br />
+            <strong>비밀번호: </strong> {user.password}
           </li>
         ))}
       </ul>
