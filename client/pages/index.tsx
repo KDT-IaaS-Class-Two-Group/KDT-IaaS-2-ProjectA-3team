@@ -13,7 +13,7 @@ const MainPage: React.FC = () => {
         <button className={styles.buttonLink}>회원가입</button>
       </Link>
       <div className={styles.content}>
-        <h2>asdfadsfsda asdfadsfsda asdfadsfsda</h2>
+        <h2>임시</h2>
         <p>
           asdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsdaasdfadsfsda
         </p>
