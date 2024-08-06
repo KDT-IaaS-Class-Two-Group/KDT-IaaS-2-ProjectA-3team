@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useTableData = (tableName: string) => {
   const [data, setData] = useState<any[]>([]);

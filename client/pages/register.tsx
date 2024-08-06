@@ -1,4 +1,4 @@
-import RegisterForm from 'client/components/auth_Component/register/registerForm'
+import RegisterForm from "client/components/authPage/registerForm";
 
 const RegisterPage: React.FC = () => {
   return (

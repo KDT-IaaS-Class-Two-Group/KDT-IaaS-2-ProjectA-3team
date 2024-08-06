@@ -45,7 +45,7 @@
   ],
   "rules": {
     "semi": ["error", "always"],
-    "quotes": [2, "double", { "avoidEscape": false }],
+    "quotes": ["error", 2, "double", { "avoidEscape": true }],
     "indent": ["error", 2],
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "@typescript-eslint/no-unused-vars": "warn",
@@ -63,7 +63,7 @@
         "newlines-between": "always"
       }
     ],
-    "prettier/prettier": ["error",{ "endOfLine": "auto" }],
+    "prettier/prettier": ["error"]
   },
   "env": {
     "browser": true,

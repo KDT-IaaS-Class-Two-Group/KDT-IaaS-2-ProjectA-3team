@@ -1,8 +1,4 @@
-import {
-  modalBackdrop,
-  modalContent,
-  closeButton,
-} from 'client/styles/modal/modal.css';
+import * as styles from "../../styles/modal/modal.css";
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,11 +10,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={modalBackdrop}>
-      <div className={modalContent}>
-        <button className={closeButton} onClick={onClose}>
-          x
-        </button>
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <span className={styles.closeButton} onClick={onClose}>
+          &times;
+        </span>
         {children}
       </div>
     </div>
@@ -26,3 +22,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 };
 
 export default Modal;
+

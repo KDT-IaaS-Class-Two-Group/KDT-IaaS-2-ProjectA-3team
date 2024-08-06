@@ -1,42 +1,58 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { Controller, Get, Post, Body, Req } from "@nestjs/common";
+import { Request } from "express";
+import { QueryBuilder } from "src/database/queryBuilder";
 
-@Controller('/getUser')
-/**
- * * Class : UsersController
- * 작성자 : @naviadev / 2024-08-02
- * 편집자 : @naviadev / 2024-08-02
- * Issue :
- * @class UsersController
- * @param private readonly queryBuilder: QueryBuilder
- * @description  : PIPE 를 통해 세션 검사 모듈 추가
- */
+@Controller("/getUser")
 export class UsersController {
   constructor(private readonly queryBuilder: QueryBuilder) {}
 
-  @Get('/all')
-  async CheckUser(@Body() data) {
+  @Get("/all")
+  async CheckUser(@Body() data: any) {
     console.log(data);
-    const obj = this.queryBuilder.SELECT('users').execution();
+    const obj = await this.queryBuilder
+      .SELECT(["*"], "users") // 모든 컬럼을 선택
+      .execution();
     return obj;
   }
 
-  @Get('pending')
-  async CheckPendingUser() {
-    const obj = this.queryBuilder.SELECT('pending_users').execution();
+  @Get("/userpersonal")
+  async UserPersonal(@Req() req: Request) {
+    const se = req.session.user?.user_id;
+    console.log(se);
+    if (se) {
+      try {
+        const obj = await this.queryBuilder
+          .SELECT(["user_id", "username"], "users")
+          .WHERE("user_id = $1", se) // 조건과 값을 올바르게 설정
+          .execution();
+        return obj;
+      } catch (error) {
+        console.error("서버에서 오류 발생:", error);
+        throw new Error("서버에서 오류 발생");
+      }
+    } else {
+      return { message: "세션 아이디가 없습니다." };
+    }
+  }
+
+  @Get("/userprofile")
+  async UserProfile() {
+    const obj = await this.queryBuilder
+      .SELECT(["*"], "Profile") // 모든 컬럼을 선택
+      .execution();
     return obj;
   }
 
-  @Get('/fields') // 추가된 API 엔드포인트
+  @Get("/fields")
   async GetFields() {
     const fields = await this.queryBuilder
-      .SELECT('field', ['field_name'])
+      .SELECT(["field_name"], "field") // 필요한 컬럼만 선택
       .execution();
     return fields;
   }
 
-  @Post('/all')
-  async SaveUsers(@Body() body) {
+  @Post("/all")
+  async SaveUsers(@Body() body: any) {
     const users = body.users;
     try {
       for (const user of users) {
@@ -50,26 +66,26 @@ export class UsersController {
         }
 
         const existingUser = await this.queryBuilder
-          .SELECT('relation_users_role')
-          .WHERE('user_id = $1', user.user_id)
+          .SELECT(["*"], "relation_users_role")
+          .WHERE("user_id = $1", user.user_id)
           .execution();
 
         if (existingUser.length > 0) {
           await this.queryBuilder
             .UPDATE(
-              'relation_users_role',
+              "relation_users_role",
               {
                 role_name: user.role_name,
                 salary: salary,
                 field_name: user.field_name,
               },
-              'user_id = $4',
-              user.user_id,
+              "user_id = $1",
+              user.user_id
             )
             .execution();
         } else {
           await this.queryBuilder
-            .INSERT('relation_users_role', {
+            .INSERT("relation_users_role", {
               user_id: user.user_id,
               salary: salary,
               role_name: user.role_name,
@@ -78,59 +94,36 @@ export class UsersController {
             .execution();
         }
       }
-      return { message: '사용자 정보 저장 완료' };
+      return { message: "사용자 정보 저장 완료" };
     } catch (error) {
-      console.error('사용자 정보 저장 실패:', error);
-      return { error: '사용자 정보 저장 실패' };
+      console.error("사용자 정보 저장 실패:", error);
+      return { error: "사용자 정보 저장 실패" };
     }
   }
-}
 
-@Controller('/team')
-/**
- * * Class : TeamController
- * 작성자 : @dalarmjwi / 2024-08-01
- * 편집자 : @naviadev / 2024-08-02
- * Issue :
- * @class TeamController
- * @param private readonly queryBuilder: QueryBuilder
- * @description
- *
- * CHECKLIST
- * [ ] 1. 팀 데이터베이스 레코드 생성.
- * [ ] 2. 관계 테이블 레코드 생성. (for ?)
- * [ ] 3. 결과값 반환
- */
-export class TeamController {
-  constructor(private readonly queryBuilder: QueryBuilder) {}
+  @Post("/saveProfile")
+  async SaveProfile(@Body() body: any) {
+    const { user_id, bio } = body;
 
-  @Post('/create')
-  async createTeam(
-    @Body()
-    body: {
-      teamName: string;
-      leader: any;
-      members: any[];
-      description: string;
-    },
-  ) {
     try {
-      // 팀장과 팀원 정보를 사용하여 팀을 데이터베이스에 삽입
-      await this.queryBuilder
-        .INSERT('team', {
-          team_name: body.teamName,
-          team_leader_id: body.leader?.user_id,
-          team_member_ids: body.members
-            .map((member) => member.user_id)
-            .join(','),
-          description: body.description,
-        })
+      const existingProfile = await this.queryBuilder
+        .SELECT(["*"], "Profile")
+        .WHERE("user_id = $1::VARCHAR", user_id)
         .execution();
 
-      return { message: '팀이 성공적으로 생성되었습니다!' };
+      if (existingProfile.length > 0) {
+        await this.queryBuilder
+          .UPDATE("Profile", { bio: bio }, "user_id = $1", user_id)
+          .execution();
+      } else {
+        await this.queryBuilder
+          .INSERT("Profile", { user_id: user_id, bio: bio })
+          .execution();
+      }
+      return { message: "프로필 정보 저장 완료" };
     } catch (error) {
-      console.error('Failed to create team:', error);
-      throw new Error('Failed to create team');
+      console.error("프로필 정보 저장 실패:", error);
+      return { error: "프로필 정보 저장 실패" };
     }
   }
 }
