@@ -14,7 +14,6 @@ export class UsersController {
     'phone',
     'email',
   ];
-  private role_users = ['user_id', 'role_name'];
   @Get('/all')
   async CheckUser(@Body() data) {
     console.log(data);
@@ -26,7 +25,7 @@ export class UsersController {
   @Get('/leaders')
   async CheckLeaders() {
     const obj = this.queryBuilder
-      .SELECT('leader_role_users', this.role_users)
+      .SELECT('leader_role_users', ['user_id', 'role_name'])
       .execution();
     return obj;
   }
@@ -34,7 +33,7 @@ export class UsersController {
   @Get('/members')
   async CheckMembers() {
     const obj = this.queryBuilder
-      .SELECT('employee_role_users', this.role_users)
+      .SELECT('employee_role_users', ['user_id', 'role_name'])
       .execution();
     return obj;
   }
