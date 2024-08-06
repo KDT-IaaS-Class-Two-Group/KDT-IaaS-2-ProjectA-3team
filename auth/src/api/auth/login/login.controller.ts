@@ -6,11 +6,12 @@ import {
   Res,
   HttpCode,
   HttpStatus,
-} from "@nestjs/common";
-import { Request, Response } from "express";
+} from '@nestjs/common';
+import { Request, Response } from 'express';
 
-import { UserDTO } from "@shared/DTO/SharedDTO";
-import { LoginService } from "./login.service";
+import { UserDTO } from '@shared/DTO/SharedDTO';
+import { LoginService } from './login.service';
+import { REDIRECT_PATH } from './Enum/REDIRECT_PATH.enum';
 /**
  * * Class : LoginController
  * 작성자 : @naviadev / 2024-07-31
@@ -19,7 +20,7 @@ import { LoginService } from "./login.service";
  * @param private readonly loginService: LoginService
  * @description : /login 요청을 처리하는 컨트롤러. 기본적인 유효성 검사와 Database 검사 후, 세션 키 발급 로직을 수행함.
  */
-@Controller("login")
+@Controller('login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
@@ -28,12 +29,12 @@ export class LoginController {
   async login(
     @Body() data: UserDTO,
     @Req() req: Request,
-    @Res() res: Response
+    @Res() res: Response,
   ) {
     const { user_id, password } = data;
 
     const userData = await this.loginService.validateUser(user_id, password);
-    if (userData.user_id.startsWith("Admin")) {
+    if (userData.user_id.startsWith('Admin')) {
       // -> role.name -> 보고 만약에 "관리자" 라는 이름으로 되어있으면 그때 Admin TABLE 다시 검증하고
       /**
        * qwe123, qwe123@ -> 확인 검증이되면 한번 그럼 아예 따로 둬도 된다. -> user -> 로그인 되면 
@@ -49,13 +50,19 @@ export class LoginController {
 
     if (userData) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const session = this.loginService.createSession(data);
-      req.session.user = await session;
-      return res.json({ message: "Login successful" });
+      const session = await this.loginService.createSession(data);
+      console.log('session', session);
+      req.session.user = session;
+      // ! 임시 기능 (추가된 역할 테이블에 맞도록 구성할 필요가 있음)
+      if (session.role_name == 'admin') {
+        return res.json({ message: 'ok', redirect: REDIRECT_PATH.ADMIN_MAIN });
+      } else {
+        return res.json({ message: 'ok', redirect: REDIRECT_PATH.USER_MAIN });
+      }
     } else {
       return res
         .status(HttpStatus.UNAUTHORIZED) //401 인증 실패
-        .json({ message: "Invalid credentials" });
+        .json({ message: 'Invalid credentials' });
     }
   }
 }
