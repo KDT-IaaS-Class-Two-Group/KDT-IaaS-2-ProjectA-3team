@@ -1,5 +1,3 @@
-// src/users/users.controller.ts
-
 import {
   Controller,
   Get,
@@ -117,7 +115,6 @@ export class UsersController {
                 field_name: user.field_name,
               },
               'user_id = $1',
-              user.user_id,
             )
             .execution();
         } else {
@@ -154,7 +151,7 @@ export class UsersController {
 
       if (Array.isArray(existingProfile) && existingProfile.length > 0) {
         await this.queryBuilder
-          .UPDATE('Profile', { bio: bio }, 'user_id = $1', user_id)
+          .UPDATE('Profile', { bio: bio }, 'user_id = $1')
           .execution();
       } else {
         await this.queryBuilder
@@ -178,7 +175,7 @@ export class UsersController {
 
     try {
       await this.queryBuilder
-        .UPDATE('checkusers', fields, 'user_id = $1', user_id)
+        .UPDATE('checkusers', fields, 'user_id = $1')
         .execution();
       console.log('사용자 정보 업데이트 완료');
       return { message: '사용자 정보가 업데이트되었습니다.' };
@@ -256,6 +253,7 @@ export class UsersController {
         .UPDATE(
           'users',
           {
+            user_id: checkUser[0].user_id,
             username: checkUser[0].username,
             birth_date: checkUser[0].birth_date,
             address: checkUser[0].address,
@@ -264,7 +262,6 @@ export class UsersController {
             password: checkUser[0].password,
           },
           'user_id = $1',
-          user_id,
         )
         .execution();
 
