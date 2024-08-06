@@ -1,7 +1,5 @@
-import useLoginHooks from './hook/loginHooks';
-
-import { container, input, button } from './style/login.css';
-
+import useLoginHooks from "./hook/loginHooks";
+import { container, input, button } from "./style/login.css";
 
 /**
  * * Function : LoginForm
@@ -12,8 +10,16 @@ import { container, input, button } from './style/login.css';
  * @description : 로그인 Form
  */
 const LoginForm = () => {
-  const { setId, setPassword, handleLogin, isLoggedIn, } = useLoginHooks();
-  
+  const { setId, setPassword, handleLogin, isLoggedIn } = useLoginHooks();
+
+  const handleKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      await handleLogin();
+    }
+  };
+
   return (
     <div className={container}>
       <h1>Login</h1>
@@ -24,6 +30,7 @@ const LoginForm = () => {
         onChange={(e) => {
           setId(e.target.value);
         }}
+        onKeyDown={handleKeyDown}
       />
       <input
         type="password"
@@ -32,6 +39,7 @@ const LoginForm = () => {
         onChange={(e) => {
           setPassword(e.target.value);
         }}
+        onKeyDown={handleKeyDown}
       />
       <button
         className={button}
@@ -45,4 +53,5 @@ const LoginForm = () => {
     </div>
   );
 };
+
 export default LoginForm;
