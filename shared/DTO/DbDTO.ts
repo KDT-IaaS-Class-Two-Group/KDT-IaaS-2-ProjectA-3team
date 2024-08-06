@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 /**
  * * Class : NoticeDTO
  * 작성자 : @yun-21 / 2024-07-31
@@ -17,4 +18,7 @@ export class NoticeDTO {
     this.title = title;
     this.content = content;
   }
+}
+export interface NoticeWithId extends NoticeDTO {
+  _id: ObjectId;
 }

@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { MongoClient } from 'mongodb';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { MongoClient, ObjectId } from 'mongodb';
 import { Pool } from 'pg';
 import { NoticeDTO } from '../../../../../shared/DTO/DbDTO';
 import { dateSet } from './utils/dateUtils';
@@ -62,30 +62,13 @@ export class NoticeService {
     }
   }
 
-  // async createAuthNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
-  //     const mongoDatabase = this.client.db('notice');
-  //     const mongoCollection =
-  //       mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
-
-  //     const currentDate = new Date();
-  //     const custom = dateSet(currentDate);
-  //     const noticeData = {
-  //       ...noticeDTO,
-  //       createdAt: custom, // 현재 날짜와 시간 추가
-  //       user_id,
-  //       role,
-  //     };
-
-  //     const result = await mongoCollection.insertOne(noticeData);
-  //     return `insert완료 ${result.insertedId}`;
-  // }
-
   async getNotices() {
       const mongoCollection = this.client
         .db('notice')
         .collection<NoticeDTO>('noticeTable');
 
       // NoticeDTO 타입으로 직접 반환
+      console.log(mongoCollection.find().toArray());
       return await mongoCollection.find().toArray();
   }
 
@@ -96,5 +79,32 @@ export class NoticeService {
 
       // NoticeDTO 타입으로 직접 반환
       return await mongoCollection.find().toArray();
+  }
+
+  async updateNotice(id: string, noticeDTO: NoticeDTO) {
+    const mongoDatabase = this.client.db('notice');
+    const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
+
+    // 업데이트 후 문서 반환
+    const result = await mongoCollection.findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: noticeDTO },
+      { returnDocument: 'after' } // 업데이트 후 문서 반환
+    );
+
+    return `Update successful ${result.value._id}`;
+  }
+
+  async deleteNotice(id: string) {
+    const mongoDatabase = this.client.db('notice');
+    const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
+
+    const result = await mongoCollection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      throw new NotFoundException('Notice not found');
+    }
+
+    return `Delete successful ${id}`;
   }
 }
