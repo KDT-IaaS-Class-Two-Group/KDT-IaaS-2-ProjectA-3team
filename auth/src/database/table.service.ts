@@ -1,3 +1,4 @@
+// src/database/table.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from './database.service';
 
@@ -6,9 +7,8 @@ export class TableService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async getAllRows(tableName: string) {
-    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
     const table = await this.databaseService.query(
-      `SELECT * FROM ${tableName} ORDER BY ${idField}`,
+      `SELECT * FROM ${tableName}`,
     );
     if (!table) {
       throw new NotFoundException(`Table ${tableName} not found`);
@@ -30,23 +30,11 @@ export class TableService {
       `INSERT INTO ${tableName} (${keys}) VALUES (${placeholders})`,
       values,
     );
-
-    // 추가된 데이터를 반환
-    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
-    const addedRow = await this.databaseService.query(
-      `SELECT * FROM ${tableName} WHERE ${idField} = $1 ORDER BY ${idField}`,
-      [rowData[idField]],
-    );
-
-    return addedRow.rows[0];
+    return rowData;
   }
 
   async updateRow(tableName: string, rowId: string, rowData: any) {
     const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
-    
-    // created_at 필드가 업데이트되지 않도록 rowData에서 제거
-    delete rowData['created_at'];
-    
     const updates = Object.keys(rowData)
       .map((key, index) => `${key} = $${index + 1}`)
       .join(', ');
@@ -66,14 +54,7 @@ export class TableService {
         `Row with ${idField} ${rowId} not found in table ${tableName}`,
       );
     }
-
-    // 업데이트된 데이터를 반환
-    const updatedRow = await this.databaseService.query(
-      `SELECT * FROM ${tableName} WHERE ${idField} = $1 ORDER BY ${idField}`,
-      [rowId],
-    );
-
-    return updatedRow.rows[0];
+    return rowData;
   }
 
   async deleteRow(tableName: string, rowId: string) {
@@ -87,8 +68,6 @@ export class TableService {
         `Row with ${idField} ${rowId} not found in table ${tableName}`,
       );
     }
-
-    // 삭제된 데이터의 ID를 반환
     return { [idField]: rowId };
   }
 
@@ -104,13 +83,9 @@ export class TableService {
   }
 
   async getTableData(tableName: string) {
-    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
-    const data = await this.databaseService.query(
-      `SELECT * FROM ${tableName} ORDER BY ${idField}`
-    );
+    const data = await this.databaseService.query(`SELECT * FROM ${tableName}`);
     return data.rows;
   }
-  
 
   async getTables(): Promise<{ table_name: string }[]> {
     const res = await this.databaseService.query(`
