@@ -16,7 +16,7 @@ const Team: React.FC = () => {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch("http://localhost:3001/getUser/all");
+        const response = await fetch("http://localhost:3001/getUser/leaders");
         const data = await response.json();
         console.log(data);
         setUsers(data);
