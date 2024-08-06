@@ -22,8 +22,8 @@ export class UsersController {
     if (se) {
       try {
         const obj = await this.queryBuilder
-          .SELECT(["*"], "users") // 또는 필요한 컬럼을 배열로 지정
-          .WHERE("user_id = $1", se)
+          .SELECT(["user_id", "username"], "users")
+          .WHERE("user_id = $1", se) // 조건과 값을 올바르게 설정
           .execution();
         return obj;
       } catch (error) {
