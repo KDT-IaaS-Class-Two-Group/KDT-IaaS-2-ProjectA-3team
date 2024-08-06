@@ -8,23 +8,23 @@ export class QueryBuilder {
 
   constructor(private readonly databaseService: DatabaseService) {}
 
-  RESET() {
+  private RESET() {
     this.queryString = "";
     this.params = [];
   }
 
   async execution() {
     try {
-      console.log("Executing query:", this.queryString); // 쿼리 문자열 출력
-      console.log("With params:", this.params); // 쿼리 파라미터 출력
+      console.log("Executing query:", this.queryString);
+      console.log("With params:", this.params);
       const result = await this.databaseService.query(
         this.queryString,
         this.params
       );
-      return result.rows;
+      return result.rows; // 결과를 rows로 반환 (PostgreSQL의 경우)
     } catch (error) {
-      console.error("Failed execution :", error); // 오류 출력
-      throw new Error("database Error");
+      console.error("Failed execution:", error);
+      throw new Error("Database error");
     }
   }
 
@@ -35,7 +35,11 @@ export class QueryBuilder {
   }
 
   WHERE(condition: string, value: any) {
-    this.queryString += ` WHERE ${condition}`;
+    if (this.queryString.includes("WHERE")) {
+      this.queryString += ` AND ${condition}`;
+    } else {
+      this.queryString += ` WHERE ${condition}`;
+    }
     this.params.push(value);
     return this;
   }
@@ -55,11 +59,10 @@ export class QueryBuilder {
     tableName: string,
     data: { [key: string]: any },
     condition: string,
-    value: any
+    conditionValue: any
   ) {
     this.RESET();
     const columns = Object.keys(data);
-
     const placeholders = columns
       .map((col, index) => `${col} = $${index + 1}`)
       .join(", ");
@@ -67,14 +70,14 @@ export class QueryBuilder {
     const values = Object.values(data);
 
     this.queryString = `UPDATE ${tableName} SET ${placeholders} WHERE ${condition}`;
-    this.params = [...values, value];
+    this.params = [...values, conditionValue];
     return this;
   }
 
-  DELETE(tableName: string, condition: string, value: any) {
+  DELETE(tableName: string, condition: string, conditionValue: any) {
     this.RESET();
     this.queryString = `DELETE FROM ${tableName} WHERE ${condition}`;
-    this.params = [value];
+    this.params = [conditionValue];
     return this;
   }
 }
