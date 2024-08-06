@@ -1,6 +1,6 @@
 import * as style from 'client/styles/pending/pending_component.css';
-import { approveHandler } from './services/fetchApproveData';
-import { cancelHandler } from './services/fetchCancelData';
+import { approveHandler } from './services/approve/fetchApproveData';
+import { cancelHandler } from './services/cancel/fetchCancelData';
 import { usePendingUsers } from './hook/usePendingUser';
 import UserItem from './utils/userItem';
 
