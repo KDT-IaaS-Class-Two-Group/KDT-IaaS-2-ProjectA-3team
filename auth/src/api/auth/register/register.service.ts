@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 
 import PendingUserRepository from 'src/database/pending_users.repository';
-import { PendingUserDTO } from './DTO/PendingUserDTO';
+import { PendingUserDTO } from '@shared/DTO/SharedDTO';
 /**
  * * Class : RegisterService
  * 작성자 : @naviadev / 2024-07-29
- * 편집자 : @naviadev / 2024-08-04
+ * 편집자 : @naviadev / 2024-07-31
  * Issue :
  * @class RegisterService
  * @param private readonly userRepository: UserRepository

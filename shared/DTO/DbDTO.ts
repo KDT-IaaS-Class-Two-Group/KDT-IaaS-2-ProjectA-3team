@@ -14,7 +14,7 @@ export class NoticeDTO {
   title: string;
   content: string;
 
-  constructor(title: string, content: string) {
+  constructor(userId: string, title: string, content: string) {
     this.title = title;
     this.content = content;
   }

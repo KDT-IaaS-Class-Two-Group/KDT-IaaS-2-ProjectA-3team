@@ -29,7 +29,7 @@ export class NoticeController {
     const session = req.session.user;
     const user_id = session?.user_id;
     const role = session.role_name;
-    console.log(user_id,role);
+    console.log(user_id, role);
     return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 

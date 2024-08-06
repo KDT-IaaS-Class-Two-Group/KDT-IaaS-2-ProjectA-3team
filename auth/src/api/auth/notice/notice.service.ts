@@ -64,6 +64,7 @@ export class NoticeService {
 
   async getNotices() {
       const mongoCollection = this.client
+
         .db('notice')
         .collection<NoticeDTO>('noticeTable');
 

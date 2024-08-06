@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
-import type columns from '../../ts/type/querybuilder/columns.type';
+import columns from 'ts/type/querybuilder/columns.type';
+
 @Injectable()
 export class QueryBuilder {
   private queryString: string = '';
@@ -29,11 +30,12 @@ export class QueryBuilder {
   }
 
   SELECT(tableName: string, columns: columns = '*') {
+    console.log(columns);
     this.RESET();
-    if (columns === '*') {
-      this.queryString = `SELECT * FROM ${tableName}`;
-    } else if (typeof columns === 'object') {
+    if (Array.isArray(columns)) {
       this.queryString = `SELECT ${columns.join(', ')} FROM ${tableName}`;
+    } else if (columns === '*') {
+      this.queryString = `SELECT * FROM ${tableName}`;
     } else {
       this.queryString = `SELECT ${columns} FROM ${tableName}`;
     }
@@ -42,6 +44,12 @@ export class QueryBuilder {
 
   WHERE(condition: string, value: any) {
     this.queryString += ` WHERE ${condition}`;
+    if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        this.params.push(value[i]);
+      }
+      return this;
+    }
     this.params.push(value);
     return this;
   }

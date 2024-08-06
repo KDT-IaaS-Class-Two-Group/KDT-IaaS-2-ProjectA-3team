@@ -11,9 +11,15 @@ import { RowController } from './api/tables/[tableName]/rows/row.controller';
 import { TablesController } from './api/tables/[tableName]/tables.controller';
 import { DatabaseService } from './database/database.service';
 import { TableService } from './database/table.service';
+import { PendingProcessModule } from './api/Pending_Process/pending_process.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, UsersModule],
+  imports: [
+    ConfigModule.forRoot(),
+    AuthModule,
+    UsersModule,
+    PendingProcessModule,
+  ],
   controllers: [
     StructureController,
     DataController,

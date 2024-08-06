@@ -25,7 +25,7 @@ class UsersRepository {
   async InsertNewUser(userData: UserDTO) {
     const {
       user_id,
-      user_name,
+      username,
       birth_date,
       address,
       phone,
@@ -38,7 +38,7 @@ class UsersRepository {
 
     const params = [
       user_id,
-      user_name,
+      username,
       birth_date,
       address,
       phone,

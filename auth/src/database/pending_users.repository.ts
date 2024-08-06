@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
-import { PendingUserDTO } from 'src/api/auth/register/DTO/PendingUserDTO';
+import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
 
 @Injectable()
 class PendingUserRepository {
@@ -24,6 +24,7 @@ class PendingUserRepository {
 
   async InsertNewUser(userData: PendingUserDTO) {
     // user_id | username | birth_date | address | phone | email | password
+
     const { user_id, username, birth_date, address, phone, email, password } =
       userData;
 
