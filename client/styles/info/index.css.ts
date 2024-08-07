@@ -21,6 +21,16 @@ export const backcontainer = style({
   padding: "10vw 15vw",
   borderRadius: "1.5vw",
 });
+//배경 안 검정 div 배경 flex col cen
+export const backcontainerClone = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: Colors.FontPrimary,
+  padding: "0vw 15vw",
+  borderRadius: "1.5vw",
+});
 //로고 div 부모 flex col cen
 export const login = style({
   display: "flex",
@@ -72,6 +82,23 @@ export const buttonLink = style({
   ":hover": {
     background: Colors.StatusBlue,
   },
+});
+
+//버튼 스타일
+export const buttonLinkClone = style({
+  fontWeight: "bold",
+  background: Colors.FontThrid,
+  border: "none",
+  color: Colors.FontSecondary,
+  cursor: "pointer",
+  padding: Spacing.medium,
+  fontSize: FontSize.Medium,
+  borderRadius: Size.border,
+  width: "20vw",
+  ":hover": {
+    background: Colors.StatusBlue,
+  },
+  marginBottom: "1.5vw",
 });
 
 //input 스타일
