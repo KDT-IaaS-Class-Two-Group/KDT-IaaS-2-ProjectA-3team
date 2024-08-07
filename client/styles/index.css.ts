@@ -21,10 +21,20 @@ export const backcontainer = style({
   padding: "10vw 15vw",
   borderRadius: "1.5vw",
 });
-//로고 div 부모 flex row cen
+//로고 div 부모 flex col cen
 export const login = style({
   display: "flex",
   flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  width: Size.full,
+  marginBottom: Spacing.medium,
+  gap: Spacing.medium,
+});
+//로고 div 부모 flex col cen
+export const loginsub = style({
+  display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   width: Size.full,
@@ -64,14 +74,25 @@ export const buttonLink = style({
   },
 });
 
+//input 스타일
 export const input = style({
   padding: Spacing.medium,
   border: "1px solid #ccc",
-  borderRadius: "4px",
+  borderRadius: Size.border,
+  width: "18vw",
 });
+//로그인 시 sign in 글씨 스타일
 export const signfont = style({
-  fontSize: FontSize.Small,
+  fontSize: FontSize.Large,
   color: Colors.FontThrid,
   display: "flex",
   padding: "0",
+});
+//로그인 id pw 글씨 스타일
+export const idpwfont = style({
+  fontSize: FontSize.Medium,
+  color: Colors.FontSecondary,
+  display: "flex",
+  fontWeight: "bold",
+  marginBottom: Spacing.small,
 });
