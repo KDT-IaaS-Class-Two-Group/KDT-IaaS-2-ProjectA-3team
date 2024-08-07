@@ -44,7 +44,12 @@ export class DatabaseService implements OnModuleDestroy {
   }
 
   async query(text: string, params?: any[]) {
-    return this.client.query(text, params);
+    try {
+      return await this.client.query(text, params);
+    } catch (err) {
+      console.error(`Error executing query: ${text}`, err);
+      throw err;
+    }
   }
 
   onModuleDestroy() {

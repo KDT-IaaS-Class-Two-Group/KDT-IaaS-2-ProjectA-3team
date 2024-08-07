@@ -1,3 +1,4 @@
+// src/database/table.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from './database.service';
 
@@ -33,39 +34,41 @@ export class TableService {
   }
 
   async updateRow(tableName: string, rowId: string, rowData: any) {
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
     const updates = Object.keys(rowData)
       .map((key, index) => `${key} = $${index + 1}`)
       .join(', ');
     const values = [...Object.values(rowData), rowId];
 
     console.log(
-      `Executing query: UPDATE ${tableName} SET ${updates} WHERE id = $${values.length}`,
+      `Executing query: UPDATE ${tableName} SET ${updates} WHERE ${idField} = $${values.length}`,
       values,
     );
 
     const result = await this.databaseService.query(
-      `UPDATE ${tableName} SET ${updates} WHERE id = $${values.length}`,
+      `UPDATE ${tableName} SET ${updates} WHERE ${idField} = $${values.length}`,
       values,
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${tableName}`,
+        `Row with ${idField} ${rowId} not found in table ${tableName}`,
       );
     }
     return rowData;
   }
 
   async deleteRow(tableName: string, rowId: string) {
+    const idField = tableName === 'stack' ? 'stack_name' : 'field_name';
     const result = await this.databaseService.query(
-      `DELETE FROM ${tableName} WHERE id = $1`,
+      `DELETE FROM ${tableName} WHERE ${idField} = $1`,
       [rowId],
     );
     if (result.rowCount === 0) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${tableName}`,
+        `Row with ${idField} ${rowId} not found in table ${tableName}`,
       );
     }
-    return { id: rowId };
+    return { [idField]: rowId };
   }
 
   async getTableStructure(tableName: string) {
@@ -79,11 +82,8 @@ export class TableService {
     return structure.rows;
   }
 
-  async getTableData(tableName: string, limit: number = 5) {
-    const data = await this.databaseService.query(
-      `SELECT * FROM ${tableName} LIMIT $1`,
-      [limit],
-    );
+  async getTableData(tableName: string) {
+    const data = await this.databaseService.query(`SELECT * FROM ${tableName}`);
     return data.rows;
   }
 

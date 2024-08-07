@@ -8,9 +8,7 @@ export class RowsController {
   @Post()
   async addRow(@Param('tableName') tableName: string, @Body() rowData: any) {
     if (!['stack', 'field'].includes(tableName)) {
-      throw new Error(
-        'Only "stack" and "field" tables are allowed for adding new rows.',
-      );
+      throw new Error('Only "stack" and "field" tables are allowed for adding new rows.');
     }
     return this.tableService.addRow(tableName, rowData);
   }
