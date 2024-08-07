@@ -1,26 +1,9 @@
 import React, { useState } from "react";
-// import Calendar, { CalendarProps } from "react-calendar";
-import "react-calendar/dist/Calendar.css"; 
+
 import * as styles from "../../styles/userMainContent.css";
 interface mainProps {
   children: React.ReactNode;
 }
-
-// const MainHeader: React.FC = () => {
-//   const [calendarValue, setCalendarValue] = useState<CalendarProps["value"]>(
-//     new Date()
-//   );
-
-//   const handleCalendarChange: CalendarProps["onChange"] = (value : Date) => {
-//     setCalendarValue(value);
-//   };
-//   return (
-//     <div className={styles.mainProjectCalender}>
-//       {/* 캘린더 추가 */}
-//       <Calendar onChange={handleCalendarChange} value={calendarValue} />
-//     </div>
-//   );
-// };
 
 const mainHeader: React.FC<mainProps> = ({ children }) => {
   return (

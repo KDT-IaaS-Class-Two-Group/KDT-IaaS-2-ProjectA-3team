@@ -3,6 +3,7 @@ import * as style from "client/styles/project/root.css";
 import Side from "client/components/userMainPage/userLeftContent";
 import Content from "client/components/userMainPage/mainHeader";
 import Link from "next/link";
+import CalendarComponent from "client/components/Calendar/calenar";
 
 const UserHome: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const UserHome: React.FC = () => {
       <Side />
       <Content>
         <p>야호</p>
+        <CalendarComponent></CalendarComponent>
       </Content>
       <div>  
         <button>
