@@ -3,7 +3,8 @@ import { useState } from "react";
 import * as style from "client/styles/project/root.css";
 
 import Side from "client/components/userMainPage/userLeftContent";
-import CreateProjectModal from "client/components/MODAL/createProject_Modal/createProject.modal";
+import CreateProjectModal from "../../../../client/components/modal/createProject_Modal/createProject.modal";
+// client/components/MODAL/createProject_Modal/createProject.modal
 import Link from "next/link";
 
 const test: React.FC = () => {
@@ -16,7 +17,7 @@ const test: React.FC = () => {
       <Side></Side>
       <div>
         <h1>프로젝트 View</h1>
-        <CreateProjectModal/>
+        <CreateProjectModal />
         <button>
           <Link href={"/user/team"}>Team</Link>
         </button>
