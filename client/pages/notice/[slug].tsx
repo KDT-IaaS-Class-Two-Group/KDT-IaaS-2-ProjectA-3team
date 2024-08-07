@@ -14,54 +14,65 @@ const Post = ({ title, content, id }: PostProps) => {
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
 
-  const handleUpdate = async () => {
-    try {
-      const res = await fetch(`http://localhost:3001/notice/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ title: newTitle, content: newContent }),
+  const handleUpdate = () => {
+    fetch(`http://localhost:3001/notice/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ title: newTitle, content: newContent }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          alert('수정 성공');
+          window.location.reload();
+        } else {
+          alert('수정 실패');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('수정 중 오류 발생');
       });
-      if (res.ok) {
-        alert('Post updated successfully');
-        window.location.reload(); // 페이지 새로고침
-      } else {
-        alert('Failed to update post');
-      }
-    } catch (error) {
-      console.error('Error updating post:', error);
-    }
   };
 
-  const handleDelete = async () => {
-    try {
-      const res = await fetch(`http://localhost:3001/notice/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-      if (res.ok) {
-        alert('Post deleted successfully');
+  const handleDelete = () => {
+    fetch(`http://localhost:3001/notice/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+      if (data.success) {
+        alert('삭제 성공');
         window.location.href = '/noticeMain';
       } else {
-        alert('Failed to delete post');
+        alert('삭제 실패');
       }
-    } catch (error) {
-      console.error('Error deleting post:', error);
-    }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('삭제 중 오류 발생')
+    });
   };
 
   return (
     <div>
       {editMode ? (
         <div>
-          <input 
-            type="text" 
-            value={newTitle} 
+          <div>사용자</div>
+          <input
+            type="text"
+            value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
-            placeholder='제목' 
+            placeholder='제목'
           />
-          <textarea 
-            value={newContent} 
+          <textarea
+            value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
             placeholder='내용'
           />
