@@ -18,7 +18,7 @@ export class NoticeController {
   }
 
   //관리자게시판 fetch
-  @Get('Authnotices')
+  @Get('authnotices')
   async getAuthNotices() {
     return await this.noticeService.getAuthNotices();
   }
@@ -28,18 +28,24 @@ export class NoticeController {
   async noticeCreate(@Body() noticeDTO: NoticeDTO, @Req() req: Request) {
     const session = req.session.user;
     const user_id = session?.user_id;
-    const role = session.role_name;
-    console.log(user_id, role);
+    const role = session?.role_name;
     return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 
   @Put('notice/:id')
-  async updateNotice(@Param('id') id: string, @Body() noticeDTO: NoticeDTO) {
-    return await this.noticeService.updateNotice(id, noticeDTO);
+  async updateNotice(@Param('id') id: string, @Body() noticeDTO: NoticeDTO, @Req() req: Request) {
+    const session = req.session.user;
+    const user_id = session?.user_id;
+    const role = session?.role_name;
+    return await this.noticeService.updateNotice(id, noticeDTO, user_id, role);
   }
 
   @Delete('notice/:id')
-  async deleteNotice(@Param('id') id: string) {
-    return await this.noticeService.deleteNotice(id);
+  async deleteNotice(@Param('id') id: string, @Req() req: Request) {
+    const session = req.session.user;
+    const user_id = session?.user_id;
+    const role = session?.role_name;
+    console.log(user_id, role);
+    return await this.noticeService.deleteNotice(id, user_id, role);
   }
 }
