@@ -20,26 +20,32 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={styles.login}>
+    <div className={styles.loginsub}>
       <h1 className={styles.signfont}>sign in</h1>
-      <input
-        type="text"
-        className={styles.input}
-        placeholder="id"
-        onChange={(e) => {
-          setId(e.target.value);
-        }}
-        onKeyDown={handleKeyDown}
-      />
-      <input
-        type="password"
-        className={styles.input}
-        placeholder="password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-        onKeyDown={handleKeyDown}
-      />
+      <div>
+        <p className={styles.idpwfont}>id</p>
+        <input
+          type="text"
+          className={styles.input}
+          placeholder="id"
+          onChange={(e) => {
+            setId(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+      <div>
+        <p className={styles.idpwfont}>password</p>
+        <input
+          type="password"
+          className={styles.input}
+          placeholder="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
       <button
         className={styles.buttonLink}
         type="button"
