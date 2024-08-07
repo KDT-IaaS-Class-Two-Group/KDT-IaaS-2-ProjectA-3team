@@ -12,6 +12,7 @@ import { TablesController } from './api/tables/[tableName]/tables.controller';
 import { DatabaseService } from './database/database.service';
 import { TableService } from './database/table.service';
 import { PendingProcessModule } from './api/Pending_Process/pending_process.module';
+import { ProjectModule } from './api/project/project.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PendingProcessModule } from './api/Pending_Process/pending_process.modu
     AuthModule,
     UsersModule,
     PendingProcessModule,
+    ProjectModule,
   ],
   controllers: [
     StructureController,

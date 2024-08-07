@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import * as styles from '../../styles/userMainContent.css';
+import * as styles from "../../styles/userMainContent.css";
+interface mainProps {
+  children: React.ReactNode;
+}
 
-const mainHeader: React.FC = () => {
+const mainHeader: React.FC<mainProps> = ({ children }) => {
   return (
     <div className={styles.mainContentAll}>
       <div className={styles.mainContentHeader}>
@@ -38,10 +41,12 @@ const mainHeader: React.FC = () => {
           </div>
         </div>
         <div className={styles.mainProjectStatus}>프로젝트 상태</div>
-        <div className={styles.mainProjectCalender}>캘린더</div>
+
         <div className={styles.mainProjectToDo}>Todo-list</div>
         <div className={styles.mainProjectPlus}>+</div>
       </div>
+
+      <div>{children}</div>
     </div>
   );
 };

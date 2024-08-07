@@ -1,4 +1,6 @@
+import REQUEST_URL from 'client/ts/enum/REQUEST_URL.ENUM';
 import { PendingUser } from '../interface/PendingData.interface'
+import { POST_REGISTER_META } from '../config/POST_REGISTER';
 
 /**
  * * Function : fetchRegisterData
@@ -7,20 +9,12 @@ import { PendingUser } from '../interface/PendingData.interface'
  * Issue :
  * @description : 회원가입 요청 모듈
  */
-const fetchRegisterData = async (userData: PendingUser): Promise<boolean> => {
-  const response = await fetch('http://localhost:3001/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
 
+const fetchRegisterData = async (userData: PendingUser): Promise<boolean> => {
+  const response = await fetch(REQUEST_URL.__REGISTER, POST_REGISTER_META(userData));
   if (response.ok) {
-    console.log('회원가입 성공', await response.json());
     return true;
   } else {
-    console.error('회원가입 실패', await response.text());
     return false;
   }
 };

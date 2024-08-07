@@ -7,10 +7,10 @@ import { LogoutController } from "./login/logout.controller";
 import { NoticeController } from "./notice/notice.controller";
 import { NoticeService } from "./notice/notice.service";
 
-import { DatabaseService } from "src/database/database.service";
-import { VerifySessionController } from "./verify/verifySession.controller";
-import PendingUserRepository from "src/database/pending_users.repository";
-import { QueryBuilder } from "src/database/queryBuilder";
+import { DatabaseService } from 'src/database/database.service';
+import { VerifySessionController } from './verify/verifySession.controller';
+import PendingUserRepository from 'src/database/pending_users.repository';
+import { QueryBuilder } from 'src/database/queryBuilder';
 
 @Module({
   controllers: [

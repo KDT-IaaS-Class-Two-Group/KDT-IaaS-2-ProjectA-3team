@@ -1,0 +1,419 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.5.6",
+  "deps": {
+    "@vanilla-extract/css": "^1.15.3",
+    "next": "^14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "styled-jsx": "^5.1.1",
+    "@babel/eslint-parser": "^7.24.8",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@vanilla-extract/next-plugin": "^2.4.3",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".eslintrc.json",
+        "hash": "9724206857535991061"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "14795959431407842278"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "1134213984698524190"
+      },
+      {
+        "file": "README.md",
+        "hash": "1992404412951644809"
+      },
+      {
+        "file": "components/MemberVerification/MemberComponent.tsx",
+        "hash": "264174745596453979"
+      },
+      {
+        "file": "components/MemberVerification/hook/usePendingUser.ts",
+        "hash": "2791838127788600415"
+      },
+      {
+        "file": "components/MemberVerification/interface/MemberProps.interface.ts",
+        "hash": "5903651576169167414"
+      },
+      {
+        "file": "components/MemberVerification/item/userItem.tsx",
+        "hash": "15071197556466296254"
+      },
+      {
+        "file": "components/MemberVerification/services/approve/fetchApproveData.ts",
+        "hash": "11678621347611093330"
+      },
+      {
+        "file": "components/MemberVerification/services/cancel/fetchCancelData.ts",
+        "hash": "10676646322042390234"
+      },
+      {
+        "file": "components/MemberVerification/services/getUserData/fetchPendingUsersData.ts",
+        "hash": "11967580335114494001"
+      },
+      {
+        "file": "components/MemberVerification/utils/fetch_body/get/Get_body_pendingUsers.ts",
+        "hash": "6554084461216772260"
+      },
+      {
+        "file": "components/MemberVerification/utils/fetch_body/post/Post_body_adminData.ts",
+        "hash": "15857363254584945343"
+      },
+      {
+        "file": "components/Table.Page.tsx",
+        "hash": "16563737505715523730"
+      },
+      {
+        "file": "components/Table/TableActions.tsx",
+        "hash": "8421994946033418448"
+      },
+      {
+        "file": "components/Table/TableData.tsx",
+        "hash": "14264622402452322258"
+      },
+      {
+        "file": "components/Table/TableStructure.tsx",
+        "hash": "7038121519489080724"
+      },
+      {
+        "file": "components/auth_Component/login/hook/loginHooks.ts",
+        "hash": "6986383053878377516"
+      },
+      {
+        "file": "components/auth_Component/login/loginForm.tsx",
+        "hash": "4011956719840591636"
+      },
+      {
+        "file": "components/auth_Component/login/service/fetchLoginData.ts",
+        "hash": "16110240482323692909"
+      },
+      {
+        "file": "components/auth_Component/login/style/login.css.ts",
+        "hash": "3225047181428851487"
+      },
+      {
+        "file": "components/auth_Component/register/hook/registerHooks.ts",
+        "hash": "11048292229135619774"
+      },
+      {
+        "file": "components/auth_Component/register/interface/PendingData.interface.ts",
+        "hash": "4978211237343670436"
+      },
+      {
+        "file": "components/auth_Component/register/registerForm.tsx",
+        "hash": "1071695863702582253"
+      },
+      {
+        "file": "components/auth_Component/register/service/fetchRegisterData.ts",
+        "hash": "6430020225367270180"
+      },
+      {
+        "file": "components/auth_Component/register/style/register.css.ts",
+        "hash": "3715952792891213117"
+      },
+      {
+        "file": "components/main/mainComponent.tsx",
+        "hash": "4198604248966362645"
+      },
+      {
+        "file": "components/modal/interface/props/modalProps.interface.ts",
+        "hash": "1292822093580170845"
+      },
+      {
+        "file": "components/modal/modal.tsx",
+        "hash": "2938113113800569648"
+      },
+      {
+        "file": "components/modal/style/modal.css.ts",
+        "hash": "10544092750002112147"
+      },
+      {
+        "file": "components/side/item/notice/noticeItem.tsx",
+        "hash": "13815581350111478441"
+      },
+      {
+        "file": "components/side/item/profile/profileItem.tsx",
+        "hash": "103408539545563289"
+      },
+      {
+        "file": "components/side/sideContainer.tsx",
+        "hash": "9058135633528108481"
+      },
+      {
+        "file": "components/side/style/side.css.ts",
+        "hash": "12305269677420941059"
+      },
+      {
+        "file": "components/userMainPage/mainHeader.tsx",
+        "hash": "1887690094426242222"
+      },
+      {
+        "file": "components/userMainPage/noticeMainContent.tsx",
+        "hash": "5821885238898290993"
+      },
+      {
+        "file": "components/userMainPage/noticeMainFooter.tsx",
+        "hash": "9450581014581078154"
+      },
+      {
+        "file": "components/userMainPage/noticeMainTitle.tsx",
+        "hash": "5597482493321707732"
+      },
+      {
+        "file": "components/userMainPage/noticePage.tsx",
+        "hash": "7701657749369155882"
+      },
+      {
+        "file": "components/userMainPage/userLeftContent.tsx",
+        "hash": "11681659844727016890"
+      },
+      {
+        "file": "hooks/useFetchTableData.ts",
+        "hash": "1055600327645449412"
+      },
+      {
+        "file": "hooks/useTableData.ts",
+        "hash": "2239011434034677266"
+      },
+      {
+        "file": "hooks/useTableStructure.ts",
+        "hash": "15090100022307946998"
+      },
+      {
+        "file": "middleware.ts",
+        "hash": "13122615552265707583"
+      },
+      {
+        "file": "model/auth/fetchLoginData.ts",
+        "hash": "12777399942770560898"
+      },
+      {
+        "file": "model/auth/fetchRegisterData.ts",
+        "hash": "5159600649740286918"
+      },
+      {
+        "file": "model/services/auth/fetchLoginData.ts",
+        "hash": "3864459649289832825"
+      },
+      {
+        "file": "model/services/auth/fetchRegisterData.ts",
+        "hash": "15460252844077901869"
+      },
+      {
+        "file": "model/services/getPendingUsersData.ts",
+        "hash": "4563367964815396110"
+      },
+      {
+        "file": "model/services/getUsers.ts",
+        "hash": "18180522986464390396"
+      },
+      {
+        "file": "model/services/userlookup.tsx",
+        "hash": "12935712004820075035"
+      },
+      {
+        "file": "model/services/userpersonal.tsx",
+        "hash": "3312226902807267104"
+      },
+      {
+        "file": "model/validator/validateRegisterData.ts",
+        "hash": "16728479791396039494"
+      },
+      {
+        "file": "next.config.mjs",
+        "hash": "7421294415050209057"
+      },
+      {
+        "file": "package.json",
+        "hash": "10421593261914696481"
+      },
+      {
+        "file": "pages/_app.tsx",
+        "hash": "12784567436930099722"
+      },
+      {
+        "file": "pages/_document.tsx",
+        "hash": "5840978083720501936"
+      },
+      {
+        "file": "pages/admin/dashBoard.tsx",
+        "hash": "13934871438372131538"
+      },
+      {
+        "file": "pages/admin/pendingRegister.tsx",
+        "hash": "13470184757364778156"
+      },
+      {
+        "file": "pages/getUser.tsx",
+        "hash": "1124972162035849359"
+      },
+      {
+        "file": "pages/index.tsx",
+        "hash": "13445957275970654351"
+      },
+      {
+        "file": "pages/login.tsx",
+        "hash": "10459132850426722838"
+      },
+      {
+        "file": "pages/notice.tsx",
+        "hash": "2009231099487867784"
+      },
+      {
+        "file": "pages/noticeMain.tsx",
+        "hash": "16309510300439067801"
+      },
+      {
+        "file": "pages/project.tsx",
+        "hash": "15399415357125747628"
+      },
+      {
+        "file": "pages/register.tsx",
+        "hash": "1789847125940869153"
+      },
+      {
+        "file": "pages/table-list.tsx",
+        "hash": "13034270787194538895"
+      },
+      {
+        "file": "pages/tables/[tableName].tsx",
+        "hash": "15382789468527485892"
+      },
+      {
+        "file": "pages/team.tsx",
+        "hash": "3274206426140207920"
+      },
+      {
+        "file": "pages/user.tsx",
+        "hash": "8901036443104310092"
+      },
+      {
+        "file": "pages/user/getTeam.tsx",
+        "hash": "2953660309130626877"
+      },
+      {
+        "file": "pages/user/home.tsx",
+        "hash": "6478269581610665024"
+      },
+      {
+        "file": "pages/user/project/project.tsx",
+        "hash": "11820753406969747523"
+      },
+      {
+        "file": "pages/user/team.tsx",
+        "hash": "9769489754411262292"
+      },
+      {
+        "file": "pages/userlookup.tsx",
+        "hash": "3114536220074808627"
+      },
+      {
+        "file": "pages/userpersonal.tsx",
+        "hash": "5849494895221783412"
+      },
+      {
+        "file": "public/favicon.ico",
+        "hash": "958878348830156577"
+      },
+      {
+        "file": "public/next.svg",
+        "hash": "8300767200008744458"
+      },
+      {
+        "file": "public/vercel.svg",
+        "hash": "2376673330454856631"
+      },
+      {
+        "file": "styles/global.css",
+        "hash": "17583928656479222765"
+      },
+      {
+        "file": "styles/index.css.ts",
+        "hash": "3702771843409486910"
+      },
+      {
+        "file": "styles/login.css.ts",
+        "hash": "6114181119742863637"
+      },
+      {
+        "file": "styles/mainview.css.ts",
+        "hash": "11742847015400103138"
+      },
+      {
+        "file": "styles/modal/modal.css.ts",
+        "hash": "10544092750002112147"
+      },
+      {
+        "file": "styles/pending/pending_component.css.ts",
+        "hash": "4497756679832049901"
+      },
+      {
+        "file": "styles/project/main.css.ts",
+        "hash": "14300195469015637753"
+      },
+      {
+        "file": "styles/project/root.css.ts",
+        "hash": "11506090242998947356"
+      },
+      {
+        "file": "styles/project/side.css.ts",
+        "hash": "12305269677420941059"
+      },
+      {
+        "file": "styles/register.css.ts",
+        "hash": "1998638564004342450"
+      },
+      {
+        "file": "styles/user.css.ts",
+        "hash": "7284206909742161804"
+      },
+      {
+        "file": "styles/userMainContent.css.ts",
+        "hash": "10259662117731489479"
+      },
+      {
+        "file": "ts/Interface/LoginData.interface.ts",
+        "hash": "7693476996677984418"
+      },
+      {
+        "file": "ts/Interface/LoginResponse.interface.ts",
+        "hash": "13177410892343680680"
+      },
+      {
+        "file": "ts/Interface/PendingData.interface.ts",
+        "hash": "4978211237343670436"
+      },
+      {
+        "file": "ts/enum/REQUEST_HEADER.ENUM.ts",
+        "hash": "11768497308231596750"
+      },
+      {
+        "file": "ts/enum/REQUEST_METHOD.ENUM.ts",
+        "hash": "7722823145946367278"
+      },
+      {
+        "file": "ts/enum/REQUEST_URL.ENUM.ts",
+        "hash": "460567964903400353"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "14388945377006098659"
+      }
+    ]
+  }
+}
