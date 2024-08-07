@@ -3,7 +3,7 @@ import * as style from "client/styles/project/root.css";
 import Side from "client/components/userMainPage/userLeftContent";
 import Content from "client/components/userMainPage/mainHeader";
 import Link from "next/link";
-import CalendarComponent from "client/components/Calendar/calenar";
+import CalendarComponent from "client/components/Calendar/calendar";
 
 const UserHome: React.FC = () => {
   return (
