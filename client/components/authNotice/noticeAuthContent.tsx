@@ -30,7 +30,7 @@ const NoticeAuthContent = () => {
       {authList.length > 0 ? (
         authList.map((notice) => (
           <div key={notice._id}>
-            <Link href={`/notice/${notice._id}`}>
+            <Link href={`/noticeAuth/${notice._id}`}>
               <h3>{notice.title}</h3>
             </Link>
           </div>
