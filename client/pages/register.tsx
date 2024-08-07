@@ -3,7 +3,7 @@ import * as styles from "../styles/info/index.css";
 const RegisterPage: React.FC = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.backcontainer}>
+      <div className={styles.backcontainerClone}>
         <div className={styles.login}>
           <img src="/delan.png" />
           <h1 className={styles.heading}>DelaN</h1>
