@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from "react";
+import Calendar, { CalendarProps } from "react-calendar";
+import "react-calendar/dist/Calendar.css"; // 기본 스타일
+import * as styles from "../../styles/userMainContent.css";
 
-import * as styles from '../../styles/userMainContent.css';
+const MainHeader: React.FC = () => {
+  const [calendarValue, setCalendarValue] = useState<CalendarProps["value"]>(
+    new Date()
+  );
 
-const mainHeader: React.FC = () => {
+  const handleCalendarChange: CalendarProps["onChange"] = (value) => {
+    setCalendarValue(value);
+  };
+
   return (
     <div className={styles.mainContentAll}>
       <div className={styles.mainContentHeader}>
@@ -38,7 +47,10 @@ const mainHeader: React.FC = () => {
           </div>
         </div>
         <div className={styles.mainProjectStatus}>프로젝트 상태</div>
-        <div className={styles.mainProjectCalender}>캘린더</div>
+        <div className={styles.mainProjectCalender}>
+          {/* 캘린더 추가 */}
+          <Calendar onChange={handleCalendarChange} value={calendarValue} />
+        </div>
         <div className={styles.mainProjectToDo}>Todo-list</div>
         <div className={styles.mainProjectPlus}>+</div>
       </div>
@@ -46,4 +58,4 @@ const mainHeader: React.FC = () => {
   );
 };
 
-export default mainHeader;
+export default MainHeader;

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import * as style from 'client/styles/project/root.css';
-import Side from 'client/components/userMainPage/userLeftContent';
-import Content from 'client/components/userMainPage/mainHeader';
-import Link from 'next/link';
+import * as style from "client/styles/project/root.css";
+import Side from "client/components/userMainPage/userLeftContent";
+import Content from "client/components/userMainPage/mainHeader";
+import Link from "next/link";
 
 const test: React.FC = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,10 +15,10 @@ const test: React.FC = () => {
       <Side></Side>
       <Content />
       <button>
-        <Link href={'/user/project/project'}>project</Link>
+        <Link href={"/user/project/project"}>project</Link>
       </button>
       <button>
-        <Link href={'/user/team'}>Team</Link>
+        <Link href={"/user/team"}>Team</Link>
       </button>
     </div>
   );
