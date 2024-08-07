@@ -1,7 +1,6 @@
-// template.css.ts
 import { style } from "@vanilla-extract/css";
 import { Colors, FontSize, Size, Spacing } from "./standard.css";
-
+//검회색 div 배경 지정 및 flex col cen
 export const container = style({
   display: "flex",
   flexDirection: "column",
@@ -12,7 +11,17 @@ export const container = style({
   color: Colors.FontSecondary,
   textAlign: "center",
 });
-
+//배경 안 검정 div 배경 flex col cen
+export const backcontainer = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: Colors.FontPrimary,
+  padding: "10vw 15vw",
+  borderRadius: "1.5vw",
+});
+//로고 div 부모 flex row cen
 export const login = style({
   display: "flex",
   flexDirection: "row",
@@ -23,16 +32,13 @@ export const login = style({
   gap: Spacing.medium,
 });
 
-export const backcontainer = style({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: Colors.FontPrimary,
-  padding: "10vw 15vw",
-  borderRadius: "1.5vw",
+//로고 글자 스타일 DelaN
+export const heading = style({
+  fontSize: FontSize.XXLarge,
+  color: Colors.FontSecondary,
+  marginBottom: Spacing.large,
 });
-
+//여러 버튼 부모 flex col cen
 export const buttoncontainer = style({
   display: "flex",
   flexDirection: "column",
@@ -41,12 +47,7 @@ export const buttoncontainer = style({
   gap: Spacing.small,
 });
 
-export const heading = style({
-  fontSize: FontSize.XXLarge,
-  color: Colors.FontSecondary,
-  marginBottom: Spacing.large,
-});
-
+//버튼 스타일
 export const buttonLink = style({
   fontWeight: "bold",
   background: Colors.FontThrid,
@@ -63,11 +64,14 @@ export const buttonLink = style({
   },
 });
 
-export const content = style({
-  marginTop: Spacing.medium,
+export const input = style({
   padding: Spacing.medium,
-  border: `1px solid ${Colors.Icon}`,
-  borderRadius: Size.border,
-  width: Size.full,
-  maxWidth: "600px",
+  border: "1px solid #ccc",
+  borderRadius: "4px",
+});
+export const signfont = style({
+  fontSize: FontSize.Small,
+  color: Colors.FontThrid,
+  display: "flex",
+  padding: "0",
 });
