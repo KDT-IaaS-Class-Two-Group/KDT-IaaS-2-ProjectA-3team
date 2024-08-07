@@ -43,7 +43,7 @@ export class NoticeService {
       const result = await mongoCollection.insertOne(noticeData);
       return `insert완료 ${result.insertedId}`;
     }
-    else if(role === 'auth'){
+    else if(role === 'admin'){
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
         mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
@@ -82,30 +82,56 @@ export class NoticeService {
       return await mongoCollection.find().toArray();
   }
 
-  async updateNotice(id: string, noticeDTO: NoticeDTO) {
-    const mongoDatabase = this.client.db('notice');
-    const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
-
-    // 업데이트 후 문서 반환
-    const result = await mongoCollection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: noticeDTO },
-      { returnDocument: 'after' } // 업데이트 후 문서 반환
-    );
-
-    return `Update successful ${result.value._id}`;
+  async updateNotice(id: string, noticeDTO: NoticeDTO, user_id: string, role: string) {
+    if (role === 'employee'){
+      console.log(user_id);
+      const mongoDatabase = this.client.db('notice');
+      const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
+  
+      // 업데이트 후 문서 반환
+      const result = await mongoCollection.findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: noticeDTO },
+        { returnDocument: 'after' } // 업데이트 후 문서 반환
+      );
+  
+      return `Update successful ${result._id}`;
+    } else if (role === 'admin') {
+      const mongoDatabase = this.client.db('notice');
+      const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
+  
+      // 업데이트 후 문서 반환
+      const result = await mongoCollection.findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: noticeDTO },
+        { returnDocument: 'after' } // 업데이트 후 문서 반환
+      );
+  
+      return `Update successful ${result._id}`;
+    }
   }
 
-  async deleteNotice(id: string) {
+  async deleteNotice(id: string, user_id: string, role: string) {
     const mongoDatabase = this.client.db('notice');
-    const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
-
-    const result = await mongoCollection.deleteOne({ _id: new ObjectId(id) });
-
-    if (result.deletedCount === 0) {
-      throw new NotFoundException('Notice not found');
+    const mongoUserCollection = mongoDatabase.collection('noticeTable');
+    const mongoAuthCollection = mongoDatabase.collection('noticeAuthTable');
+    const notice = await mongoUserCollection.findOne({ _id: new ObjectId(id) });
+    const noticeUserId = notice.user_id;
+    console.log(noticeUserId);
+    if(role === 'admin' || user_id === noticeUserId){
+      if(role === 'admin'){
+        const result = await mongoAuthCollection.deleteOne({ _id: new ObjectId(id) });
+        if (result.deletedCount === 0) {
+          throw new NotFoundException('Notice not found');
+        }
+        return `Delete successful ${id}`;
+      }
+      const result = await mongoUserCollection.deleteOne({ _id: new ObjectId(id) });
+      if (result.deletedCount === 0) {
+        throw new NotFoundException('Notice not found');
+      }
+      return `Delete successful ${id}`;
     }
-
-    return `Delete successful ${id}`;
+    return `Failed to delete ${id}`
   }
 }
