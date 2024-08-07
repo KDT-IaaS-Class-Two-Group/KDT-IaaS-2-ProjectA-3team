@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import * as styles from "../styles/index.css";
+import * as styles from "../styles/info/index.css";
 const MainPage: React.FC = () => {
   return (
     <div className={styles.container}>

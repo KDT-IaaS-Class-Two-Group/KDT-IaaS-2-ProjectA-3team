@@ -1,5 +1,5 @@
 import RegisterForm from "../components/auth_Component/register/registerForm";
-import * as styles from "../styles/index.css";
+import * as styles from "../styles/info/index.css";
 const RegisterPage: React.FC = () => {
   return (
     <div className={styles.container}>

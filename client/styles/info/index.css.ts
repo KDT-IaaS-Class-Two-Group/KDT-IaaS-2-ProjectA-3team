@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { Colors, FontSize, Size, Spacing } from "./standard.css";
+import { Colors, FontSize, Size, Spacing } from "../standard.css";
 //검회색 div 배경 지정 및 flex col cen
 export const container = style({
   display: "flex",

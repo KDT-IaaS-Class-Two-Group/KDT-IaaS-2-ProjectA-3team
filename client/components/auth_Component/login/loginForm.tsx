@@ -1,5 +1,5 @@
 import useLoginHooks from "./hook/loginHooks";
-import * as styles from "../../../../client/styles/index.css";
+import * as styles from "../../../styles/info/index.css";
 /**
  * * Function : LoginForm
  * 작성자 : @naviadev / 2024-07-31
