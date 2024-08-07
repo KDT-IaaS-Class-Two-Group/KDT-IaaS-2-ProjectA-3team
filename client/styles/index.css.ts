@@ -85,8 +85,10 @@ export const input = style({
 export const signfont = style({
   fontSize: FontSize.Large,
   color: Colors.FontThrid,
+  fontWeight: "bold",
   display: "flex",
   padding: "0",
+  marginTop: "0",
 });
 //로그인 id pw 글씨 스타일
 export const idpwfont = style({
