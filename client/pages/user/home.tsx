@@ -1,27 +1,26 @@
 import { useState } from "react";
-
 import * as style from "client/styles/project/root.css";
 import Side from "client/components/userMainPage/userLeftContent";
 import Content from "client/components/userMainPage/mainHeader";
 import Link from "next/link";
 
-const test: React.FC = () => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const openModal = () => setIsModalOpen(true);
-  // const closeModal = () => setIsModalOpen(false);
-
+const UserHome: React.FC = () => {
   return (
     <div className={style.root}>
-      <Side></Side>
-      <Content />
-      <button>
-        <Link href={"/user/project/project"}>project</Link>
-      </button>
-      <button>
-        <Link href={"/user/team"}>Team</Link>
-      </button>
+      <Side />
+      <Content>
+        <p>야호</p>
+      </Content>
+      <div>  
+        <button>
+          <Link href={"/user/project/project"}>project</Link>
+        </button>
+        <button>
+          <Link href={"/user/team"}>Team</Link>
+        </button>
+      </div>
     </div>
   );
 };
 
-export default test;
+export default UserHome;

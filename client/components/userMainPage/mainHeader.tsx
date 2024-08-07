@@ -1,17 +1,28 @@
 import React, { useState } from "react";
-import Calendar, { CalendarProps } from "react-calendar";
-import "react-calendar/dist/Calendar.css"; // 기본 스타일
+// import Calendar, { CalendarProps } from "react-calendar";
+import "react-calendar/dist/Calendar.css"; 
 import * as styles from "../../styles/userMainContent.css";
+interface mainProps {
+  children: React.ReactNode;
+}
 
-const MainHeader: React.FC = () => {
-  const [calendarValue, setCalendarValue] = useState<CalendarProps["value"]>(
-    new Date()
-  );
+// const MainHeader: React.FC = () => {
+//   const [calendarValue, setCalendarValue] = useState<CalendarProps["value"]>(
+//     new Date()
+//   );
 
-  const handleCalendarChange: CalendarProps["onChange"] = (value) => {
-    setCalendarValue(value);
-  };
+//   const handleCalendarChange: CalendarProps["onChange"] = (value : Date) => {
+//     setCalendarValue(value);
+//   };
+//   return (
+//     <div className={styles.mainProjectCalender}>
+//       {/* 캘린더 추가 */}
+//       <Calendar onChange={handleCalendarChange} value={calendarValue} />
+//     </div>
+//   );
+// };
 
+const mainHeader: React.FC<mainProps> = ({ children }) => {
   return (
     <div className={styles.mainContentAll}>
       <div className={styles.mainContentHeader}>
@@ -47,15 +58,14 @@ const MainHeader: React.FC = () => {
           </div>
         </div>
         <div className={styles.mainProjectStatus}>프로젝트 상태</div>
-        <div className={styles.mainProjectCalender}>
-          {/* 캘린더 추가 */}
-          <Calendar onChange={handleCalendarChange} value={calendarValue} />
-        </div>
+
         <div className={styles.mainProjectToDo}>Todo-list</div>
         <div className={styles.mainProjectPlus}>+</div>
       </div>
+
+      <div>{children}</div>
     </div>
   );
 };
 
-export default MainHeader;
+export default mainHeader;
