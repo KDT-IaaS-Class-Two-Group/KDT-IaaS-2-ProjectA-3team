@@ -1,10 +1,9 @@
 import useLoginHooks from "./hook/loginHooks";
-import { container, input, button } from "./style/login.css";
-
+import * as styles from "../../../../client/styles/index.css";
 /**
  * * Function : LoginForm
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
+ * 편집자 : @dalramjwi / 2024-08-07
  * Issue :
  * @function LoginForm
  * @description : 로그인 Form
@@ -21,11 +20,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={container}>
-      <h1>Login</h1>
+    <div className={styles.login}>
+      <h1 className={styles.signfont}>sign in</h1>
       <input
         type="text"
-        className={input}
+        className={styles.input}
         placeholder="id"
         onChange={(e) => {
           setId(e.target.value);
@@ -34,7 +33,7 @@ const LoginForm = () => {
       />
       <input
         type="password"
-        className={input}
+        className={styles.input}
         placeholder="password"
         onChange={(e) => {
           setPassword(e.target.value);
@@ -42,13 +41,13 @@ const LoginForm = () => {
         onKeyDown={handleKeyDown}
       />
       <button
-        className={button}
+        className={styles.buttonLink}
         type="button"
         onClick={async () => {
           await handleLogin();
         }}
       >
-        Login
+        sigin in
       </button>
     </div>
   );
