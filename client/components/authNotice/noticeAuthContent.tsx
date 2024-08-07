@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import Link from 'next/link';
 interface ListNotice {
-  list_num: string;
+  _id: string;
   title: string;
   content: string;
 }
@@ -11,7 +11,7 @@ const NoticeAuthContent = () => {
 
   useEffect(() => {
     const fetchNotices = () => {
-      fetch('http://localhost:3001/Authnotices')
+      fetch('http://localhost:3001/authnotices')
         .then((response) => {
           return response.json();
         })
@@ -29,8 +29,10 @@ const NoticeAuthContent = () => {
     <div>
       {authList.length > 0 ? (
         authList.map((notice) => (
-          <div key={notice.list_num}>
-            <h3>{notice.title}</h3>
+          <div key={notice._id}>
+            <Link href={`/notice/${notice._id}`}>
+              <h3>{notice.title}</h3>
+            </Link>
           </div>
         ))
       ) : (
