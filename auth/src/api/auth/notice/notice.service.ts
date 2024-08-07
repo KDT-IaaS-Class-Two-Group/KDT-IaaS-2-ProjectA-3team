@@ -87,15 +87,19 @@ export class NoticeService {
       console.log(user_id);
       const mongoDatabase = this.client.db('notice');
       const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
-  
-      // 업데이트 후 문서 반환
-      const result = await mongoCollection.findOneAndUpdate(
-        { _id: new ObjectId(id) },
-        { $set: noticeDTO },
-        { returnDocument: 'after' } // 업데이트 후 문서 반환
-      );
-  
-      return `Update successful ${result._id}`;
+      const checkCollection = mongoDatabase.collection('noticeTable');
+      const notice = await checkCollection.findOne({ _id: new ObjectId(id) });
+      if(user_id === notice.user_id) {
+        const result = await mongoCollection.findOneAndUpdate(
+          { _id: new ObjectId(id) },
+          { $set: noticeDTO },
+          { returnDocument: 'after' } // 업데이트 후 문서 반환
+        );
+        return `Update successful ${result._id}`;
+      }
+      else{
+        return `Failed to Update ${id}`;
+      }
     } else if (role === 'admin') {
       const mongoDatabase = this.client.db('notice');
       const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
@@ -106,32 +110,62 @@ export class NoticeService {
         { $set: noticeDTO },
         { returnDocument: 'after' } // 업데이트 후 문서 반환
       );
-  
       return `Update successful ${result._id}`;
     }
+    return `Failed to Update ${id}`
   }
 
   async deleteNotice(id: string, user_id: string, role: string) {
-    const mongoDatabase = this.client.db('notice');
-    const mongoUserCollection = mongoDatabase.collection('noticeTable');
-    const mongoAuthCollection = mongoDatabase.collection('noticeAuthTable');
-    const notice = await mongoUserCollection.findOne({ _id: new ObjectId(id) });
-    const noticeUserId = notice.user_id;
-    console.log(noticeUserId);
-    if(role === 'admin' || user_id === noticeUserId){
-      if(role === 'admin'){
-        const result = await mongoAuthCollection.deleteOne({ _id: new ObjectId(id) });
-        if (result.deletedCount === 0) {
-          throw new NotFoundException('Notice not found');
+    try {
+      const mongoDatabase = this.client.db('notice');
+      const mongoUserCollection = mongoDatabase.collection('noticeTable');
+  
+      // 사용자 컬렉션에서 notice 찾기
+      const notice = await mongoUserCollection.findOne({ _id: new ObjectId(id) });
+  
+      if (role === 'employee') {
+        if (!notice) {
+          throw new NotFoundException('Notice not found in user table');
         }
-        return `Delete successful ${id}`;
+  
+        const noticeUserId = notice.user_id;
+        if (user_id === noticeUserId) {
+          const result = await mongoUserCollection.deleteOne({ _id: new ObjectId(id) });
+          if (result.deletedCount === 0) {
+            throw new NotFoundException('Notice not found in user table');
+          }
+          return `Delete successful ${id}`;
+        } else {
+          return `Failed to Delete ${id}`;
+        }
+      } else if (role === 'admin') {
+        // 관리자 역할일 때
+        if (!notice) {
+          // 사용자의 notice가 없으면 관리자 테이블에서 찾기
+          const mongoAuthCollection = mongoDatabase.collection('noticeAuthTable');
+          const authResult = await mongoAuthCollection.deleteOne({ _id: new ObjectId(id) });
+  
+          if (authResult.deletedCount === 0) {
+            throw new NotFoundException('Notice not found in auth table');
+          }
+  
+          return `Delete successful ${id}`;
+        } else {
+          // 관리자 역할이지만 사용자 테이블에서 notice가 존재하면
+          const userResult = await mongoUserCollection.deleteOne({ _id: new ObjectId(id) });
+  
+          if (userResult.deletedCount === 0) {
+            throw new NotFoundException('Notice not found in auth table');
+          }
+  
+          return `Delete successful ${id}`;
+        }
       }
-      const result = await mongoUserCollection.deleteOne({ _id: new ObjectId(id) });
-      if (result.deletedCount === 0) {
-        throw new NotFoundException('Notice not found');
-      }
-      return `Delete successful ${id}`;
+  
+      return `Failed to Delete ${id}`; // 역할이 admin이나 employee가 아니면 삭제 실패
+    } catch (error) {
+      console.error(`Error during delete operation: ${error}`);
+      throw error;
     }
-    return `Failed to delete ${id}`
   }
 }
