@@ -19,6 +19,7 @@ const Post = ({ title, content, id }: PostProps) => {
       const res = await fetch(`http://localhost:3001/notice/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ title: newTitle, content: newContent }),
       });
       if (res.ok) {
@@ -34,12 +35,13 @@ const Post = ({ title, content, id }: PostProps) => {
 
   const handleDelete = async () => {
     try {
-      const res = await fetch(`/notice/${id}`, {
+      const res = await fetch(`http://localhost:3001/notice/${id}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
       if (res.ok) {
         alert('Post deleted successfully');
-        window.location.href = '/'; // 홈으로 리다이렉트
+        window.location.href = '/noticeMain';
       } else {
         alert('Failed to delete post');
       }
@@ -51,7 +53,7 @@ const Post = ({ title, content, id }: PostProps) => {
   return (
     <div>
       {editMode ? (
-        <>
+        <div>
           <input 
             type="text" 
             value={newTitle} 
@@ -61,16 +63,16 @@ const Post = ({ title, content, id }: PostProps) => {
           <textarea 
             value={newContent} 
             onChange={(e) => setNewContent(e.target.value)}
-            placeholder='제목'
+            placeholder='내용'
           />
           <button onClick={handleUpdate}>Save</button>
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <h1>{title}</h1>
           <p>{content}</p>
           <button onClick={() => setEditMode(true)}>Edit</button>
-        </>
+        </div>
       )}
       <button onClick={handleDelete}>Delete</button>
     </div>
