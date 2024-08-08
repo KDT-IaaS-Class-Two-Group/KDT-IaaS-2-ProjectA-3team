@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import UserPersonal, { User } from "client/model/services/userpersonal";
+import { purpleButton } from "client/styles/templatebutton.css";
 
 const TestPage: React.FC = () => {
   const [status, setStatus] = useState<boolean>(false);
@@ -31,7 +32,9 @@ const TestPage: React.FC = () => {
     <div>
       <h1>개인 프로필 조회하기</h1>
       {status && <UserPersonal onSave={handleSave} />}
-      <button onClick={() => setStatus(true)}>조회하기</button>
+      <button className={purpleButton} onClick={() => setStatus(true)}>
+        조회하기
+      </button>
     </div>
   );
 };

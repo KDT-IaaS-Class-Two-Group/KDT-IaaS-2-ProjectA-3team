@@ -12,9 +12,17 @@
 export class NoticeDTO {
   title: string;
   content: string;
+  createdAt: string;
+  user_id: string;
+  role: string;
+  updatedAt: string;
 
-  constructor(userId: string, title: string, content: string) {
+  constructor(title: string, content: string, createdAt: string, user_id: string, role: string, updatedAt: string) {
     this.title = title;
     this.content = content;
+    this.createdAt = createdAt;
+    this.user_id = user_id;
+    this.role = role;
+    this.updatedAt = updatedAt;
   }
 }

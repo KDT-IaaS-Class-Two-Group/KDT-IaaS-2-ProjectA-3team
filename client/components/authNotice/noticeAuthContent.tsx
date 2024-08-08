@@ -7,26 +7,17 @@ interface ListNotice {
   createdAt: string;
 }
 
-/**
- * * Function : NoticeMainContent
- * 작성자 : @yun-21 / 2024-08-01
- * 편집자 : @yun-21 / 2024-08-01
- * Issue : yun-21
- * @function NoticeMainContent
- * @description 
-
- */
-const NoticeMainContent = () => {
-  const [userList, setUserList] = useState<ListNotice[]>([]); // empolyee 서버에서 건너오는 게시물 데이터
+const NoticeAuthContent = () => {
+  const [authList, setAuthList] = useState<ListNotice[]>([]); // auth 서버에서 건너오는 게시물 데이터
 
   useEffect(() => {
     const fetchNotices = () => {
-      fetch('http://localhost:3001/notices')
+      fetch('http://localhost:3001/authnotices')
         .then((response) => {
           return response.json();
         })
         .then((data: ListNotice[]) => {
-          setUserList(data);
+          setAuthList(data);
         })
         .catch((err) => {
           console.error('데이터를 가져오는 중 오류 발생:', err);
@@ -34,12 +25,13 @@ const NoticeMainContent = () => {
     };
     fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, []);
+
   return (
     <div>
-      {userList.length > 0 ? (
-        userList.map((notice,index) => (
+      {authList.length > 0 ? (
+        authList.map((notice,index) => (
           <div key={notice._id}>
-            <Link href={`/notice/${notice._id}`}>
+            <Link href={`/noticeAuth/${notice._id}`}>
               <h3>{index+1}</h3>
               <h3>{notice.title}</h3>
               <h3>{notice.user_id}</h3>
@@ -54,4 +46,4 @@ const NoticeMainContent = () => {
   );
 };
 
-export default NoticeMainContent;
+export default NoticeAuthContent;
