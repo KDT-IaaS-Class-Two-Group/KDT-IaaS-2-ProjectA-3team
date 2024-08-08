@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { QueryBuilder } from 'src/database/queryBuilder';
 import { ProjectController } from './project.controller';
-import { ProjectCreateService } from './create/project_create.service';
+import { ProjectService } from './project.service';
 
 @Module({
   controllers: [ProjectController],
-  providers: [QueryBuilder, DatabaseService, ProjectCreateService],
+  providers: [QueryBuilder, DatabaseService, ProjectService],
 })
 export class ProjectModule {}
