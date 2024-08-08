@@ -12,7 +12,7 @@ import { MigrationUserData } from '../application/services/migrationUserData';
 import { DeleteUsers } from '../application/services/deleteUsers';
 import { PendingUserDTO } from '../../common/interface/DTO/pendingUsers';
 import { TABLE_NAME } from '../../common/enum/table/table.enum';
-import { UserDTO } from 'src/api/auth/login/DTO/UserDTO';
+import { UserDTO } from 'src/api/Auth/login/DTO/UserDTO';
 import { RES_ERROR_MSG } from '../../common/enum/message/error/responseErrorMessage.enum';
 
 @Controller('/pending-process')
@@ -46,7 +46,7 @@ export class PendingUsersController {
     }
   }
 
-  @Post('/cancle')
+  @Post('/cancel')
   @HttpCode(200)
   async cancleUser(@Body() pendingUserData: PendingUserDTO) {
     await this.deleteUsers.deleteUser(

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { USERS_COLUMNS } from 'src/api/Account/common/data/usersColumns.enum';
+import { ROLE_COLUMNS } from 'src/api/Account/common/data/RoleColumns.enum';
 import { TABLE_NAME } from 'src/api/Account/common/enum/table/table.enum';
 import { QueryBuilder } from 'src/database/queryBuilder';
 
@@ -15,7 +15,7 @@ export class SetDefalutRole {
       await this.qb
         .INSERT(TABLE_NAME.__DEFAULT_ROLE, {
           user_id: user_id,
-          role_name: USERS_COLUMNS.__LEVEL_1,
+          role_name: ROLE_COLUMNS.__LEVEL_1,
         })
         .execution();
     } catch (error) {

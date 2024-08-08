@@ -2,7 +2,7 @@ import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { LoggingMiddleware } from './middleware/logger.middleware';
-import { AuthModule } from './api/auth/auth.module';
+import { AuthModule } from './api/Auth/auth.module';
 import { UsersModule } from './api/users/users.module';
 import { StructureController } from './api/tables/[tableName]/structure.controller';
 import { DataController } from './api/tables/[tableName]/data.controller';

@@ -1,4 +1,10 @@
-import { IsString, IsDateString, IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsDateString,
+  IsEmail,
+  IsNotEmpty,
+  MinLength,
+} from 'class-validator';
 
 /**
  * * Class : UsersDTO
@@ -32,4 +38,9 @@ export class UsersDTO {
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(6)
+  password: string;
 }
