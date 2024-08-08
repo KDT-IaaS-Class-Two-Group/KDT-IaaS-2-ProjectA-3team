@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as style from "client/styles/project/root.css";
 import Side from "client/components/userMainPage/userLeftContent";
-import CreateProjectModal from "client/components/modal/createProject_Modal/createProject.modal";
+import CreateProjectModal from "client/components/MODAL/createProject_Modal/createProject.modal";
 import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
 import { useEffect } from "react";
 import ProjectTableComponent from "client/components/project_table/project_table";
