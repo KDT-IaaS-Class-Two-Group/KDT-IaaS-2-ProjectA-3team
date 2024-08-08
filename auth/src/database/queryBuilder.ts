@@ -65,12 +65,7 @@ export class QueryBuilder {
     return this;
   }
 
-  UPDATE(
-    tableName: string,
-    data: { [key: string]: any },
-    condition: string,
-    value: any,
-  ) {
+  UPDATE(tableName: string, data: { [key: string]: any }, condition: string) {
     this.RESET();
     const columns = Object.keys(data);
 
@@ -81,7 +76,7 @@ export class QueryBuilder {
     const values = Object.values(data);
 
     this.queryString = `UPDATE ${tableName} SET ${placeholders} WHERE ${condition}`;
-    this.params = [...values, value];
+    this.params = [...values];
     return this;
   }
 
