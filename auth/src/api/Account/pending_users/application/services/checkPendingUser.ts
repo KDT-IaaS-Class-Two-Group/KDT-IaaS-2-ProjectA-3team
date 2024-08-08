@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RES_ERROR_MSG } from '../../../common/enum/message/error/responseErrorMessage.enum';
-import PendingUserRepository from 'src/database/pending_users.repository';
+
 import { PendingUserDTO } from 'src/api/Account/common/interface/DTO/pendingUsers';
+import { PendingUserRepository } from 'src/api/Account/common/interface/Repository/pending_users.repository';
 @Injectable()
 /**
  * * Class : CheckPendingUsers
@@ -16,7 +17,7 @@ export class CheckPendingUsers {
   constructor(private readonly pendingUsersRepository: PendingUserRepository) {}
   async check(user_id: string) {
     const pendingData: PendingUserDTO =
-      await this.pendingUsersRepository.findOneByUser(user_id);
+      await this.pendingUsersRepository.findByOnePendingUsers(user_id);
     if (pendingData === null || pendingData === undefined) {
       throw new NotFoundException(RES_ERROR_MSG.CHECK_DATA_FAILED);
     }
