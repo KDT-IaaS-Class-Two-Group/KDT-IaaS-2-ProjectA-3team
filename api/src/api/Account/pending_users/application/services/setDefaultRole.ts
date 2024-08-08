@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EmployeeRepository } from 'src/api/Account/common/infrastructure/Repository/employee.repository';
+import { EmployeeRepository } from 'src/api/common/infrastructure/Repository/employee.repository';
 
 @Injectable()
 export class SetDefalutRole {
