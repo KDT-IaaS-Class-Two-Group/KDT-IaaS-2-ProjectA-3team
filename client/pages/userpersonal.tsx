@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 import UserPersonal, { User } from "client/model/services/userpersonal";
-import { purpleButton } from "client/styles/templatebutton.css";
+import { greenButton, purpleButton } from "client/styles/templatebutton.css";
+import Sidebar from "./../components/SideBar/Sidebar";
 
 const TestPage: React.FC = () => {
   const [status, setStatus] = useState<boolean>(false);
@@ -30,11 +31,14 @@ const TestPage: React.FC = () => {
 
   return (
     <div>
-      <h1>개인 프로필 조회하기</h1>
-      {status && <UserPersonal onSave={handleSave} />}
-      <button className={purpleButton} onClick={() => setStatus(true)}>
-        조회하기
-      </button>
+      <Sidebar></Sidebar>
+      <div>
+        <h1>My profile</h1>
+        {status && <UserPersonal onSave={handleSave} />}
+        <button className={greenButton} onClick={() => setStatus(true)}>
+          조회하기
+        </button>
+      </div>
     </div>
   );
 };
