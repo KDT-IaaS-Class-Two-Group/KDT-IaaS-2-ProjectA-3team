@@ -16,10 +16,10 @@ const test: React.FC = () => {
       <Side></Side>
       <div>
         <h1>프로젝트 View</h1>
-        <CreateProjectModal/>
-        <button>
-          <Link href={"/user/team"}>Team</Link>
-        </button>
+        <div className={style.root}>
+          <CreateProjectModal />
+        </div>
+        <div></div>
       </div>
     </div>
   );
