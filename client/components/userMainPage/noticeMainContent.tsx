@@ -3,7 +3,8 @@ import Link from 'next/link';
 interface ListNotice {
   _id: string;
   title: string;
-  content: string;
+  user_id: string;
+  createdAt: string;
 }
 
 /**
@@ -36,10 +37,13 @@ const NoticeMainContent = () => {
   return (
     <div>
       {userList.length > 0 ? (
-        userList.map((notice) => (
+        userList.map((notice,index) => (
           <div key={notice._id}>
             <Link href={`/notice/${notice._id}`}>
+              <h3>{index+1}</h3>
               <h3>{notice.title}</h3>
+              <h3>{notice.user_id}</h3>
+              <h3>{notice.createdAt}</h3>
             </Link>
           </div>
         ))

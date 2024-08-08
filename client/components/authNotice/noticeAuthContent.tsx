@@ -3,7 +3,8 @@ import Link from 'next/link';
 interface ListNotice {
   _id: string;
   title: string;
-  content: string;
+  user_id: string;
+  createdAt: string;
 }
 
 const NoticeAuthContent = () => {
@@ -28,10 +29,13 @@ const NoticeAuthContent = () => {
   return (
     <div>
       {authList.length > 0 ? (
-        authList.map((notice) => (
+        authList.map((notice,index) => (
           <div key={notice._id}>
             <Link href={`/noticeAuth/${notice._id}`}>
+              <h3>{index+1}</h3>
               <h3>{notice.title}</h3>
+              <h3>{notice.user_id}</h3>
+              <h3>{notice.createdAt}</h3>
             </Link>
           </div>
         ))
