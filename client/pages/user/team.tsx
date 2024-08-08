@@ -57,7 +57,7 @@ const Team: React.FC = () => {
   // 팀 정보 전송 함수
   const fetchTeam = async () => {
     try {
-      const response = await fetch("http://localhost:3001/team/create", {
+      const response = await fetch("http://localhost:3001/getUser/saveTeam", {
         // URL 수정
         method: "POST",
         headers: {
