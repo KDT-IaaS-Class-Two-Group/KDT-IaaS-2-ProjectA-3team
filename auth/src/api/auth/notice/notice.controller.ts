@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Req, Put, Delete, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Req, Put, Delete, Param, Query } from '@nestjs/common';
 
 import { Request } from 'express';
 
@@ -13,8 +13,10 @@ export class NoticeController {
 
   //사용자게시판 fetch
   @Get('notices')
-  async getAllNotices() {
-    return await this.noticeService.getNotices();
+  async getAllNotices(@Query('page') page: string = '1', @Query('limit') limit: string = '5') {
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    return await this.noticeService.getNotices(pageNumber, limitNumber);
   }
 
   //관리자게시판 fetch
