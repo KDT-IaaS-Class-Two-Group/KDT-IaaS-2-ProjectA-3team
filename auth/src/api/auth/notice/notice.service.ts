@@ -19,10 +19,18 @@ export class NoticeService {
   async onModuleInit() {
     // 서비스가 초기화될 때 MongoDB에 연결
     await this.client.connect();
+    await this.pgPool.connect();
   }
   async onModuleDestroy() {
     // 서비스가 종료될 때 MongoDB 연결 닫기
     await this.client.close();
+    await this.pgPool.end();
+  }
+
+
+  async pgConnect() {
+    const insert = `INSERT INTO notice_back_log (user_id, title, mongodb_doc_id, created_at) VALUES ($1, $2, $3, $4)`
+    return insert
   }
 
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
@@ -41,6 +49,14 @@ export class NoticeService {
       };
 
       const result = await mongoCollection.insertOne(noticeData);
+      //새로 생성된 ObjectId를 가져올 수 있다.
+      const mongodb_doc_id = result.insertedId.toString();
+      await this.pgPool.query(this.pgConnect(), [
+        user_id,
+        noticeDTO.title,
+        mongodb_doc_id,
+        custom,
+      ]);
       return `insert완료 ${result.insertedId}`;
     }
     else if(role === 'admin'){
