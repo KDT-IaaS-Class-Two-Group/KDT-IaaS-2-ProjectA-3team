@@ -1,6 +1,6 @@
 import React from "react";
-import * as styles from "../../client/styles/SidebarStyles.css";
-import { Colors } from "../../client/styles/standard.css";
+import * as styles from "../../styles/sidebar/SidebarStyles.css";
+import { Colors } from "../../styles/standard.css";
 
 const Sidebar: React.FC = () => {
   return (

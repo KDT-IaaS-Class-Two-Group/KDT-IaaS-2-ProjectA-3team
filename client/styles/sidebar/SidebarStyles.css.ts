@@ -1,6 +1,6 @@
 /* SidebarStyles.css */
 import { style } from "@vanilla-extract/css";
-import { Colors, FontSize, Spacing, ViewHeightSpacing } from "./standard.css";
+import { Colors, FontSize, Spacing, ViewHeightSpacing } from "../standard.css";
 
 export const mainpagecontainer = style({
   display: "flex",
