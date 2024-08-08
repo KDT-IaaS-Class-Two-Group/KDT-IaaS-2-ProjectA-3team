@@ -29,7 +29,7 @@ const NoticeMainContent = () => {
           return response.json();
         })
         .then((data: { notices: ListNotice[]; totalPages: number }) => {
-          setUserList(data.notices);
+          setUserList(data.notices); // 게시물 데이터
           setTotalPages(data.totalPages); // 총 페이지 수 설정
         })
         .catch((err) => {
