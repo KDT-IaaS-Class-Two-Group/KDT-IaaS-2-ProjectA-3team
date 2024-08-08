@@ -1,18 +1,17 @@
-import useRegisterHooks from './hook/registerHooks';
+import useRegisterHooks from "./hook/registerHooks";
 
 import {
   registerForm,
   formGroup,
   label,
   input,
-  button,
-} from './style/register.css';
-
+} from "../../../../client/styles/info/register.css";
+import { buttonLinkClone } from "client/styles/info/index.css";
 /**
  * * Function : RegisterForm
  *  * @function RegisterForm
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
+ * 편집자 : @dalramjwi / 2024-08-07
  * @description : 회원가입 Form
  */
 const RegisterForm = () => {
@@ -31,22 +30,8 @@ const RegisterForm = () => {
   return (
     <div className={registerForm}>
       <div className={formGroup}>
-        <label htmlFor="email" className={label}>
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="example@example.com"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className={input}
-        />
-      </div>
-
-      <div className={formGroup}>
         <label htmlFor="username" className={label}>
-          Username
+          Name
         </label>
         <input
           id="username"
@@ -57,7 +42,6 @@ const RegisterForm = () => {
           className={input}
         />
       </div>
-
       <div className={formGroup}>
         <label htmlFor="id" className={label}>
           id
@@ -71,7 +55,6 @@ const RegisterForm = () => {
           className={input}
         />
       </div>
-
       <div className={formGroup}>
         <label htmlFor="password" className={label}>
           Password
@@ -84,8 +67,7 @@ const RegisterForm = () => {
           required
           className={input}
         />
-      </div>
-
+      </div>{" "}
       <div className={formGroup}>
         <label htmlFor="passwordCheck" className={label}>
           Confirm Password
@@ -99,7 +81,19 @@ const RegisterForm = () => {
           className={input}
         />
       </div>
-
+      <div className={formGroup}>
+        <label htmlFor="email" className={label}>
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="example@example.com"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className={input}
+        />
+      </div>
       <div className={formGroup}>
         <label htmlFor="phone" className={label}>
           Phone Number
@@ -112,8 +106,19 @@ const RegisterForm = () => {
           required
           className={input}
         />
+      </div>{" "}
+      <div className={formGroup}>
+        <label htmlFor="birthDate" className={label}>
+          Date of Birth
+        </label>
+        <input
+          id="birthDate"
+          type="date"
+          onChange={(e) => setBirthDate(e.target.value)}
+          required
+          className={input}
+        />
       </div>
-
       <div className={formGroup}>
         <label htmlFor="address" className={label}>
           Address
@@ -127,23 +132,15 @@ const RegisterForm = () => {
           className={input}
         />
       </div>
-
-      <div className={formGroup}>
-        <label htmlFor="birthDate" className={label}>
-          Date of Birth
-        </label>
-        <input
-          id="birthDate"
-          type="date"
-          onChange={(e) => setBirthDate(e.target.value)}
-          required
-          className={input}
-        />
+      <div>
+        <button
+          type="button"
+          onClick={() => handleRegister()}
+          className={buttonLinkClone}
+        >
+          sign up
+        </button>
       </div>
-
-      <button type="button" onClick={() => handleRegister()} className={button}>
-        Register
-      </button>
     </div>
   );
 };

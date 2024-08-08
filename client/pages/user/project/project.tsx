@@ -4,6 +4,7 @@ import * as style from "client/styles/project/root.css";
 
 import Side from "client/components/userMainPage/userLeftContent";
 import CreateProjectModal from "client/components/MODAL/createProject_Modal/createProject.modal";
+// client/components/MODAL/createProject_Modal/createProject.modal
 import Link from "next/link";
 
 const test: React.FC = () => {
@@ -16,10 +17,10 @@ const test: React.FC = () => {
       <Side></Side>
       <div>
         <h1>프로젝트 View</h1>
-        <div className={style.root}>
-          <CreateProjectModal />
-        </div>
-        <div></div>
+        <CreateProjectModal />
+        <button>
+          <Link href={"/user/team"}>Team</Link>
+        </button>
       </div>
     </div>
   );

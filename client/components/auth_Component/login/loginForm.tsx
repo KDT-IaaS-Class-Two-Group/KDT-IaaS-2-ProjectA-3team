@@ -1,10 +1,9 @@
 import useLoginHooks from "./hook/loginHooks";
-import { container, input, button } from "./style/login.css";
-
+import * as styles from "../../../styles/info/index.css";
 /**
  * * Function : LoginForm
  * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
+ * 편집자 : @dalramjwi / 2024-08-07
  * Issue :
  * @function LoginForm
  * @description : 로그인 Form
@@ -21,34 +20,40 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={container}>
-      <h1>Login</h1>
-      <input
-        type="text"
-        className={input}
-        placeholder="id"
-        onChange={(e) => {
-          setId(e.target.value);
-        }}
-        onKeyDown={handleKeyDown}
-      />
-      <input
-        type="password"
-        className={input}
-        placeholder="password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-        onKeyDown={handleKeyDown}
-      />
+    <div className={styles.loginsub}>
+      <h1 className={styles.signfont}>sign in</h1>
+      <div>
+        <p className={styles.idpwfont}>id</p>
+        <input
+          type="text"
+          className={styles.input}
+          placeholder="id"
+          onChange={(e) => {
+            setId(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+      <div>
+        <p className={styles.idpwfont}>password</p>
+        <input
+          type="password"
+          className={styles.input}
+          placeholder="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
       <button
-        className={button}
+        className={styles.buttonLink}
         type="button"
         onClick={async () => {
           await handleLogin();
         }}
       >
-        Login
+        sigin in
       </button>
     </div>
   );
