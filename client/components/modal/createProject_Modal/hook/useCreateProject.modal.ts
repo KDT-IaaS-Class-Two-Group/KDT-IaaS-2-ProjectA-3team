@@ -43,7 +43,6 @@ const useCreateProjectModal = () => {
       project_end_date: projectEndDate as Date
     };
     await fetchProjectData(projectData);
-    closeModal();
   };
 
   return {

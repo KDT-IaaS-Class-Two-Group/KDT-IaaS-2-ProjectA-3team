@@ -24,6 +24,7 @@ export enum Colors {
   StatusLightPurple = "#643cff", // 연한 보라색
   StatusBlue = "#3049d1", // 파란색
   StatusLightBlue = "#4a64ed", // 연한 파란색
+  StatusWhite = "#FFFFFF",
 }
 
 export enum FontSize {
@@ -42,7 +43,16 @@ export const Size = {
   border: "0.5vw",
 };
 export const Spacing = {
+  xxsmall: "0.0rem",
+  xsmall: "0.25rem",
   small: "0.5rem", // 8px
   medium: "1rem", // 16px
   large: "1.5rem", // 24px
+};
+export const ViewHeightSpacing = {
+  xxsmall: "0vh",
+  xsmall: "0.1vh",
+  small: "4vh",
+  medium: "8vh",
+  large: "16vh",
 };

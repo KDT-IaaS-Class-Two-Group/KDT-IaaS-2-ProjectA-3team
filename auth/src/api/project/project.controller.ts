@@ -5,26 +5,31 @@ import {
   Res,
   HttpCode,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ProjectCreateService } from './create/project_create.service';
+import { ProjectService } from './project.service';
 import { ProjectDTO } from './DTO/Project.DTO';
 
 @Controller('/project')
+/**
+ * * Class : ProjectController
+ * 작성자 : @naviadev / 2024-08-08
+ * 편집자 : @naviadev / 2024-08-08
+ * Issue :
+ * @class ProjectController
+ * @param private readonly projectService: ProjectService
+ * @description : 프로젝트에 관련한 CRUD를 처리하는 컨트롤러.
+ */
 export class ProjectController {
-  constructor(private readonly projectCreateService: ProjectCreateService) {}
+  constructor(private readonly projectService: ProjectService) {}
 
-  // [ ] 권한 확인 추가.
+  // [ ] 권한 확인 추가. (req.session.user를 통해 세션 키 확인.)
   @Post('/create')
   @HttpCode(200)
-  async projectCreate(
-    @Body() projectData: ProjectDTO,
-    // @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    console.log(projectData);
+  async projectCreate(@Body() projectData: ProjectDTO, @Res() res: Response) {
     try {
-      const result = await this.projectCreateService.createProject(projectData);
+      const result = await this.projectService.createProject(projectData);
       if (result) {
         return res.json({ message: 'Create Success' });
       } else {
@@ -34,6 +39,18 @@ export class ProjectController {
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  @Get('list')
+  async findProjectAll(@Res() response: Response) {
+    try {
+      const data = await this.projectService.getProjectList();
+
+      return response.status(HttpStatus.OK).json(data);
+    } catch (error) {
+      console.error(error);
+      response.status(HttpStatus.UNAUTHORIZED);
     }
   }
 }

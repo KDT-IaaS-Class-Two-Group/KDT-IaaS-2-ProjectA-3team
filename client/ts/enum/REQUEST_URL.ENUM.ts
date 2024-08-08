@@ -6,5 +6,6 @@ enum REQUEST_URL {
   __PENDING_CANCEL = 'http://localhost:3001/pending-process/cancel',
   __CREATE_PROJECT = 'http://localhost:3001/project/create',
   __REGISTER = "http://localhost:3001/register",
+  __GET_PROJECT_LIST = "http://localhost:3001/project/list"
 }
 export default REQUEST_URL;

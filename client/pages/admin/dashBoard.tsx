@@ -5,6 +5,9 @@ const Dash: React.FC = () => {
       <button>
         <Link href={"/admin/pendingRegister"}>대기</Link>
       </button>
+      <button>
+        <Link href={'/user/home'}>홈</Link>
+      </button>
     </div>
   );
 };
