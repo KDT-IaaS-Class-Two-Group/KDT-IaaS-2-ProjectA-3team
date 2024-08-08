@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PendingUserRepository } from 'src/api/Account/common/interface/Repository/pending_users.repository';
+import { PendingUserRepository } from 'src/api/Account/common/infrastructure/Repository/pending_users.repository';
 
 @Injectable()
 export class DeleteUsers {

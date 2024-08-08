@@ -10,7 +10,7 @@ import { CheckPendingUsers } from '../application/services/checkPendingUser';
 import { SetDefalutRole } from '../application/services/setDefaultRole';
 import { MigrationUserData } from '../application/services/migrationUserData';
 import { DeleteUsers } from '../application/services/deleteUsers';
-import { PendingUserDTO } from '../../common/interface/DTO/pendingUsers';
+import { PendingUserDTO } from '../../common/infrastructure/DTO/pendingUsers';
 
 import { RES_ERROR_MSG } from '../../common/enum/message/error/responseErrorMessage.enum';
 

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RES_ERROR_MSG } from '../../../common/enum/message/error/responseErrorMessage.enum';
 
-import { PendingUserDTO } from 'src/api/Account/common/interface/DTO/pendingUsers';
-import { PendingUserRepository } from 'src/api/Account/common/interface/Repository/pending_users.repository';
+import { PendingUserDTO } from 'src/api/Account/common/infrastructure/DTO/pendingUsers';
+import { PendingUserRepository } from 'src/api/Account/common/infrastructure/Repository/pending_users.repository';
 @Injectable()
 /**
  * * Class : CheckPendingUsers
