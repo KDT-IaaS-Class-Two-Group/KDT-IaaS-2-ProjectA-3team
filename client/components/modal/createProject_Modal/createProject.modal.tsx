@@ -4,17 +4,11 @@ import Step1 from "./item/step1";
 import Step2 from "./item/step2";
 import Step3 from "./item/step3";
 
-/**
- * * Function : createProject
- * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @naviadev / 2024-08-02
- * Issue :
- * @function createProject
- * @description : 프로젝트 생성 모달 Component
- * step 상태 변수를 통해 Modal 내부 컨텐츠를 교환. (item 디렉토리 내부에 정의된 step 컴포넌트를 사용.)
- */
+interface CreateProjectModalProps {
+  onProjectCreated: () => void;
+}
 
-const CreateProjectModal = () => {
+const CreateProjectModal: React.FC<CreateProjectModalProps> = ({ onProjectCreated }) => {
   const {
     isOpen,
     step,
@@ -29,6 +23,12 @@ const CreateProjectModal = () => {
     setProjectStartDate,
     setProjectEndDate,
   } = useCreateProjectModal();
+
+  const handleCreateProject = async () => {
+    await handleCreate();
+    onProjectCreated();
+    closeModal();
+  };
 
   return (
     <div>
@@ -55,7 +55,7 @@ const CreateProjectModal = () => {
             projectName={projectName}
             projectStartDate={projectStartDate}
             projectEndDate={projectEndDate}
-            handleCreateProject={handleCreate}
+            handleCreateProject={handleCreateProject}
           />
         )}
       </Modal>
