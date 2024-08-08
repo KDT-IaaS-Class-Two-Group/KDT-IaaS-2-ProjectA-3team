@@ -195,7 +195,7 @@ export class NoticeService {
             throw new NotFoundException('Notice not found in auth table');
           }
   
-          return `Delete successful ${id}`;
+          return `삭제 성공`;
         }
       }
   
