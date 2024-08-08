@@ -1,21 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { QUERY_PLACEHOLDER } from 'src/api/Account/common/enum/query/query.enum';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { PendingUserRepository } from 'src/api/Account/common/interface/Repository/pending_users.repository';
 
 @Injectable()
 export class DeleteUsers {
-  constructor(private readonly qb: QueryBuilder) {}
-  async deleteUser(user_id: string, tableName: string) {
-    return this.delete(user_id, tableName);
-  }
-
-  private async delete(user_id: string, tableName: string) {
-    try {
-      await this.qb
-        .DELETE(tableName, QUERY_PLACEHOLDER.__CHECK_USER_ID, user_id)
-        .execution();
-    } catch (error) {
-      throw error;
-    }
+  constructor(private readonly pendingUserRepository: PendingUserRepository) {}
+  async deleteUser(user_id: string) {
+    this.pendingUserRepository.deleteUser(user_id);
   }
 }

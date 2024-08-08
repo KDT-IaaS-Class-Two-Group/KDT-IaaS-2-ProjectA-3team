@@ -1,11 +1,11 @@
-import { Module } from "@nestjs/common";
-import { LoginController } from "./login/login.controller";
-import { LoginService } from "./login/login.service";
-import { RegisterController } from "./register/register.controller";
-import { RegisterService } from "./register/register.service";
-import { LogoutController } from "./login/logout.controller";
-import { NoticeController } from "./notice/notice.controller";
-import { NoticeService } from "./notice/notice.service";
+import { Module } from '@nestjs/common';
+import { LoginController } from './login/login.controller';
+import { LoginService } from './login/login.service';
+import { RegisterController } from './register/register.controller';
+import { RegisterService } from './register/register.service';
+import { LogoutController } from './login/logout.controller';
+import { NoticeController } from './notice/notice.controller';
+import { NoticeService } from './notice/notice.service';
 
 import { DatabaseService } from 'src/database/database.service';
 import { VerifySessionController } from './verify/verifySession.controller';

@@ -11,8 +11,7 @@ import { SetDefalutRole } from '../application/services/setDefaultRole';
 import { MigrationUserData } from '../application/services/migrationUserData';
 import { DeleteUsers } from '../application/services/deleteUsers';
 import { PendingUserDTO } from '../../common/interface/DTO/pendingUsers';
-import { TABLE_NAME } from '../../common/enum/table/table.enum';
-import { UserDTO } from 'src/api/Auth/login/DTO/UserDTO';
+
 import { RES_ERROR_MSG } from '../../common/enum/message/error/responseErrorMessage.enum';
 
 @Controller('/pending-process')
@@ -31,9 +30,8 @@ export class PendingUsersController {
 
     // 데이터베이스에서 해당 유저를 체크하는 작업을 수행함과 동시에, 비밀번호를 가져온다.
     try {
-      const checkUserData: UserDTO =
-        await this.checkPendingUsers.check(user_id);
-      await this.deleteUsers.deleteUser(user_id, TABLE_NAME.__PENDING_USERS);
+      const checkUserData = await this.checkPendingUsers.check(user_id);
+      await this.deleteUsers.deleteUser(user_id);
       await this.migrationUserData.migrationUserData(checkUserData);
       await this.setDefaultRole.setDefaultRole(user_id);
       return true;
@@ -49,9 +47,6 @@ export class PendingUsersController {
   @Post('/cancel')
   @HttpCode(200)
   async cancleUser(@Body() pendingUserData: PendingUserDTO) {
-    await this.deleteUsers.deleteUser(
-      pendingUserData.user_id,
-      TABLE_NAME.__PENDING_USERS,
-    );
+    await this.deleteUsers.deleteUser(pendingUserData.user_id);
   }
 }
