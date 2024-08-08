@@ -77,13 +77,10 @@ export class NoticeService {
 
   async getNotices() {
       const mongoCollection = this.client
-
         .db('notice')
         .collection<NoticeDTO>('noticeTable');
-
-      // NoticeDTO 타입으로 직접 반환
-      console.log(mongoCollection.find().toArray());
-      return await mongoCollection.find().toArray();
+      // DB 저장된 역순으로 뽑아냄
+      return await mongoCollection.find().sort({ _id: -1 }).toArray();
   }
 
   async getAuthNotices() {
@@ -92,7 +89,7 @@ export class NoticeService {
         .collection<NoticeDTO>('noticeAuthTable');
 
       // NoticeDTO 타입으로 직접 반환
-      return await mongoCollection.find().toArray();
+      return await mongoCollection.find().sort({ _id: -1 }).toArray();
   }
 
   async updateNotice(id: string, noticeDTO: NoticeDTO, user_id: string, role: string) {
@@ -100,27 +97,28 @@ export class NoticeService {
       console.log(user_id);
       const mongoDatabase = this.client.db('notice');
       const mongoCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
-      const checkCollection = mongoDatabase.collection('noticeTable');
-      const notice = await checkCollection.findOne({ _id: new ObjectId(id) });
+      const notice = await mongoCollection.findOne({ _id: new ObjectId(id) });
+      const currentDate = new Date();
+      const custom = dateSet(currentDate);
+      const updateSet = {
+        ...noticeDTO,
+        updatedAt: custom
+      }
       if(user_id === notice.user_id) {
-        const result = await mongoCollection.findOneAndUpdate(
+        await mongoCollection.findOneAndUpdate(
           { _id: new ObjectId(id) },
-          { $set: noticeDTO },
+          { $set: updateSet },
           { returnDocument: 'after' } // 업데이트 후 문서 반환
         );
-        const updatedDocument = await mongoCollection.findOne({ _id: new ObjectId(id) });
-        //새로 생성된 ObjectId를 가져올 수 있다.
-        const mongodb_doc_id = updatedDocument._id.toString();
-        const updateDate = new Date();
-        const custom = dateSet(updateDate);
+        const mongodb_doc_id = notice._id.toString();
         const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`
         await this.pgPool.query(insert, [
           user_id,
           noticeDTO.title,
           noticeDTO.content,
           mongodb_doc_id,
-          updatedDocument.createdAt,
-          custom,
+          notice.createdAt,
+          custom
         ]);
         return `수정 성공`;
       }
@@ -161,7 +159,6 @@ export class NoticeService {
           if (result.deletedCount === 0) {
             throw new NotFoundException('Notice not found in user table');
           }
-          //여기부터 다시 고쳐야함
           const mongodb_doc_id = notice._id.toString();
           const DeleteDate = new Date();
           const custom = dateSet(DeleteDate);
