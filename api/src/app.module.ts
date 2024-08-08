@@ -11,7 +11,7 @@ import { RowController } from './api/tables/[tableName]/rows/row.controller';
 import { TablesController } from './api/tables/[tableName]/tables.controller';
 import { DatabaseService } from './database/database.service';
 import { TableService } from './database/table.service';
-import { PendingUsersModule } from './api/Account/pending_users/pendingUsers.module';
+import { AccountModule } from './api/Account/Account.module';
 import { ProjectModule } from './api/project/project.module';
 
 @Module({
@@ -19,7 +19,7 @@ import { ProjectModule } from './api/project/project.module';
     ConfigModule.forRoot(),
     AuthModule,
     UsersModule,
-    PendingUsersModule,
+    AccountModule,
     ProjectModule,
   ],
   controllers: [
