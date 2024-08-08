@@ -4,7 +4,7 @@ import { mainpagecontainer } from "client/styles/sidebar/SidebarStyles.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
 import StateUsers from "client/components/StateUsers";
-import Attendance from "client/components/attendancd";
+import Attendance from "client/components/attendance";
 import NoticeBoard from "client/components/Notice/NoticeBoard";
 import DatabaseGUI from "client/components/DatabaseGuI";
 const Dash: React.FC = () => {
