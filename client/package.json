@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.20.1",
+    "@types/react-table": "^7.7.20",
     "@vanilla-extract/css": "^1.15.3",
     "next": "^14.2.5",
     "react": "^18",
     "react-calendar": "^5.0.0",
     "react-dom": "^18",
+    "react-table": "^7.8.0",
     "styled-jsx": "^5.1.1"
   },
   "devDependencies": {
