@@ -22,15 +22,11 @@ const Post = ({ title, content, id }: PostProps) => {
       body: JSON.stringify({ title: newTitle, content: newContent }),
     })
       .then((response) => {
-        return response.json();
+        return response.text();
       })
       .then((data) => {
-        if (data.success) {
-          alert('수정 성공');
+          alert(data);
           window.location.reload();
-        } else {
-          alert('수정 실패');
-        }
       })
       .catch(err => {
         console.error(err);
@@ -44,21 +40,21 @@ const Post = ({ title, content, id }: PostProps) => {
       credentials: 'include',
     })
     .then((response) => {
-        return response.json();
+        return response.text();
     })
     .then((data) => {
-      if (data.success) {
-        alert('삭제 성공');
+        alert(data);
         window.location.href = '/noticeMain';
-      } else {
-        alert('삭제 실패');
-      }
     })
     .catch(err => {
       console.error(err);
       alert('삭제 중 오류 발생')
     });
   };
+
+  const back = () => {
+    window.location.href = '/noticeMain';
+  }
 
   return (
     <div>
@@ -82,10 +78,11 @@ const Post = ({ title, content, id }: PostProps) => {
         <div>
           <h1>{title}</h1>
           <p>{content}</p>
-          <button onClick={() => setEditMode(true)}>Edit</button>
+          <button onClick={() => setEditMode(true)}>수정</button>
+          <button onClick={handleDelete}>삭제</button>
         </div>
       )}
-      <button onClick={handleDelete}>Delete</button>
+      <button onClick={back}>뒤로가기</button>
     </div>
   );
 };
