@@ -40,7 +40,7 @@ export const Size = {
   full: "100%",
   low: "10%",
   empty: "1%",
-  border: "0.5vw",
+  border: "10px",
 };
 export const Spacing = {
   xxsmall: "0.0rem",

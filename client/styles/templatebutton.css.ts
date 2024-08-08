@@ -1,9 +1,10 @@
 import { style } from "@vanilla-extract/css";
-import { Colors, FontSize, Spacing } from "./standard.css";
+import { Colors, FontSize, Spacing, Size } from "./standard.css";
 
 export const baseButton = style({
   padding: `${Spacing.small} ${Spacing.medium}`,
-  borderRadius: "8px",
+  border: "none",
+  borderRadius: Size.border,
   fontSize: FontSize.Medium,
   fontWeight: "bold",
   cursor: "pointer",
@@ -16,10 +17,10 @@ export const baseButton = style({
 export const yellowButton = style([
   baseButton,
   {
-    backgroundColor: Colors.StatusYellow,
+    backgroundColor: Colors.StatusLightYellow,
     color: Colors.FontPrimary,
     ":hover": {
-      backgroundColor: Colors.StatusLightYellow,
+      backgroundColor: Colors.StatusYellow,
     },
   },
 ]);
@@ -27,10 +28,10 @@ export const yellowButton = style([
 export const blueButton = style([
   baseButton,
   {
-    backgroundColor: Colors.StatusBlue,
+    backgroundColor: Colors.StatusLightBlue,
     color: Colors.FontSecondary,
     ":hover": {
-      backgroundColor: Colors.StatusLightBlue,
+      backgroundColor: Colors.StatusBlue,
     },
   },
 ]);
@@ -38,10 +39,10 @@ export const blueButton = style([
 export const greenButton = style([
   baseButton,
   {
-    backgroundColor: Colors.StatusGreen,
+    backgroundColor: Colors.StatusLightGreen,
     color: Colors.FontSecondary,
     ":hover": {
-      backgroundColor: Colors.StatusLightGreen,
+      backgroundColor: Colors.StatusGreen,
     },
   },
 ]);
@@ -49,10 +50,10 @@ export const greenButton = style([
 export const purpleButton = style([
   baseButton,
   {
-    backgroundColor: Colors.StatusPurple,
+    backgroundColor: Colors.StatusLightPurple,
     color: Colors.FontSecondary,
     ":hover": {
-      backgroundColor: Colors.StatusLightPurple,
+      backgroundColor: Colors.StatusPurple,
     },
   },
 ]);
