@@ -27,12 +27,6 @@ export class NoticeService {
     await this.pgPool.end();
   }
 
-
-  async pgConnect() {
-    const insert = `INSERT INTO notice_back_log (user_id, title, mongodb_doc_id, created_at) VALUES ($1, $2, $3, $4)`
-    return insert
-  }
-
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     if(role==='employee'){
       const mongoDatabase = this.client.db('notice');
@@ -51,13 +45,16 @@ export class NoticeService {
       const result = await mongoCollection.insertOne(noticeData);
       //새로 생성된 ObjectId를 가져올 수 있다.
       const mongodb_doc_id = result.insertedId.toString();
-      await this.pgPool.query(this.pgConnect(), [
+      //pg 백로그 데이터 삽입 (사실 이게 반복으로 사용되면 함수를 하나 만들어두자)
+      const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at) VALUES ($1, $2, $3, $4, $5)`
+      await this.pgPool.query(insert, [
         user_id,
         noticeDTO.title,
+        noticeDTO.content,
         mongodb_doc_id,
         custom,
       ]);
-      return `insert완료 ${result.insertedId}`;
+      return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
     }
     else if(role === 'admin'){
       const mongoDatabase = this.client.db('notice');
@@ -74,7 +71,7 @@ export class NoticeService {
       };
 
       const result = await mongoCollection.insertOne(noticeData);
-      return `insert완료 ${result.insertedId}`;
+      return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
     }
   }
 
@@ -111,10 +108,24 @@ export class NoticeService {
           { $set: noticeDTO },
           { returnDocument: 'after' } // 업데이트 후 문서 반환
         );
-        return `Update successful ${result._id}`;
+        const updatedDocument = await mongoCollection.findOne({ _id: new ObjectId(id) });
+        //새로 생성된 ObjectId를 가져올 수 있다.
+        const mongodb_doc_id = updatedDocument._id.toString();
+        const updateDate = new Date();
+        const custom = dateSet(updateDate);
+        const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`
+        await this.pgPool.query(insert, [
+          user_id,
+          noticeDTO.title,
+          noticeDTO.content,
+          mongodb_doc_id,
+          updatedDocument.createdAt,
+          custom,
+        ]);
+        return `수정 성공`;
       }
       else{
-        return `Failed to Update ${id}`;
+        return `수정 실패`;
       }
     } else if (role === 'admin') {
       const mongoDatabase = this.client.db('notice');
@@ -126,15 +137,15 @@ export class NoticeService {
         { $set: noticeDTO },
         { returnDocument: 'after' } // 업데이트 후 문서 반환
       );
-      return `Update successful ${result._id}`;
+      return `수정 성공`;
     }
-    return `Failed to Update ${id}`
+    return `수정 실패`
   }
 
   async deleteNotice(id: string, user_id: string, role: string) {
     try {
       const mongoDatabase = this.client.db('notice');
-      const mongoUserCollection = mongoDatabase.collection('noticeTable');
+      const mongoUserCollection = mongoDatabase.collection<NoticeDTO>('noticeTable');
   
       // 사용자 컬렉션에서 notice 찾기
       const notice = await mongoUserCollection.findOne({ _id: new ObjectId(id) });
@@ -150,9 +161,22 @@ export class NoticeService {
           if (result.deletedCount === 0) {
             throw new NotFoundException('Notice not found in user table');
           }
-          return `Delete successful ${id}`;
+          //여기부터 다시 고쳐야함
+          const mongodb_doc_id = notice._id.toString();
+          const DeleteDate = new Date();
+          const custom = dateSet(DeleteDate);
+          const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, deleted_at) VALUES ($1, $2, $3, $4, $5, $6)`
+          await this.pgPool.query(insert, [
+            user_id,
+            notice.title,
+            notice.content,
+            mongodb_doc_id,
+            notice.createdAt,
+            custom,
+          ]);
+          return `삭제 성공`;
         } else {
-          return `Failed to Delete ${id}`;
+          return `삭제 실패`;
         }
       } else if (role === 'admin') {
         // 관리자 역할일 때
@@ -165,7 +189,7 @@ export class NoticeService {
             throw new NotFoundException('Notice not found in auth table');
           }
   
-          return `Delete successful ${id}`;
+          return `삭제 성공`;
         } else {
           // 관리자 역할이지만 사용자 테이블에서 notice가 존재하면
           const userResult = await mongoUserCollection.deleteOne({ _id: new ObjectId(id) });
@@ -178,7 +202,7 @@ export class NoticeService {
         }
       }
   
-      return `Failed to Delete ${id}`; // 역할이 admin이나 employee가 아니면 삭제 실패
+      return `삭제 실패`; // 역할이 admin이나 employee가 아니면 삭제 실패
     } catch (error) {
       console.error(`Error during delete operation: ${error}`);
       throw error;
