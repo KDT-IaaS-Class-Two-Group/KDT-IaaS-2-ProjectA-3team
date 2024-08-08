@@ -1,7 +1,7 @@
-import { style, composeStyles } from "@vanilla-extract/css";
-import { Colors, FontSize, Spacing, ViewHeightSpacing } from "./standard.css";
+import { style } from "@vanilla-extract/css";
+import { Colors, FontSize, Spacing } from "./standard.css";
 
-const baseButton = style({
+export const baseButton = style({
   padding: `${Spacing.small} ${Spacing.medium}`,
   borderRadius: "8px",
   fontSize: FontSize.Medium,
@@ -13,49 +13,51 @@ const baseButton = style({
   transition: "background-color 0.3s ease",
 });
 
-const yellowButton = style({
-  backgroundColor: Colors.StatusYellow,
-  color: Colors.FontPrimary,
-  ":hover": {
-    backgroundColor: Colors.StatusLightYellow,
+export const yellowButton = style([
+  baseButton,
+  {
+    backgroundColor: Colors.StatusYellow,
+    color: Colors.FontPrimary,
+    ":hover": {
+      backgroundColor: Colors.StatusLightYellow,
+    },
   },
-});
+]);
 
-const blueButton = style({
-  backgroundColor: Colors.StatusBlue,
-  color: Colors.FontSecondary,
-  ":hover": {
-    backgroundColor: Colors.StatusLightBlue,
+export const blueButton = style([
+  baseButton,
+  {
+    backgroundColor: Colors.StatusBlue,
+    color: Colors.FontSecondary,
+    ":hover": {
+      backgroundColor: Colors.StatusLightBlue,
+    },
   },
-});
+]);
 
-const greenButton = style({
-  backgroundColor: Colors.StatusGreen,
-  color: Colors.FontSecondary,
-  ":hover": {
-    backgroundColor: Colors.StatusLightGreen,
+export const greenButton = style([
+  baseButton,
+  {
+    backgroundColor: Colors.StatusGreen,
+    color: Colors.FontSecondary,
+    ":hover": {
+      backgroundColor: Colors.StatusLightGreen,
+    },
   },
-});
+]);
 
-const purpleButton = style({
-  backgroundColor: Colors.StatusPurple,
-  color: Colors.FontSecondary,
-  ":hover": {
-    backgroundColor: Colors.StatusLightPurple,
+export const purpleButton = style([
+  baseButton,
+  {
+    backgroundColor: Colors.StatusPurple,
+    color: Colors.FontSecondary,
+    ":hover": {
+      backgroundColor: Colors.StatusLightPurple,
+    },
   },
-});
+]);
 
-export const yellowButtonStyle = composeStyles(baseButton, yellowButton);
-export const blueButtonStyle = composeStyles(baseButton, blueButton);
-export const greenButtonStyle = composeStyles(baseButton, greenButton);
-export const purpleButtonStyle = composeStyles(baseButton, purpleButton);
-
-const iconStyle = style({
+export const iconStyle = style({
   marginLeft: Spacing.xsmall,
   fontSize: FontSize.Small,
 });
-
-export const yellowButtonWithIcon = composeStyles(yellowButtonStyle, iconStyle);
-export const blueButtonWithIcon = composeStyles(blueButtonStyle, iconStyle);
-export const greenButtonWithIcon = composeStyles(greenButtonStyle, iconStyle);
-export const purpleButtonWithIcon = composeStyles(purpleButtonStyle, iconStyle);
