@@ -65,7 +65,7 @@ export class UsersController {
             'email',
             'password',
           ])
-          .WHERE('user_id = $1', se)
+          .WHERE('user_id = $1')
           .execution();
         return obj;
       } catch (error) {
@@ -90,6 +90,21 @@ export class UsersController {
       .execution();
     return fields;
   }
+  @Get('/checkusers/count')
+  async getCheckUsersCount() {
+    try {
+      // checkusers 테이블에서 전체 데이터 개수를 조회
+      const countResult = await this.queryBuilder
+        .SELECT('checkusers', ['COUNT(*)']) // 테이블 이름과 컬럼을 함께 지정
+        .execution();
+
+      const count = countResult[0].count; // 조회된 개수 가져오기
+      return { count: parseInt(count, 10) };
+    } catch (error) {
+      console.error('사용자 정보 개수 조회 오류:', error);
+      return { message: '사용자 정보 개수 조회 실패' };
+    }
+  }
 
   @Post('/all')
   async SaveUsers(@Body() body: any) {
@@ -99,7 +114,7 @@ export class UsersController {
       for (const role of roles) {
         const existingRole = await this.queryBuilder
           .SELECT('role')
-          .WHERE('role_name = $1', role)
+          .WHERE('role_name = $1', [role])
           .execution();
         if (existingRole.length === 0) {
           await this.queryBuilder
@@ -204,7 +219,7 @@ export class UsersController {
     try {
       const existingTeam = await this.queryBuilder
         .SELECT('Team', 'team_name')
-        .WHERE('team_name = $1', team_name)
+        .WHERE('team_name = $1', [team_name])
         .execution();
 
       return { exists: existingTeam.length > 0 };

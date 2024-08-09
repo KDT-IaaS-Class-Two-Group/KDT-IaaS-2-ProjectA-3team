@@ -27,6 +27,10 @@ export class GetTeamHandler {
 
   async getTeamMembers(team_name: string): Promise<any[]> {
     try {
+      const checkData = this.checkTeamExists(team_name);
+      if (!checkData) {
+        throw new Error(SERVICE_ERROR.__FETCHING_TEAM_MEMBER);
+      }
       return await this.teamRepository.getMemberData(team_name);
     } catch (error) {
       throw new Error(`${SERVICE_ERROR.__FETCHING_TEAM_MEMBER}${error}`);

@@ -36,7 +36,7 @@ export class LoginService {
   ): Promise<UserDTO | null> {
     const userData = await this.queryBuild
       .SELECT(this.tableName)
-      .WHERE('user_id = $1', user_id)
+      .WHERE('user_id = $1', [user_id])
       .execution();
 
     if (userData[0] && userData[0].password === password) {
@@ -50,7 +50,7 @@ export class LoginService {
       for (const roleTableName of this.roleTableNames) {
         const roleData = await this.queryBuild
           .SELECT(roleTableName)
-          .WHERE('user_id = $1', data.user_id)
+          .WHERE('user_id = $1', [data.user_id])
           .execution();
 
         if (roleData[0]) {

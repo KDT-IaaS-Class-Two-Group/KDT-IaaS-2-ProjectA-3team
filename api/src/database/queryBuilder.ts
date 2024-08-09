@@ -41,16 +41,23 @@ export class QueryBuilder {
     }
     return this;
   }
-
-  WHERE(condition: string, value: any) {
-    this.queryString += ` WHERE ${condition}`;
-    if (Array.isArray(value)) {
-      for (let i = 0; i < value.length; i++) {
-        this.params.push(value[i]);
-      }
-      return this;
+  AND(condition: string, values: any[] = []) {
+    if (values.length > 0) {
+      this.queryString += ` AND ${condition}`;
+      this.params.push(...values);
+    } else {
+      this.queryString += ` AND ${condition}`;
     }
-    this.params.push(value);
+    return this;
+  }
+
+  WHERE(condition: string, values: any[] = []) {
+    if (values.length > 0) {
+      this.queryString += ` WHERE ${condition}`;
+      this.params.push(...values);
+    } else {
+      this.queryString += ` WHERE ${condition}`;
+    }
     return this;
   }
 
@@ -84,6 +91,10 @@ export class QueryBuilder {
     this.RESET();
     this.queryString = `DELETE FROM ${tableName} WHERE ${condition}`;
     this.params = [value];
+    return this;
+  }
+  JOIN(tableName: string, condition: string) {
+    this.queryString += ` JOIN ${tableName} ON ${condition}`;
     return this;
   }
 }
