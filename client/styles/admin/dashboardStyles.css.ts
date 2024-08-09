@@ -25,7 +25,7 @@ export const section = style({
   flexDirection: "column",
   backgroundColor: Colors.FontPrimary,
   borderRadius: Size.border,
-  padding: Spacing.small,
+  padding: "0.5rem 1rem",
 });
 
 export const projectSection = style({
@@ -167,26 +167,6 @@ export const externalLinkButton = style({
     backgroundColor: Colors.StatusLightBlue,
     opacity: 1, // 호버 시 투명도 제거
   },
-});
-
-export const projectTable = style({
-  width: "100%",
-  borderCollapse: "collapse",
-});
-
-export const projectTableHeader = style({
-  backgroundColor: Colors.BackgroundSecondary,
-  color: Colors.FontSecondary,
-  padding: Spacing.small,
-  textAlign: "left",
-});
-
-export const projectTableRow = style({
-  borderBottom: `1px solid ${Colors.BackgroundSecondary}`,
-});
-
-export const projectTableCell = style({
-  padding: Spacing.small,
 });
 
 export const participantAvatars = style({
