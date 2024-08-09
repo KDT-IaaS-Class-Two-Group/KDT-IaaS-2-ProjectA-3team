@@ -1,5 +1,12 @@
-import Link from 'next/link';
-import React, { useState } from 'react';
+import { backcontainer } from "client/styles/info/index.css";
+import { uploadbutton } from "client/styles/notice/notice.css";
+import {
+  centeredflexcolcontainer,
+  flexcolcontainer,
+} from "client/styles/standardcontainer.css";
+import { greenButton } from "client/styles/templatebutton.css";
+import Link from "next/link";
+import React, { useState } from "react";
 
 /**
  * * Function : RegisterForm
@@ -11,16 +18,16 @@ import React, { useState } from 'react';
  */
 
 const NoticeBoard: React.FC = () => {
-  const [state, setState] = useState('');
-  const [stateContent, setStateContent] = useState('');
+  const [state, setState] = useState("");
+  const [stateContent, setStateContent] = useState("");
 
   const send = () => {
-    fetch('http://localhost:3001/send', {
-      method: 'POST',
+    fetch("http://localhost:3001/send", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
       body: JSON.stringify({ title: state, content: stateContent }),
     })
       .then((response) => {
@@ -30,17 +37,16 @@ const NoticeBoard: React.FC = () => {
         return response.text();
       })
       .then((data) => {
-        console.log('Success', data);
+        console.log("Success", data);
       })
       .catch((error) => {
-        console.error('에러나어엉', error);
+        console.error("에러나어엉", error);
       });
   };
 
   return (
-    <div>
-      <div>글 작성하기</div>
-      <div>
+    <div className={flexcolcontainer}>
+      <div className={centeredflexcolcontainer}>
         <input
           type="text"
           value={state}
@@ -56,10 +62,12 @@ const NoticeBoard: React.FC = () => {
           cols={30}
           rows={10}
         ></textarea>
+        <Link href="/noticeMain" passHref className={uploadbutton}>
+          <button onClick={send} className={greenButton}>
+            upload
+          </button>
+        </Link>
       </div>
-      <Link href="/noticeMain" passHref>
-        <button onClick={send}>작성하기</button>
-      </Link>
     </div>
   );
 };
