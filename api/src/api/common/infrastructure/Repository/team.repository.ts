@@ -14,7 +14,7 @@ export class TeamRepository {
   async checkTeamName(team_name: string) {
     const existingTeam = await this.qb
       .SELECT(TABLE_NAME.__TEAM)
-      .WHERE(QUERY_PLACEHOLDER.__TEAM_NAME, team_name)
+      .WHERE(QUERY_PLACEHOLDER.__TEAM_NAME, [team_name])
       .execution();
     return existingTeam[0];
   }
@@ -63,7 +63,7 @@ export class TeamRepository {
   async getMemberData(teamName: string): Promise<TeamMemberDTO[]> {
     return this.qb
       .SELECT(TABLE_NAME.__RELATION_TEAM_USERS)
-      .WHERE(QUERY_PLACEHOLDER.__TEAM_NAME, teamName)
+      .WHERE(QUERY_PLACEHOLDER.__TEAM_NAME, [teamName])
       .execution();
   }
 }
