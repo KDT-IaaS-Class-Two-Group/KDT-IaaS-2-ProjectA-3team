@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { Colors, FontSize, Size, Spacing } from "./standard.css";
+import { Colors, FontSize, Size, Spacing } from "../standard.css";
 
 export const mainpagecontainer = style({
   display: "flex",
@@ -23,16 +23,9 @@ export const contentcontainer = style({
 export const section = style({
   display: "flex",
   flexDirection: "column",
-  backgroundColor: Colors.BackgroundAlt,
-  borderRadius: Spacing.xsmall,
+  backgroundColor: Colors.FontPrimary,
+  borderRadius: Size.border,
   padding: Spacing.small,
-  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-  overflow: "hidden",
-});
-
-export const fullRowSection = style({
-  gridColumn: "span 12",
-  gridRow: "span 1",
 });
 
 export const projectSection = style({

@@ -4,7 +4,6 @@ import {
   mainpagecontainer,
   contentcontainer,
   section,
-  fullRowSection,
   projectSection,
   requestSection,
   userManagementSection,
@@ -19,23 +18,30 @@ import {
   projectTitle,
   proceedingButton,
   allTasksButton,
-} from "client/styles/dashboardStyles.css";
+} from "client/styles/admin/dashboardStyles.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
 import StateUsers from "client/components/StateUsers";
 import Attendance from "client/components/attendance";
 import NoticeBoard from "client/components/Notice/NoticeBoard";
 import DatabaseGUI from "client/components/DatabaseGuI";
-
+import {
+  admintext,
+  basetext,
+  fullRowSection,
+  titlecontainer,
+  titletext,
+} from "client/styles/admin/greet/greet.css";
+fullRowSection;
 const Dash: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
       <Sidebar />
       <div className={contentcontainer}>
         <div className={`${section} ${fullRowSection}`}>
-          <div>
-            <h2 className={title}>Hello matomabo</h2>
-            <p>권한 나타내기</p>
+          <div className={titlecontainer}>
+            <p className={titletext}>hello 아무이름</p>
+            <p className={admintext}>권한</p>
           </div>
         </div>
         <div className={`${section} ${projectSection}`}>

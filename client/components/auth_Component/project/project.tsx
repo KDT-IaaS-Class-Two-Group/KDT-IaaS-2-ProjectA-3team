@@ -13,7 +13,7 @@ import {
   allTasksButton,
   dropdownButton,
   externalLinkButton,
-} from "client/styles/dashboardStyles.css";
+} from "client/styles/admin/dashboardStyles.css";
 
 const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
   const calculatePeriod = (start: string, end: string) => {
