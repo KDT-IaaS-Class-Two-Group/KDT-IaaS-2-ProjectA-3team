@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Sidebar from "./../../components/SideBar/Sidebar";
+import Sidebar from "../../components/SideBar/AdminSidebar";
 import {
   mainpagecontainer,
   contentcontainer,
