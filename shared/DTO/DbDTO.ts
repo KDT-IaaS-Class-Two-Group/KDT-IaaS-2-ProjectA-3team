@@ -27,14 +27,14 @@ export class NoticeDTO {
   }
 }
 export class CommentDTO {
-  notice_id: string;
-  user_id: string;
+  postId: string;
+  userId: string;
   content: string;
   createdAt: string;
 
-  constructor(notice_id: string, user_id: string, content: string, createdAt: string) {
-    this.notice_id = notice_id;
-    this.user_id = user_id;
+  constructor(postId: string, userId: string, content: string, createdAt: string) {
+    this.postId = postId;
+    this.userId = userId;
     this.content = content;
     this.createdAt = createdAt;
   }
