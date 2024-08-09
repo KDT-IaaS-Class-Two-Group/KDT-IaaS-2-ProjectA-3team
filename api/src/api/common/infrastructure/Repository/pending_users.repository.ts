@@ -11,7 +11,7 @@ export class PendingUserRepository {
   async findByOnePendingUsers(user_id: string): Promise<PendingUserDTO> {
     const data = await this.qb
       .SELECT(TABLE_NAME.__PENDING_USERS)
-      .WHERE(QUERY_PLACEHOLDER.__CHECK_USER_ID, user_id)
+      .WHERE(QUERY_PLACEHOLDER.__CHECK_USER_ID, [user_id])
       .execution();
     return data;
   }

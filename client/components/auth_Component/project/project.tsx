@@ -3,7 +3,14 @@ import getProjectData from "client/components/project_table/service/fetchGetProj
 import {
   projectHeader,
   projectTitle,
-} from "client/styles/admin/dashboardStyles.css";
+  proceedingButton,
+  participantAvatars,
+  participantAvatar,
+  allTasksContainer,
+  allTasksButton,
+  dropdownButton,
+  externalLinkButton,
+} from "../../../styles/admin/admindashboard.css";
 import {
   projectitletext,
   projectTable,

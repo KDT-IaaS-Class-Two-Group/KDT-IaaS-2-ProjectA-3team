@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Sidebar from "../../components/SideBar/AdminSidebar";
 import {
   mainpagecontainer,
   contentcontainer,
@@ -11,7 +10,7 @@ import {
   cardContent,
   proceedingButton,
   allTasksButton,
-} from "client/styles/admin/dashboardStyles.css";
+} from "client/styles/admin/admindashboard.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
 import StateUsers from "client/components/StateUsers";
@@ -29,14 +28,12 @@ import { attendanceSection } from "client/styles/admin/workAttendance/workattend
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
-import CheckUsersCount from "client/components/checktest";
-import PendingUsersComponent from "client/components/test";
-import PendingUsersList from "client/components/PendingUsersList";
+import AdminSidebar from "../../components/SideBar/AdminSidebar";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
-      <Sidebar />
+      <AdminSidebar />
       <div className={contentcontainer}>
         <div className={`${section} ${fullRowSection}`}>
           <div className={titlecontainer}>
@@ -51,11 +48,11 @@ const Dash: React.FC = () => {
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>Requests</div>
-          <PendingUsersList />
+          <div className={cardContent}>Requested by 3 users</div>
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>User Management</div>
-          <CheckUsersCount />
+          <div className={cardContent}>Authorize 5 users</div>
         </div>
         <div className={`${section} ${attendanceSection}`}>
           <div className={cardHeader}>Work Attendance</div>

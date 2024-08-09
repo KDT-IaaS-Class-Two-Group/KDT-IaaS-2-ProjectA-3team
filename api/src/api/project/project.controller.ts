@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Get,
+  Param,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ProjectService } from './project.service';
@@ -51,6 +52,17 @@ export class ProjectController {
     } catch (error) {
       console.error(error);
       response.status(HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  @Get('/getTeamMember/:id')
+  @HttpCode(200)
+  async getTeamData(@Param('id') id: string, @Res() res: Response) {
+    try {
+      const result = await this.projectService.searchProjectMemeberData(id);
+      return res.json(result);
+    } catch (error) {
+      return res.status(HttpStatus.UNAUTHORIZED);
     }
   }
 }
