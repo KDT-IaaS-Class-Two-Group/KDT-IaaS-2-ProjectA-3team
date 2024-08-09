@@ -65,7 +65,7 @@ export class UsersController {
             'email',
             'password',
           ])
-          .WHERE('user_id = $1', se)
+          .WHERE('user_id = $1')
           .execution();
         return obj;
       } catch (error) {
@@ -99,7 +99,7 @@ export class UsersController {
       for (const role of roles) {
         const existingRole = await this.queryBuilder
           .SELECT('role')
-          .WHERE('role_name = $1', role)
+          .WHERE('role_name = $1', [role])
           .execution();
         if (existingRole.length === 0) {
           await this.queryBuilder
@@ -204,7 +204,7 @@ export class UsersController {
     try {
       const existingTeam = await this.queryBuilder
         .SELECT('Team', 'team_name')
-        .WHERE('team_name = $1', team_name)
+        .WHERE('team_name = $1', [team_name])
         .execution();
 
       return { exists: existingTeam.length > 0 };
