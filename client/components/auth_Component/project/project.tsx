@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import getProjectData from "client/components/project_table/service/fetchGetProjectData";
 import {
   projectHeader,
   projectTitle,
@@ -17,15 +18,30 @@ import {
   projectTableHeader,
   projectTableRow,
 } from "client/styles/admin/project/project.css";
-import { bold15Text } from "client/styles/standardtextsize.css";
 
-const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
-  const calculatePeriod = (start: string, end: string) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const timeDiff = endDate.getTime() - startDate.getTime();
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return `${daysDiff} days`;
+const Project: React.FC = () => {
+  const [projects, setProjects] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await getProjectData(); // 서버에서 프로젝트 데이터를 가져옵니다.
+        setProjects(data.slice(0, 5)); // 상위 5개의 프로젝트만 가져옵니다.
+      } catch (error) {
+        console.error("Failed to fetch projects:", error); // 에러가 발생할 경우 콘솔에 출력합니다.
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   const calculateProgress = (start: string, end: string) => {
@@ -34,8 +50,7 @@ const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
     const now = new Date();
     const totalDuration = endDate.getTime() - startDate.getTime();
     const elapsedDuration = now.getTime() - startDate.getTime();
-    const progress = Math.min((elapsedDuration / totalDuration) * 100, 100);
-    return `${Math.floor(progress)}%`;
+    return `${Math.min((elapsedDuration / totalDuration) * 100, 100).toFixed(0)}%`;
   };
 
   return (
@@ -49,38 +64,39 @@ const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
         <thead>
           <tr>
             <th className={projectTableHeader}>#</th>
-            <th className={projectTableHeader}>project name</th>
-            <th className={projectTableHeader}>necessary period</th>
-            <th className={projectTableHeader}>participants</th>
-            <th className={projectTableHeader}>progress</th>
+            <th className={projectTableHeader}>Team Name</th>
+            <th className={projectTableHeader}>Project Name</th>
+            <th className={projectTableHeader}>Period</th>
+            <th className={projectTableHeader}>Progress</th>
           </tr>
         </thead>
         <tbody>
-          {projects.map((project, index) => (
-            <tr key={index} className={projectTableRow}>
-              <td className={projectTableCell}>{index + 1}</td>
-              <td className={projectTableCell}>{project.project_name}</td>
-              <td className={projectTableCell}>
-                {calculatePeriod(
-                  project.project_start_date,
-                  project.project_end_date
-                )}
-              </td>
-              <td className={projectTableCell}>
-                <div className={participantAvatars}>
-                  {Array.from({ length: 5 }).map((_, idx) => (
-                    <div key={idx} className={participantAvatar}></div>
-                  ))}
-                </div>
-              </td>
-              <td className={projectTableCell}>
-                {calculateProgress(
-                  project.project_start_date,
-                  project.project_end_date
-                )}
+          {projects.length > 0 ? (
+            projects.map((project, index) => (
+              <tr key={index} className={projectTableRow}>
+                <td className={projectTableCell}>{index + 1}</td>
+                <td className={projectTableCell}>
+                  {project.team_name || "N/A"}
+                </td>
+                <td className={projectTableCell}>{project.project_name}</td>
+                <td className={projectTableCell}>
+                  {`${formatDate(project.project_start_date)} - ${formatDate(project.project_end_date)}`}
+                </td>
+                <td className={projectTableCell}>
+                  {calculateProgress(
+                    project.project_start_date,
+                    project.project_end_date
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={5} className={projectTableCell}>
+                No projects available
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

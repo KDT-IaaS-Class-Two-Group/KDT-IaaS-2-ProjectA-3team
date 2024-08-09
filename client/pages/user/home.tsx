@@ -18,8 +18,6 @@ import {
   titlecontainer,
   titletext,
 } from "client/styles/admin/greet/greet.css";
-import Attendance from "client/components/attendance";
-import NoticeBoard from "client/components/Notice/NoticeBoard";
 import {
   calendarsection,
   companybutton,

@@ -39,7 +39,7 @@ const Dash: React.FC = () => {
         <MainHeader></MainHeader>
         <div className={`${section} ${projectSection}`}>
           <div className={cardContent}>
-            <Project projects={[]} />
+            <Project />
           </div>
         </div>
         <div className={`${section} ${requestSection}`}>
