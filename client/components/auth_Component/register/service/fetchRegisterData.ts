@@ -1,4 +1,4 @@
-import REQUEST_URL from 'client/ts/enum/REQUEST_URL.ENUM';
+import REQUEST_URL from 'client/ts/enum/request/REQUEST_URL.ENUM';
 import { PendingUser } from '../interface/PendingData.interface'
 import { POST_REGISTER_META } from '../config/POST_REGISTER';
 

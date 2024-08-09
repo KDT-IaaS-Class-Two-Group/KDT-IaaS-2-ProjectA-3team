@@ -7,9 +7,9 @@ import { ResponseJson } from "./ts/Interface/LoginResponse.interface";
 import ROUTE_PATH from "../shared/ENUM/PATHS.ENUM"
 import USER_ROLE from "../shared/ENUM/ROLES.ENUM"
 import CONTENT_TYPE from "../shared/ENUM/CONTENT_TYPE.ENUM"
-import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM"
-import REQUEST_METHOD from "client/ts/enum/REQUEST_METHOD.ENUM"
-import REQUEST_HEADER from "./ts/enum/REQUEST_HEADER.ENUM";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM"
+import REQUEST_METHOD from "client/ts/enum/request/REQUEST_METHOD.ENUM"
+import REQUEST_HEADER from "./ts/enum/request/REQUEST_HEADER.ENUM";
 // * ENUM
 
 /**
