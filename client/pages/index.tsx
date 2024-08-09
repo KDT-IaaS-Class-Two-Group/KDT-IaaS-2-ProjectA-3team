@@ -7,7 +7,7 @@ const MainPage: React.FC = () => {
       <div>
         <div className={styles.backcontainer}>
           <div className={styles.login}>
-            <img src="/delan.png" />
+            <img src="/delan.png" title="delan_logo"/>
             <h1 className={styles.heading}>DelaN</h1>
           </div>
           <div className={styles.buttoncontainer}>

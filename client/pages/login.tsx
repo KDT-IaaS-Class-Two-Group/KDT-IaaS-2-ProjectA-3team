@@ -6,7 +6,7 @@ const LoginPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.backcontainer}>
         <div className={styles.login}>
-          <img src="/delan.png" />
+          <img src="/delan.png" title="delan_logo"/>
           <h1 className={styles.heading}>DelaN</h1>
         </div>
         <LoginForm></LoginForm>
