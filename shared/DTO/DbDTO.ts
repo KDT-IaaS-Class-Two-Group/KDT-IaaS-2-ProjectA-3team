@@ -26,3 +26,16 @@ export class NoticeDTO {
     this.updatedAt = updatedAt;
   }
 }
+export class CommentDTO {
+  postId: string;
+  userId: string;
+  content: string;
+  createdAt: string;
+
+  constructor(postId: string, userId: string, content: string, createdAt: string) {
+    this.postId = postId;
+    this.userId = userId;
+    this.content = content;
+    this.createdAt = createdAt;
+  }
+}

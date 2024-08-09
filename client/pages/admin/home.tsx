@@ -50,12 +50,11 @@ const Dash: React.FC = () => {
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>Requests</div>
-          <CheckUsersCount />
+          <div className={cardContent}>Requested by 3 users</div>
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>User Management</div>
-          {/* <MemberComponent /> */}
-          <PendingUsersComponent />
+          <div className={cardContent}>Authorize 5 users</div>
         </div>
         <div className={`${section} ${attendanceSection}`}>
           <div className={cardHeader}>Work Attendance</div>
