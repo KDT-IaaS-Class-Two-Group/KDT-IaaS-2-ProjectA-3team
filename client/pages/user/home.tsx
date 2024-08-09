@@ -18,13 +18,17 @@ import {
   titlecontainer,
   titletext,
 } from "client/styles/admin/greet/greet.css";
-import { requestSection } from "client/styles/admin/requests/requests.css";
-import { attendanceSection } from "client/styles/admin/workAttendance/workattendance.css";
 import Attendance from "client/components/attendance";
 import NoticeBoard from "client/components/Notice/NoticeBoard";
+import {
+  calendarsection,
+  companybutton,
+  favsection,
+  kanbansection,
+  todolistsection,
+  usernoticesection,
+} from "client/styles/users/userdashboard.css";
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
-import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
-import { favSection } from "client/styles/users/userdashboard.css";
 const UserHome: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
@@ -36,38 +40,35 @@ const UserHome: React.FC = () => {
             <p className={admintext}>권한</p>
           </div>
         </div>
-        <div className={`${section} ${favSection}`}>
+        <div className={`${section} ${favsection}`}>
           <div className={cardContent}></div>
         </div>
-        <div className={`${section} ${favSection}`}>
+        <div className={`${section} ${favsection}`}>
           <div className={cardContent}></div>
         </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>Requests</div>
+        <div className={`${section} ${favsection}`}>
+          <div className={cardContent}></div>
+        </div>
+        <div className={`${section} ${kanbansection}`}>
+          <div className={cardHeader}>kanban board</div>
           <div className={cardContent}>Requested by 3 users</div>
         </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>User Management</div>
-          <div className={cardContent}>Authorize 5 users</div>
+        <div className={`${section} ${calendarsection}`}>
+          <CalendarComponent></CalendarComponent>
         </div>
-        <div className={`${section} ${attendanceSection}`}>
-          <div className={cardHeader}>Work Attendance</div>
-          <div className={cardContent}>
-            <Attendance />
-          </div>
-        </div>
-        <div className={`${section} ${noticeBoardSection}`}>
-          <div className={cardHeader}>Notice Board</div>
-          <div className={cardContent}>
-            <NoticeBoard />
-          </div>
-        </div>
-        <div className={`${section} ${databaseGUISection}`}>
-          <div className={cardHeader}>Database GUI</div>
+        <div className={`${section} ${todolistsection}`}>
+          <div className={cardHeader}>todolist</div>
           <div className={cardContent}></div>
         </div>
+        <div className={`${section} ${usernoticesection}`}>
+          <div className={cardHeader}>noticeboard</div>
+          <div className={cardContent}>asd</div>
+        </div>
+        <div className={`${section} ${companybutton}`}>
+          <div className={cardHeader}>출퇴근 버튼</div>
+          <div className={cardContent}>Authorize 5 users</div>
+        </div>
       </div>
-      {/* <CalendarComponent></CalendarComponent> */}
       {/* <div>
         <button>
           <Link href={"/user/project/info"}>project</Link>

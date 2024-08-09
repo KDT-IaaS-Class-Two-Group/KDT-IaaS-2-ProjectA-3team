@@ -1,14 +1,30 @@
 import { style } from "@vanilla-extract/css";
 import { Colors, FontSize, Size, Spacing } from "../standard.css";
 
-export const favSection = style({
+export const favsection = style({
   gridColumn: "span 4",
   gridRow: "span 2",
 });
 
-export const buttonSection = style({
-  gridColumn: "span 12",
-  gridRow: "span 1",
+export const kanbansection = style({
+  gridColumn: "span 8",
+  gridRow: "span 5",
+});
+export const calendarsection = style({
+  gridColumn: "span 4",
+  gridRow: "span 6",
+});
+export const todolistsection = style({
+  gridColumn: "span 4",
+  gridRow: "span 4",
+});
+export const companybutton = style({
+  gridColumn: "span 4",
+  gridRow: "span 3",
+});
+export const usernoticesection = style({
+  gridColumn: "span 4",
+  gridRow: "span 4",
   display: "flex",
   justifyContent: "space-around",
 });
