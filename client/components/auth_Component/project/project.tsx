@@ -3,10 +3,6 @@ import {
   projectHeader,
   projectTitle,
   proceedingButton,
-  projectTable,
-  projectTableHeader,
-  projectTableRow,
-  projectTableCell,
   participantAvatars,
   participantAvatar,
   allTasksContainer,
@@ -14,6 +10,12 @@ import {
   dropdownButton,
   externalLinkButton,
 } from "client/styles/admin/dashboardStyles.css";
+import {
+  projectTable,
+  projectTableCell,
+  projectTableHeader,
+  projectTableRow,
+} from "client/styles/admin/project/project.css";
 
 const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
   const calculatePeriod = (start: string, end: string) => {
