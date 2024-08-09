@@ -9,7 +9,7 @@ import {
   allTasksButton,
   dropdownButton,
   externalLinkButton,
-} from "client/styles/admin/dashboardStyles.css";
+} from "../../../styles/admin/admindashboard.css";
 import {
   projectitletext,
   projectTable,
