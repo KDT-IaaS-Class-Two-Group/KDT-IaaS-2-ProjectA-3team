@@ -6,9 +6,9 @@ import { DeleteUsers } from './pending_users/application/services/deleteUsers';
 import { PendingUsersController } from './pending_users/interface/pendingUsers.controller';
 import { QueryBuilder } from 'src/database/queryBuilder';
 import { DatabaseService } from 'src/database/database.service';
-import { EmployeeRepository } from './common/infrastructure/Repository/employee.repository';
-import { PendingUserRepository } from './common/infrastructure/Repository/pending_users.repository';
-import { UserRepository } from './common/infrastructure/Repository/Users.repository';
+import { EmployeeRepository } from '../common/infrastructure/Repository/employee.repository';
+import { PendingUserRepository } from '../common/infrastructure/Repository/pending_users.repository';
+import { UserRepository } from '../common/infrastructure/Repository/Users.repository';
 
 const application = [
   CheckPendingUsers,
