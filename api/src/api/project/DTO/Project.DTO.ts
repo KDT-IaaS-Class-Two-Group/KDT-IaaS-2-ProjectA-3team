@@ -20,4 +20,8 @@ export class ProjectDTO {
   @IsDate()
   @IsNotEmpty()
   readonly project_end_date: Date;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly team_name: string;
 }
