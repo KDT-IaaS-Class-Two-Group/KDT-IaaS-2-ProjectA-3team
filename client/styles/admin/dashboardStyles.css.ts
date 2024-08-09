@@ -33,31 +33,6 @@ export const projectSection = style({
   gridRow: "span 4",
 });
 
-export const requestSection = style({
-  gridColumn: "span 5",
-  gridRow: "span 2",
-});
-
-export const userManagementSection = style({
-  gridColumn: "span 5",
-  gridRow: "span 2",
-});
-
-export const attendanceSection = style({
-  gridColumn: "span 6",
-  gridRow: "span 4",
-});
-
-export const noticeBoardSection = style({
-  gridColumn: "span 6",
-  gridRow: "span 4",
-});
-
-export const databaseGUISection = style({
-  gridColumn: "span 12",
-  gridRow: "span 3",
-});
-
 export const buttonSection = style({
   gridColumn: "span 12",
   gridRow: "span 1",

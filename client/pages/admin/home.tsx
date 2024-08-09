@@ -5,17 +5,10 @@ import {
   contentcontainer,
   section,
   projectSection,
-  requestSection,
-  userManagementSection,
-  attendanceSection,
-  noticeBoardSection,
-  databaseGUISection,
   buttonSection,
   title,
   cardHeader,
   cardContent,
-  projectHeader,
-  projectTitle,
   proceedingButton,
   allTasksButton,
 } from "client/styles/admin/dashboardStyles.css";
@@ -32,6 +25,10 @@ import {
   titlecontainer,
   titletext,
 } from "client/styles/admin/greet/greet.css";
+import { requestSection } from "client/styles/admin/requests/requests.css";
+import { attendanceSection } from "client/styles/admin/workAttendance/workattendance.css";
+import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
+import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
@@ -53,7 +50,7 @@ const Dash: React.FC = () => {
           <div className={cardHeader}>Requests</div>
           <div className={cardContent}>Requested by 3 users</div>
         </div>
-        <div className={`${section} ${userManagementSection}`}>
+        <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>User Management</div>
           <div className={cardContent}>Authorize 5 users</div>
         </div>
