@@ -34,18 +34,20 @@ export const logocontent = style({
 });
 
 export const logoimage = style({
-  marginRight: Spacing.small,
+  width: "4vw", // 화면 크기에 따라 로고 이미지 크기를 조절
+  height: "4vw", // 화면 크기에 따라 로고 이미지 크기를 조절
+  objectFit: "contain",
 });
 
 export const logotext = style({
-  fontSize: FontSize.XXLarge,
+  fontSize: "2vw",
   fontWeight: "bold",
 });
 
 export const logounderline = style({
   width: "90%",
   height: "1px",
-  backgroundColor: Colors.FontSecondary,
+  backgroundColor: "#2E2E2E",
   marginTop: Spacing.small,
   alignSelf: "center",
 });
@@ -56,7 +58,8 @@ export const profilecontainer = style({
   padding: Spacing.medium,
   marginBottom: Spacing.medium,
   flexShrink: 0 /* 요소의 축소를 방지 */,
-  height: "32vh",
+  height: "auto", // 높이를 자동으로 설정
+  flexDirection: "column",
 });
 
 export const profile = style({
@@ -65,30 +68,33 @@ export const profile = style({
   background: Colors.FontPrimary,
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "center",
   flexDirection: "row", // 수평 정렬
   marginBottom: Spacing.medium,
+  gap: Spacing.small,
 });
 
 export const profilecircle = style({
-  width: "5vh",
-  height: "5vh",
+  minWidth: "2vw",
+  minHeight: "2vw",
   borderRadius: "50%",
   backgroundColor: Colors.StatusLightYellow,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  marginRight: Spacing.small,
 });
 
 export const profilename = style({
-  fontSize: FontSize.Medium,
+  fontSize: "1vw",
+  flex: "1 1 auto",
   color: Colors.FontSecondary,
+  textAlign: "center",
+  minWidth: "50%",
 });
 
 export const menuicon = style({
   marginRight: Spacing.small,
-  color: Colors.Icon,
+  color: "transparent",
 });
 
 export const menulist = style({
