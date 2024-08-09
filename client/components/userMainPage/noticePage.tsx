@@ -1,5 +1,9 @@
 import { backcontainer } from "client/styles/info/index.css";
-import { noticecontainer, uploadbutton } from "client/styles/notice/notice.css";
+import { uploadbutton } from "client/styles/notice/notice.css";
+import {
+  centeredflexcolcontainer,
+  flexcolcontainer,
+} from "client/styles/standardcontainer.css";
 import { greenButton } from "client/styles/templatebutton.css";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -41,8 +45,8 @@ const NoticeBoard: React.FC = () => {
   };
 
   return (
-    <div className={noticecontainer}>
-      <div>
+    <div className={flexcolcontainer}>
+      <div className={centeredflexcolcontainer}>
         <input
           type="text"
           value={state}
@@ -58,12 +62,12 @@ const NoticeBoard: React.FC = () => {
           cols={30}
           rows={10}
         ></textarea>
+        <Link href="/noticeMain" passHref className={uploadbutton}>
+          <button onClick={send} className={greenButton}>
+            upload
+          </button>
+        </Link>
       </div>
-      <Link href="/noticeMain" passHref className={uploadbutton}>
-        <button onClick={send} className={greenButton}>
-          upload
-        </button>
-      </Link>
     </div>
   );
 };
