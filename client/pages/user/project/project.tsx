@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import ProjectTableComponent from "client/components/project_table/project_table";
 import getProjectData from "client/components/project_table/service/fetchGetProjectData";
 import { ResponseProject } from "client/components/project_table/interface/project.interface";
-import CreateProjectModal from "client/components/MODAL/createProject_Modal/createProject.modal";
-
+import CreateProjectModal from "client/components/modal/createProject_Modal/createProject.modal";
 const ProjectView: React.FC = () => {
   const [data, setData] = useState<ResponseProject[]>([]);
   const [isLoading, setIsLoading] = useState(true);

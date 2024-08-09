@@ -1,4 +1,4 @@
-import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import { AdminFetchBody } from "../../utils/fetch_body/post/Post_body_adminData";
 
 export const approveHandler = async (
