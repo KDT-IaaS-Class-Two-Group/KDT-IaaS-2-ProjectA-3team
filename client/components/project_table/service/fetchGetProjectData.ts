@@ -1,4 +1,4 @@
-import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 const getProjectData = async () => {
   const res = await fetch(REQUEST_URL.__GET_PROJECT_LIST, {
     method: "GET",
