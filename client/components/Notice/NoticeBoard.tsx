@@ -1,17 +1,24 @@
 import React from "react";
+import NoticeTextOnlyContent from "../../../client/components/NoticeTextOnlyContent";
 
 const NoticeBoard: React.FC = () => {
   return (
     <div>
-      <p>notice board</p>
+      <p>Notice Board</p>
       <button>크게 보기</button>
-      <div>
-        <p>별Manager</p>
-        {/* 최신 순 글 3개 조회 */}
-      </div>
-      <div>
-        <p>별User</p>
-        {/* 최신 �� �� 3개 조회 */}
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {/* 관리자 게시물 표시 */}
+        <div style={{ flex: 1, marginRight: "20px" }}>
+          <h2>관리자 게시물</h2>
+          <NoticeTextOnlyContent endpoint="http://localhost:3001/authallnotices" />
+        </div>
+
+        {/* 사용자 게시물 표시 */}
+        <div style={{ flex: 1 }}>
+          <h2>사용자 게시물</h2>
+          <NoticeTextOnlyContent endpoint="http://localhost:3001/authnotices" />
+        </div>
       </div>
     </div>
   );

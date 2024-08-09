@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const DatabaseGUI: React.FC = () => {
+interface Table {
+  table_name: string;
+}
+
+const DBGUI: React.FC = () => {
+  const [tables, setTables] = useState<Table[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchTables = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/tables");
+        if (!response.ok) {
+          throw new Error("Failed to fetch tables");
+        }
+        const data: Table[] = await response.json();
+        setTables(data);
+      } catch (err) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTables();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div>
-      <p>Database GUI</p>
-      <div>{/* div 조회 4개 */}</div>
+      <ul>
+        {tables.slice(0, 3).map((table, index) => (
+          <li key={index}>{table.table_name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default DatabaseGUI;
+export default DBGUI;
