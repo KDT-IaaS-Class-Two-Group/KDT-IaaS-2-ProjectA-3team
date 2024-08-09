@@ -33,8 +33,10 @@ const Dash: React.FC = () => {
       <Sidebar />
       <div className={contentcontainer}>
         <div className={`${section} ${fullRowSection}`}>
-          <h2 className={title}>Hello matomabo</h2>
-          <p>권한 나타내기</p>
+          <div>
+            <h2 className={title}>Hello matomabo</h2>
+            <p>권한 나타내기</p>
+          </div>
         </div>
         <div className={`${section} ${projectSection}`}>
           <div className={cardContent}>
