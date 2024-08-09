@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import NoticeAuthAllContent from "./../authNotice/noticeAuthAllContent";
 
 interface ListNotice {
   _id: string;
@@ -8,67 +7,67 @@ interface ListNotice {
   createdAt: string;
 }
 
-const NoticeBoard: React.FC = () => {
-  const [userNotices, setUserNotices] = useState<ListNotice[]>([]);
+const NoticeAuthAllContent = () => {
+  const [userList, setUserList] = useState<ListNotice[]>([]); // admin 서버에서 건너오는 게시물 데이터
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
+  const itemsPerPage = 10; // 한 페이지당 항목 수
 
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await fetch("http://localhost:3001/authnotices");
-        const data: ListNotice[] = await response.json();
+        const response = await fetch(
+          `http://localhost:3001/authallnotices?page=${currentPage}&limit=${itemsPerPage}`
+        );
+        const data: { notices: ListNotice[]; totalPages: number } =
+          await response.json();
 
-        // 사용자 게시물만 필터링하여 최신 3개 선택
-        const userNotices = data
-          .filter((notice) => notice.user_id !== "manager")
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-          .slice(0, 3);
-
-        setUserNotices(userNotices);
+        setUserList(data.notices); // 게시물 데이터
+        setTotalPages(data.totalPages); // 총 페이지 수 설정
       } catch (err) {
         console.error("데이터를 가져오는 중 오류 발생:", err);
       }
     };
 
-    fetchNotices();
-  }, []);
+    fetchNotices(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
+  }, [currentPage]);
+
+  const handlePageChange = (page: number) => {
+    if (page !== currentPage) {
+      setCurrentPage(page); // 페이지 변경 시 상태 업데이트
+    }
+  };
 
   return (
     <div>
-      <p>notice board</p>
-      <button>크게 보기</button>
-
-      <div style={{ display: "flex" }}>
-        {/* 관리자 게시물 표시 */}
-        <div style={{ flex: 1, marginRight: "20px" }}>
-          <h2>관리자 게시물</h2>
-          <NoticeAuthAllContent />
-        </div>
-
-        {/* 사용자 게시물 표시 */}
-        <div style={{ flex: 1 }}>
-          <h2>사용자 게시물</h2>
-          {userNotices.length > 0 ? (
-            userNotices.map((notice, index) => (
-              <div key={notice._id}>
-                <h3>
-                  {index + 1}. {notice.title}
-                </h3>
-                <h3>작성자: {notice.user_id}</h3>
-                <h3>
-                  작성일: {new Date(notice.createdAt).toLocaleDateString()}
-                </h3>
-              </div>
-            ))
-          ) : (
-            <div>게시물 없음</div>
-          )}
-        </div>
+      {userList.length > 0 ? (
+        userList.map((notice, index) => (
+          <div key={notice._id}>
+            <h3>{index + 1 + (currentPage - 1) * itemsPerPage}</h3>
+            <h3>{notice.title}</h3>
+            <h3>{notice.user_id}</h3>
+            <h3>{notice.createdAt}</h3>
+          </div>
+        ))
+      ) : (
+        <div>게시물 없음</div>
+      )}
+      {/* 페이징 버튼 UI */}
+      <div>
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              disabled={currentPage === page}
+            >
+              {page}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
 };
 
-export default NoticeBoard;
+export default NoticeAuthAllContent;
