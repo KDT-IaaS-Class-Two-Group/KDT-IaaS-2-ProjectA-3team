@@ -18,8 +18,6 @@ import {
   titlecontainer,
   titletext,
 } from "client/styles/admin/greet/greet.css";
-import Attendance from "client/components/attendance";
-import NoticeBoard from "client/components/Notice/NoticeBoard";
 import {
   calendarsection,
   companybutton,
@@ -28,7 +26,6 @@ import {
   todolistsection,
   usernoticesection,
 } from "client/styles/users/userdashboard.css";
-import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 const UserHome: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
