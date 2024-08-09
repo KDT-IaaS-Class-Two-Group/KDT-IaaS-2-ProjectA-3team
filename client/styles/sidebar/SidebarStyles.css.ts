@@ -124,7 +124,7 @@ export const userlistcontainer = style({
   padding: Spacing.medium,
   color: Colors.FontSecondary,
   flexShrink: 0 /* 요소의 축소를 방지 */,
-  height: "40vh",
+  height: "47vh",
 });
 
 export const userlisttitle = style({

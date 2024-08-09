@@ -1,5 +1,4 @@
-import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
-
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 /**
  * * Function : getPendingUsers
  * 작성자 : @naviadev / 2024-07-31

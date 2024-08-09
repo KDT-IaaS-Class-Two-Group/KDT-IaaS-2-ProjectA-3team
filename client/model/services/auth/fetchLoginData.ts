@@ -1,6 +1,6 @@
 import { ResponseJson } from "client/ts/Interface/LoginResponse.interface";
 import { LoginData } from "client/ts/Interface/LoginData.interface";
-import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 /**
  * * Function : fetchLogin
  * 작성자 : @naviadev / 2024-07-31

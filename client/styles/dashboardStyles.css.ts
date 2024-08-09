@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { Colors, FontSize, Spacing } from "./standard.css";
+import { Colors, FontSize, Size, Spacing } from "./standard.css";
 
 export const mainpagecontainer = style({
   display: "flex",
@@ -11,12 +11,13 @@ export const mainpagecontainer = style({
 
 export const contentcontainer = style({
   flex: 1,
-  padding: Spacing.small,
   overflowY: "hidden",
   display: "grid",
   gridTemplateColumns: "repeat(12, 1fr)",
   gridTemplateRows: "repeat(12, 1fr)",
-  gap: Spacing.small,
+  gap: "1.5rem",
+  padding: "0vw 1vw 1vw 1vw",
+  borderRadius: Size.border,
 });
 
 export const section = style({
@@ -31,12 +32,12 @@ export const section = style({
 
 export const fullRowSection = style({
   gridColumn: "span 12",
-  gridRow: "span 2",
+  gridRow: "span 1",
 });
 
 export const projectSection = style({
   gridColumn: "span 7",
-  gridRow: "span 5",
+  gridRow: "span 4",
 });
 
 export const requestSection = style({
