@@ -2,6 +2,7 @@
 import { GetServerSideProps } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { useState } from 'react';
+import CommentForm from '../../components/userMainPage/commentForm'
 
 interface PostProps {
   title: string;
@@ -31,6 +32,8 @@ const Post = ({ title, content, id }: PostProps) => {
       .catch(err => {
         console.error(err);
         alert('수정 중 오류 발생');
+        window.location.href = '/noticeMain';
+
       });
   };
 
@@ -49,6 +52,7 @@ const Post = ({ title, content, id }: PostProps) => {
     .catch(err => {
       console.error(err);
       alert('삭제 중 오류 발생')
+      window.location.href = '/noticeMain';
     });
   };
 
@@ -82,7 +86,12 @@ const Post = ({ title, content, id }: PostProps) => {
           <button onClick={handleDelete}>삭제</button>
         </div>
       )}
-      <button onClick={back}>뒤로가기</button>
+      <div>
+        <button onClick={back}>뒤로가기</button>
+      </div>
+      <div>
+        <CommentForm  postId={id as string}/>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MongoClient, ObjectId } from 'mongodb';
 import { Pool } from 'pg';
-import { NoticeDTO } from '../../../../../shared/DTO/DbDTO';
+import { NoticeDTO, CommentDTO } from '../../../../../shared/DTO/DbDTO';
 import { dateSet } from './utils/dateUtils';
 
 @Injectable()
@@ -243,5 +243,34 @@ export class NoticeService {
       console.error(`Error during delete operation: ${error}`);
       throw error;
     }
+  }
+
+  async getUserhNotices(postId: string, page: number, limit: number) {
+    const mongoDatabase = this.client.db('notice');
+    const mongoCollection =
+      mongoDatabase.collection<CommentDTO>('comments');
+    const totalCount = await mongoCollection.countDocuments({ postId });
+    const result = await mongoCollection.find({ postId }).sort({ _id: -1 }).skip((page - 1) * limit).limit(limit).toArray();
+    const totalPages = Math.ceil(totalCount / limit);
+    return { comments: result, totalPages };
+  }
+
+  async createComment(postId: string, commentDTO: CommentDTO, user_id: string) {
+    const mongoDatabase = this.client.db('notice');
+    const mongoCollection =
+      mongoDatabase.collection<CommentDTO>('comments');
+    const sessionId = user_id;
+    const userResult = await this.pgPool.query('SELECT user_id FROM users WHERE user_id = $1', [sessionId]);
+    const userId = userResult.rows[0].user_id;
+    const currentDate = new Date();
+    const custom = dateSet(currentDate);
+    const newComment = {
+      ...commentDTO,
+      postId,
+      userId,
+      createdAt: custom,
+    };
+    const result = await mongoCollection.insertOne(newComment);
+    return result.insertedId;
   }
 }

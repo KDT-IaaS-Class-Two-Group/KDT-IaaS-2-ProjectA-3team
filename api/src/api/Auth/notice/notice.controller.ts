@@ -14,7 +14,7 @@ import { Request } from 'express';
 
 import { NoticeService } from './notice.service';
 
-import { NoticeDTO } from '@shared/DTO/DbDTO';
+import { NoticeDTO, CommentDTO } from '@shared/DTO/DbDTO';
 
 @Controller()
 export class NoticeController {
@@ -75,5 +75,24 @@ export class NoticeController {
     const user_id = session?.user_id;
     const role = session?.role_name;
     return await this.noticeService.deleteNotice(id, user_id, role);
+  }
+
+  @Get('usercomment/:postid')
+  async getUserComment(
+    @Param('postid') postId: string,
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '5',
+  ) {
+    const pageNumber = parseInt(page, 10); // 10진수로 변환
+    const limitNumber = parseInt(limit, 10); // 10진수로 변환
+    return await this.noticeService.getUserhNotices(postId, pageNumber, limitNumber);
+  }
+
+  @Post('comments/:postid')
+  async createComment(@Param('postid') postId: string, @Body() commentDTO: CommentDTO, @Req() req: Request,
+  ) {
+    const session = req.session.user;
+    const user_id = session?.user_id;
+    return await this.noticeService.createComment(postId, commentDTO, user_id);
   }
 }

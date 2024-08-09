@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-import { NoticeDTO } from "../../../../shared/DTO/DbDTO";
+import { NoticeDTO } from "../../../../../shared/DTO/DbDTO";
 
 const uri = "mongodb://localhost:27017";
 
