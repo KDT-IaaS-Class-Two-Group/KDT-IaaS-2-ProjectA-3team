@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import * as styles from '../../styles/notice/notice.css'
+
 interface ListNotice {
   _id: string;
   title: string;
@@ -29,13 +31,15 @@ const NoticeAuthContent = () => {
   return (
     <div>
       {authList.length > 0 ? (
-        authList.map((notice,index) => (
+        authList.map((notice, index) => (
           <div key={notice._id}>
             <Link href={`/noticeAuth/${notice._id}`}>
-              <h3>{index+1}</h3>
-              <h3>{notice.title}</h3>
-              <h3>{notice.user_id}</h3>
-              <h3>{notice.createdAt}</h3>
+              <div className={styles.noticelengh}>
+                <p>{index + 1 + '.'}</p>
+                <p>{notice.title}</p>
+                <p>{notice.user_id}</p>
+                <p>{notice.createdAt}</p>
+              </div>
             </Link>
           </div>
         ))
