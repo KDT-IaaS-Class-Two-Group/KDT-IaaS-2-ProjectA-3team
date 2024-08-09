@@ -82,7 +82,12 @@ const Post = ({ title, content, id }: PostProps) => {
           <button onClick={handleDelete}>삭제</button>
         </div>
       )}
-      <button onClick={back}>뒤로가기</button>
+      <div>
+        <button onClick={back}>뒤로가기</button>
+      </div>
+      <div>
+        
+      </div>
     </div>
   );
 };
