@@ -1,16 +1,16 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
-import { ResponseProject } from "../../interface/project.interface";
+import { ResponseProject_WithTeam } from "../../interface/project.interface";
 
-const columnHelper = createColumnHelper<ResponseProject>();
+const columnHelper = createColumnHelper<ResponseProject_WithTeam>();
 
 /**
  * * columns : Array
  * 작성자 : @naviadev / 2024-08-08
  * 편집자 : @naviadev / 2024-08-08
- * Issue : 
+ * Issue :
  * @description : Project Table을 출력하기 위해 정의된 Columns
- * project_name | project_start_date | project_end_date 
+ * project_name | project_start_date | project_end_date
  */
 const columns = [
   columnHelper.accessor("project_name", {
@@ -46,6 +46,12 @@ const columns = [
         return "Date 변환 실패";
       }
     },
+    footer: (info) => info.column.id,
+  }),
+
+  columnHelper.accessor("team_name", {
+    header: () => "team",
+    cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
   }),
 ];

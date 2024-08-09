@@ -1,8 +1,8 @@
 import { IsString, IsArray } from 'class-validator';
 export class TeamMemberDTO {
   @IsString()
-  team_leader: string;
+  team_leader: { [key: string]: string };
 
   @IsArray()
-  team_members: string[];
+  team_members: { [key: string]: string }[];
 }
