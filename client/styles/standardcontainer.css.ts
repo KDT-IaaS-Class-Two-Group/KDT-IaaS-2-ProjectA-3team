@@ -29,3 +29,11 @@ export const centeredflexrowcontainer = style([
     justifyContent: "center",
   },
 ]);
+
+export const centerbetweenflexrowcontainer = style([
+  flexrowcontainer,
+  {
+    alignItems: "center",
+    justifyContent: "space-between"
+  }
+])
