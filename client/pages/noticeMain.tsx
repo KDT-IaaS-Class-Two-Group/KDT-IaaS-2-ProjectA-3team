@@ -3,7 +3,7 @@ import NoticeContent from 'client/components/userMainPage/noticeMainContent';
 import NoticeFooter from 'client/components/userMainPage/noticeMainFooter';
 import NoticeAuthContent from 'client/components/authNotice/noticeAuthContent';
 import Link from 'next/link';
-import { base48Text } from 'client/styles/standardtextsize.css';
+import * as styles from '../styles/notice/notice.css'
 
 const NoticeMainPage: React.FC = () => {
   return (
@@ -17,22 +17,25 @@ const NoticeMainPage: React.FC = () => {
         </Link>
       </div>
       <div>
-        <div>
-          <div>Number</div>
-          <div>Title</div>
-          <div>Author</div>
-          <div>Creation Date</div>
+        <div className={styles.noticecontent}>
+          <div className={styles.title}>
+            <div>Number</div>
+            <div>Title</div>
+            <div>Author</div>
+            <div>Creation Date</div>
+          </div>
+          <div>
+            <NoticeAuthContent />
+          </div>
+          <div>
+            <NoticeContent />
+          </div>
         </div>
         <div>
-          <NoticeAuthContent />
-        </div>
-        <div>
-          <NoticeContent />
+          <NoticeFooter />
         </div>
       </div>
-      <div>
-        <NoticeFooter />
-      </div>
+
     </div>
   );
 };
