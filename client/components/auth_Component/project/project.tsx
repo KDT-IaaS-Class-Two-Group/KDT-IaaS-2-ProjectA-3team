@@ -11,11 +11,13 @@ import {
   externalLinkButton,
 } from "client/styles/admin/dashboardStyles.css";
 import {
+  projectitletext,
   projectTable,
   projectTableCell,
   projectTableHeader,
   projectTableRow,
 } from "client/styles/admin/project/project.css";
+import { bold15Text } from "client/styles/standardtextsize.css";
 
 const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
   const calculatePeriod = (start: string, end: string) => {
@@ -40,7 +42,7 @@ const Project: React.FC<{ projects: any[] }> = ({ projects }) => {
     <div>
       <div className={projectHeader}>
         <div className={projectTitle}>
-          <span>project</span>
+          <span className={projectitletext}>Project</span>
         </div>
       </div>
       <table className={projectTable}>
