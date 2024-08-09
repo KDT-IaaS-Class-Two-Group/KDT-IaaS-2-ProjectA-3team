@@ -2,7 +2,7 @@ import React from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { Colors } from "../../styles/standard.css";
 
-const Sidebar: React.FC = () => {
+const AdminSidebar: React.FC = () => {
   return (
     <div className={styles.mainpagecontainer}>
       <div className={styles.sidebarcontainer}>
@@ -27,19 +27,19 @@ const Sidebar: React.FC = () => {
             <ul className={styles.menulist}>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>🏠</span>
-                <span>dashboard</span>
+                <span>팀 제작</span>
               </li>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>👥</span>
-                <span>team</span>
+                <span>프로젝트 제작</span>
               </li>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>📁</span>
-                <span>projects</span>
+                <span>게시판</span>
               </li>
               <li className={styles.menuitem}>
-                <span className={styles.menuitemicon}>📝</span>
-                <span>tasks</span>
+                <span className={styles.menuitemicon}>📁</span>
+                <span>DB GUI</span>
               </li>
             </ul>
           </nav>
@@ -69,4 +69,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

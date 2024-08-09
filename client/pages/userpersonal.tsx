@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import UserPersonal, { User } from "client/model/services/userpersonal";
 import { greenButton, purpleButton } from "client/styles/templatebutton.css";
-import Sidebar from "./../components/SideBar/Sidebar";
+import Sidebar from "../components/SideBar/AdminSidebar";
 
 const TestPage: React.FC = () => {
   const [status, setStatus] = useState<boolean>(false);

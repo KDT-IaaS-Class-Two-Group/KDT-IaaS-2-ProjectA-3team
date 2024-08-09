@@ -15,7 +15,7 @@ const UserHome: React.FC = () => {
       </Content>
       <div>  
         <button>
-          <Link href={"/user/project/project"}>project</Link>
+          <Link href={"/user/project/info"}>project</Link>
         </button>
         <button>
           <Link href={"/user/team"}>Team</Link>
