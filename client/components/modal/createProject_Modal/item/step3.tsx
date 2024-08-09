@@ -9,9 +9,11 @@ interface Team {
 }
 interface StepProps {
   handleNext: () => void;
+  setTeam : Dispatch<SetStateAction<string>>;
+  team : string
 }
 
-const StepA: React.FC<StepProps> = ({ handleNext }) => {
+const Step3: React.FC<StepProps> = ({ handleNext, setTeam, team }) => {
   const [data, setData] = useState<any[]>([]); // 초기값을 빈 배열로 설정
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
   const [error, setError] = useState<string | null>(null); // 에러 상태 관리
@@ -49,12 +51,15 @@ const StepA: React.FC<StepProps> = ({ handleNext }) => {
         {data.map((item, index) => (
           <li key={index}>
             {item.team_name} : {item.description}
+            <button onClick={()=>{setTeam(item.team_name)}}>해당 팀 선택</button>
           </li> // 데이터의 title 프로퍼티를 사용하여 리스트 아이템을 렌더링
+          
         ))}
+        <p>현재 선택된 팀 : {team}</p>
         <button onClick={handleNext}>다음</button>
       </ul>
     </div>
   );
 };
 
-export default StepA;
+export default Step3;

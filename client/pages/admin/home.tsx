@@ -1,44 +1,44 @@
 import Link from "next/link";
-import Sidebar from "./../../components/SideBar/Sidebar";
+import Sidebar from "../../components/SideBar/AdminSidebar";
 import {
   mainpagecontainer,
   contentcontainer,
   section,
-  fullRowSection,
   projectSection,
-  requestSection,
-  userManagementSection,
-  attendanceSection,
-  noticeBoardSection,
-  databaseGUISection,
   buttonSection,
   title,
   cardHeader,
   cardContent,
-  projectHeader,
-  projectTitle,
   proceedingButton,
   allTasksButton,
-} from "client/styles/dashboardStyles.css";
+} from "client/styles/admin/dashboardStyles.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
 import StateUsers from "client/components/StateUsers";
 import Attendance from "client/components/attendance";
 import NoticeBoard from "client/components/Notice/NoticeBoard";
 import DatabaseGUI from "client/components/DatabaseGuI";
-import MemberComponent from "client/components/MemberVerification/MemberComponent";
-import PendingUsersComponent from "client/components/test";
-import CheckUsersCount from "client/components/checktest";
-
+import {
+  admintext,
+  basetext,
+  fullRowSection,
+  titlecontainer,
+  titletext,
+} from "client/styles/admin/greet/greet.css";
+import { attendanceSection } from "client/styles/admin/workAttendance/workattendance.css";
+import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
+import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
+import { requestSection } from "client/styles/admin/requests/requests.css";
+fullRowSection;
 const Dash: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
       <Sidebar />
       <div className={contentcontainer}>
         <div className={`${section} ${fullRowSection}`}>
-          <div>
-            <h2 className={title}>Hello matomabo</h2>
-            <p>권한 나타내기</p>
+          <div className={titlecontainer}>
+            <p className={titletext}>hello 아무이름</p>
+            <p className={admintext}>권한</p>
           </div>
         </div>
         <div className={`${section} ${projectSection}`}>
@@ -50,7 +50,7 @@ const Dash: React.FC = () => {
           <div className={cardHeader}>Requests</div>
           <CheckUsersCount />
         </div>
-        <div className={`${section} ${userManagementSection}`}>
+        <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>User Management</div>
           {/* <MemberComponent /> */}
           <PendingUsersComponent />

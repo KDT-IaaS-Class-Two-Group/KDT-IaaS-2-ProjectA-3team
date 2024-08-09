@@ -34,18 +34,18 @@ const useCreateProjectModal = () => {
       setStep(2);
     } else if (step === 2 && projectStartDate && projectEndDate) {
       setStep(3);
-    } else if (step === 3 ){
+    } else if (step === 3) {
       setStep(4);
     }
   };
 
   // 프로젝트 생성 핸들러
   const handleCreate = async () => {
-    console.log('Project Created:', projectName, projectStartDate, projectEndDate);
     const projectData: Project = {
       project_name: projectName,
       project_start_date: projectStartDate as Date,
-      project_end_date: projectEndDate as Date
+      project_end_date: projectEndDate as Date,
+      team_name : team
     };
     await fetchProjectData(projectData);
   };
@@ -59,6 +59,7 @@ const useCreateProjectModal = () => {
     openModal,
     closeModal,
     handleNext,
+    team, setTeam,
     handleCreate,
     setProjectName,
     setProjectStartDate,

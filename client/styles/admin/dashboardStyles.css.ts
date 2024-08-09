@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { Colors, FontSize, Size, Spacing } from "./standard.css";
+import { Colors, FontSize, Size, Spacing } from "../standard.css";
 
 export const mainpagecontainer = style({
   display: "flex",
@@ -23,46 +23,14 @@ export const contentcontainer = style({
 export const section = style({
   display: "flex",
   flexDirection: "column",
-  backgroundColor: Colors.BackgroundAlt,
-  borderRadius: Spacing.xsmall,
-  padding: Spacing.small,
-  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-  overflow: "hidden",
-});
-
-export const fullRowSection = style({
-  gridColumn: "span 12",
-  gridRow: "span 1",
+  backgroundColor: Colors.FontPrimary,
+  borderRadius: Size.border,
+  padding: "0.5rem 1rem",
 });
 
 export const projectSection = style({
   gridColumn: "span 7",
   gridRow: "span 4",
-});
-
-export const requestSection = style({
-  gridColumn: "span 5",
-  gridRow: "span 2",
-});
-
-export const userManagementSection = style({
-  gridColumn: "span 5",
-  gridRow: "span 2",
-});
-
-export const attendanceSection = style({
-  gridColumn: "span 6",
-  gridRow: "span 4",
-});
-
-export const noticeBoardSection = style({
-  gridColumn: "span 6",
-  gridRow: "span 4",
-});
-
-export const databaseGUISection = style({
-  gridColumn: "span 12",
-  gridRow: "span 3",
 });
 
 export const buttonSection = style({
@@ -174,26 +142,6 @@ export const externalLinkButton = style({
     backgroundColor: Colors.StatusLightBlue,
     opacity: 1, // 호버 시 투명도 제거
   },
-});
-
-export const projectTable = style({
-  width: "100%",
-  borderCollapse: "collapse",
-});
-
-export const projectTableHeader = style({
-  backgroundColor: Colors.BackgroundSecondary,
-  color: Colors.FontSecondary,
-  padding: Spacing.small,
-  textAlign: "left",
-});
-
-export const projectTableRow = style({
-  borderBottom: `1px solid ${Colors.BackgroundSecondary}`,
-});
-
-export const projectTableCell = style({
-  padding: Spacing.small,
 });
 
 export const participantAvatars = style({

@@ -20,6 +20,8 @@ const CreateProjectModal: React.FC<CreateProjectModalProps> = ({
     projectEndDate,
     openModal,
     closeModal,
+    team,
+    setTeam,
     handleNext,
     handleCreate,
     setProjectName,
@@ -53,12 +55,13 @@ const CreateProjectModal: React.FC<CreateProjectModalProps> = ({
             handleNext={handleNext}
           />
         )}
-        {step === 3 && <Step3 handleNext={handleNext} />}
+        {step === 3 && <Step3 handleNext={handleNext} setTeam={setTeam} team={team} />}
         {step === 4 && (
           <Step4
             projectName={projectName}
             projectStartDate={projectStartDate}
             projectEndDate={projectEndDate}
+            team = {team}
             handleCreateProject={handleCreateProject}
           />
         )}

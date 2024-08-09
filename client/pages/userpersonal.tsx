@@ -1,97 +1,27 @@
 import React, { useEffect, useState } from "react";
 
-export interface User {
-  user_id: string;
-  username: string;
-  birth_date: string;
-  address: string;
-  phone: string;
-  email: string;
-  password: string;
-}
+import UserPersonal, { User } from "client/model/services/userpersonal";
+import { greenButton, purpleButton } from "client/styles/templatebutton.css";
 
-interface Profile {
-  user_id: string;
-  bio: string;
-}
+const TestPage: React.FC = () => {
+  const [status, setStatus] = useState<boolean>(false);
 
-interface UserPersonalProps {
-  onSave: (users: User[]) => Promise<void>;
-}
-
-const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [profiles, setProfiles] = useState<Map<string, string>>(new Map());
-  const [bios, setBios] = useState<Map<string, string>>(new Map());
-  const [disabledUsers, setDisabledUsers] = useState<Map<string, boolean>>(
-    new Map()
-  );
-  const [loading, setLoading] = useState(true);
-  const [editingUserId, setEditingUserId] = useState<string | null>(null);
-  const [editFields, setEditFields] = useState<Partial<User>>({});
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const [userResponse, profileResponse] = await Promise.all([
-          fetch("http://localhost:3001/getUser/userpersonal", {
-            credentials: "include",
-          }),
-          fetch("http://localhost:3001/getUser/userprofile", {
-            credentials: "include",
-          }),
-        ]);
-
-        if (!userResponse.ok || !profileResponse.ok) {
-          throw new Error(`HTTP error! Status: ${userResponse.status}`);
-        }
-
-        const usersData: User[] = await userResponse.json();
-        const profilesData: Profile[] = await profileResponse.json();
-
-        if (Array.isArray(usersData) && Array.isArray(profilesData)) {
-          setUsers(usersData);
-          const profileMap = new Map<string, string>(
-            profilesData.map((profile) => [profile.user_id, profile.bio])
-          );
-          setProfiles(profileMap);
-
-          const biosMap = new Map<string, string>(
-            usersData.map((user) => [
-              user.user_id,
-              profileMap.get(user.user_id) || "",
-            ])
-          );
-          setBios(biosMap);
-
-          const disabledMap = new Map<string, boolean>(
-            usersData.map((user) => [user.user_id, false])
-          );
-          setDisabledUsers(disabledMap);
-        } else {
-          console.error("Unexpected response format:", usersData, profilesData);
-        }
-      } catch (error) {
-        console.error("사용자 조회 실패:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-  const handleBioChange = (userId: string, value: string) => {
-    setBios((prevBios) => new Map(prevBios).set(userId, value));
-  };
-
-  const handleFieldChange = (field: keyof User, value: string) => {
-    setEditFields((prevFields) => ({ ...prevFields, [field]: value }));
-  };
-
-  const handleSave = async () => {
+  const handleSave = async (users: User[]) => {
     try {
-      await onSave(users);
+      const response = await fetch(
+        "http://localhost:3001/getUser/userpersonal",
+        //"http://localhost:3001/getUser/userprofile",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ users }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       console.log("사용자 정보 저장 성공");
     } catch (error) {
       console.error("사용자 정보 저장 실패:", error);
