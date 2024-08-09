@@ -25,10 +25,10 @@ import {
   titlecontainer,
   titletext,
 } from "client/styles/admin/greet/greet.css";
-import { requestSection } from "client/styles/admin/requests/requests.css";
 import { attendanceSection } from "client/styles/admin/workAttendance/workattendance.css";
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
+import { requestSection } from "client/styles/admin/requests/requests.css";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
