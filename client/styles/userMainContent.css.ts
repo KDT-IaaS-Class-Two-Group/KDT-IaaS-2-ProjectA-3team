@@ -8,7 +8,10 @@ export const mainContentAll = style({
 export const mainContentHeader = style({
   display: "flex",
   justifyContent: "space-between",
+  flexDirection : "column"
 });
+
+
 
 export const mainFavorites = style({
   display: "flex",
