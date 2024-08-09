@@ -51,7 +51,7 @@ export const logounderline = style({
 });
 
 export const profilecontainer = style({
-  backgroundColor: "#2e2e2e",
+  backgroundColor: Colors.BackgroundSecondary,
   borderRadius: "8px",
   padding: Spacing.medium,
   marginBottom: Spacing.medium,
@@ -60,10 +60,9 @@ export const profilecontainer = style({
 });
 
 export const profile = style({
-  width: "24vh",
-  height: "10vh",
+  padding: Spacing.medium,
   borderRadius: "2vh",
-  background: "gray",
+  background: Colors.FontPrimary,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -85,7 +84,6 @@ export const profilecircle = style({
 export const profilename = style({
   fontSize: FontSize.Medium,
   color: Colors.FontSecondary,
-  flex: 1,
 });
 
 export const menuicon = style({
@@ -119,7 +117,7 @@ export const menuitemicon = style({
 });
 
 export const userlistcontainer = style({
-  backgroundColor: "#2e2e2e",
+  backgroundColor: Colors.BackgroundSecondary,
   borderRadius: "8px",
   padding: Spacing.medium,
   color: Colors.FontSecondary,
@@ -137,7 +135,7 @@ export const searchcontainer = style({
   display: "flex",
   alignItems: "center",
   marginBottom: Spacing.small,
-  backgroundColor: "#1e1e1e",
+  backgroundColor: Colors.FontPrimary,
   padding: Spacing.small,
   borderRadius: "8px",
 });
