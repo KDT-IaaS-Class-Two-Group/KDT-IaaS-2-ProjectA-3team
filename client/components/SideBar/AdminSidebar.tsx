@@ -1,6 +1,7 @@
 import React from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { Colors } from "../../styles/standard.css";
+import { UserSearch } from "../common/nav/UserSearch";
 
 const AdminSidebar: React.FC = () => {
   return (
@@ -44,26 +45,7 @@ const AdminSidebar: React.FC = () => {
             </ul>
           </nav>
         </div>
-        <div className={styles.userlistcontainer}>
-          <div className={styles.userlisttitle}>user list</div>
-          <div className={styles.searchcontainer}>
-            <input
-              type="text"
-              placeholder="search"
-              className={styles.searchinput}
-            />
-          </div>
-          <ul className={styles.userlist}>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-            <li className={styles.userlistitem}></li>
-          </ul>
-        </div>
+        <UserSearch></UserSearch>
       </div>
     </div>
   );
