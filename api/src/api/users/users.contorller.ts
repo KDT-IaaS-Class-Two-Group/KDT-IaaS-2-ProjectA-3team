@@ -90,6 +90,20 @@ export class UsersController {
       .execution();
     return fields;
   }
+  @Get('/checkusers/count')
+  async getCheckUsersCount() {
+    try {
+      const countResult = await this.queryBuilder
+        .SELECT('checkusers', ['COUNT(*)'])
+        .execution();
+
+      const count = countResult[0].count;
+      return { count: parseInt(count, 10) };
+    } catch (error) {
+      console.error('사용자 정보 개수 조회 오류:', error);
+      return { message: '사용자 정보 개수 조회 실패' };
+    }
+  }
 
   @Post('/all')
   async SaveUsers(@Body() body: any) {

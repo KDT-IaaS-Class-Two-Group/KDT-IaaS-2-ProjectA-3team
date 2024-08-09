@@ -26,6 +26,9 @@ import StateUsers from "client/components/StateUsers";
 import Attendance from "client/components/attendance";
 import NoticeBoard from "client/components/Notice/NoticeBoard";
 import DatabaseGUI from "client/components/DatabaseGuI";
+import MemberComponent from "client/components/MemberVerification/MemberComponent";
+import PendingUsersComponent from "client/components/test";
+import CheckUsersCount from "client/components/checktest";
 
 const Dash: React.FC = () => {
   return (
@@ -45,11 +48,12 @@ const Dash: React.FC = () => {
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>Requests</div>
-          <div className={cardContent}>Requested by 3 users</div>
+          <CheckUsersCount />
         </div>
         <div className={`${section} ${userManagementSection}`}>
           <div className={cardHeader}>User Management</div>
-          <div className={cardContent}>Authorize 5 users</div>
+          {/* <MemberComponent /> */}
+          <PendingUsersComponent />
         </div>
         <div className={`${section} ${attendanceSection}`}>
           <div className={cardHeader}>Work Attendance</div>
