@@ -27,11 +27,11 @@ const UserSidebar: React.FC = () => {
             <ul className={styles.menulist}>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>🏠</span>
-                <span>팀 제작</span>
+                <span>프로젝트 조회</span>
               </li>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>👥</span>
-                <span>프로젝트 제작</span>
+                <span>칸반보드</span>
               </li>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>📁</span>
@@ -39,7 +39,7 @@ const UserSidebar: React.FC = () => {
               </li>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>📁</span>
-                <span>DB GUI</span>
+                <span>개인정보 조회</span>
               </li>
             </ul>
           </nav>
