@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-
+import Link from "next/link";
 import { ResponseProject_WithTeam } from "../../interface/project.interface";
 
 const columnHelper = createColumnHelper<ResponseProject_WithTeam>();
@@ -15,7 +15,15 @@ const columnHelper = createColumnHelper<ResponseProject_WithTeam>();
 const columns = [
   columnHelper.accessor("project_name", {
     header: () => "Project Name",
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      const projectName = info.getValue();
+      const projectId = info.row.original.project_name;
+      return (
+        <Link href={`user/project/[id]`} as = {projectName}>
+          {projectName}
+        </Link>
+      );
+    },
     footer: (info) => info.column.id,
   }),
 
