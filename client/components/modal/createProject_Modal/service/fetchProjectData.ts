@@ -1,5 +1,5 @@
 import { Project } from "../interface/ProjectData.interface"
-import REQUEST_URL from "client/ts/enum/REQUEST_URL.ENUM";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import { POST_PROJECT_META } from "../config/POST_PROJECT_META";
 
 export const fetchProjectData = async (projectData : Project) => {

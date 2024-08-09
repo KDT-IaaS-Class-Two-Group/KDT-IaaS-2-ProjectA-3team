@@ -10,7 +10,7 @@ export class EmployeeRepository {
   async setEmpolyeeUser(user_id: string) {
     try {
       await this.qb
-        .INSERT(TABLE_NAME.__DEFAULT_ROLE, {
+        .INSERT(TABLE_NAME.__LEVEL_1_LIST, {
           user_id: user_id,
           role_name: ROLE_COLUMNS.__LEVEL_1,
         })

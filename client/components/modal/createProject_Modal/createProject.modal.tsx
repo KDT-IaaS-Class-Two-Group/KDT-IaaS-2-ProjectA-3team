@@ -3,12 +3,15 @@ import Modal from "../modal";
 import Step1 from "./item/step1";
 import Step2 from "./item/step2";
 import Step3 from "./item/step3";
+import Step4 from "./item/step4";
 
 interface CreateProjectModalProps {
   onProjectCreated: () => void;
 }
 
-const CreateProjectModal: React.FC<CreateProjectModalProps> = ({ onProjectCreated }) => {
+const CreateProjectModal: React.FC<CreateProjectModalProps> = ({
+  onProjectCreated,
+}) => {
   const {
     isOpen,
     step,
@@ -50,8 +53,9 @@ const CreateProjectModal: React.FC<CreateProjectModalProps> = ({ onProjectCreate
             handleNext={handleNext}
           />
         )}
-        {step === 3 && (
-          <Step3
+        {step === 3 && <Step3 handleNext={handleNext} />}
+        {step === 4 && (
+          <Step4
             projectName={projectName}
             projectStartDate={projectStartDate}
             projectEndDate={projectEndDate}

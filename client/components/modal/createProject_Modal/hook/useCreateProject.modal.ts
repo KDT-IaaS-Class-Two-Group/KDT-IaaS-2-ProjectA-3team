@@ -13,6 +13,9 @@ const useCreateProjectModal = () => {
   const [projectStartDate, setProjectStartDate] = useState<Date | undefined>(undefined);
   const [projectEndDate, setProjectEndDate] = useState<Date | undefined>(undefined);
 
+  // 팀 이름 설정
+  const [team, setTeam] = useState<string>('');
+
   // openModal: 모달을 열 때 호출
   const openModal = () => setIsOpen(true);
 
@@ -31,6 +34,8 @@ const useCreateProjectModal = () => {
       setStep(2);
     } else if (step === 2 && projectStartDate && projectEndDate) {
       setStep(3);
+    } else if (step === 3 ){
+      setStep(4);
     }
   };
 

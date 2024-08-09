@@ -13,6 +13,7 @@ import { DatabaseService } from './database/database.service';
 import { TableService } from './database/table.service';
 import { AccountModule } from './api/Account/Account.module';
 import { ProjectModule } from './api/project/project.module';
+import { TeamModule } from './api/Team/team.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ProjectModule } from './api/project/project.module';
     UsersModule,
     AccountModule,
     ProjectModule,
+    TeamModule,
   ],
   controllers: [
     StructureController,
