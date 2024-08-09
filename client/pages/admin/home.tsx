@@ -29,6 +29,8 @@ import { attendanceSection } from "client/styles/admin/workAttendance/workattend
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
+import CheckUsersCount from "client/components/checktest";
+import PendingUsersComponent from "client/components/test";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
