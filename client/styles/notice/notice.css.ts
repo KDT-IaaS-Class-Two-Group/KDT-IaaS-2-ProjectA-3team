@@ -4,3 +4,7 @@ export const uploadbutton = style({ textDecorationLine: "none" });
 export const noticecontainer = style({
   display: "flex",
 });
+
+export const title = style({
+  display:'flex'
+})
