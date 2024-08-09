@@ -6,6 +6,7 @@ import {
   Res,
   HttpCode,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
@@ -63,6 +64,17 @@ export class LoginController {
       return res
         .status(HttpStatus.UNAUTHORIZED) //401 인증 실패
         .json({ message: 'Invalid credentials' });
+    }
+  }
+  @Get('/session') // <-- 새로운 엔드포인트 추가
+  getSession(@Req() req: Request, @Res() res: Response) {
+    const session = req.session.user;
+    if (session) {
+      return res.json({ session });
+    } else {
+      return res
+        .status(HttpStatus.UNAUTHORIZED)
+        .json({ message: 'No session found' });
     }
   }
 }

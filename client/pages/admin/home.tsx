@@ -29,18 +29,14 @@ import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
+import { MainHeader } from "client/components/common/header/mainheader";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
       <AdminSidebar />
       <div className={contentcontainer}>
-        <div className={`${section} ${fullRowSection}`}>
-          <div className={titlecontainer}>
-            <p className={titletext}>hello 아무이름</p>
-            <p className={admintext}>권한</p>
-          </div>
-        </div>
+        <MainHeader></MainHeader>
         <div className={`${section} ${projectSection}`}>
           <div className={cardContent}>
             <Project projects={[]} />

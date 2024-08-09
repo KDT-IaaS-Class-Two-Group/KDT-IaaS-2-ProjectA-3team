@@ -29,17 +29,13 @@ import {
   usernoticesection,
 } from "client/styles/users/userdashboard.css";
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
+import { MainHeader } from "client/components/common/header/mainheader";
 const UserHome: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
       <UserSidebar></UserSidebar>
       <div className={contentcontainer}>
-        <div className={`${section} ${fullRowSection}`}>
-          <div className={titlecontainer}>
-            <p className={titletext}>hello 아무이름</p>
-            <p className={admintext}>권한</p>
-          </div>
-        </div>
+        <MainHeader></MainHeader>
         <div className={`${section} ${favsection}`}>
           <div className={cardContent}></div>
         </div>
