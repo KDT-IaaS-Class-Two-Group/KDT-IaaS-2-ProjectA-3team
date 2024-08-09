@@ -7,24 +7,15 @@ interface ListNotice {
   createdAt: string;
 }
 
-/**
- * * Function : NoticeMainContent
- * 작성자 : @yun-21 / 2024-08-01
- * 편집자 : @yun-21 / 2024-08-01
- * Issue : yun-21
- * @function NoticeMainContent
- * @description 
-
- */
-const NoticeMainContent = () => {
-  const [userList, setUserList] = useState<ListNotice[]>([]); // empolyee 서버에서 건너오는 게시물 데이터
+const NoticeAuthAllContent = () => {
+  const [userList, setUserList] = useState<ListNotice[]>([]); // admin 서버에서 건너오는 게시물 데이터
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
-  const itemsPerPage = 5; // 한 페이지당 항목 수
+  const itemsPerPage = 10; // 한 페이지당 항목 수
 
   useEffect(() => {
     const fetchNotices = () => {
-      fetch(`http://localhost:3001/notices?page=${currentPage}&limit=${itemsPerPage}`)
+      fetch(`http://localhost:3001/authallnotices?page=${currentPage}&limit=${itemsPerPage}`)
         .then((response) => {
           return response.json();
         })
@@ -75,4 +66,4 @@ const NoticeMainContent = () => {
   );
 };
 
-export default NoticeMainContent;
+export default NoticeAuthAllContent;
