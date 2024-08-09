@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const NoticeMainTitle = () => {
   return (
     <div>
-      <div>게시판</div>
+      <div>notice board</div>
     </div>
   );
 };
