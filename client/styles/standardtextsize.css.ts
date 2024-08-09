@@ -28,3 +28,52 @@ export const base12Text = style({
 export const base5Text = style({
   fontSize: FontSize.Tiny,
 });
+
+export const bold48Text = style([
+  base48Text,
+  {
+    fontWeight: "bold",
+  },
+]);
+
+export const bold32Text = style([
+  base32Text,
+  {
+    fontWeight: "bold",
+  },
+]);
+
+export const bold24Text = style([
+  base24Text,
+  {
+    fontWeight: "bold",
+  },
+]);
+
+export const bold20Text = style([
+  base20Text,
+  {
+    fontWeight: "bold",
+  },
+]);
+
+export const bold15Text = style([
+  base15Text,
+  {
+    fontWeight: "bold",
+  },
+]);
+
+export const bold12Text = style([
+  base12Text,
+  {
+    fontWeight: "bold",
+  },
+]);
+
+export const bold5Text = style([
+  base5Text,
+  {
+    fontWeight: "bold",
+  },
+]);
