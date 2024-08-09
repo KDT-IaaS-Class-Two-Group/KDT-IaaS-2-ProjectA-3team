@@ -9,7 +9,7 @@ interface User {
 //CHECKLIST 
 // [ ] 권한 관리 시스템 설계
 const Team: React.FC = () => {
-  const [teamName, setTeamName] = useState<string>("");
+  const [team_name, setTeamName] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);
   const [selectedLeader, setSelectedLeader] = useState<User | null>(null);
   const [selectedMembers, setSelectedMembers] = useState<User[]>([]);
@@ -21,6 +21,7 @@ const Team: React.FC = () => {
         const response = await fetch("http://localhost:3001/getUser/all");
         const data = await response.json();
         console.log(data);
+
         setUsers(data);
       } catch (error) {
         console.error("Failed to fetch users:", error);
@@ -57,15 +58,15 @@ const Team: React.FC = () => {
   // 팀 정보 전송 함수
   const fetchTeam = async () => {
     try {
-      const response = await fetch("http://localhost:3001/getUser/saveTeam", {
+      const response = await fetch("http://localhost:3001/team/save", {
         // URL 수정
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          teamName,
-          leader: selectedLeader,
+          team_name,
+          team_leader: selectedLeader,
           members: selectedMembers,
           description:
             (document.getElementById("teamDescription") as HTMLTextAreaElement)
@@ -94,7 +95,7 @@ const Team: React.FC = () => {
           type="text"
           id="teamName"
           name="teamName"
-          value={teamName}
+          value={team_name}
           onChange={(e) => setTeamName(e.target.value)}
         />
       </div>
