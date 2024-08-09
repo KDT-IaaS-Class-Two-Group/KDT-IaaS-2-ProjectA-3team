@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Sidebar from "../../components/SideBar/AdminSidebar";
 import {
   mainpagecontainer,
   contentcontainer,
@@ -29,11 +28,12 @@ import { attendanceSection } from "client/styles/admin/workAttendance/workattend
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
+import AdminSidebar from "../../components/SideBar/AdminSidebar";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
     <div className={mainpagecontainer}>
-      <Sidebar />
+      <AdminSidebar />
       <div className={contentcontainer}>
         <div className={`${section} ${fullRowSection}`}>
           <div className={titlecontainer}>
