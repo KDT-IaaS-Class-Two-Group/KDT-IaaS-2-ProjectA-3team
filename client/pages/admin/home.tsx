@@ -28,13 +28,7 @@ import { attendanceSection } from "client/styles/admin/workAttendance/workattend
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
-<<<<<<< HEAD
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
-=======
-import CheckUsersCount from "client/components/checktest";
-import PendingUsersComponent from "client/components/test";
-import PendingUsersList from "client/components/PendingUsersList";
->>>>>>> 59ffb7664203e0e4e8c452501bddd114071cb1b5
 fullRowSection;
 const Dash: React.FC = () => {
   return (
@@ -54,11 +48,11 @@ const Dash: React.FC = () => {
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>Requests</div>
-          <PendingUsersList />
+          <div className={cardContent}>Requested by 3 users</div>
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>User Management</div>
-          <CheckUsersCount />
+          <div className={cardContent}>Authorize 5 users</div>
         </div>
         <div className={`${section} ${attendanceSection}`}>
           <div className={cardHeader}>Work Attendance</div>
