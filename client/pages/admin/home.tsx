@@ -10,7 +10,7 @@ import {
   cardContent,
   proceedingButton,
   allTasksButton,
-} from "client/styles/admin/dashboardStyles.css";
+} from "client/styles/admin/admindashboard.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
 import StateUsers from "client/components/StateUsers";
