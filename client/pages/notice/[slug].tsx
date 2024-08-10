@@ -43,7 +43,7 @@ const Post = ({ title, content, id }: PostProps) => {
       credentials: 'include',
     })
     .then((response) => {
-        return response.text();
+      return response.text();
     })
     .then((data) => {
         alert(data);
@@ -80,18 +80,22 @@ const Post = ({ title, content, id }: PostProps) => {
         </div>
       ) : (
         <div>
-          <h1>{title}</h1>
-          <p>{content}</p>
-          <button onClick={() => setEditMode(true)}>수정</button>
-          <button onClick={handleDelete}>삭제</button>
+          <div>
+            <h1>{title}</h1>
+            <p>{content}</p>
+            <button onClick={() => setEditMode(true)}>수정</button>
+            <button onClick={handleDelete}>삭제</button>
+          </div>
+          <div>
+            <CommentForm  postId={id as string}/>
+          </div>
         </div>
       )}
       <div>
         <button onClick={back}>뒤로가기</button>
       </div>
-      <div>
-        <CommentForm  postId={id as string}/>
-      </div>
+
+      
     </div>
   );
 };
