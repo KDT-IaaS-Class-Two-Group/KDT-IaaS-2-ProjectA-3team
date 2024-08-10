@@ -53,7 +53,6 @@ export const cardHeader = style({
 
 export const cardContent = style({
   fontSize: FontSize.Small,
-  color: Colors.FontPrimary,
 });
 
 export const button = style({
