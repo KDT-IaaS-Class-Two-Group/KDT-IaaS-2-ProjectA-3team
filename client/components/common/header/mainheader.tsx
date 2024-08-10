@@ -13,7 +13,7 @@ interface SessionData {
   role_name: string;
 }
 
-export const MainHeader: React.FC = () => {
+const MainHeader: React.FC = () => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
   useEffect(() => {
@@ -58,3 +58,4 @@ export const MainHeader: React.FC = () => {
     </div>
   );
 };
+export default MainHeader;
