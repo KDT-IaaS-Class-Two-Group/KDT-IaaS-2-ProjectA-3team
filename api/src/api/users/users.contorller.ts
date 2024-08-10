@@ -17,13 +17,43 @@ export class UsersController {
   private role_users = ['user_id'];
 
   @Get('/all')
-  async CheckUser(@Body() data) {
-    console.log(data);
-    const obj = this.queryBuilder
-      .SELECT('users', this.nonePasswordObject)
-      .execution();
-    return obj;
-  }
+async CheckUser(@Req() req: Request) {
+    const usersWithRoles = [];
+
+    const users = await this.queryBuilder
+        .SELECT('users', ['user_id', 'username'])
+        .execution();
+
+    for (const user of users) {
+        const userRole = await this.getUserRoleForUser(user.user_id);
+        usersWithRoles.push({ ...user, role_name: userRole });
+    }
+
+    return usersWithRoles;
+}
+
+private async getUserRoleForUser(userId: string) {
+    const roleTables = [
+        'admin_role_users',
+        'leader_role_users',
+        'sub_admin_role_users',
+        'employee_role_users'
+    ];
+
+    for (const table of roleTables) {
+        const roleQuery = await this.queryBuilder
+            .SELECT(table, ['role_name'])
+            .WHERE('user_id = $1', [userId])
+            .execution();
+
+        if (roleQuery.length > 0) {
+            return roleQuery[0].role_name;
+        }
+    }
+
+    return 'employee'; // Default role if none found
+}
+
 
   @Get('/leaders')
   async CheckLeaders() {
@@ -32,7 +62,39 @@ export class UsersController {
       .execution();
     return obj;
   }
+  @Get('/role')
+async getUserRole(@Req() req: Request) {
+    const userId = req.session.user?.user_id;
 
+    if (!userId) {
+        throw new Error('User not logged in or session expired');
+    }
+
+    const roleTables = [
+        'admin_role_users',
+        'leader_role_users',
+        'sub_admin_role_users',
+        'employee_role_users'
+    ];
+
+    for (const table of roleTables) {
+        const roleQuery = await this.queryBuilder
+            .SELECT(table, ['role_name'])
+            .WHERE('user_id = $1', [userId])
+            .execution();
+
+        if (roleQuery.length > 0) {
+            return { role: roleQuery[0].role_name };
+        }
+    }
+
+    throw new Error('Role not found for user');
+}
+
+
+
+
+  
   @Get('/members')
   async CheckMembers() {
     const obj = this.queryBuilder
