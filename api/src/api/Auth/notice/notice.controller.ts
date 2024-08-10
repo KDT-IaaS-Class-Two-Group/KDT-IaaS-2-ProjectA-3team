@@ -85,11 +85,18 @@ export class NoticeController {
   ) {
     const pageNumber = parseInt(page, 10); // 10진수로 변환
     const limitNumber = parseInt(limit, 10); // 10진수로 변환
-    return await this.noticeService.getUserhNotices(postId, pageNumber, limitNumber);
+    return await this.noticeService.getUserhNotices(
+      postId,
+      pageNumber,
+      limitNumber,
+    );
   }
 
   @Post('comments/:postid')
-  async createComment(@Param('postid') postId: string, @Body() commentDTO: CommentDTO, @Req() req: Request,
+  async createComment(
+    @Param('postid') postId: string,
+    @Body() commentDTO: CommentDTO,
+    @Req() req: Request,
   ) {
     const session = req.session.user;
     const user_id = session?.user_id;
