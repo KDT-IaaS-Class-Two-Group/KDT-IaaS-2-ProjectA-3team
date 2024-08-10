@@ -111,7 +111,7 @@ function UserSelection() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/getUser/saveTeam", {
+      const response = await fetch("http://localhost:3001/team/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

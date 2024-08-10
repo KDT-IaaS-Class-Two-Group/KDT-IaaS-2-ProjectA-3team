@@ -43,16 +43,16 @@ export class TeamRepository {
         .execution();
     }
 
-    // 팀원 저장
-    for (const member of team_members) {
-      await this.qb
+    team_members.forEach((memberObject) => {
+      this.qb
         .INSERT(TABLE_NAME.__RELATION_TEAM_USERS, {
           team_name,
-          user_id: member.user_id,
+          user_id: memberObject.user_id,
           role_name: ROLE_COLUMNS.__LEVEL_1,
         })
         .execution();
-    }
+    });
+
     return { message: SUCCESS_MESSAGE.__CREATE_TEAM };
   }
 
