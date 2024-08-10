@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { Colors } from "../../styles/standard.css";
@@ -31,8 +32,10 @@ const AdminSidebar: React.FC = () => {
                 <span>팀 제작</span>
               </li>
               <li className={styles.menuitem}>
+
                 <span className={styles.menuitemicon}>👥</span>
-                <span>프로젝트 제작</span>
+                <Link href = '/user/project/info'><span>프로젝트 제작</span></Link>
+                
               </li>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>📁</span>
