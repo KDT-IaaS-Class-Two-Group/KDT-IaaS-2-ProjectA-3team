@@ -29,7 +29,7 @@ const AdminSidebar: React.FC = () => {
             <ul className={styles.menulist}>
               <li className={styles.menuitem}>
                 <span className={styles.menuitemicon}>🏠</span>
-                <span>팀 제작</span>
+                <Link href = '/admin/team'><span>팀 제작</span></Link>
               </li>
               <li className={styles.menuitem}>
 

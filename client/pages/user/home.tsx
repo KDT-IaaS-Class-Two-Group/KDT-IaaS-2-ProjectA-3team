@@ -27,7 +27,7 @@ import {
   usernoticesection,
 } from "client/styles/users/userdashboard.css";
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
-import { MainHeader } from "client/components/common/header/mainheader";
+import MainHeader from "client/components/common/header/mainheader";
 const UserHome: React.FC = () => {
   return (
     <div className={mainpagecontainer}>

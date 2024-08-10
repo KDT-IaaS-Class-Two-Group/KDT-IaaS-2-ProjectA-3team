@@ -29,7 +29,7 @@ import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
-import { MainHeader } from "client/components/common/header/mainheader";
+import MainHeader from "client/components/common/header/mainheader";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
