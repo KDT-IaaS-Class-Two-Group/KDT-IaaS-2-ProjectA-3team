@@ -17,7 +17,7 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    'pewrriwe/pewrriwe': [
+    'prettier/prettier': [
       'error',
       {
         endOfLine: 'auto',
