@@ -12,41 +12,42 @@ import {
   kanbansection,
   todolistsection,
   usernoticesection,
+  usersection,
 } from "client/styles/users/userdashboard.css";
 import CalendarComponent from "../Calendar/calendar";
 
 const UserMainContent: React.FC = () => {
   return (
-    <div className={maincontentcontainer}>
-      <div className={`${section} ${favsection}`}>
+    <>
+      <div className={`${usersection} ${favsection}`}>
         <div className={cardContent}></div>
       </div>
-      <div className={`${section} ${favsection}`}>
+      <div className={`${usersection} ${favsection}`}>
         <div className={cardContent}></div>
       </div>
-      <div className={`${section} ${favsection}`}>
+      <div className={`${usersection} ${favsection}`}>
         <div className={cardContent}></div>
       </div>
-      <div className={`${section} ${kanbansection}`}>
+      <div className={`${usersection} ${kanbansection}`}>
         <div className={cardHeader}>kanban board</div>
         <div className={cardContent}>Requested by 3 users</div>
       </div>
-      <div className={`${section} ${calendarsection}`}>
+      <div className={`${usersection} ${calendarsection}`}>
         <CalendarComponent />
       </div>
-      <div className={`${section} ${todolistsection}`}>
+      <div className={`${usersection} ${todolistsection}`}>
         <div className={cardHeader}>todolist</div>
         <div className={cardContent}></div>
       </div>
-      <div className={`${section} ${usernoticesection}`}>
+      <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>noticeboard</div>
         <div className={cardContent}>asd</div>
       </div>
-      <div className={`${section} ${companybutton}`}>
+      <div className={`${usersection} ${companybutton}`}>
         <div className={cardHeader}>출퇴근 버튼</div>
         <div className={cardContent}>Authorize 5 users</div>
       </div>
-    </div>
+    </>
   );
 };
 
