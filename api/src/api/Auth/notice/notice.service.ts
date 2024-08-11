@@ -97,8 +97,8 @@ export class NoticeService {
       .db('notice')
       .collection<NoticeDTO>('noticeAuthTable');
 
-    // 최신순으로 5개만 반환
-    return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
+    // 최신순으로 3개만 반환
+    return await mongoCollection.find().sort({ _id: -1 }).limit(3).toArray();
   }
 
   async getAuthAllNotices(page: number, limit: number) {
@@ -186,8 +186,7 @@ export class NoticeService {
 
       return `수정 실패`;
     } catch (error) {
-      console.error('에러 발생:', error); // 에러 로그
-      throw new Error('서버에서 오류가 발생했습니다.');
+      return `서버에서 오류가 발생했습니다. ${error}`;
     }
   }
 
@@ -201,11 +200,7 @@ export class NoticeService {
         _id: new ObjectId(id),
       });
 
-      if (role === 'employee') {
-        if (!notice) {
-          throw new NotFoundException('Notice not found in user table');
-        }
-
+      if (role === 'employee' || role === 'leader') {
         const noticeUserId = notice.user_id;
         if (user_id === noticeUserId) {
           const result = await mongoUserCollection.deleteOne({
@@ -230,7 +225,7 @@ export class NoticeService {
         } else {
           return `삭제 실패`;
         }
-      } else if (role === 'admin') {
+      } else if (role === 'admin' || role === 'sub_admin') {
         // 관리자 역할일 때
         if (!notice) {
           // 사용자의 notice가 없으면 관리자 테이블에서 찾기
@@ -254,14 +249,12 @@ export class NoticeService {
             throw new NotFoundException('Notice not found in auth table');
           }
 
-          return `Delete successful ${id}`;
+          return `삭제 성공`;
         }
       }
-
       return `삭제 실패`; // 역할이 admin이나 employee가 아니면 삭제 실패
     } catch (error) {
-      console.error(`Error during delete operation: ${error}`);
-      throw error;
+      return `서버에서 오류가 발생했습니다. ${error}`;
     }
   }
 
