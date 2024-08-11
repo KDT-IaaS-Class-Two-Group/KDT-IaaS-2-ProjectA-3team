@@ -15,6 +15,7 @@ import {
   usersection,
 } from "client/styles/users/userdashboard.css";
 import CalendarComponent from "../Calendar/calendar";
+import NoticeBoard from "../Notice/NoticeBoard";
 
 const UserMainContent: React.FC = () => {
   return (
@@ -41,7 +42,7 @@ const UserMainContent: React.FC = () => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>noticeboard</div>
-        <div className={cardContent}>asd</div>
+        <NoticeBoard />
       </div>
       <div className={`${usersection} ${companybutton}`}>
         <div className={cardHeader}>출퇴근 버튼</div>
