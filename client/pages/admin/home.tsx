@@ -39,43 +39,38 @@ const Dash: React.FC = () => {
     <div className={mainpagecontainer}>
       <AdminSidebar />
       <div className={contentcontainer}>
-        <MainHeader></MainHeader>
+        <MainHeader />
         <div className={maincontentcontainer}>
           <div className={`${section} ${projectSection}`}>
             <div className={cardContent}>
               <Project />
             </div>
           </div>
-        </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>Requests</div>
-          <CheckUsersCount />
-        </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>User Management</div>
-          <PendingUsersList />
-        </div>
-        <div className={`${section} ${attendanceSection}`}>
-          <div className={cardHeader}>Work Attendance</div>
-          <div className={cardContent}>
-            <Attendance />
+
+          <div className={`${section} ${requestSection}`}>
+            <div className={cardHeader}>Requests</div>
+            <CheckUsersCount />
           </div>
+
           <div className={`${section} ${requestSection}`}>
             <div className={cardHeader}>User Management</div>
-            <div className={cardContent}>Authorize 5 users</div>
+            <PendingUsersList />
           </div>
+
           <div className={`${section} ${attendanceSection}`}>
             <div className={cardHeader}>Work Attendance</div>
             <div className={cardContent}>
               <Attendance />
             </div>
           </div>
+
           <div className={`${section} ${noticeBoardSection}`}>
             <div className={cardHeader}>Notice Board</div>
             <div className={cardContent}>
               <NoticeBoard />
             </div>
           </div>
+
           <div className={`${section} ${databaseGUISection}`}>
             <div className={cardHeader}>Database GUI</div>
             <div className={cardContent}>
