@@ -6,9 +6,10 @@ interface PostProps {
   title: string;
   content: string;
   id: string;
+  createdAt: string;
 }
 
-const Post = ({ title, content, id }: PostProps) => {
+const Post = ({ title, content, id, createdAt }: PostProps) => {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
@@ -79,6 +80,7 @@ const Post = ({ title, content, id }: PostProps) => {
         <div>
           <h1>{title}</h1>
           <p>{content}</p>
+          <p>{createdAt}</p>
           <button onClick={() => setEditMode(true)}>수정</button>
           <button onClick={handleDelete}>삭제</button>
         </div>
@@ -112,6 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         title: post.title,
         content: post.content,
+        createdAt: post.createdAt,
         id: slug
       }
     };
