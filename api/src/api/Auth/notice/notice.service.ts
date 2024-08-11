@@ -292,4 +292,23 @@ export class NoticeService {
     const result = await mongoCollection.insertOne(newComment);
     return result.insertedId;
   }
+
+  async updateComment(postId: string, content: string) {
+    const mongoDatabase = this.client.db('notice');
+    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
+    const result = await mongoCollection.updateOne(
+      { _id: new ObjectId(postId) },
+      { $set: { content } },
+    );
+    return result.modifiedCount > 0;
+  }
+
+  async deleteComment(postId: string) {
+    const mongoDatabase = this.client.db('notice');
+    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
+    const result = await mongoCollection.deleteOne({
+      _id: new ObjectId(postId),
+    });
+    return result.deletedCount > 0;
+  }
 }

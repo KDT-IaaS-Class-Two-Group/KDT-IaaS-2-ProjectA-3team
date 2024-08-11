@@ -102,4 +102,17 @@ export class NoticeController {
     const user_id = session?.user_id;
     return await this.noticeService.createComment(postId, commentDTO, user_id);
   }
+
+  @Put('comments/:postId')
+  async updateComment(
+    @Param('postId') postId: string,
+    @Body('content') content: string,
+  ) {
+    return this.noticeService.updateComment(postId, content);
+  }
+
+  @Delete('comments/:postId')
+  async deleteComment(@Param('postId') postId: string) {
+    return this.noticeService.deleteComment(postId);
+  }
 }
