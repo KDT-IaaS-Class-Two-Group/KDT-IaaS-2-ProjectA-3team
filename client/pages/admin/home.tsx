@@ -10,6 +10,7 @@ import {
   cardContent,
   proceedingButton,
   allTasksButton,
+  maincontentcontainer,
 } from "client/styles/admin/admindashboard.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
@@ -37,35 +38,37 @@ const Dash: React.FC = () => {
       <AdminSidebar />
       <div className={contentcontainer}>
         <MainHeader></MainHeader>
-        <div className={`${section} ${projectSection}`}>
-          <div className={cardContent}>
-            <Project />
+        <div className={maincontentcontainer}>
+          <div className={`${section} ${projectSection}`}>
+            <div className={cardContent}>
+              <Project />
+            </div>
           </div>
-        </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>Requests</div>
-          <div className={cardContent}>Requested by 3 users</div>
-        </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>User Management</div>
-          <div className={cardContent}>Authorize 5 users</div>
-        </div>
-        <div className={`${section} ${attendanceSection}`}>
-          <div className={cardHeader}>Work Attendance</div>
-          <div className={cardContent}>
-            <Attendance />
+          <div className={`${section} ${requestSection}`}>
+            <div className={cardHeader}>Requests</div>
+            <div className={cardContent}>Requested by 3 users</div>
           </div>
-        </div>
-        <div className={`${section} ${noticeBoardSection}`}>
-          <div className={cardHeader}>Notice Board</div>
-          <div className={cardContent}>
-            <NoticeBoard />
+          <div className={`${section} ${requestSection}`}>
+            <div className={cardHeader}>User Management</div>
+            <div className={cardContent}>Authorize 5 users</div>
           </div>
-        </div>
-        <div className={`${section} ${databaseGUISection}`}>
-          <div className={cardHeader}>Database GUI</div>
-          <div className={cardContent}>
-            <DatabaseGUI />
+          <div className={`${section} ${attendanceSection}`}>
+            <div className={cardHeader}>Work Attendance</div>
+            <div className={cardContent}>
+              <Attendance />
+            </div>
+          </div>
+          <div className={`${section} ${noticeBoardSection}`}>
+            <div className={cardHeader}>Notice Board</div>
+            <div className={cardContent}>
+              <NoticeBoard />
+            </div>
+          </div>
+          <div className={`${section} ${databaseGUISection}`}>
+            <div className={cardHeader}>Database GUI</div>
+            <div className={cardContent}>
+              <DatabaseGUI />
+            </div>
           </div>
         </div>
       </div>
