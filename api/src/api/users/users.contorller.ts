@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Req, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Req,
+  Delete,
+  HttpException,
+  HttpStatus,
+  Query, // Query 파라미터 사용을 위해 추가
+} from '@nestjs/common';
 import { Request } from 'express';
 import { QueryBuilder } from 'src/database/queryBuilder';
 
@@ -14,18 +24,155 @@ export class UsersController {
     'phone',
     'email',
   ];
+
   private role_users = ['user_id'];
 
   @Get('/all')
-  async CheckUser(@Body() data) {
+  async CheckUser(@Body() data: any, @Req() req: Request): Promise<any> {
+    const currentUserId = req.session.user?.user_id;
     console.log(data);
-    const obj = this.queryBuilder
+
+    const users = await this.queryBuilder
       .SELECT('users', this.nonePasswordObject)
+      .execution();
+
+    // 각 사용자에 대해 팔로우 상태 확인
+    const userIds = users.map((user) => user.user_id);
+    const followingList = await this.queryBuilder
+      .SELECT('followers', ['following_id'])
+      .WHERE('follower_id = $1 AND following_id = ANY($2)', [
+        currentUserId,
+        userIds,
+      ])
+      .execution();
+
+    const followingIds = new Set(followingList.map((f) => f.following_id));
+
+    // 팔로우 상태 추가
+    const result = users.map((user) => ({
+      ...user,
+      isFollowing: followingIds.has(user.user_id),
+    }));
+
+    return result;
+  }
+
+  @Get('/search')
+  async searchUsers(
+    @Query('query') query: string,
+    @Req() req: Request,
+  ): Promise<any> {
+    if (!query) {
+      throw new HttpException(
+        'Query string is required',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const currentUserId = req.session.user?.user_id;
+    const users = await this.queryBuilder
+      .SELECT('users', ['user_id', 'username', 'email'])
+      .WHERE('username ILIKE $1 OR user_id ILIKE $1', [`%${query}%`])
+      .execution();
+
+    // 각 사용자에 대해 팔로우 상태 확인
+    const userIds = users.map((user) => user.user_id);
+    const followingList = await this.queryBuilder
+      .SELECT('followers', ['following_id'])
+      .WHERE('follower_id = $1 AND following_id = ANY($2)', [
+        currentUserId,
+        userIds,
+      ])
+      .execution();
+
+    const followingIds = new Set(followingList.map((f) => f.following_id));
+
+    // 팔로우 상태 추가
+    const result = users.map((user) => ({
+      ...user,
+      isFollowing: followingIds.has(user.user_id),
+    }));
+
+    return result;
+  }
+
+  @Post('/follow')
+  async followUser(
+    @Body() body: { followerId: string; followingId: string },
+  ): Promise<any> {
+    const { followerId, followingId } = body;
+
+    if (!followerId || !followingId) {
+      throw new HttpException(
+        'Follower ID and Following ID are required',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const existingFollow = await this.queryBuilder
+      .SELECT('followers')
+      .WHERE('follower_id = $1 AND following_id = $2', [
+        followerId,
+        followingId,
+      ])
+      .execution();
+
+    if (existingFollow.length > 0) {
+      return { message: 'Already following this user' };
+    }
+
+    await this.queryBuilder
+      .INSERT('followers', {
+        follower_id: followerId,
+        following_id: followingId,
+      })
+      .execution();
+
+    return { message: 'Followed successfully' };
+  }
+
+  @Post('/unfollow')
+  async unfollowUser(
+    @Body() body: { followerId: string; followingId: string },
+  ): Promise<any> {
+    const { followerId, followingId } = body;
+
+    if (!followerId || !followingId) {
+      throw new HttpException(
+        'Follower ID and Following ID are required',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    await this.queryBuilder
+      .DELETE('followers', 'follower_id = $1 AND following_id = $2', [
+        followerId,
+        followingId,
+      ])
+      .execution();
+
+    return { message: 'Unfollowed successfully' };
+  }
+
+  @Get('/leaders')
+  async CheckLeaders(): Promise<any> {
+    const obj = await this.queryBuilder
+      .SELECT('leader_role_users', this.role_users)
       .execution();
     return obj;
   }
 
-  private async getUserRoleForUser(userId: string) {
+  @Get('/role')
+  async getUserRole(@Req() req: Request): Promise<any> {
+    const userId = req.session.user?.user_id;
+
+    if (!userId) {
+      throw new HttpException(
+        'User not logged in or session expired',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
     const roleTables = [
       'admin_role_users',
       'leader_role_users',
@@ -33,6 +180,18 @@ export class UsersController {
       'employee_role_users',
     ];
 
+    const role = await this.findUserRole(userId, roleTables);
+    if (role) {
+      return { role };
+    }
+
+    throw new HttpException('Role not found for user', HttpStatus.NOT_FOUND);
+  }
+
+  private async findUserRole(
+    userId: string,
+    roleTables: string[],
+  ): Promise<string | null> {
     for (const table of roleTables) {
       const roleQuery = await this.queryBuilder
         .SELECT(table, ['role_name'])
@@ -43,67 +202,30 @@ export class UsersController {
         return roleQuery[0].role_name;
       }
     }
-
-    return 'employee'; // Default role if none found
-  }
-
-  @Get('/leaders')
-  async CheckLeaders() {
-    const obj = this.queryBuilder
-      .SELECT('leader_role_users', this.role_users)
-      .execution();
-    return obj;
-  }
-  @Get('/role')
-  async getUserRole(@Req() req: Request) {
-    const userId = req.session.user?.user_id;
-
-    if (!userId) {
-      throw new Error('User not logged in or session expired');
-    }
-
-    const roleTables = [
-      'admin_role_users',
-      'leader_role_users',
-      'sub_admin_role_users',
-      'employee_role_users',
-    ];
-
-    for (const table of roleTables) {
-      const roleQuery = await this.queryBuilder
-        .SELECT(table, ['role_name'])
-        .WHERE('user_id = $1', [userId])
-        .execution();
-
-      if (roleQuery.length > 0) {
-        return { role: roleQuery[0].role_name };
-      }
-    }
-
-    throw new Error('Role not found for user');
+    return null;
   }
 
   @Get('/members')
-  async CheckMembers() {
-    const obj = this.queryBuilder
+  async CheckMembers(): Promise<any> {
+    const obj = await this.queryBuilder
       .SELECT('employee_role_users', this.role_users)
       .execution();
     return obj;
   }
 
   @Get('/pending')
-  async CheckPendingUser() {
-    const obj = this.queryBuilder
+  async CheckPendingUser(): Promise<any> {
+    const obj = await this.queryBuilder
       .SELECT('pending_users', this.nonePasswordObject)
       .execution();
     return obj;
   }
 
   @Get('/userpersonal')
-  async UserPersonal(@Req() req: Request) {
-    const se = req.session.user?.user_id;
-    console.log(se);
-    if (se) {
+  async UserPersonal(@Req() req: Request): Promise<any> {
+    const userId = req.session.user?.user_id;
+
+    if (userId) {
       try {
         const obj = await this.queryBuilder
           .SELECT('users', [
@@ -113,51 +235,56 @@ export class UsersController {
             'address',
             'phone',
             'email',
-            'password',
           ])
-          .WHERE('user_id = $1', [se]) // 'se'를 매개 변수로 전달
+          .WHERE('user_id = $1', [userId])
           .execution();
         return obj;
       } catch (error) {
-        console.error('서버에서 오류 발생:', error);
-        throw new Error('서버에서 오류 발생');
+        console.error('Server error occurred:', error);
+        throw new HttpException(
+          'Server error occurred',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
       }
     } else {
-      return { message: '세션 아이디가 없습니다.' };
+      throw new HttpException('No session ID found', HttpStatus.UNAUTHORIZED);
     }
   }
 
   @Get('/userprofile')
-  async UserProfile() {
+  async UserProfile(): Promise<any> {
     const obj = await this.queryBuilder.SELECT('Profile').execution();
     return obj;
   }
 
   @Get('/fields')
-  async GetFields() {
+  async GetFields(): Promise<any> {
     const fields = await this.queryBuilder
       .SELECT('field', 'field_name')
       .execution();
     return fields;
   }
+
   @Get('/checkusers/count')
-  async getCheckUsersCount() {
+  async getCheckUsersCount(): Promise<any> {
     try {
-      // checkusers 테이블에서 전체 데이터 개수를 조회
       const countResult = await this.queryBuilder
-        .SELECT('checkusers', ['COUNT(*)']) // 테이블 이름과 컬럼을 함께 지정
+        .SELECT('checkusers', ['COUNT(*)'])
         .execution();
 
-      const count = countResult[0].count; // 조회된 개수 가져오기
+      const count = countResult[0].count;
       return { count: parseInt(count, 10) };
     } catch (error) {
-      console.error('사용자 정보 개수 조회 오류:', error);
-      return { message: '사용자 정보 개수 조회 실패' };
+      console.error('Error fetching user count:', error);
+      throw new HttpException(
+        'Failed to fetch user count',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   @Post('/all')
-  async SaveUsers(@Body() body: any) {
+  async SaveUsers(@Body() body: any): Promise<any> {
     const users = body.users;
     try {
       const roles = ['admin', 'leader', 'sub_admin', 'employee'];
@@ -172,27 +299,35 @@ export class UsersController {
             .execution();
         }
       }
+
       for (const user of users) {
         if (!user.user_id) {
-          throw new Error(`사용자 ID가 없습니다: ${JSON.stringify(user)}`);
+          throw new HttpException(
+            `User ID is missing: ${JSON.stringify(user)}`,
+            HttpStatus.BAD_REQUEST,
+          );
         }
 
         const salary = parseInt(user.salary, 10);
         if (isNaN(salary)) {
-          throw new Error(`유효하지 않은 급여 값: ${user.salary}`);
+          throw new HttpException(
+            `Invalid salary value: ${user.salary}`,
+            HttpStatus.BAD_REQUEST,
+          );
         }
         console.log(`Updating user_id: ${user.user_id} with salary: ${salary}`);
         const existingUser = await this.queryBuilder
           .SELECT('users_salary')
-          .WHERE('user_id = $1', user.user_id)
+          .WHERE('user_id = $1', [user.user_id])
           .execution();
 
         if (existingUser.length > 0) {
           await this.queryBuilder
-            .UPDATE('users_salary', { salary: salary }, 'user_id = $1')
+            .UPDATE('users_salary', { salary: salary }, 'user_id = $1', [
+              user.user_id,
+            ])
             .execution();
         } else {
-          // 새로운 사용자인 경우 추가
           await this.queryBuilder
             .INSERT('users_salary', {
               user_id: user.user_id,
@@ -200,7 +335,7 @@ export class UsersController {
             })
             .execution();
         }
-        // 분야 정보 저장
+
         if (user.field_name) {
           const existingField = await this.queryBuilder
             .SELECT('relation_users_field_name')
@@ -211,7 +346,6 @@ export class UsersController {
             .execution();
 
           if (existingField.length === 0) {
-            // 새로운 분야 정보 추가
             await this.queryBuilder
               .INSERT('relation_users_field_name', {
                 user_id: user.user_id,
@@ -220,7 +354,7 @@ export class UsersController {
               .execution();
           }
         }
-        // 권한 정보 저장
+
         const roleName = roles.includes(user.role_name)
           ? user.role_name
           : 'employee';
@@ -244,11 +378,10 @@ export class UsersController {
 
         const existingRole = await this.queryBuilder
           .SELECT(roleTable)
-          .WHERE('user_id = $1', user.user_id)
+          .WHERE('user_id = $1', [user.user_id])
           .execution();
 
         if (existingRole.length === 0) {
-          // 새로운 역할 정보 추가
           await this.queryBuilder
             .INSERT(roleTable, {
               user_id: user.user_id,
@@ -257,44 +390,88 @@ export class UsersController {
             .execution();
         }
       }
-      return { message: '사용자 정보 저장 완료' };
+      return { message: 'User information saved successfully' };
     } catch (error) {
-      console.error('사용자 정보 저장 실패:', error);
-      return { error: '사용자 정보 저장 실패' };
+      console.error('Failed to save user information:', error);
+      throw new HttpException(
+        'Failed to save user information',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
-  @Post('/checkTeamName')
-  async checkTeamName(@Body() body: { team_name: string }) {
-    const { team_name } = body;
+
+  @Post('/clockin')
+  async clockIn(@Body() body: { userId: string }): Promise<any> {
+    const { userId } = body;
+    const now = new Date();
     try {
-      const existingTeam = await this.queryBuilder
+      console.log('ClockIn started for userId:', userId);
+
+      const result = await this.queryBuilder
+        .INSERT('work_table', {
+          user_id: userId,
+          startTime: now,
+        })
+        .execution();
+
+      console.log('Insert result:', result);
+
+      return { message: 'Clock-in successful.', result };
+    } catch (error) {
+      console.error('Clock-in error:', error);
+      throw new HttpException(
+        'Clock-in failed',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post('/clockout')
+  async clockOut(@Body() body: { userId: string }): Promise<any> {
+    const { userId } = body;
+
+    try {
+      console.log('ClockOut started for userId:', userId);
+
+      const result = await this.queryBuilder
+        .UPDATE(
+          'work_table',
+          { endTime: new Date() }, // endTime 필드를 TIMESTAMP로 저장
+          'user_id = $2 AND endTime IS NULL',
+          [userId], // 조건 파라미터로 userId 전달
+        )
+        .execution();
+
+      console.log('Update result:', result);
+
+      if (result.length === 0) {
+        return { message: 'No clock-in record found or already clocked out.' };
+      }
+
+      return { message: 'Clock-out successful.', result };
+    } catch (error) {
+      console.error('Clock-out error:', error);
+      throw new HttpException(
+        'Clock-out failed',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post('/saveTeam')
+  async saveTeam(@Body() body: any): Promise<any> {
+    const { team_name, description, teamLeader, teamMembers } = body;
+
+    try {
+      const teamExists = await this.queryBuilder
         .SELECT('Team', 'team_name')
         .WHERE('team_name = $1', [team_name])
         .execution();
 
-      return { exists: existingTeam.length > 0 };
-    } catch (error) {
-      console.error('팀 이름 중복 체크 실패:', error);
-      throw new Error('팀 이름 중복 체크 실패');
-    }
-  }
-  @Post('/saveTeam')
-  async saveTeam(@Body() body: any) {
-    const { team_name, description, teamLeader, teamMembers } = body;
-
-    try {
-      // 팀 이름이 이미 존재하는지 확인
-      const teamExists = await this.queryBuilder
-        .SELECT('Team', 'team_name')
-        .WHERE('team_name = $1', team_name)
-        .execution();
-
       if (teamExists.length > 0) {
-        // 팀 이름이 이미 존재하는 경우
-        return { error: '팀 이름이 이미 존재합니다.' };
+        return { error: 'Team name already exists.' };
       }
 
-      // 팀 정보 저장
       await this.queryBuilder
         .INSERT('Team', {
           team_name,
@@ -302,7 +479,6 @@ export class UsersController {
         })
         .execution();
 
-      // 팀장 저장
       if (teamLeader) {
         await this.queryBuilder
           .INSERT('relation_team_users', {
@@ -313,7 +489,6 @@ export class UsersController {
           .execution();
       }
 
-      // 팀원 저장
       for (const member of teamMembers) {
         await this.queryBuilder
           .INSERT('relation_team_users', {
@@ -324,61 +499,76 @@ export class UsersController {
           .execution();
       }
 
-      return { message: '팀 정보와 구성원이 성공적으로 저장되었습니다.' };
+      return { message: 'Team and members saved successfully.' };
     } catch (error) {
-      console.error('팀 정보 저장 실패:', error);
-      return { error: '팀 정보 저장 실패' };
+      console.error('Failed to save team:', error);
+      throw new HttpException(
+        'Failed to save team',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
+
   @Post('/saveProfile')
-  async SaveProfile(@Body() body: any) {
+  async SaveProfile(@Body() body: any): Promise<any> {
     const { user_id, bio } = body;
 
     try {
       const existingProfile = await this.queryBuilder
         .SELECT('Profile')
-        .WHERE('user_id = $1::VARCHAR', user_id)
+        .WHERE('user_id = $1::VARCHAR', [user_id])
         .execution();
 
       if (existingProfile.length > 0) {
         await this.queryBuilder
-          .UPDATE('Profile', { bio: bio }, 'user_id = $1')
+          .UPDATE('Profile', { bio: bio }, 'user_id = $1', [user_id])
           .execution();
       } else {
         await this.queryBuilder
           .INSERT('Profile', { user_id: user_id, bio: bio })
           .execution();
       }
-      return { message: '프로필 정보 저장 완료' };
+      return { message: 'Profile saved successfully.' };
     } catch (error) {
-      console.error('프로필 정보 저장 실패:', error);
-      return { error: '프로필 정보 저장 실패' };
+      console.error('Failed to save profile:', error);
+      throw new HttpException(
+        'Failed to save profile',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
+
   @Post('/updateuser')
-  async updateUser(@Body() data: any) {
+  async updateUser(@Body() data: any): Promise<any> {
     const { user_id, ...fields } = data;
     if (!user_id) {
-      return { message: '사용자 ID가 필요합니다.' };
+      throw new HttpException('User ID is required.', HttpStatus.BAD_REQUEST);
     }
 
     try {
       await this.queryBuilder
-        .UPDATE('checkusers', fields, 'user_id = $1')
+        .UPDATE('checkusers', fields, 'user_id = $1', [user_id])
         .execution();
-      console.log('사용자 정보 업데이트 완료');
-      return { message: '사용자 정보가 업데이트되었습니다.' };
+      console.log('User information updated successfully');
+      return { message: 'User information updated successfully.' };
     } catch (error) {
-      console.error('사용자 정보 업데이트 오류:', error);
-      return { message: '사용자 정보 업데이트 실패' };
+      console.error('Error updating user information:', error);
+      throw new HttpException(
+        'Failed to update user information',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
+
   @Post('/insertuser')
-  async insertUser(@Body() data: any) {
+  async insertUser(@Body() data: any): Promise<any> {
     const { username, birth_date, address, phone, email, password, user_id } =
       data;
     if (!user_id || !username || !password) {
-      return { message: '사용자 ID, 이름, 비밀번호는 필수 항목입니다.' };
+      throw new HttpException(
+        'User ID, username, and password are required.',
+        HttpStatus.BAD_REQUEST,
+      );
     }
     try {
       await this.queryBuilder
@@ -392,32 +582,38 @@ export class UsersController {
           user_id,
         })
         .execution();
-      console.log('사용자 추가 완료');
-      return { message: '사용자가 추가되었습니다.' };
+      console.log('User added successfully');
+      return { message: 'User added successfully.' };
     } catch (error) {
-      console.error('사용자 추가 오류:', error);
-      return { message: '사용자 추가 실패' };
+      console.error('Error adding user:', error);
+      throw new HttpException(
+        'Failed to add user',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
+
   @Get('/checkprofile')
-  async getCheckProfile() {
+  async getCheckProfile(): Promise<any> {
     try {
-      // checkusers 테이블에서 모든 사용자 정보 조회
       const checkUsers = await this.queryBuilder
         .SELECT('checkusers')
         .execution();
       return checkUsers;
     } catch (error) {
-      console.error('사용자 정보 조회 오류:', error);
-      return { message: '사용자 정보 조회 실패' };
+      console.error('Error fetching user profiles:', error);
+      throw new HttpException(
+        'Failed to fetch user profiles',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   @Post('/accept')
-  async acceptChanges(@Body() body: any) {
+  async acceptChanges(@Body() body: any): Promise<any> {
     const { user_id } = body;
     if (!user_id) {
-      return { message: '사용자 ID가 필요합니다.' };
+      throw new HttpException('User ID is required.', HttpStatus.BAD_REQUEST);
     }
     try {
       const checkUser = await this.queryBuilder
@@ -426,7 +622,7 @@ export class UsersController {
         .execution();
 
       if (checkUser.length === 0) {
-        return { message: '변경 요청이 없습니다.' };
+        return { message: 'No changes to accept.' };
       }
 
       await this.queryBuilder
@@ -441,36 +637,42 @@ export class UsersController {
             email: checkUser[0].email,
             password: checkUser[0].password,
           },
-          'user_id = $8',
+          'user_id = $1',
+          [checkUser[0].user_id],
         )
-        .ADD_PARAM(checkUser[0].user_id) // 추가된 메서드를 통해 매개변수 추가
         .execution();
 
       await this.queryBuilder
-        .DELETE('checkusers', 'user_id = $1', user_id)
+        .DELETE('checkusers', 'user_id = $1', [user_id])
         .execution();
 
-      return { message: '사용자 정보가 업데이트되었습니다.' };
+      return { message: 'User information updated successfully.' };
     } catch (error) {
-      console.error('사용자 정보 업데이트 오류:', error);
-      return { message: '사용자 정보 업데이트 실패' };
+      console.error('Error accepting changes:', error);
+      throw new HttpException(
+        'Failed to accept changes',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   @Delete('/reject')
-  async rejectChanges(@Body() body: any) {
+  async rejectChanges(@Body() body: any): Promise<any> {
     const { user_id } = body;
     if (!user_id) {
-      return { message: '사용자 ID가 필요합니다.' };
+      throw new HttpException('User ID is required.', HttpStatus.BAD_REQUEST);
     }
     try {
       await this.queryBuilder
-        .DELETE('checkusers', 'user_id = $1', user_id)
+        .DELETE('checkusers', 'user_id = $1', [user_id])
         .execution();
-      return { message: '변경 요청이 거부되었습니다.' };
+      return { message: 'Change request rejected successfully.' };
     } catch (error) {
-      console.error('변경 요청 거부 오류:', error);
-      return { message: '변경 요청 거부 실패' };
+      console.error('Error rejecting change request:', error);
+      throw new HttpException(
+        'Failed to reject change request',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }
