@@ -17,43 +17,35 @@ export class UsersController {
   private role_users = ['user_id'];
 
   @Get('/all')
-async CheckUser(@Req() req: Request) {
-    const usersWithRoles = [];
+  async CheckUser(@Body() data) {
+    console.log(data);
+    const obj = this.queryBuilder
+      .SELECT('users', this.nonePasswordObject)
+      .execution();
+    return obj;
+  }
 
-    const users = await this.queryBuilder
-        .SELECT('users', ['user_id', 'username'])
-        .execution();
-
-    for (const user of users) {
-        const userRole = await this.getUserRoleForUser(user.user_id);
-        usersWithRoles.push({ ...user, role_name: userRole });
-    }
-
-    return usersWithRoles;
-}
-
-private async getUserRoleForUser(userId: string) {
+  private async getUserRoleForUser(userId: string) {
     const roleTables = [
-        'admin_role_users',
-        'leader_role_users',
-        'sub_admin_role_users',
-        'employee_role_users'
+      'admin_role_users',
+      'leader_role_users',
+      'sub_admin_role_users',
+      'employee_role_users',
     ];
 
     for (const table of roleTables) {
-        const roleQuery = await this.queryBuilder
-            .SELECT(table, ['role_name'])
-            .WHERE('user_id = $1', [userId])
-            .execution();
+      const roleQuery = await this.queryBuilder
+        .SELECT(table, ['role_name'])
+        .WHERE('user_id = $1', [userId])
+        .execution();
 
-        if (roleQuery.length > 0) {
-            return roleQuery[0].role_name;
-        }
+      if (roleQuery.length > 0) {
+        return roleQuery[0].role_name;
+      }
     }
 
     return 'employee'; // Default role if none found
-}
-
+  }
 
   @Get('/leaders')
   async CheckLeaders() {
@@ -63,38 +55,34 @@ private async getUserRoleForUser(userId: string) {
     return obj;
   }
   @Get('/role')
-async getUserRole(@Req() req: Request) {
+  async getUserRole(@Req() req: Request) {
     const userId = req.session.user?.user_id;
 
     if (!userId) {
-        throw new Error('User not logged in or session expired');
+      throw new Error('User not logged in or session expired');
     }
 
     const roleTables = [
-        'admin_role_users',
-        'leader_role_users',
-        'sub_admin_role_users',
-        'employee_role_users'
+      'admin_role_users',
+      'leader_role_users',
+      'sub_admin_role_users',
+      'employee_role_users',
     ];
 
     for (const table of roleTables) {
-        const roleQuery = await this.queryBuilder
-            .SELECT(table, ['role_name'])
-            .WHERE('user_id = $1', [userId])
-            .execution();
+      const roleQuery = await this.queryBuilder
+        .SELECT(table, ['role_name'])
+        .WHERE('user_id = $1', [userId])
+        .execution();
 
-        if (roleQuery.length > 0) {
-            return { role: roleQuery[0].role_name };
-        }
+      if (roleQuery.length > 0) {
+        return { role: roleQuery[0].role_name };
+      }
     }
 
     throw new Error('Role not found for user');
-}
+  }
 
-
-
-
-  
   @Get('/members')
   async CheckMembers() {
     const obj = this.queryBuilder
@@ -127,7 +115,7 @@ async getUserRole(@Req() req: Request) {
             'email',
             'password',
           ])
-          .WHERE('user_id = $1')
+          .WHERE('user_id = $1', [se]) // 'se'를 매개 변수로 전달
           .execution();
         return obj;
       } catch (error) {
@@ -432,15 +420,15 @@ async getUserRole(@Req() req: Request) {
       return { message: '사용자 ID가 필요합니다.' };
     }
     try {
-      // checkusers 테이블에서 사용자 정보 조회
       const checkUser = await this.queryBuilder
         .SELECT('checkusers')
-        .WHERE('user_id = $1', user_id)
+        .WHERE('user_id = $1', [user_id])
         .execution();
+
       if (checkUser.length === 0) {
         return { message: '변경 요청이 없습니다.' };
       }
-      // users 테이블의 데이터 업데이트
+
       await this.queryBuilder
         .UPDATE(
           'users',
@@ -453,14 +441,15 @@ async getUserRole(@Req() req: Request) {
             email: checkUser[0].email,
             password: checkUser[0].password,
           },
-          'user_id = $1',
+          'user_id = $8',
         )
+        .ADD_PARAM(checkUser[0].user_id) // 추가된 메서드를 통해 매개변수 추가
         .execution();
 
-      // checkusers 테이블에서 사용자 정보 삭제
       await this.queryBuilder
         .DELETE('checkusers', 'user_id = $1', user_id)
         .execution();
+
       return { message: '사용자 정보가 업데이트되었습니다.' };
     } catch (error) {
       console.error('사용자 정보 업데이트 오류:', error);
