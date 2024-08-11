@@ -10,13 +10,17 @@ import DBGUI from "../dbGUI/databaseGUI";
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
+
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
   const handleMenuItemClick = (component: React.ReactNode) => {
     onMenuItemClick(component);
   };
+
   const handleLogoClick = () => {
-    onMenuItemClick(<AdminMainContent onclick={() => {}} />);
+    // onClick 핸들러를 적절히 설정합니다.
+    onMenuItemClick(<AdminMainContent onclick={handleMenuItemClick} />);
   };
+
   return (
     <div className={styles.mainpagecontainer}>
       <div className={styles.sidebarcontainer}>
@@ -53,6 +57,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
     </div>
   );
 };
+
 const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
   text,
   onClick,
@@ -64,4 +69,5 @@ const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
     </li>
   );
 };
+
 export default AdminSidebar;
