@@ -8,9 +8,11 @@ interface PostProps {
   title: string;
   content: string;
   id: string;
+  createdAt: string;
+  userId: string;
 }
 
-const Post = ({ title, content, id }: PostProps) => {
+const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
@@ -43,7 +45,7 @@ const Post = ({ title, content, id }: PostProps) => {
       credentials: 'include',
     })
     .then((response) => {
-        return response.text();
+      return response.text();
     })
     .then((data) => {
         alert(data);
@@ -80,18 +82,24 @@ const Post = ({ title, content, id }: PostProps) => {
         </div>
       ) : (
         <div>
-          <h1>{title}</h1>
-          <p>{content}</p>
-          <button onClick={() => setEditMode(true)}>수정</button>
-          <button onClick={handleDelete}>삭제</button>
+          <div>
+            <h1>{title}</h1>
+            <p>{content}</p>
+            <p>{createdAt}</p>
+            <p>{userId}</p>
+            <button onClick={() => setEditMode(true)}>수정</button>
+            <button onClick={handleDelete}>삭제</button>
+          </div>
+          <div>
+            <CommentForm  postId={id as string}/>
+          </div>
         </div>
       )}
       <div>
         <button onClick={back}>뒤로가기</button>
       </div>
-      <div>
-        <CommentForm  postId={id as string}/>
-      </div>
+
+      
     </div>
   );
 };
@@ -118,7 +126,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         title: post.title,
         content: post.content,
-        id: slug
+        createdAt: post.createdAt,
+        userId: post.user_id,
+        id: slug,
       }
     };
   } catch (error) {

@@ -28,7 +28,7 @@ export class NoticeService {
   }
 
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
-    if (role === 'employee') {
+    if (role === 'employee' || role === 'leader') {
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
         mongoDatabase.collection<NoticeDTO>('noticeTable');
@@ -55,7 +55,7 @@ export class NoticeService {
         custom,
       ]);
       return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
-    } else if (role === 'admin') {
+    } else if (role === 'admin' || role === 'sub_admin') {
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
         mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
@@ -97,8 +97,8 @@ export class NoticeService {
       .db('notice')
       .collection<NoticeDTO>('noticeAuthTable');
 
-    // 최신순으로 5개만 반환
-    return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
+    // 최신순으로 3개만 반환
+    return await mongoCollection.find().sort({ _id: -1 }).limit(3).toArray();
   }
 
   async getAuthAllNotices(page: number, limit: number) {
@@ -125,50 +125,69 @@ export class NoticeService {
     user_id: string,
     role: string,
   ) {
-    if (role === 'employee') {
-      console.log(user_id);
+    try {
       const mongoDd = this.client.db('notice');
-      const mongoCollection = mongoDd.collection<NoticeDTO>('noticeTable');
-      const notice = await mongoCollection.findOne({ _id: new ObjectId(id) });
-      const currentDate = new Date();
-      const custom = dateSet(currentDate);
-      const updateSet = {
-        ...noticeDTO,
-        updatedAt: custom,
-      };
-      if (user_id === notice.user_id) {
-        await mongoCollection.findOneAndUpdate(
-          { _id: new ObjectId(id) },
-          { $set: updateSet },
-          { returnDocument: 'after' }, // 업데이트 후 문서 반환
-        );
-        const mongodb_doc_id = notice._id.toString();
-        const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`;
-        await this.pgPool.query(insert, [
-          user_id,
-          noticeDTO.title,
-          noticeDTO.content,
-          mongodb_doc_id,
-          notice.createdAt,
-          custom,
-        ]);
-        return `수정 성공`;
-      } else {
-        return `수정 실패`;
-      }
-    } else if (role === 'admin') {
-      const mongoDd = this.client.db('notice');
-      const mongoCollection = mongoDd.collection<NoticeDTO>('noticeAuthTable');
+      const mongoUserCollection = mongoDd.collection<NoticeDTO>('noticeTable');
+      const mongoAuthCollection =
+        mongoDd.collection<NoticeDTO>('noticeAuthTable');
 
-      // 업데이트 후 문서 반환
-      await mongoCollection.findOneAndUpdate(
-        { _id: new ObjectId(id) },
-        { $set: noticeDTO },
-        { returnDocument: 'after' }, // 업데이트 후 문서 반환
-      );
-      return `수정 성공`;
+      const userNotice = await mongoUserCollection.findOne({
+        _id: new ObjectId(id),
+      });
+      let authNotice = null;
+
+      if (!userNotice) {
+        authNotice = await mongoAuthCollection.findOne({
+          _id: new ObjectId(id),
+        });
+      }
+
+      if (userNotice) {
+        if (role === 'employee' || role === 'leader') {
+          const currentDate = new Date();
+          const custom = dateSet(currentDate);
+          const updateSet = {
+            ...noticeDTO,
+            updatedAt: custom,
+          };
+
+          if (user_id === userNotice.user_id) {
+            await mongoUserCollection.findOneAndUpdate(
+              { _id: new ObjectId(id) },
+              { $set: updateSet },
+              { returnDocument: 'after' },
+            );
+
+            const mongodb_doc_id = userNotice._id.toString();
+            const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`;
+            await this.pgPool.query(insert, [
+              user_id,
+              noticeDTO.title,
+              noticeDTO.content,
+              mongodb_doc_id,
+              userNotice.createdAt,
+              custom,
+            ]);
+            return `수정 성공`;
+          }
+          return `수정 실패`;
+        }
+      } else if (authNotice) {
+        if (role === 'admin' || role === 'sub_admin') {
+          await mongoAuthCollection.findOneAndUpdate(
+            { _id: new ObjectId(id) },
+            { $set: noticeDTO },
+            { returnDocument: 'after' },
+          );
+          return `수정 성공`;
+        }
+        return `공지사항 수정 권한이 없습니다.`;
+      }
+
+      return `수정 실패`;
+    } catch (error) {
+      return `서버에서 오류가 발생했습니다. ${error}`;
     }
-    return `수정 실패`;
   }
 
   async deleteNotice(id: string, user_id: string, role: string) {
@@ -181,11 +200,7 @@ export class NoticeService {
         _id: new ObjectId(id),
       });
 
-      if (role === 'employee') {
-        if (!notice) {
-          throw new NotFoundException('Notice not found in user table');
-        }
-
+      if (role === 'employee' || role === 'leader') {
         const noticeUserId = notice.user_id;
         if (user_id === noticeUserId) {
           const result = await mongoUserCollection.deleteOne({
@@ -210,7 +225,7 @@ export class NoticeService {
         } else {
           return `삭제 실패`;
         }
-      } else if (role === 'admin') {
+      } else if (role === 'admin' || role === 'sub_admin') {
         // 관리자 역할일 때
         if (!notice) {
           // 사용자의 notice가 없으면 관리자 테이블에서 찾기
@@ -234,33 +249,37 @@ export class NoticeService {
             throw new NotFoundException('Notice not found in auth table');
           }
 
-          return `Delete successful ${id}`;
+          return `삭제 성공`;
         }
       }
-
       return `삭제 실패`; // 역할이 admin이나 employee가 아니면 삭제 실패
     } catch (error) {
-      console.error(`Error during delete operation: ${error}`);
-      throw error;
+      return `서버에서 오류가 발생했습니다. ${error}`;
     }
   }
 
   async getUserhNotices(postId: string, page: number, limit: number) {
     const mongoDatabase = this.client.db('notice');
-    const mongoCollection =
-      mongoDatabase.collection<CommentDTO>('comments');
+    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
     const totalCount = await mongoCollection.countDocuments({ postId });
-    const result = await mongoCollection.find({ postId }).sort({ _id: -1 }).skip((page - 1) * limit).limit(limit).toArray();
+    const result = await mongoCollection
+      .find({ postId })
+      .sort({ _id: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .toArray();
     const totalPages = Math.ceil(totalCount / limit);
     return { comments: result, totalPages };
   }
 
   async createComment(postId: string, commentDTO: CommentDTO, user_id: string) {
     const mongoDatabase = this.client.db('notice');
-    const mongoCollection =
-      mongoDatabase.collection<CommentDTO>('comments');
+    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
     const sessionId = user_id;
-    const userResult = await this.pgPool.query('SELECT user_id FROM users WHERE user_id = $1', [sessionId]);
+    const userResult = await this.pgPool.query(
+      `SELECT user_id FROM users WHERE user_id = $1`,
+      [sessionId],
+    );
     const userId = userResult.rows[0].user_id;
     const currentDate = new Date();
     const custom = dateSet(currentDate);
