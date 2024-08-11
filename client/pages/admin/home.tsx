@@ -30,6 +30,8 @@ import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.
 import { requestSection } from "client/styles/admin/requests/requests.css";
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
 import MainHeader from "client/components/common/header/mainheader";
+import PendingUsersList from "client/components/PendingUsersList";
+import CheckUsersCount from "client/components/checktest";
 fullRowSection;
 const Dash: React.FC = () => {
   return (
@@ -44,11 +46,11 @@ const Dash: React.FC = () => {
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>Requests</div>
-          <div className={cardContent}>Requested by 3 users</div>
+          <CheckUsersCount />
         </div>
         <div className={`${section} ${requestSection}`}>
           <div className={cardHeader}>User Management</div>
-          <div className={cardContent}>Authorize 5 users</div>
+          <PendingUsersList />
         </div>
         <div className={`${section} ${attendanceSection}`}>
           <div className={cardHeader}>Work Attendance</div>
