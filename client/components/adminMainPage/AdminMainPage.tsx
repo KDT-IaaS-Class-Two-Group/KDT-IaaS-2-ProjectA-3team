@@ -24,29 +24,38 @@ import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.
 import { requestSection } from "client/styles/admin/requests/requests.css";
 import PendingUsersList from "client/components/PendingUsersList";
 import CheckUsersCount from "client/components/checktest";
+import Button from "../common/elements/button";
+interface AdminMainContentProps {
+  onclick: (component: React.ReactNode) => void;
+}
 
-const AdminMainContent: React.FC = () => {
+const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
   return (
     <div className={maincontentcontainer}>
       <div className={`${section} ${projectSection}`}>
         <div className={cardContent}>
+          <Button onClick={() => onclick(<Project />)} />
           <Project />
         </div>
       </div>
 
       <div className={`${section} ${requestSection}`}>
         <div className={cardHeader}>User Requests</div>
+        <Button onClick={() => onclick(<CheckUsersCount />)} />
+
         <CheckUsersCount />
       </div>
 
       <div className={`${section} ${requestSection}`}>
         <div className={cardHeader}>User Sign up Management</div>
+        <Button onClick={() => onclick(<PendingUsersList />)} />
         <PendingUsersList />
       </div>
 
       <div className={`${section} ${attendanceSection}`}>
         <div className={cardHeader}>Work Attendance</div>
         <div className={cardContent}>
+          <Button onClick={() => onclick(<Attendance />)} />
           <Attendance />
         </div>
       </div>
@@ -54,6 +63,7 @@ const AdminMainContent: React.FC = () => {
       <div className={`${section} ${noticeBoardSection}`}>
         <div className={cardHeader}>Notice Board</div>
         <div className={cardContent}>
+          <Button onClick={() => onclick(<NoticeBoard />)} />
           <NoticeBoard />
         </div>
       </div>
@@ -61,10 +71,12 @@ const AdminMainContent: React.FC = () => {
       <div className={`${section} ${databaseGUISection}`}>
         <div className={cardHeader}>Database GUI</div>
         <div className={cardContent}>
+          <Button onClick={() => onclick(<DatabaseGUI />)} />
           <DatabaseGUI />
         </div>
       </div>
     </div>
   );
 };
+
 export default AdminMainContent;

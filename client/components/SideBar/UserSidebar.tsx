@@ -18,7 +18,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
 
   // 로고 클릭 시 호출되는 함수
   const handleLogoClick = () => {
-    onMenuItemClick(<UserMainContent />);
+    onMenuItemClick(<UserMainContent onclick={() => {}} />);
   };
   return (
     <div className={styles.mainpagecontainer}>

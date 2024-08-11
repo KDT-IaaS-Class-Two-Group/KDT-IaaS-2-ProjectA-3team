@@ -16,8 +16,12 @@ import {
 } from "client/styles/users/userdashboard.css";
 import CalendarComponent from "../Calendar/calendar";
 import NoticeBoard from "../Notice/NoticeBoard";
+import Button from "../common/elements/button";
+interface UserMainContentProps {
+  onclick: (component: React.ReactNode) => void;
+}
 
-const UserMainContent: React.FC = () => {
+const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
   return (
     <>
       <div className={`${usersection} ${favsection}`}>
@@ -42,6 +46,7 @@ const UserMainContent: React.FC = () => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>noticeboard</div>
+        <Button onClick={() => onclick(<NoticeBoard />)} />
         <NoticeBoard />
       </div>
       <div className={`${usersection} ${companybutton}`}>

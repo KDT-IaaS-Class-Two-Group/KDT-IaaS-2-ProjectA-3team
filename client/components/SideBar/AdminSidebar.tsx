@@ -7,22 +7,16 @@ import AdminMainContent from "../adminMainPage/AdminMainPage";
 import ProjectView from "../project/info";
 import NoticeMainPage from "../Notice/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
-
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
-
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
-  // 메뉴 아이템 클릭 시 호출되는 함수
   const handleMenuItemClick = (component: React.ReactNode) => {
     onMenuItemClick(component);
   };
-
-  // 로고 클릭 시 호출되는 함수
   const handleLogoClick = () => {
-    onMenuItemClick(<AdminMainContent />);
+    onMenuItemClick(<AdminMainContent onclick={() => {}} />);
   };
-
   return (
     <div className={styles.mainpagecontainer}>
       <div className={styles.sidebarcontainer}>
@@ -59,8 +53,6 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
     </div>
   );
 };
-
-// 메뉴 항목 컴포넌트
 const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
   text,
   onClick,
@@ -72,5 +64,4 @@ const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
     </li>
   );
 };
-
 export default AdminSidebar;
