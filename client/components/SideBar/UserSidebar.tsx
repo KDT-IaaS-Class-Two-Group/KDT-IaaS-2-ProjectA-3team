@@ -3,6 +3,8 @@ import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../userMainPage/UserMainPage";
+import NoticeMainPage from "../Notice/noticeMain";
+import UserPersonal from "../users/userpersonal";
 
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
@@ -40,11 +42,11 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
               />
               <MenuItem
                 text="게시판"
-                onClick={() => handleMenuItemClick(<NoticeBoard />)}
+                onClick={() => handleMenuItemClick(<NoticeMainPage />)}
               />
               <MenuItem
                 text="개인정보 조회"
-                onClick={() => handleMenuItemClick(<UserProfile />)}
+                onClick={() => handleMenuItemClick(<UserPersonal />)}
               />
             </ul>
           </nav>
