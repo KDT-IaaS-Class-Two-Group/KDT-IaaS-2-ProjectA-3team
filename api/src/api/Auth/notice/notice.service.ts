@@ -28,7 +28,7 @@ export class NoticeService {
   }
 
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
-    if (role === 'employee') {
+    if (role === 'employee' || role === 'leader') {
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
         mongoDatabase.collection<NoticeDTO>('noticeTable');
@@ -55,7 +55,7 @@ export class NoticeService {
         custom,
       ]);
       return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
-    } else if (role === 'admin') {
+    } else if (role === 'admin' || role === 'sub_admin') {
       const mongoDatabase = this.client.db('notice');
       const mongoCollection =
         mongoDatabase.collection<NoticeDTO>('noticeAuthTable');
