@@ -21,21 +21,20 @@ export class QueryBuilder {
 
   async execution() {
     try {
-      console.log('Executing query:', this.queryString); // 쿼리 문자열 출력
-      console.log('With params:', this.params); // 쿼리 파라미터 출력
+      console.log('Executing query:', this.queryString);
+      console.log('With params:', this.params);
       const result = await this.databaseService.query(
         this.queryString,
         this.params,
       );
       return result.rows;
     } catch (error) {
-      console.error('Failed execution :', error); // 오류 출력
+      console.error('Failed execution :', error);
       throw new Error('database Error');
     }
   }
 
   SELECT(tableName: string, columns: columns = '*') {
-    console.log(columns);
     this.RESET();
     if (Array.isArray(columns)) {
       this.queryString = `SELECT ${columns.join(', ')} FROM ${tableName}`;
@@ -46,6 +45,7 @@ export class QueryBuilder {
     }
     return this;
   }
+
   AND(condition: string, values: any[] = []) {
     if (values.length > 0) {
       this.queryString += ` AND ${condition}`;
@@ -69,7 +69,9 @@ export class QueryBuilder {
   INSERT(tableName: string, data: { [key: string]: any }) {
     this.RESET();
     const columns = Object.keys(data);
-    const values = Object.values(data);
+    const values = Object.values(data).map((value) =>
+      value instanceof Date ? value.toISOString() : value,
+    );
     const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
 
     this.queryString = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`;
@@ -77,18 +79,25 @@ export class QueryBuilder {
     return this;
   }
 
-  UPDATE(tableName: string, data: { [key: string]: any }, condition: string) {
+  UPDATE(
+    tableName: string,
+    data: { [key: string]: any },
+    condition: string,
+    conditionParams: any[],
+  ) {
     this.RESET();
     const columns = Object.keys(data);
-
     const placeholders = columns
-      .map((col, index) => `${col} = $${index + 1}`)
+      .map((col, index) => {
+        if (col === 'endTime') {
+          return `${col} = $${index + 1}::timestamp`;
+        }
+        return `${col} = $${index + 1}`;
+      })
       .join(', ');
 
-    const values = Object.values(data);
-
     this.queryString = `UPDATE ${tableName} SET ${placeholders} WHERE ${condition}`;
-    this.params = [...values];
+    this.params = [...Object.values(data), ...conditionParams];
     return this;
   }
 
@@ -98,6 +107,7 @@ export class QueryBuilder {
     this.params = [value];
     return this;
   }
+
   JOIN(tableName: string, condition: string) {
     this.queryString += ` JOIN ${tableName} ON ${condition}`;
     return this;
