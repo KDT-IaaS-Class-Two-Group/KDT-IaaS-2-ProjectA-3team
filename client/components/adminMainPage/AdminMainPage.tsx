@@ -35,12 +35,12 @@ const AdminMainContent: React.FC = () => {
       </div>
 
       <div className={`${section} ${requestSection}`}>
-        <div className={cardHeader}>Requests</div>
+        <div className={cardHeader}>User Requests</div>
         <CheckUsersCount />
       </div>
 
       <div className={`${section} ${requestSection}`}>
-        <div className={cardHeader}>User Management</div>
+        <div className={cardHeader}>User Sign up Management</div>
         <PendingUsersList />
       </div>
 
