@@ -7,6 +7,11 @@ export class QueryBuilder {
   private queryString: string = '';
   private params: any[] = [];
 
+  ADD_PARAM(value: any) {
+    this.params.push(value);
+    return this;
+  }
+
   constructor(private readonly databaseService: DatabaseService) {}
 
   RESET() {

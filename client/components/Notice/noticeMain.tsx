@@ -1,9 +1,9 @@
-import NoticeTitle from 'client/components/userMainPage/noticeMainTitle';
-import NoticeContent from 'client/components/userMainPage/noticeMainContent';
-import NoticeFooter from 'client/components/userMainPage/noticeMainFooter';
-import NoticeAuthContent from 'client/components/authNotice/noticeAuthContent';
-import Link from 'next/link';
-import * as styles from '../styles/notice/notice.css'
+import NoticeTitle from "client/components/userMainPage/noticeMainTitle";
+import NoticeContent from "client/components/userMainPage/noticeMainContent";
+import NoticeFooter from "client/components/userMainPage/noticeMainFooter";
+import NoticeAuthContent from "client/components/authNotice/noticeAuthContent";
+import Link from "next/link";
+import * as styles from "../../styles/notice/notice.css";
 
 const NoticeMainPage: React.FC = () => {
   return (
@@ -35,7 +35,6 @@ const NoticeMainPage: React.FC = () => {
           <NoticeFooter />
         </div>
       </div>
-
     </div>
   );
 };

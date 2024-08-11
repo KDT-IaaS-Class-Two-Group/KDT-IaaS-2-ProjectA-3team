@@ -15,8 +15,14 @@ export const contentcontainer = style({
   display: "grid",
   gridTemplateColumns: "repeat(12, 1fr)",
   gridTemplateRows: "repeat(12, 1fr)",
-  gap: "1.5rem",
   padding: "0vw 1vw 1vw 1vw",
+  borderRadius: Size.border,
+});
+export const maincontentcontainer = style({
+  gridColumn: "span 12",
+  gridRow: "span 11",
+  display: "grid",
+  gap: "1.5rem",
   borderRadius: Size.border,
 });
 

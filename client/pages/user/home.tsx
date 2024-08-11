@@ -1,76 +1,33 @@
-import { useState } from "react";
-import * as style from "client/styles/project/root.css";
-import Side from "client/components/userMainPage/userLeftContent";
-import Content from "client/components/userMainPage/mainHeader";
-import Link from "next/link";
-import CalendarComponent from "client/components/Calendar/calendar";
+import React, { useState, useEffect } from "react";
 import UserSidebar from "../../components/SideBar/UserSidebar";
 import {
-  cardContent,
-  cardHeader,
   contentcontainer,
+  maincontentcontainer,
   mainpagecontainer,
   section,
 } from "client/styles/admin/admindashboard.css";
-import {
-  admintext,
-  fullRowSection,
-  titlecontainer,
-  titletext,
-} from "client/styles/admin/greet/greet.css";
-import {
-  calendarsection,
-  companybutton,
-  favsection,
-  kanbansection,
-  todolistsection,
-  usernoticesection,
-} from "client/styles/users/userdashboard.css";
-import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
-import { MainHeader } from "client/components/common/header/mainheader";
+import MainHeader from "client/components/common/header/mainheader";
+import UserMainContent from "client/components/userMainPage/UserMainPage";
+
 const UserHome: React.FC = () => {
+  // 사이드바에서 선택된 메뉴에 따라 표시할 컴포넌트 상태
+  const [currentComponent, setCurrentComponent] =
+    useState<React.ReactNode>(null);
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링될 때 기본 컴포넌트를 설정합니다.
+    setCurrentComponent(<UserMainContent onclick={setCurrentComponent} />);
+  }, []);
+  // 사이드바에서 메뉴를 클릭할 때 호출되는 함수
+  const handleMenuClick = (component: React.ReactNode) => {
+    setCurrentComponent(component);
+  };
   return (
     <div className={mainpagecontainer}>
-      <UserSidebar></UserSidebar>
+      <UserSidebar onMenuItemClick={handleMenuClick} />
       <div className={contentcontainer}>
-        <MainHeader></MainHeader>
-        <div className={`${section} ${favsection}`}>
-          <div className={cardContent}></div>
-        </div>
-        <div className={`${section} ${favsection}`}>
-          <div className={cardContent}></div>
-        </div>
-        <div className={`${section} ${favsection}`}>
-          <div className={cardContent}></div>
-        </div>
-        <div className={`${section} ${kanbansection}`}>
-          <div className={cardHeader}>kanban board</div>
-          <div className={cardContent}>Requested by 3 users</div>
-        </div>
-        <div className={`${section} ${calendarsection}`}>
-          <CalendarComponent></CalendarComponent>
-        </div>
-        <div className={`${section} ${todolistsection}`}>
-          <div className={cardHeader}>todolist</div>
-          <div className={cardContent}></div>
-        </div>
-        <div className={`${section} ${usernoticesection}`}>
-          <div className={cardHeader}>noticeboard</div>
-          <div className={cardContent}>asd</div>
-        </div>
-        <div className={`${section} ${companybutton}`}>
-          <div className={cardHeader}>출퇴근 버튼</div>
-          <div className={cardContent}>Authorize 5 users</div>
-        </div>
+        <MainHeader />
+        <>{currentComponent}</>
       </div>
-      {/* <div>
-        <button>
-          <Link href={"/user/project/info"}>project</Link>
-        </button>
-        <button>
-          <Link href={"/user/team"}>Team</Link>
-        </button>
-      </div> */}
     </div>
   );
 };

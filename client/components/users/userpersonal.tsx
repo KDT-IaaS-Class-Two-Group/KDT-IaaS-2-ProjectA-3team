@@ -16,7 +16,7 @@ interface Profile {
 }
 
 interface UserPersonalProps {
-  onSave: (users: User[]) => Promise<void>;
+  onSave?: (users: User[]) => Promise<void>; // onSave를 선택적으로 받도록 수정
 }
 
 const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
@@ -90,11 +90,15 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   };
 
   const handleSave = async () => {
-    try {
-      await onSave(users);
-      console.log("사용자 정보 저장 성공");
-    } catch (error) {
-      console.error("사용자 정보 저장 실패:", error);
+    if (onSave) {
+      try {
+        await onSave(users);
+        console.log("사용자 정보 저장 성공");
+      } catch (error) {
+        console.error("사용자 정보 저장 실패:", error);
+      }
+    } else {
+      console.log("onSave 함수가 제공되지 않았습니다.");
     }
   };
 

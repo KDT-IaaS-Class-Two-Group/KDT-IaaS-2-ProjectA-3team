@@ -1,24 +1,26 @@
-import Link from "next/link";
 import React from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
-import { Colors } from "../../styles/standard.css";
 import { UserSearch } from "../common/nav/UserSearch";
-
-const AdminSidebar: React.FC = () => {
+import Logo from "../common/logo/Logo";
+import UserSelection from "../team/team";
+import AdminMainContent from "../adminMainPage/AdminMainPage";
+import ProjectView from "../project/info";
+import NoticeMainPage from "../Notice/noticeMain";
+import DBGUI from "../dbGUI/databaseGUI";
+interface AdminSidebarProps {
+  onMenuItemClick: (component: React.ReactNode) => void;
+}
+const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
+  const handleMenuItemClick = (component: React.ReactNode) => {
+    onMenuItemClick(component);
+  };
+  const handleLogoClick = () => {
+    onMenuItemClick(<AdminMainContent onclick={() => {}} />);
+  };
   return (
     <div className={styles.mainpagecontainer}>
       <div className={styles.sidebarcontainer}>
-        <div className={styles.logocontainer}>
-          <div className={styles.logocontent}>
-            <img
-              src="/delan.png"
-              alt="DelaN Logo"
-              className={styles.logoimage}
-            />
-            <span className={styles.logotext}>DelaN</span>
-          </div>
-          <div className={styles.logounderline}></div>
-        </div>
+        <Logo onClick={handleLogoClick} />
         <div className={styles.profilecontainer}>
           <div className={styles.profile}>
             <div className={styles.profilecircle}></div>
@@ -27,31 +29,39 @@ const AdminSidebar: React.FC = () => {
           </div>
           <nav>
             <ul className={styles.menulist}>
-              <li className={styles.menuitem}>
-                <span className={styles.menuitemicon}>🏠</span>
-                <span>팀 제작</span>
-              </li>
-              <li className={styles.menuitem}>
-
-                <span className={styles.menuitemicon}>👥</span>
-                <Link href = '/user/project/info'><span>프로젝트 제작</span></Link>
-                
-              </li>
-              <li className={styles.menuitem}>
-                <span className={styles.menuitemicon}>📁</span>
-                <span>게시판</span>
-              </li>
-              <li className={styles.menuitem}>
-                <span className={styles.menuitemicon}>📁</span>
-                <span>DB GUI</span>
-              </li>
+              <MenuItem
+                text="팀 제작"
+                onClick={() => handleMenuItemClick(<UserSelection />)}
+              />
+              <MenuItem
+                text="프로젝트 제작"
+                onClick={() => handleMenuItemClick(<ProjectView />)}
+              />
+              <MenuItem
+                text="게시판"
+                onClick={() => handleMenuItemClick(<NoticeMainPage />)}
+              />
+              <MenuItem
+                text="DB GUI"
+                onClick={() => handleMenuItemClick(<DBGUI />)}
+              />
             </ul>
           </nav>
         </div>
-        <UserSearch></UserSearch>
+        <UserSearch />
       </div>
     </div>
   );
 };
-
+const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
+  text,
+  onClick,
+}) => {
+  return (
+    <li className={styles.menuitem} onClick={onClick}>
+      <span className={styles.menuitemicon}></span>
+      <span>{text}</span>
+    </li>
+  );
+};
 export default AdminSidebar;

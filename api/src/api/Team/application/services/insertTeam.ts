@@ -7,7 +7,7 @@ export class InsertTeam {
 
   async saveTeamData(data) {
     console.log(data);
-    const { team_name, description, team_leader, members } = data;
+    const { team_name, description, teamLeader, teamMembers } = data;
 
     const checkResult = !!(await this.teamRepository.checkTeamName(team_name));
     if (checkResult) {
@@ -19,8 +19,8 @@ export class InsertTeam {
     });
     if (saveTeamResult) {
       this.teamRepository.InsertMemeber(team_name, {
-        team_leader: team_leader,
-        team_members: members,
+        team_leader: teamLeader,
+        team_members: teamMembers,
       });
     }
   }

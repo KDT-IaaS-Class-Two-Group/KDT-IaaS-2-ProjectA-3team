@@ -13,7 +13,7 @@ const CalendarComponent: React.FC = () => {
   return (
     <div className={styles.mainProjectCalender}>
       {/* 캘린더 추가 */}
-      <Calendar onChange={handleCalendarChange} value={calendarValue} />
+      <Calendar locale='ko' onChange={handleCalendarChange} value={calendarValue} />
     </div>
   );
 };

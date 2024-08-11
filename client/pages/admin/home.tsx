@@ -1,73 +1,34 @@
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import {
   mainpagecontainer,
   contentcontainer,
-  section,
-  projectSection,
-  buttonSection,
-  title,
-  cardHeader,
-  cardContent,
-  proceedingButton,
-  allTasksButton,
+  maincontentcontainer,
 } from "client/styles/admin/admindashboard.css";
-import Project from "client/components/auth_Component/project/project";
-import PendingUser from "client/components/MemberVerification/utils/PendingUser";
-import StateUsers from "client/components/StateUsers";
-import Attendance from "client/components/attendance";
-import NoticeBoard from "client/components/Notice/NoticeBoard";
-import DatabaseGUI from "client/components/DatabaseGuI";
-import {
-  admintext,
-  basetext,
-  fullRowSection,
-  titlecontainer,
-  titletext,
-} from "client/styles/admin/greet/greet.css";
-import { attendanceSection } from "client/styles/admin/workAttendance/workattendance.css";
-import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
-import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
-import { requestSection } from "client/styles/admin/requests/requests.css";
+import { fullRowSection } from "client/styles/admin/greet/greet.css";
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
-import { MainHeader } from "client/components/common/header/mainheader";
+import MainHeader from "client/components/common/header/mainheader";
+import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
 fullRowSection;
 const Dash: React.FC = () => {
+  const [currentComponent, setCurrentComponent] =
+    useState<React.ReactNode>(null);
+
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링될 때 기본 컴포넌트를 설정합니다.
+    setCurrentComponent(<AdminMainContent onclick={setCurrentComponent} />);
+  }, []);
+
+  // 사이드바에서 메뉴를 클릭할 때 호출되는 함수입니다.
+  const handleMenuClick = (component: React.ReactNode) => {
+    setCurrentComponent(component);
+  };
+
   return (
     <div className={mainpagecontainer}>
-      <AdminSidebar />
+      <AdminSidebar onMenuItemClick={handleMenuClick} />
       <div className={contentcontainer}>
-        <MainHeader></MainHeader>
-        <div className={`${section} ${projectSection}`}>
-          <div className={cardContent}>
-            <Project />
-          </div>
-        </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>Requests</div>
-          <div className={cardContent}>Requested by 3 users</div>
-        </div>
-        <div className={`${section} ${requestSection}`}>
-          <div className={cardHeader}>User Management</div>
-          <div className={cardContent}>Authorize 5 users</div>
-        </div>
-        <div className={`${section} ${attendanceSection}`}>
-          <div className={cardHeader}>Work Attendance</div>
-          <div className={cardContent}>
-            <Attendance />
-          </div>
-        </div>
-        <div className={`${section} ${noticeBoardSection}`}>
-          <div className={cardHeader}>Notice Board</div>
-          <div className={cardContent}>
-            <NoticeBoard />
-          </div>
-        </div>
-        <div className={`${section} ${databaseGUISection}`}>
-          <div className={cardHeader}>Database GUI</div>
-          <div className={cardContent}>
-            <DatabaseGUI />
-          </div>
-        </div>
+        <MainHeader />
+        <div className={maincontentcontainer}>{currentComponent}</div>
       </div>
     </div>
   );

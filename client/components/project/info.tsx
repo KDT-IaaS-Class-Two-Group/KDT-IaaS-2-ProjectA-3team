@@ -35,7 +35,6 @@ const ProjectView: React.FC = () => {
 
   return (
     <div className={style.root}>
-      <Side />
       <div>
         <h1>프로젝트 View</h1>
         <CreateProjectModal onProjectCreated={handleProjectCreation} />
