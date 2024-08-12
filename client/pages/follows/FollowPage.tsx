@@ -117,7 +117,7 @@ const FollowPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${REQUEST_URL.__LOGIN}/getUser/${action}`, {
+      const response = await fetch(`http://localhost:3001/getUser/${action}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

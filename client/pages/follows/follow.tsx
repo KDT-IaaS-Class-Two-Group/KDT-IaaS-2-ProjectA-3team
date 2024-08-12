@@ -41,7 +41,7 @@ const FollowPage: React.FC = () => {
   const handleFollow = async (userId: string, isFollowing: boolean) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/getUser/${isFollowing ? "unfollow" : "follow"}`,
+        `http://localhost:3001/getUser/${isFollowing ? "unfollow" : "follow"}`,
         {
           method: "POST",
           headers: {
