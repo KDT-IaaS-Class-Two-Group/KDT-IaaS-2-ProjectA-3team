@@ -52,43 +52,61 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
       </div>
 
       <div className={`${section} ${requestSection}`}>
-        <div className={cardHeader}>User Requests</div>
-        <div className={cardContent}>
-          <Button onClick={() => onclick(<UserRequest />)} />
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <span className={projectitletext}>User Request Management</span>
+            <Button onClick={() => onclick(<UserRequest />)} />
+          </div>
         </div>
+        <div className={cardContent}></div>
         <CheckUsersCount />
       </div>
 
       <div className={`${section} ${requestSection}`}>
-        <div className={cardHeader}>User Sign up Management</div>
-        <Button onClick={() => onclick(<PendingUserLook />)} />
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <span className={projectitletext}>User Sign up Management</span>
+            <Button onClick={() => onclick(<PendingUserLook />)} />
+          </div>
+        </div>
+        <div className={cardContent}></div>
         <PendingUsersList />
       </div>
 
       <div className={`${section} ${attendanceSection}`}>
-        <div className={cardHeader}>Work Attendance</div>
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <span className={projectitletext}>Work Attendance</span>
+            <Button onClick={() => onclick(<Attendance />)} />
+          </div>
+        </div>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<Attendance />)} />
           <Attendance />
         </div>
       </div>
 
       <div className={`${section} ${noticeBoardSection}`}>
-        <div className={cardHeader}>Notice Board</div>
-        <div className={cardContent}>
-          <Link href="/noticeMain" className={tdn}>
-            <Button>게시판</Button>
-          </Link>
-          <NoticeBoard />
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <span className={projectitletext}>Notice Board</span>
+            <Link href="/noticeMain" className={tdn}>
+              <Button>게시판</Button>
+            </Link>
+          </div>
         </div>
+        <div className={cardContent}></div>
+        <NoticeBoard />
       </div>
 
       <div className={`${section} ${databaseGUISection}`}>
-        <div className={cardHeader}>Database GUI</div>
-        <div className={cardContent}>
-          <Button onClick={() => onclick(<DBGUI />)} />
-          <DatabaseGUI />
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <span className={projectitletext}>Database GUI</span>
+            <Button onClick={() => onclick(<DBGUI />)} />
+          </div>
         </div>
+        <div className={cardContent}></div>
+        <DatabaseGUI />
       </div>
     </div>
   );
