@@ -19,10 +19,10 @@ const NoticeMainPage: React.FC = () => {
       <div>
         <div className={styles.noticecontent}>
           <div className={styles.title}>
-            <div>Number</div>
-            <div>Title</div>
-            <div>Author</div>
-            <div>Creation Date</div>
+            <p className={styles.TagSize}>Number</p>
+            <p className={styles.pTagTitle}>Title</p>
+            <p className={styles.TagSize}>Author</p>
+            <p className={styles.TagSize}>Creation Date</p>
           </div>
           <div>
             <NoticeAuthContent />

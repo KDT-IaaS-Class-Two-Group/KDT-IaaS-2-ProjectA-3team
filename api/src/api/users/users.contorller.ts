@@ -467,6 +467,13 @@ export class UsersController {
   async clockIn(@Body() body: { userId: string }): Promise<any> {
     const { userId } = body;
     const now = new Date();
+
+    // userId가 유효한지 확인
+    if (!userId) {
+      console.error('userId is missing or undefined.');
+      throw new HttpException('User ID is required', HttpStatus.BAD_REQUEST);
+    }
+
     try {
       console.log('ClockIn started for userId:', userId);
 

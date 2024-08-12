@@ -1,8 +1,8 @@
 import { style } from "@vanilla-extract/css";
 import { Colors, FontSize, Size, Spacing } from "../../standard.css";
-import { centerbetweenflexrowcontainer } from "client/styles/standardcontainer.css";
+import { centeredflexcolcontainer } from "client/styles/standardcontainer.css";
 export const requestmaincontainer = style([
-  centerbetweenflexrowcontainer,
+  centeredflexcolcontainer,
   {
     padding: "1vw 0.5vw 1vw 0vw",
   },

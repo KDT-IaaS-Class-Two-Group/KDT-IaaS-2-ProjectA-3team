@@ -3,6 +3,11 @@ import { GetServerSideProps } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { useState } from 'react';
 import CommentForm from '../../components/userMainPage/commentForm'
+import {
+  centeredflexcolcontainer,
+  flexcolcontainer,
+} from "client/styles/standardcontainer.css";
+import { greenButton } from "client/styles/templatebutton.css";
 
 interface PostProps {
   title: string;
@@ -28,8 +33,8 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
         return response.text();
       })
       .then((data) => {
-          alert(data);
-          window.location.reload();
+        alert(data);
+        window.location.reload();
       })
       .catch(err => {
         console.error(err);
@@ -44,18 +49,18 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
       method: 'DELETE',
       credentials: 'include',
     })
-    .then((response) => {
-      return response.text();
-    })
-    .then((data) => {
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
         alert(data);
         window.location.href = '/noticeMain';
-    })
-    .catch(err => {
-      console.error(err);
-      alert('삭제 중 오류 발생')
-      window.location.href = '/noticeMain';
-    });
+      })
+      .catch(err => {
+        console.error(err);
+        alert('삭제 중 오류 발생')
+        window.location.href = '/noticeMain';
+      });
   };
 
   const back = () => {
@@ -63,9 +68,9 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
   }
 
   return (
-    <div>
+    <div className={flexcolcontainer}>
       {editMode ? (
-        <div>
+        <div className={centeredflexcolcontainer}>
           <div>사용자</div>
           <input
             type="text"
@@ -77,8 +82,13 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
             placeholder='내용'
+            cols={30}
+            rows={10}
           />
-          <button onClick={handleUpdate}>Save</button>
+          <button onClick={handleUpdate} className={greenButton}>Save</button>
+          <div>
+            <button onClick={back} className={greenButton}>뒤로가기</button>
+          </div>
         </div>
       ) : (
         <div>
@@ -87,19 +97,17 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
             <p>{content}</p>
             <p>{createdAt}</p>
             <p>{userId}</p>
-            <button onClick={() => setEditMode(true)}>수정</button>
-            <button onClick={handleDelete}>삭제</button>
+            <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
+            <button onClick={handleDelete} className={greenButton}>삭제</button>
           </div>
           <div>
-            <CommentForm  postId={id as string}/>
+            <button onClick={back} className={greenButton}>뒤로가기</button>
+          </div>
+          <div>
+            <CommentForm postId={id as string} />
           </div>
         </div>
       )}
-      <div>
-        <button onClick={back}>뒤로가기</button>
-      </div>
-
-      
     </div>
   );
 };
