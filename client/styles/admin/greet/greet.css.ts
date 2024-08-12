@@ -21,6 +21,7 @@ export const basetext = style({
 export const titletext = style([
   basetext,
   {
+    fontWeight: "bold",
     fontSize: FontSize.Large,
   },
 ]);

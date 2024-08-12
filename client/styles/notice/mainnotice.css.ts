@@ -42,6 +42,8 @@ export const noticesection = style({
 export const hovertextstyle = style([
   flexrowcontainer,
   {
+    display: "flex",
+    gap: "0.25vw",
     ":hover": {
       backgroundColor: Colors.FontPrimary,
       borderRadius: Size.border,

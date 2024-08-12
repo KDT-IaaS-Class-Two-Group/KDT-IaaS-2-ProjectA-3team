@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import columns from "./utils/columns/project_table.columns";
 import TableComponentProps from "./utils/Props/Project_table_Props";
+import * as styles from "../../styles/sideproject/sideproject.css";
 
 const ProjectTableComponent: React.FC<TableComponentProps> = ({ data }) => {
   const table = useReactTable({
@@ -16,12 +17,12 @@ const ProjectTableComponent: React.FC<TableComponentProps> = ({ data }) => {
 
   return (
     <div className="p-2">
-      <table>
+      <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className={styles.thstyle}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -44,11 +45,11 @@ const ProjectTableComponent: React.FC<TableComponentProps> = ({ data }) => {
             </tr>
           ))}
         </tbody>
-        <tfoot>
+        <tfoot >
           {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className={styles.secondthstyle}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(

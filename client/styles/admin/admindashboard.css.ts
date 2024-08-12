@@ -31,7 +31,7 @@ export const section = style({
   flexDirection: "column",
   backgroundColor: Colors.FontPrimary,
   borderRadius: Size.border,
-  padding: "0.5rem 1rem",
+  padding: "0.25rem 1rem",
 });
 
 export const projectSection = style({
@@ -90,6 +90,7 @@ export const projectTitle = style({
   alignItems: "center",
   gap: Spacing.small,
   justifyContent: "space-between",
+  paddingTop: "0.18rem",
 });
 
 export const proceedingButton = style({

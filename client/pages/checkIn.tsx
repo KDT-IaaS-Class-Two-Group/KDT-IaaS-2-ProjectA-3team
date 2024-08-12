@@ -57,8 +57,8 @@ const MainHeader: React.FC = () => {
       <div className={titlecontainer}>
         {sessionData ? (
           <>
-            <p className={titletext}>Hello, {sessionData.user_id}</p>
-            <p className={admintext}>Role: {sessionData.role_name}</p>
+            <p className={titletext}>Hello {sessionData.user_id}</p>
+            <p className={admintext}>Permssion: {sessionData.role_name}</p>
             <button onClick={handleOpenModal}>출퇴근</button>
             <ClockInOutModal
               isOpen={isModalOpen}
