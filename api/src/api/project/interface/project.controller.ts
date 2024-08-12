@@ -75,7 +75,6 @@ export class ProjectController {
   async getTeamData(@Param('id') id: string, @Res() res: Response) {
     try {
       const result = await this.projectService.searchProjectMemeberData(id);
-
       const transformedResult = result.map((member) => ({
         user_id: member.user_id,
         username: member.username,
@@ -84,7 +83,9 @@ export class ProjectController {
         role_name: member.role_name,
       }));
 
-      return res.json(transformedResult);
+      const projectStack = await this.projectService.getProjectStack(id);
+
+      return res.json({ member: transformedResult, stack: projectStack });
     } catch (error) {
       return res.status(HttpStatus.UNAUTHORIZED);
     }

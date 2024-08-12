@@ -3,6 +3,7 @@ import { QueryBuilder } from 'src/database/queryBuilder';
 import { ProjectDTO } from './DTO/Project.DTO';
 import { TABLE_NAME } from '../common/enum/table/table.enum';
 import { SERVICE_ERROR } from '../common/enum/message/error/serviceErrorMessage';
+import { Stack } from './DTO/StackDTO';
 
 @Injectable()
 /**
@@ -55,7 +56,9 @@ export class ProjectService {
         .execution();
       return result;
     } catch (error) {
-      throw new Error(`${SERVICE_ERROR.__FAILURE_SEARCH_ERROR} : ${error}`);
+      throw new Error(
+        `join 관련 에러 : ${SERVICE_ERROR.__FAILURE_SEARCH_ERROR} : ${error}`,
+      );
     }
   }
 
@@ -69,9 +72,16 @@ export class ProjectService {
         .execution();
     });
   }
-}
 
-interface Stack {
-  stack_name: string;
-  stack_type: string;
+  async getProjectStack(project_name: string) {
+    try {
+      const result = await this.queryBuilder
+        .SELECT('relation_project_stack')
+        .WHERE(`project_name = $1`, [project_name])
+        .execution();
+      return result;
+    } catch (error) {
+      throw new Error(`스택 참조 에러 :${error}`);
+    }
+  }
 }
