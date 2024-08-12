@@ -1,6 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { useState } from 'react';
+import {
+  centeredflexcolcontainer,
+  flexcolcontainer,
+} from "client/styles/standardcontainer.css";
+import { greenButton } from "client/styles/templatebutton.css";
 
 interface PostProps {
   title: string;
@@ -23,16 +28,16 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
     })
       .then((response) => {
         return response.text();
-    })
+      })
       .then((data) => {
         alert(data);
         window.location.reload();
-    })
+      })
       .catch(err => {
         console.error(err);
         window.location.href = '/noticeMain';
         alert('수정 중 오류 발생');
-    });
+      });
   };
 
   const handleDelete = () => {
@@ -40,18 +45,18 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
       method: 'DELETE',
       credentials: 'include',
     })
-    .then((response) => {
-      return response.text();
-    })
-    .then((data) => {
-      alert(data);
-      window.location.href = '/noticeMain';
-    })
-    .catch(err => {
-      console.error(err);
-      alert('삭제 중 오류 발생')
-      window.location.href = '/noticeMain';
-    });
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        alert(data);
+        window.location.href = '/noticeMain';
+      })
+      .catch(err => {
+        console.error(err);
+        alert('삭제 중 오류 발생')
+        window.location.href = '/noticeMain';
+      });
   };
 
   const back = () => {
@@ -59,34 +64,36 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
   }
 
   return (
-    <div>
+    <div className={flexcolcontainer}>
       {editMode ? (
-        <div>
+        <div className={centeredflexcolcontainer}>
           <div>관리자</div>
-          <input 
-            type="text" 
-            value={newTitle} 
+          <input
+            type="text"
+            value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
-            placeholder='제목' 
+            placeholder='제목'
           />
-          <textarea 
-            value={newContent} 
+          <textarea
+            value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
             placeholder='내용'
+            cols={30}
+            rows={10}
           />
-          <button onClick={handleUpdate}>Save</button>
+          <button onClick={handleUpdate} className={greenButton}>Save</button>
         </div>
       ) : (
         <div>
           <h1>{title}</h1>
           <p>{content}</p>
           <p>{createdAt}</p>
-          <button onClick={() => setEditMode(true)}>수정</button>
-          <button onClick={handleDelete}>삭제</button>
+          <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
+          <button onClick={handleDelete} className={greenButton}>삭제</button>
         </div>
       )}
       <div>
-        <button onClick={back}>뒤로가기</button>
+        <button onClick={back} className={greenButton}>뒤로가기</button>
       </div>
     </div>
   );

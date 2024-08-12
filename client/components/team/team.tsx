@@ -169,14 +169,14 @@ function UserSelection() {
                 <strong>ID:</strong> {user.user_id}
                 <button
                   onClick={() => addLeader(user)}
-                  className={button.yellowButton}
+                  className={styles.yellowButton}
                 >
                   추가
                 </button>
                 {selectedLeader && selectedLeader.user_id === user.user_id && (
                   <button
                     onClick={removeLeader}
-                    className={button.yellowButton}
+                    className={styles.yellowButton}
                   >
                     삭제
                   </button>
@@ -195,7 +195,7 @@ function UserSelection() {
                 {user.user_id}
                 <button
                   onClick={() => addMember(user)}
-                  className={button.yellowButton}
+                  className={styles.yellowButton}
                 >
                   추가
                 </button>
@@ -204,7 +204,7 @@ function UserSelection() {
                 ) && (
                   <button
                     onClick={() => removeMember(user)}
-                    className={button.yellowButton}
+                    className={styles.yellowButton}
                   >
                     삭제
                   </button>
@@ -214,7 +214,7 @@ function UserSelection() {
           </ul>
         </div>
 
-        <div className={styles.padding}>
+        <div className={styles.teampadding}>
           <label htmlFor="teamDescription">팀 특징 서술:</label>
           <textarea
             id="teamDescription"
@@ -223,10 +223,10 @@ function UserSelection() {
             onChange={(e) => setTeamDescription(e.target.value)}
             className={styles.textarea}
           />
+          <button onClick={handleSubmit} className={styles.blueButton}>
+            submit
+          </button>
         </div>
-        <button onClick={handleSubmit} className={button.blueButton}>
-          submit
-        </button>
       </div>
     </div>
   );

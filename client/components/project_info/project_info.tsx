@@ -5,10 +5,11 @@ import { MemberList } from "./style/memberList.css";
 import { ProjectInfoSection } from "./style/projectInfoSection.css";
 import { MemeberContainer } from "./style/memberListContainer.css";
 import { ProjectInfoContainer } from "./style/projectInfoContainer.css";
+import AddStackButton from "./item/addStackButton";
 interface props {
   project_name: string;
 }
-
+// [ ] Hook Service 분리하기 
 const ProjectInfoComponent: React.FC<props> = ({ project_name }) => {
   const [data, setData] = useState([]);
 
@@ -45,6 +46,7 @@ const ProjectInfoComponent: React.FC<props> = ({ project_name }) => {
 
       <div className={ProjectInfoContainer}>
         <ProjectInfoItem project_name={project_name}></ProjectInfoItem>
+        <AddStackButton></AddStackButton>
       </div>
     </div>
   );

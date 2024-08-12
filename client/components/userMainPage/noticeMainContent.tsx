@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import * as styles from '../../styles/notice/notice.css'
+
 interface ListNotice {
   _id: string;
   title: string;
@@ -46,13 +48,15 @@ const NoticeMainContent = () => {
   return (
     <div>
       {userList.length > 0 ? (
-        userList.map((notice,index) => (
+        userList.map((notice, index) => (
           <div key={notice._id}>
-            <Link href={`/notice/${notice._id}`}>
-              <h3>{index+1+ (currentPage - 1) * itemsPerPage}</h3>
-              <h3>{notice.title}</h3>
-              <h3>{notice.user_id}</h3>
-              <h3>{notice.createdAt}</h3>
+            <Link href={`/notice/${notice._id}`} className={styles.uploadbutton}>
+              <div className={styles.noticelengh}>
+                <p className={styles.TagSize}>{index + 4 + (currentPage - 1) * itemsPerPage + '.'}</p>
+                <p className={styles.pTagTitle}>{notice.title}</p>
+                <p className={styles.TagSize}>{notice.user_id}</p>
+                <p className={styles.TagSize}>{notice.createdAt}</p>
+              </div>
             </Link>
           </div>
         ))
@@ -60,7 +64,7 @@ const NoticeMainContent = () => {
         <div>게시물 없음</div>
       )}
       {/* 페이징 버튼 UI */}
-      <div>
+      <div className={styles.page}>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
           <button
             key={page}

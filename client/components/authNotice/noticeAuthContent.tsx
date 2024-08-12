@@ -33,12 +33,12 @@ const NoticeAuthContent = () => {
       {authList.length > 0 ? (
         authList.map((notice, index) => (
           <div key={notice._id}>
-            <Link href={`/noticeAuth/${notice._id}`}>
+            <Link href={`/noticeAuth/${notice._id}`} className={styles.uploadbutton}>
               <div className={styles.noticelengh}>
-                <p>{index + 1 + '.'}</p>
-                <p>{notice.title}</p>
-                <p>{notice.user_id}</p>
-                <p>{notice.createdAt}</p>
+                <p className={styles.TagSize}>{index + 1 + '.'}</p>
+                <p className={styles.pTagTitle}>{notice.title}</p>
+                <p className={styles.TagSize}>{notice.user_id}</p>
+                <p className={styles.TagSize}>{notice.createdAt}</p>
               </div>
             </Link>
           </div>
