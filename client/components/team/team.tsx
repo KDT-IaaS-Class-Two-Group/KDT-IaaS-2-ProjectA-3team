@@ -1,6 +1,7 @@
 import { maincontainter } from "client/styles/team/team.css";
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/team/team.css";
+import * as button from "../../styles/templatebutton.css";
 
 interface User {
   user_id: string;
@@ -146,7 +147,7 @@ function UserSelection() {
 
   return (
     <div className={styles.maincontainter}>
-      <div className={styles.teamnameinput}>
+      <div className={styles.padding}>
         <label htmlFor="teamName">팀 이름:</label>
         <input
           type="text"
@@ -154,6 +155,7 @@ function UserSelection() {
           name="teamName"
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
+          className={styles.input}
         />
       </div>
 
@@ -161,11 +163,18 @@ function UserSelection() {
       <div>
         <ul>
           {leaders.map((user) => (
-            <li key={user.user_id}>
+            <li key={user.user_id} className={styles.listyle}>
               <strong>ID:</strong> {user.user_id}
-              <button onClick={() => addLeader(user)}>추가</button>
+              <button
+                onClick={() => addLeader(user)}
+                className={button.yellowButton}
+              >
+                추가
+              </button>
               {selectedLeader && selectedLeader.user_id === user.user_id && (
-                <button onClick={removeLeader}>삭제</button>
+                <button onClick={removeLeader} className={button.yellowButton}>
+                  삭제
+                </button>
               )}
             </li>
           ))}
@@ -173,18 +182,30 @@ function UserSelection() {
       </div>
 
       <div>
+      <div>
         팀원:{" "}
         {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
       </div>
-      <div>
         <ul>
           {members.map((user) => (
-            <li key={user.user_id}>
+            <li key={user.user_id} className={styles.listyle}>
               {user.user_id}
-              <button onClick={() => addMember(user)}>추가</button>
+              <button
+                onClick={() => addMember(user)}
+                className={button.yellowButton}
+              >
+                추가
+              </button>
               {selectedMembers.some(
                 (member) => member.user_id === user.user_id
-              ) && <button onClick={() => removeMember(user)}>삭제</button>}
+              ) && (
+                <button
+                  onClick={() => removeMember(user)}
+                  className={button.yellowButton}
+                >
+                  삭제
+                </button>
+              )}
             </li>
           ))}
         </ul>
@@ -199,7 +220,9 @@ function UserSelection() {
           onChange={(e) => setTeamDescription(e.target.value)}
         />
       </div>
-      <button onClick={handleSubmit}>전송</button>
+      <button onClick={handleSubmit} className={button.blueButton}>
+        submit
+      </button>
     </div>
   );
 }
