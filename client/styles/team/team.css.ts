@@ -6,6 +6,9 @@ export const maincontainter = style({
   width: Size.full,
   height: Size.full,
   borderRadius: Size.border,
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
 });
 
 export const teamnameinput = style({
