@@ -57,10 +57,6 @@ const Attendance: React.FC = () => {
   return (
     <div>
       <div>
-        <p>Work Attendance</p>
-        <button onClick={() => handleOpenModal("user001")}>크게 보기</button>
-      </div>
-      <div>
         <ul>
           {attendanceRecords.map((record) => (
             <li key={record.user_id}>

@@ -49,7 +49,7 @@ const ProjectTableComponent: React.FC<TableComponentProps> = ({ data }) => {
           {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className={styles.secondthstyle}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
