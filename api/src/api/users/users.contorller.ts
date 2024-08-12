@@ -499,6 +499,7 @@ export class UsersController {
   @Post('/clockout')
   async clockOut(@Body() body: { userId: string }): Promise<any> {
     const { userId } = body;
+    const now = new Date();
 
     try {
       console.log('ClockOut started for userId:', userId);
@@ -506,9 +507,9 @@ export class UsersController {
       const result = await this.queryBuilder
         .UPDATE(
           'work_table',
-          { endTime: new Date() }, // endTime 필드를 TIMESTAMP로 저장
+          { endTime: now },
           'user_id = $2 AND endTime IS NULL',
-          [userId], // 조건 파라미터로 userId 전달
+          [userId], // 매개변수를 올바른 순서로 전달
         )
         .execution();
 

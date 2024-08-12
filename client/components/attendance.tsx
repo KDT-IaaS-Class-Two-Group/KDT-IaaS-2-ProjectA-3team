@@ -5,8 +5,8 @@ import { userlist } from "client/styles/sidebar/SidebarStyles.css";
 interface AttendanceRecord {
   user_id: string;
   username: string;
-  clockInTime: string;
-  clockOutTime?: string;
+  clockintime: string;
+  clockouttime?: string;
 }
 
 const Attendance: React.FC = () => {
@@ -17,7 +17,6 @@ const Attendance: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    // 랜덤 3명의 출퇴근 데이터를 가져오기
     const fetchAttendanceRecords = async () => {
       try {
         const response = await fetch(
@@ -27,15 +26,19 @@ const Attendance: React.FC = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include", // 쿠키가 필요할 경우 포함
+            credentials: "include",
           }
         );
 
         if (response.ok) {
           const data = await response.json();
+          console.log("Fetched data:", data); // 데이터 확인
           setAttendanceRecords(data);
         } else {
-          console.error("Failed to fetch attendance records");
+          console.error(
+            "Failed to fetch attendance records",
+            response.statusText
+          );
         }
       } catch (error) {
         console.error("Error fetching attendance records:", error);
@@ -57,20 +60,31 @@ const Attendance: React.FC = () => {
 
   return (
     <div>
+      <h2>출퇴근 기록</h2>
       <div>
-        <ul className={userlist}>
-          {attendanceRecords.map((record) => (
-            <li key={record.user_id}>
-              <p>{record.username}</p>
-              <p>출근: {new Date(record.clockInTime).toLocaleString()}</p>
-              <p>
-                퇴근:{" "}
-                {record.clockOutTime
-                  ? new Date(record.clockOutTime).toLocaleString()
-                  : "퇴근 기록 없음"}
-              </p>
-            </li>
-          ))}
+        <ul>
+          {attendanceRecords.map((record, index) => {
+            console.log("Record:", record);
+            console.log(record.user_id);
+            console.log(new Date(record.clockintime).toLocaleString("ko-KR"));
+            return (
+              <li key={`${record.user_id}-${index}`}>
+                <p>
+                  <strong>이름:</strong> {record.username}
+                </p>
+                <p>
+                  <strong>출근 시간:</strong>{" "}
+                  {new Date(record.clockintime).toLocaleString("ko-KR")}
+                </p>
+                <p>
+                  <strong>퇴근 시간:</strong>
+                  {record.clockouttime
+                    ? new Date(record.clockouttime).toLocaleString("ko-KR")
+                    : "퇴근 기록 없음"}
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </div>
       {selectedUserId && (
