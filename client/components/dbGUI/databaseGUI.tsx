@@ -33,7 +33,7 @@ const DBGUI = () => {
 
   return (
     <div className={pagemainmain}>
-      <div className={pagemaintext}>Database Tables</div>
+      <div className={pagemaintext}>DB Table 조회</div>
       {error && <p>{error}</p>}
       <ul className={styles.ulliststlye}>
         {tables.map((table) => (
