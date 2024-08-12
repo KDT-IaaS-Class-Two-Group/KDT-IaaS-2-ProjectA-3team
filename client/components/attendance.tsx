@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ClockInOutModal from "./modal/work.Modal";
+import { userlist } from "client/styles/sidebar/SidebarStyles.css";
+import {
+  listinitial,
+  listline,
+  liststylemainattendance,
+} from "client/styles/users/attendancestyle.css";
 
 interface AttendanceRecord {
   user_id: string;
@@ -62,15 +68,17 @@ const Attendance: React.FC = () => {
 
   return (
     <div>
-      <h2>출퇴근 기록</h2>
       <div>
-        <ul>
+        <ul className={listinitial}>
           {attendanceRecords.map((record, index) => {
             console.log("Record:", record);
             console.log(record.user_id);
             console.log(new Date(record.clockintime).toLocaleString("ko-KR"));
             return (
-              <li key={`${record.user_id}-${index}`}>
+              <li
+                key={`${record.user_id}-${index}`}
+                className={liststylemainattendance}
+              >
                 <p>
                   <strong>이름:</strong> {record.username}
                 </p>
@@ -78,7 +86,7 @@ const Attendance: React.FC = () => {
                   <strong>출근 시간:</strong>{" "}
                   {new Date(record.clockintime).toLocaleString("ko-KR")}
                 </p>
-                <p>
+                <p className={listline}>
                   <strong>퇴근 시간:</strong>{" "}
                   {record.clockouttime
                     ? new Date(record.clockouttime).toLocaleString("ko-KR")
