@@ -49,11 +49,8 @@ const MainHeader: React.FC = () => {
       <div className={titlecontainer}>
         {sessionData ? (
           <>
-            <p className={titletext}>Hello, {sessionData.user_id}</p>
-            <p className={admintext}>
-              <FontAwesomeIcon icon={faStar} /> {sessionData.role_name}{" "}
-              {/* 아이콘 뒤에 role_name을 표시 */}
-            </p>
+            <p className={titletext}>Hello {sessionData.user_id}</p>
+            <p className={admintext}>Permission: {sessionData.role_name}</p>
           </>
         ) : (
           <p className={titletext}>Loading...</p>

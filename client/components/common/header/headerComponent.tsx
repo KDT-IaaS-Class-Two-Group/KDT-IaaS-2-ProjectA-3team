@@ -12,7 +12,7 @@ const MainHeader: React.FC<headerProps> = ({ id, project_name }) => {
   return (
     <div className={header}>
       <div className={button}>
-      <h1>Hello {id}</h1>
+        <h1>Hello {id}</h1>
         <button>
           <Link href={"/user/project/info"}>project</Link>
         </button>
