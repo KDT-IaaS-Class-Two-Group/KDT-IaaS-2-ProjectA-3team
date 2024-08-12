@@ -58,4 +58,20 @@ export class ProjectService {
       throw new Error(`${SERVICE_ERROR.__FAILURE_SEARCH_ERROR} : ${error}`);
     }
   }
+
+  async saveProjectStack(stackData: Stack[], project_name: string) {
+    stackData.map((stack) => {
+      this.queryBuilder
+        .INSERT('relation_project_stack', {
+          project_name: project_name,
+          stack_name: stack.stack_name,
+        })
+        .execution();
+    });
+  }
+}
+
+interface Stack {
+  stack_name: string;
+  stack_type: string;
 }
