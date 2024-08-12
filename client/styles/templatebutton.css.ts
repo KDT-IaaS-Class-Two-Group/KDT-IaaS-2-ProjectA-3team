@@ -46,6 +46,19 @@ export const greenButton = style([
     },
   },
 ]);
+export const plusButton = style([
+  baseButton,
+  {
+    borderRadius: "70vw",
+    backgroundColor: "#22c7ff",
+    fontWeight: "bold",
+    width: "1.5vw",
+    textDecoration: "none",
+    ":hover": {
+      backgroundColor: "#149eff",
+    },
+  },
+]);
 
 export const purpleButton = style([
   baseButton,

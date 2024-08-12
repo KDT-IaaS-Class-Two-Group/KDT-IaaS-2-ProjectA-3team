@@ -74,7 +74,7 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>noticeboard</div>
-        <Link href="/noticeMain" passHref>
+        <Link href="/noticeMain">
           <Button>게시판</Button>
         </Link>
         <NoticeBoard />
