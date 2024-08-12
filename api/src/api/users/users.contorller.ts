@@ -26,6 +26,21 @@ export class UsersController {
   ];
 
   private role_users = ['user_id'];
+  @Get('/attendance/random')
+  async getRandomAttendanceRecords(): Promise<any> {
+    const records = await this.queryBuilder
+      .SELECT('work_table', [
+        'work_table.user_id',
+        'users.username',
+        'work_table.startTime AS clockInTime',
+        'work_table.endTime AS clockOutTime',
+      ])
+      .JOIN('users', 'work_table.user_id = users.user_id') // users 테이블과 JOIN
+      .ORDER_BY('RANDOM()')
+      .LIMIT(3)
+      .execution();
+    return records;
+  }
 
   @Get('/all')
   async CheckUser(@Body() data: any, @Req() req: Request): Promise<any> {

@@ -112,4 +112,13 @@ export class QueryBuilder {
     this.queryString += ` JOIN ${tableName} ON ${condition}`;
     return this;
   }
+  ORDER_BY(column: string) {
+    this.queryString += ` ORDER BY ${column}`;
+    return this;
+  }
+
+  LIMIT(limit: number) {
+    this.queryString += ` LIMIT ${limit}`;
+    return this;
+  }
 }
