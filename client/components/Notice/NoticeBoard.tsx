@@ -1,23 +1,31 @@
 import React from "react";
 import TextOnlyNoticeUserContent from "../../../client/components/TextContent";
 import TextOnlyNoticeAuthContent from "../../../client/components/TextNoticeAuth";
+import { admintext, runtext } from "client/styles/admin/greet/greet.css";
+import {
+  noticeboardsection,
+  noticemaintext,
+  noticesection,
+  noticesubtext,
+} from "client/styles/notice/mainnotice.css";
+import {
+  profilecontainer,
+  userlistcontainer,
+} from "client/styles/sidebar/SidebarStyles.css";
 
 const NoticeBoard: React.FC = () => {
   return (
     <div>
-      <p>Notice Board</p>
-      <button>크게 보기</button>
-
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className={noticeboardsection}>
         {/* 관리자 게시물 표시 */}
-        <div style={{ flex: 1, marginRight: "20px" }}>
-          <h2>관리자 게시물</h2>
+        <div className={noticesection}>
+          <div className={noticemaintext}>MANAGER</div>
           <TextOnlyNoticeAuthContent />
         </div>
 
         {/* 사용자 게시물 표시 */}
-        <div style={{ flex: 1 }}>
-          <h2>사용자 게시물</h2>
+        <div className={noticesection}>
+          <div className={noticesubtext}>USER</div>
           <TextOnlyNoticeUserContent />
         </div>
       </div>

@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import * as styles from '../styles/notice/notice.css'
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import * as styles from "../styles/notice/notice.css";
+import { tdn } from "client/styles/templatebutton.css";
+import {
+  hovertextstyle,
+  paddingtop1vwstyle,
+} from "client/styles/notice/mainnotice.css";
 
 interface ListNotice {
   _id: string;
@@ -14,7 +19,7 @@ const NoticeAuthContent = () => {
 
   useEffect(() => {
     const fetchNotices = () => {
-      fetch('http://localhost:3001/homeauthnotice')
+      fetch("http://localhost:3001/homeauthnotice")
         .then((response) => {
           return response.json();
         })
@@ -22,23 +27,23 @@ const NoticeAuthContent = () => {
           setAuthList(data);
         })
         .catch((err) => {
-          console.error('데이터를 가져오는 중 오류 발생:', err);
+          console.error("데이터를 가져오는 중 오류 발생:", err);
         });
     };
     fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, []);
 
   return (
-    <div>
+    <div className={paddingtop1vwstyle}>
       {authList.length > 0 ? (
         authList.map((notice, index) => (
           <div key={notice._id}>
-            <Link href={`/noticeAuth/${notice._id}`}>
-              <div className={styles.noticelengh}>
-                <p>{index + 1 + '.'}</p>
+            <Link href={`/noticeAuth/${notice._id}`} className={tdn}>
+              <div className={hovertextstyle}>
+                <p>{index + 1 + "."}</p>
                 <p>{notice.title}</p>
-                <p>{notice.user_id}</p>
-                <p>{notice.createdAt}</p>
+                {/* <p>{notice.user_id}</p> */}
+                {/* <p>{notice.createdAt}</p> */}
               </div>
             </Link>
           </div>
