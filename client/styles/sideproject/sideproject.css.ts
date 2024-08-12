@@ -44,7 +44,7 @@ export const blueButton = style([
 export const table = style({
   marginTop: "2vw",
   borderCollapse: "collapse",
-  width: "72.8vw",
+  width: "60vw",
   borderStyle: "none",
   borderRadius: Size.border,
 });
