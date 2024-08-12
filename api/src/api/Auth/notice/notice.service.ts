@@ -317,5 +317,6 @@ export class NoticeService {
       });
       return result.deletedCount > 0;
     }
+    return 'false';
   }
 }
