@@ -7,10 +7,14 @@ import {
 } from "client/styles/admin/greet/greet.css";
 import { section } from "client/styles/admin/admindashboard.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons"; // 스타 아이콘을 가져옵니다.
+
 interface SessionData {
   user_id: string;
   role_name: string;
 }
+
 const MainHeader: React.FC = () => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
@@ -46,7 +50,10 @@ const MainHeader: React.FC = () => {
         {sessionData ? (
           <>
             <p className={titletext}>Hello, {sessionData.user_id}</p>
-            <p className={admintext}>Role: {sessionData.role_name}</p>
+            <p className={admintext}>
+              <FontAwesomeIcon icon={faStar} /> {sessionData.role_name}{" "}
+              {/* 아이콘 뒤에 role_name을 표시 */}
+            </p>
           </>
         ) : (
           <p className={titletext}>Loading...</p>
@@ -55,4 +62,5 @@ const MainHeader: React.FC = () => {
     </div>
   );
 };
+
 export default MainHeader;
