@@ -4,9 +4,10 @@ import ClockInOutModal from "./modal/work.Modal";
 interface AttendanceRecord {
   user_id: string;
   username: string;
-  clockInTime: string; // camelCase로 수정
-  clockOutTime?: string; // camelCase로 수정
+  clockintime: string; // camelCase로 수정
+  clockouttime?: string; // camelCase로 수정
 }
+// clockouttime
 
 const Attendance: React.FC = () => {
   const [attendanceRecords, setAttendanceRecords] = useState<
@@ -67,7 +68,7 @@ const Attendance: React.FC = () => {
           {attendanceRecords.map((record, index) => {
             console.log("Record:", record);
             console.log(record.user_id);
-            console.log(new Date(record.clockInTime).toLocaleString("ko-KR"));
+            console.log(new Date(record.clockintime).toLocaleString("ko-KR"));
             return (
               <li key={`${record.user_id}-${index}`}>
                 <p>
@@ -75,12 +76,12 @@ const Attendance: React.FC = () => {
                 </p>
                 <p>
                   <strong>출근 시간:</strong>{" "}
-                  {new Date(record.clockInTime).toLocaleString("ko-KR")}
+                  {new Date(record.clockintime).toLocaleString("ko-KR")}
                 </p>
                 <p>
                   <strong>퇴근 시간:</strong>{" "}
-                  {record.clockOutTime
-                    ? new Date(record.clockOutTime).toLocaleString("ko-KR")
+                  {record.clockouttime
+                    ? new Date(record.clockouttime).toLocaleString("ko-KR")
                     : "퇴근 기록 없음"}
                 </p>
               </li>
