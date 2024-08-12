@@ -22,16 +22,16 @@ import NoticeBoard from "../Notice/NoticeBoard";
 import { Button } from "../common/elements/button";
 import { useEffect, useState } from "react";
 import React from "react";
-import ClockInOutModal from "../ClockInOutModal";
 import { plusButton, tdn } from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import ClockInButton from "../backButtonSection/ClockInButton"; // 새로 만든 ClockInButton 컴포넌트 임포트
+
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
 
 const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
   // 서버에서 세션 데이터를 가져오는 함수
@@ -68,14 +68,6 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
 
     loadSessionData();
   }, []);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <>
@@ -116,16 +108,7 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       <div className={`${usersection} ${companybutton}`}>
         <div className={cardHeader}>출퇴근 버튼</div>
         <div className={cardContent}>
-          {userId && (
-            <>
-              <button onClick={handleOpenModal}>출퇴근</button>
-              <ClockInOutModal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                userId={userId} // 세션에서 가져온 user_id를 전달
-              />
-            </>
-          )}
+          {userId && <ClockInButton userId={userId} />}
         </div>
       </div>
     </>
