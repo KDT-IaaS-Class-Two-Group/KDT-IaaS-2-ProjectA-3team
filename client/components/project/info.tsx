@@ -8,7 +8,8 @@ import {
   ResponseProject,
   ResponseProject_WithTeam,
 } from "client/components/project_table/interface/project.interface";
-import CreateProjectModal from "client/components/modal/createProject_Modal/createProject.modal";
+import CreateProjectModal from "../MODAL/createProject_Modal/createProject.modal";
+
 
 const ProjectView: React.FC = () => {
   const [data, setData] = useState<ResponseProject_WithTeam[]>([]);

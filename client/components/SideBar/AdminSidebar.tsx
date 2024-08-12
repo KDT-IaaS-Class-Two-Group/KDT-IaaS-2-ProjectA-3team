@@ -6,7 +6,7 @@ import Logo from "../common/logo/Logo";
 import UserSelection from "../team/team";
 import AdminMainContent from "../adminMainPage/AdminMainPage";
 import ProjectView from "../project/info";
-import NoticeMainPage from "../Notice/noticeMain";
+import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 interface AdminSidebarProps {
