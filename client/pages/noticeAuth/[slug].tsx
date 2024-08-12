@@ -91,14 +91,24 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
           </div>
         </div>
       ) : (
-        <div>
-          <h1>{title}</h1>
-          <p>{content}</p>
-          <p>{createdAt}</p>
-          <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
-          <button onClick={handleDelete} className={greenButton}>삭제</button>
-          <div>
-            <button onClick={back} className={greenButton}>뒤로가기</button>
+        <div className={styles.authnotice}>
+          <div className={styles.authnoticetitle}>
+            <div>{title}</div>
+            <div>{createdAt}</div>
+          </div>
+          <div className={styles.authnoticecontent}>
+            <div>{content}</div>
+          </div>
+          <div className={styles.authfooter}>
+            <div>
+              <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
+            </div>
+            <div>
+              <button onClick={handleDelete} className={greenButton}>삭제</button>
+            </div>
+            <div>
+              <button onClick={back} className={greenButton}>뒤로가기</button>
+            </div>
           </div>
         </div>
       )}

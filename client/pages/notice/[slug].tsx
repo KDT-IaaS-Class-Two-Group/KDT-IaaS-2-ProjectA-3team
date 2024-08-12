@@ -1,8 +1,7 @@
-
-import { GetServerSideProps } from 'next';
-import { MongoClient, ObjectId } from 'mongodb';
-import { useState } from 'react';
-import CommentForm from '../../components/userMainPage/commentForm'
+import { GetServerSideProps } from "next";
+import { MongoClient, ObjectId } from "mongodb";
+import { useState } from "react";
+import CommentForm from "../../components/userMainPage/commentForm";
 import { greenButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/notice/notice.css";
 
@@ -21,9 +20,9 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
 
   const handleUpdate = () => {
     fetch(`http://localhost:3001/notice/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ title: newTitle, content: newContent }),
     })
       .then((response) => {
@@ -33,36 +32,35 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
         alert(data);
         window.location.reload();
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        alert('수정 중 오류 발생');
-        window.location.href = '/noticeMain';
-
+        alert("수정 중 오류 발생");
+        window.location.href = "/noticeMain";
       });
   };
 
   const handleDelete = () => {
     fetch(`http://localhost:3001/notice/${id}`, {
-      method: 'DELETE',
-      credentials: 'include',
+      method: "DELETE",
+      credentials: "include",
     })
       .then((response) => {
         return response.text();
       })
       .then((data) => {
         alert(data);
-        window.location.href = '/noticeMain';
+        window.location.href = "/noticeMain";
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        alert('삭제 중 오류 발생')
-        window.location.href = '/noticeMain';
+        alert("삭제 중 오류 발생");
+        window.location.href = "/noticeMain";
       });
   };
 
   const back = () => {
-    window.location.href = '/noticeMain';
-  }
+    window.location.href = "/noticeMain";
+  };
 
   return (
     <div>
@@ -73,7 +71,7 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              placeholder='제목'
+              placeholder="제목"
               className={styles.inputSize}
             />
           </div>
@@ -81,52 +79,71 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
             <textarea
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
-              placeholder='내용'
+              placeholder="내용"
               className={styles.textareaSize}
             />
           </div>
           <div className={styles.sujungbtn}>
             <div>
-              <button onClick={handleUpdate} className={greenButton}>Save</button>
+              <button onClick={handleUpdate} className={greenButton}>
+                Save
+              </button>
             </div>
             <div>
-              <button onClick={back} className={greenButton}>취소</button>
+              <button onClick={back} className={greenButton}>
+                취소
+              </button>
             </div>
           </div>
         </div>
       ) : (
-        <div>
-          <div>
-            <h1>{title}</h1>
-            <p>{content}</p>
-            <p>{createdAt}</p>
-            <p>{userId}</p>
-            <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
-            <button onClick={handleDelete} className={greenButton}>삭제</button>
+        <div className={styles.usernoticeall}>
+          <div className={styles.usernotcietitle}>
+            <div>{userId}</div>
+            <div className={styles.pTagTitle}>{title}</div>
+            <div>{createdAt}</div>
           </div>
-          <div>
-            <button onClick={back} className={greenButton}>뒤로가기</button>
+          <div className={styles.usernoticecontent}>
+            <div className={styles.usercontent}>{content}</div>
+            <div className={styles.usercomment}>
+              <CommentForm postId={id as string} />
+            </div>
           </div>
-          <div>
-            <CommentForm postId={id as string} />
+          <div className={styles.authfooter}>
+            <div>
+              <button onClick={() => setEditMode(true)} className={greenButton}>
+                수정
+              </button>
+            </div>
+            <div>
+              <button onClick={handleDelete} className={greenButton}>
+                삭제
+              </button>
+            </div>
+            <div>
+              <button onClick={back} className={greenButton}>
+                뒤로가기
+              </button>
+            </div>
           </div>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const slug = Array.isArray(context.params?.slug) ? context.params.slug[0] : context.params?.slug;
-    if (!slug || typeof slug !== 'string') {
+    const slug = Array.isArray(context.params?.slug)
+      ? context.params.slug[0]
+      : context.params?.slug;
+    if (!slug || typeof slug !== "string") {
       return { notFound: true };
     }
 
-    const client = await MongoClient.connect('mongodb://localhost:27017');
-    const db = client.db('notice');
-    const collection = db.collection('noticeTable');
+    const client = await MongoClient.connect("mongodb://localhost:27017");
+    const db = client.db("notice");
+    const collection = db.collection("noticeTable");
 
     const post = await collection.findOne({ _id: new ObjectId(slug) });
     client.close();
@@ -142,10 +159,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         createdAt: post.createdAt,
         userId: post.user_id,
         id: slug,
-      }
+      },
     };
   } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error("Error fetching post:", error);
     return { notFound: true };
   }
 };
