@@ -7,10 +7,14 @@ import {
 } from "client/styles/admin/greet/greet.css";
 import { section } from "client/styles/admin/admindashboard.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons"; // 스타 아이콘을 가져옵니다.
+
 interface SessionData {
   user_id: string;
   role_name: string;
 }
+
 const MainHeader: React.FC = () => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
@@ -55,4 +59,5 @@ const MainHeader: React.FC = () => {
     </div>
   );
 };
+
 export default MainHeader;

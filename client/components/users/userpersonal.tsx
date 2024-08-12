@@ -153,7 +153,7 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className={styles.maincontainter}>
       <h1>개인 프로필 조회</h1>
       <ul>
         {users.map((user) => (
@@ -231,10 +231,10 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                   />
                 </label>
                 <div>
-                  <button onClick={() => handleUpdateUser(user.user_id)}>
-                    저장하기
+                  <button onClick={() => handleUpdateUser(user.user_id)} className={styles.blueButton}>
+                    save
                   </button>
-                  <button onClick={() => handleCancelEdit()}>취소</button>
+                  <button onClick={() => handleCancelEdit()} className={styles.yellowButton}>cancle</button>
                 </div>
               </div>
             ) : (
@@ -254,11 +254,11 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                   {disabledUsers.get(user.user_id) && <span>(비활성화됨)</span>}
                   {!disabledUsers.get(user.user_id) && (
                     <div>
-                      <button onClick={() => handleEditClick(user.user_id)}>
-                        수정하기
+                      <button onClick={() => handleEditClick(user.user_id)} className={styles.yellowButton}>
+                        edit
                       </button>
-                      <button onClick={() => handleDisableBio(user.user_id)}>
-                        비활성화하기
+                      <button onClick={() => handleDisableBio(user.user_id)} className={styles.greenButton}>
+                        secret
                       </button>
                     </div>
                   )}
@@ -268,7 +268,7 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
           </li>
         ))}
       </ul>
-      <button onClick={handleSave}>저장하기</button>
+      <button onClick={handleSave} className={styles.blueButton}>save</button>
     </div>
   );
 };
