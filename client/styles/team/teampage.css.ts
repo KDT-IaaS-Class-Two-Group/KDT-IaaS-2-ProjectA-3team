@@ -57,4 +57,5 @@ export const teambuttoncontainer = style({
 });
 export const projectbuttoncontainer = style({
   display: "flex",
+  justifyContent: "flex-end",
 });
