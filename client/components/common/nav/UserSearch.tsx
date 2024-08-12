@@ -4,53 +4,54 @@ import * as styles from "../../../styles/sidebar/SidebarStyles.css";
 export const UserSearch: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]); // 전체 사용자 목록
   const [filteredUsers, setFilteredUsers] = useState<any[]>([]); // 필터링된 사용자 목록
-  const [searchTerm, setSearchTerm] = useState(''); // 검색어
-  const [currentUserRole, setCurrentUserRole] = useState<string>('employee'); // 현재 사용자의 역할, 기본값을 'employee'로 설정
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어
+  const [currentUserRole, setCurrentUserRole] = useState<string>("employee"); // 현재 사용자의 역할, 기본값을 'employee'로 설정
 
   useEffect(() => {
     // 현재 사용자의 권한 가져오기
     const fetchUserRole = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getUser/role', {
-          method: 'GET',
+        const response = await fetch("http://localhost:3001/getUser/role", {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`, // 토큰이 필요할 경우 추가
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // 토큰이 필요할 경우 추가
           },
-          credentials: 'include', // 쿠키를 포함해야 하는 경우
+          credentials: "include", // 쿠키를 포함해야 하는 경우
         });
 
         if (response.ok) {
           const data = await response.json();
-          setCurrentUserRole(data.role || 'employee'); // 현재 사용자의 역할을 설정, 실패시 'employee'로 설정
+          setCurrentUserRole(data.role || "employee"); // 현재 사용자의 역할을 설정, 실패시 'employee'로 설정
         } else {
-          console.error('사용자 권한 정보를 가져오는 데 실패했습니다.');
+          console.error("사용자 권한 정보를 가져오는 데 실패했습니다.");
         }
       } catch (error) {
-        console.error('에러 발생:', error);
+        console.error("에러 발생:", error);
       }
     };
 
     // 전체 사용자 목록 가져오기
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/getUser/all', {
-          method: 'GET',
+        const response = await fetch("http://localhost:3001/getUser/all", {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`, // 토큰이 필요할 경우 추가
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // 토큰이 필요할 경우 추가
           },
-          credentials: 'include', // 쿠키를 포함해야 하는 경우
+          credentials: "include", // 쿠키를 포함해야 하는 경우
         });
 
         if (response.ok) {
           const data = await response.json();
           setUsers(data); // 전체 사용자 목록을 저장
+          setFilteredUsers(data.slice(0, 10)); // 초기 상태에서 상위 10명의 유저만 필터링된 사용자 목록에 설정
         } else {
-          console.error('사용자 데이터를 가져오는 데 실패했습니다.');
+          console.error("사용자 데이터를 가져오는 데 실패했습니다.");
         }
       } catch (error) {
-        console.error('에러 발생:', error);
+        console.error("에러 발생:", error);
       }
     };
 
@@ -78,16 +79,18 @@ export const UserSearch: React.FC = () => {
 
   // 엔터키를 눌렀을 때 실행되는 함수
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      if (searchTerm.trim() === '') {
+    if (event.key === "Enter") {
+      if (searchTerm.trim() === "") {
         setFilteredUsers([]); // 검색어가 비어있다면 결과를 비웁니다.
       } else {
-        const filtered = users.filter(user => {
-          const userRole = user.role_name || 'employee'; // 사용자의 역할을 가져옵니다. 역할이 없다면 기본값은 employee
+        const filtered = users.filter((user) => {
+          const userRole = user.role_name || "employee"; // 사용자의 역할을 가져옵니다. 역할이 없다면 기본값은 employee
           const comparisonResult = compareRoles(currentUserRole, userRole);
 
-          return user.username.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                 comparisonResult <= 0; // 권한이 자신보다 높은 사람은 필터링
+          return (
+            user.username.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            comparisonResult <= 0
+          ); // 권한이 자신보다 높은 사람은 필터링
         });
         setFilteredUsers(filtered); // 필터링된 사용자 목록을 업데이트
       }
@@ -108,15 +111,13 @@ export const UserSearch: React.FC = () => {
         />
       </div>
       <ul className={styles.userlist}>
-        {filteredUsers.length > 0 ? (
-          filteredUsers.map(user => (
-            <li key={user.user_id} className={styles.userlistitem}>
-              {user.username}
-            </li>
-          ))
-        ) : (
-          searchTerm && <li>No users found</li>
-        )}
+        {filteredUsers.length > 0
+          ? filteredUsers.map((user) => (
+              <li key={user.user_id} className={styles.userlistitem}>
+                {user.username}
+              </li>
+            ))
+          : searchTerm && <li>No users found</li>}
       </ul>
     </div>
   );
