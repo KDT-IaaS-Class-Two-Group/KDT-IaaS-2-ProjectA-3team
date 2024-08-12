@@ -147,7 +147,7 @@ function UserSelection() {
 
   return (
     <div className={styles.maincontainter}>
-      <div className={styles.padding}>
+      <div className={styles.teampadding}>
         <label htmlFor="teamName">팀 이름:</label>
         <input
           type="text"
@@ -159,8 +159,8 @@ function UserSelection() {
         />
       </div>
 
-      <div>팀장: {selectedLeader ? selectedLeader.user_id : "없음"}</div>
-      <div>
+      <div className={styles.padding}>
+        팀장: {selectedLeader ? selectedLeader.user_id : "없음"}
         <ul>
           {leaders.map((user) => (
             <li key={user.user_id} className={styles.listyle}>
@@ -182,10 +182,10 @@ function UserSelection() {
       </div>
 
       <div>
-      <div>
-        팀원:{" "}
-        {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
-      </div>
+        <div>
+          팀원:{" "}
+          {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
+        </div>
         <ul>
           {members.map((user) => (
             <li key={user.user_id} className={styles.listyle}>
@@ -218,6 +218,7 @@ function UserSelection() {
           name="teamDescription"
           value={teamDescription}
           onChange={(e) => setTeamDescription(e.target.value)}
+          className={styles.textarea}
         />
       </div>
       <button onClick={handleSubmit} className={button.blueButton}>
