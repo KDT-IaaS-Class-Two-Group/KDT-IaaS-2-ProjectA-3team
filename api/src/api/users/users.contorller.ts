@@ -209,8 +209,8 @@ export class UsersController {
     // 팔로우 관계 삭제
     await this.queryBuilder
       .DELETE('followers', 'follower_id = $1 AND following_id = $2', [
-        followerId,
-        followingId,
+        followerId, // $1에 해당하는 값
+        followingId, // $2에 해당하는 값
       ])
       .execution();
 

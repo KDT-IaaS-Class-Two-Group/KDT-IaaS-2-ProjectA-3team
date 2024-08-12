@@ -18,11 +18,13 @@ export class PendingUserRepository {
 
   async deleteUser(user_id: string) {
     try {
-      await this.qb.DELETE(
-        TABLE_NAME.__PENDING_USERS,
-        QUERY_PLACEHOLDER.__CHECK_USER_ID,
-        user_id,
-      ).execution;
+      await this.qb
+        .DELETE(
+          TABLE_NAME.__PENDING_USERS,
+          QUERY_PLACEHOLDER.__CHECK_USER_ID,
+          [user_id], // string을 배열로 감싸서 전달
+        )
+        .execution();
     } catch (error) {
       throw error;
     }

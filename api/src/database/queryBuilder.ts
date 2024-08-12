@@ -101,10 +101,10 @@ export class QueryBuilder {
     return this;
   }
 
-  DELETE(tableName: string, condition: string, value: any) {
+  DELETE(tableName: string, condition: string, values: any[]) {
     this.RESET();
     this.queryString = `DELETE FROM ${tableName} WHERE ${condition}`;
-    this.params = [value];
+    this.params = values; // 여러 매개변수를 처리
     return this;
   }
 
