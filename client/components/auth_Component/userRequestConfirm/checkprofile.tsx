@@ -116,13 +116,13 @@ const UserRequest: React.FC = () => {
                     onClick={() => handleAccept(user.user_id)}
                     className={greenButton}
                   >
-                    수락
+                    변경 수락
                   </button>
                   <button
                     onClick={() => handleReject(user.user_id)}
                     className={greenButton}
                   >
-                    거절
+                    변경 거절
                   </button>
                 </div>
               </li>

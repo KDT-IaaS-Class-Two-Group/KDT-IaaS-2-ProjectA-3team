@@ -4,18 +4,15 @@ import NoticeFooter from "client/components/userMainPage/noticeMainFooter";
 import NoticeAuthContent from "client/components/authNotice/noticeAuthContent";
 import Link from "next/link";
 import * as styles from "../styles/notice/notice.css";
+import { pagemainmain } from "client/styles/team/teampage.css";
 
 const NoticeMainPage: React.FC = () => {
   return (
-    <div>
+    <div className={pagemainmain}>
       <div>
         <NoticeTitle />
       </div>
-      <div>
-        <Link href="/noticeAuthAllPage">
-          <button>관리자 게시판 보기</button>
-        </Link>
-      </div>
+
       <div>
         <div className={styles.noticecontent}>
           <div className={styles.title}>
