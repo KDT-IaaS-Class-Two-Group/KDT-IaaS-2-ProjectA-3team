@@ -25,6 +25,7 @@ import { requestSection } from "client/styles/admin/requests/requests.css";
 import PendingUsersList from "client/components/PendingUsersList";
 import CheckUsersCount from "client/components/checktest";
 import Button from "../common/elements/button";
+import ProjectView from "../project/info";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -34,7 +35,7 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
     <div className={maincontentcontainer}>
       <div className={`${section} ${projectSection}`}>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<Project />)} />
+          <Button onClick={() => onclick(<ProjectView />)} />
           <Project />
         </div>
       </div>
