@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import ClockInOutModal from "../ClockInOutModal";
 import { plusButton, tdn } from "client/styles/templatebutton.css";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -31,16 +32,39 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
-  // 세션 데이터를 가져오는 가상 메서드 (실제 사용 시 세션 데이터에서 userId를 가져와야 함)
-  const fetchSessionData = () => {
-    return { user_id: "sampleUserId", role_name: "user" };
+  // 서버에서 세션 데이터를 가져오는 함수
+  const fetchSessionData = async () => {
+    try {
+      const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // 세션 쿠키를 포함하여 요청
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.session;
+      } else {
+        console.error("Failed to fetch session data", response.statusText);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching session data", error);
+      return null;
+    }
   };
 
-  React.useEffect(() => {
-    const sessionData = fetchSessionData();
-    if (sessionData) {
-      setUserId(sessionData.user_id);
-    }
+  useEffect(() => {
+    const loadSessionData = async () => {
+      const sessionData = await fetchSessionData();
+      if (sessionData) {
+        setUserId(sessionData.user_id);
+      }
+    };
+
+    loadSessionData();
   }, []);
 
   const handleOpenModal = () => {
