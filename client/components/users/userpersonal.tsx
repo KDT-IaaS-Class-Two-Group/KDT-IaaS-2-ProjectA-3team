@@ -231,10 +231,10 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                   />
                 </label>
                 <div>
-                  <button onClick={() => handleUpdateUser(user.user_id)}>
-                    저장하기
+                  <button onClick={() => handleUpdateUser(user.user_id)} className={styles.blueButton}>
+                    save
                   </button>
-                  <button onClick={() => handleCancelEdit()}>취소</button>
+                  <button onClick={() => handleCancelEdit()} className={styles.yellowButton}>cancle</button>
                 </div>
               </div>
             ) : (
