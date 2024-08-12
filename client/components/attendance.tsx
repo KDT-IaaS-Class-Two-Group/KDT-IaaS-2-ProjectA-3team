@@ -31,7 +31,6 @@ const Attendance: React.FC = () => {
             credentials: "include",
           }
         );
-
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched data:", data); // 데이터 확인

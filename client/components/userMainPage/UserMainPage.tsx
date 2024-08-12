@@ -3,6 +3,7 @@ import {
   cardHeader,
   maincontentcontainer,
   projectSection,
+  projectTitle,
   section,
 } from "client/styles/admin/admindashboard.css";
 import Link from "next/link";
@@ -18,11 +19,12 @@ import {
 } from "client/styles/users/userdashboard.css";
 import CalendarComponent from "../Calendar/calendar";
 import NoticeBoard from "../Notice/NoticeBoard";
-import Button from "../common/elements/button";
+import { Button } from "../common/elements/button";
 import { useEffect, useState } from "react";
 import React from "react";
 import ClockInOutModal from "../ClockInOutModal";
 import { plusButton, tdn } from "client/styles/templatebutton.css";
+import { projectitletext } from "client/styles/admin/project/project.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
@@ -88,21 +90,28 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${kanbansection}`}>
         <div className={cardHeader}>kanban board</div>
-        <div className={cardContent}>Requested by 3 users</div>
+        <div className={cardContent}>임시 내용</div>
       </div>
       <div className={`${usersection} ${calendarsection}`}>
-        <CalendarComponent />
+        <div className={projectTitle}>
+          <span className={projectitletext}>Notice Board</span>
+
+          <Link href="/noticeMain" className={tdn}>
+            <Button>게시판</Button>
+          </Link>
+        </div>
+        <NoticeBoard />
       </div>
       <div className={`${usersection} ${todolistsection}`}>
         <div className={cardHeader}>todolist</div>
         <div className={cardContent}></div>
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
-        <div className={cardHeader}>noticeboard</div>
-        <Link href="/noticeMain" className={tdn}>
-          <Button>게시판</Button>
-        </Link>
-        <NoticeBoard />
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <CalendarComponent />
+          </div>
+        </div>
       </div>
       <div className={`${usersection} ${companybutton}`}>
         <div className={cardHeader}>출퇴근 버튼</div>

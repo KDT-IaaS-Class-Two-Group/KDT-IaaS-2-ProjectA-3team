@@ -26,7 +26,7 @@ import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.
 import { requestSection } from "client/styles/admin/requests/requests.css";
 import PendingUsersList from "client/components/PendingUsersList";
 import CheckUsersCount from "client/components/checktest";
-import Button from "../common/elements/button";
+import { Button } from "../common/elements/button";
 import ProjectView from "../project/info";
 import PendingUserLook from "../auth_Component/userRequestConfirm/userlookup";
 import UserRequest from "../auth_Component/userRequestConfirm/checkprofile";
