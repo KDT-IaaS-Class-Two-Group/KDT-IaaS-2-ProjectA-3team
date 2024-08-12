@@ -3,11 +3,8 @@ import { GetServerSideProps } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { useState } from 'react';
 import CommentForm from '../../components/userMainPage/commentForm'
-import {
-  centeredflexcolcontainer,
-  flexcolcontainer,
-} from "client/styles/standardcontainer.css";
 import { greenButton } from "client/styles/templatebutton.css";
+import * as styles from "../../styles/notice/notice.css";
 
 interface PostProps {
   title: string;
@@ -68,26 +65,33 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
   }
 
   return (
-    <div className={flexcolcontainer}>
+    <div>
       {editMode ? (
-        <div className={centeredflexcolcontainer}>
-          <div>사용자</div>
-          <input
-            type="text"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            placeholder='제목'
-          />
-          <textarea
-            value={newContent}
-            onChange={(e) => setNewContent(e.target.value)}
-            placeholder='내용'
-            cols={30}
-            rows={10}
-          />
-          <button onClick={handleUpdate} className={greenButton}>Save</button>
-          <div>
-            <button onClick={back} className={greenButton}>뒤로가기</button>
+        <div className={styles.wrtiePage}>
+          <div className={styles.checksize}>
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder='제목'
+              className={styles.inputSize}
+            />
+          </div>
+          <div className={styles.testsize}>
+            <textarea
+              value={newContent}
+              onChange={(e) => setNewContent(e.target.value)}
+              placeholder='내용'
+              className={styles.textareaSize}
+            />
+          </div>
+          <div className={styles.sujungbtn}>
+            <div>
+              <button onClick={handleUpdate} className={greenButton}>Save</button>
+            </div>
+            <div>
+              <button onClick={back} className={greenButton}>취소</button>
+            </div>
           </div>
         </div>
       ) : (
@@ -107,8 +111,9 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
             <CommentForm postId={id as string} />
           </div>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
