@@ -24,7 +24,7 @@ export const pageinput = style({
 });
 export const pageteamtext = style({
   fontSize: FontSize.Large,
-  paddingBottom: "1.5vw",
+  paddingBottom: "0.5vw",
   listStyle: "none",
   display: "flex",
   flexDirection: "column",
@@ -54,4 +54,7 @@ export const teambuttoncontainer = style({
   display: "flex",
   justifyContent: "flex-end",
   marginTop: "2vw",
+});
+export const projectbuttoncontainer = style({
+  display: "flex",
 });

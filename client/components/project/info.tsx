@@ -9,6 +9,11 @@ import {
   ResponseProject_WithTeam,
 } from "client/components/project_table/interface/project.interface";
 import CreateProjectModal from "../modal/createProject_Modal/createProject.modal";
+import {
+  pagemaincontainer,
+  pagemainmain,
+  pagemaintext,
+} from "client/styles/team/teampage.css";
 
 const ProjectView: React.FC = () => {
   const [data, setData] = useState<ResponseProject_WithTeam[]>([]);
@@ -34,9 +39,9 @@ const ProjectView: React.FC = () => {
   };
 
   return (
-    <div className={styles.maincontainter}>
-      <div>
-        <h2>프로젝트 View</h2>
+    <div className={pagemainmain}>
+      <div className={pagemaincontainer}>
+        <div className={pagemaintext}>프로젝트 조회</div>
         <CreateProjectModal onProjectCreated={handleProjectCreation} />
         {isLoading ? (
           <div>Loading...</div>
