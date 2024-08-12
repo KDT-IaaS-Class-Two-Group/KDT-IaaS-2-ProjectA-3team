@@ -8,12 +8,13 @@ export const pagemaintext = style({
   fontSize: FontSize.XLarge,
   paddingBottom: "2vw",
   borderBottom: "1px solid white",
-  marginBottom: "2vw",
+  marginBottom: "1vw",
 });
 export const pagemainmain = style({
   backgroundColor: Colors.FontPrimary,
   borderRadius: Size.border,
   padding: "3vw 3vw 0vw 3vw",
+  overflow: "auto",
 });
 export const pageinput = style({
   fontSize: FontSize.Large,
