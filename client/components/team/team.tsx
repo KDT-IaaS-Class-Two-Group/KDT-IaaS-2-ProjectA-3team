@@ -146,7 +146,7 @@ function UserSelection() {
 
   return (
     <div className={styles.maincontainter}>
-      <div>
+      <div className={styles.teamnameinput}>
         <label htmlFor="teamName">팀 이름:</label>
         <input
           type="text"

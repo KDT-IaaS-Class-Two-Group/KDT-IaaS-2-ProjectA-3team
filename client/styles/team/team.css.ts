@@ -7,3 +7,7 @@ export const maincontainter = style({
   height: Size.full,
   borderRadius: Size.border,
 });
+
+export const teamnameinput = style({
+  padding: "20px",
+});
