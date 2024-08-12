@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./modal/modal";
+
 interface ClockInOutModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,6 +14,8 @@ const ClockInOutModal: React.FC<ClockInOutModalProps> = ({
 }) => {
   const [status, setStatus] = useState("");
 
+  console.log("ClockInOutModal received userId:", userId); // 이 부분에서 userId를 로그로 출력
+
   const handleClockIn = async () => {
     try {
       const response = await fetch("http://localhost:3001/getUser/clockin", {
@@ -20,7 +23,7 @@ const ClockInOutModal: React.FC<ClockInOutModalProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: "user001" }), // userId를 서버로 전송
+        body: JSON.stringify({ userId }),
       });
 
       if (response.ok) {
@@ -35,6 +38,7 @@ const ClockInOutModal: React.FC<ClockInOutModalProps> = ({
   };
 
   const handleClockOut = async () => {
+    console.log("Attempting to clock out for userId:", userId); // 이 부분에서 userId를 로그로 출력
     try {
       const response = await fetch("http://localhost:3001/getUser/clockout", {
         method: "POST",

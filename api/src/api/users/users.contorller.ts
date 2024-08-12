@@ -466,14 +466,7 @@ export class UsersController {
   @Post('/clockin')
   async clockIn(@Body() body: { userId: string }): Promise<any> {
     const { userId } = body;
-    const now = new Date();
-
-    // userId가 유효한지 확인
-    if (!userId) {
-      console.error('userId is missing or undefined.');
-      throw new HttpException('User ID is required', HttpStatus.BAD_REQUEST);
-    }
-
+    const now = new Date(); // 현재 시간을 여기서 생성합니다.
     try {
       console.log('ClockIn started for userId:', userId);
 
@@ -499,17 +492,17 @@ export class UsersController {
   @Post('/clockout')
   async clockOut(@Body() body: { userId: string }): Promise<any> {
     const { userId } = body;
+    console.log('Received userId:', userId); // 서버에서 받은 userId를 로그로 출력
+
     const now = new Date();
 
     try {
-      console.log('ClockOut started for userId:', userId);
-
       const result = await this.queryBuilder
         .UPDATE(
           'work_table',
           { endTime: now },
           'user_id = $2 AND endTime IS NULL',
-          [userId], // 매개변수를 올바른 순서로 전달
+          [userId], // 여기서 올바른 userId가 전달되어야 함
         )
         .execution();
 

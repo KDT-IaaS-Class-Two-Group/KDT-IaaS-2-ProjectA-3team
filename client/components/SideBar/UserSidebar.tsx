@@ -102,7 +102,8 @@ const MenuItem: React.FC<{
   if (link) {
     return (
       <li className={styles.menuitem}>
-        <Link href={link} className={tdn}>
+        <span className={styles.menuitemicon}></span>
+        <Link href={link} className={styles.atagmenuitem}>
           {text}
         </Link>
       </li>

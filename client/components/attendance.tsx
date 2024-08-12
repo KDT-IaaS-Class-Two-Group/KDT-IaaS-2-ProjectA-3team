@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ClockInOutModal from "./modal/work.Modal";
-import { userlist } from "client/styles/sidebar/SidebarStyles.css";
 
 interface AttendanceRecord {
   user_id: string;
   username: string;
-  clockintime: string;
-  clockouttime?: string;
+  clockInTime: string; // camelCase로 수정
+  clockOutTime?: string; // camelCase로 수정
 }
 
 const Attendance: React.FC = () => {
@@ -17,6 +16,9 @@ const Attendance: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    const now = new Date();
+    console.log("현재 시간:", now.toLocaleString("ko-KR"));
+
     const fetchAttendanceRecords = async () => {
       try {
         const response = await fetch(
@@ -29,7 +31,6 @@ const Attendance: React.FC = () => {
             credentials: "include",
           }
         );
-
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched data:", data); // 데이터 확인
@@ -66,7 +67,7 @@ const Attendance: React.FC = () => {
           {attendanceRecords.map((record, index) => {
             console.log("Record:", record);
             console.log(record.user_id);
-            console.log(new Date(record.clockintime).toLocaleString("ko-KR"));
+            console.log(new Date(record.clockInTime).toLocaleString("ko-KR"));
             return (
               <li key={`${record.user_id}-${index}`}>
                 <p>
@@ -74,12 +75,12 @@ const Attendance: React.FC = () => {
                 </p>
                 <p>
                   <strong>출근 시간:</strong>{" "}
-                  {new Date(record.clockintime).toLocaleString("ko-KR")}
+                  {new Date(record.clockInTime).toLocaleString("ko-KR")}
                 </p>
                 <p>
-                  <strong>퇴근 시간:</strong>
-                  {record.clockouttime
-                    ? new Date(record.clockouttime).toLocaleString("ko-KR")
+                  <strong>퇴근 시간:</strong>{" "}
+                  {record.clockOutTime
+                    ? new Date(record.clockOutTime).toLocaleString("ko-KR")
                     : "퇴근 기록 없음"}
                 </p>
               </li>
