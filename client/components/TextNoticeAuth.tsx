@@ -30,13 +30,16 @@ const NoticeAuthContent = () => {
           console.error("데이터를 가져오는 중 오류 발생:", err);
         });
     };
-    fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
+    fetchNotices(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, []);
+
+  // 최대 3개의 게시물만 표시
+  const displayedNotices = authList.slice(0, 3);
 
   return (
     <div className={paddingtop1vwstyle}>
-      {authList.length > 0 ? (
-        authList.map((notice, index) => (
+      {displayedNotices.length > 0 ? (
+        displayedNotices.map((notice, index) => (
           <div key={notice._id}>
             <Link href={`/noticeAuth/${notice._id}`} className={tdn}>
               <div className={hovertextstyle}>

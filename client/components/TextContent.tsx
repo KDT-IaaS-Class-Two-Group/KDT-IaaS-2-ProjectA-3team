@@ -37,10 +37,13 @@ const NoticeMainContent = () => {
     fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, []);
 
+  // 최대 3개의 게시물만 표시
+  const displayedNotices = userList.slice(0, 3);
+
   return (
     <div>
-      {userList.length > 0 ? (
-        userList.map((notice, index) => (
+      {displayedNotices.length > 0 ? (
+        displayedNotices.map((notice, index) => (
           <div key={notice._id}>
             <Link href={`/notice/${notice._id}`} className={tdn}>
               <div className={hovertextstyle}>
