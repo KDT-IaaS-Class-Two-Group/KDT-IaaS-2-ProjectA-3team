@@ -5,7 +5,7 @@ import Logo from "../common/logo/Logo";
 import UserSelection from "../team/team";
 import AdminMainContent from "../adminMainPage/AdminMainPage";
 import ProjectView from "../project/info";
-import NoticeMainPage from "../Notice/noticeMain";
+import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;

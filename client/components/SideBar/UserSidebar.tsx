@@ -3,7 +3,7 @@ import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../userMainPage/UserMainPage";
-import NoticeMainPage from "../Notice/noticeMain";
+import NoticeMainPage from "../../pages/noticeMain";
 import UserPersonal from "../users/userpersonal";
 
 interface UserSidebarProps {
