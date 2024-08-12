@@ -49,7 +49,7 @@ const DBGUI: React.FC = () => {
   return (
     <div>
       <ul className={dblist}>
-        {tables.slice(0, 3).map((table, index) => (
+        {tables.slice(0, 5).map((table, index) => (
           <li key={index} className={dblistitem}>
             {table.table_name}
             <DBButton link={`/tables/${table.table_name}`}>null</DBButton>
