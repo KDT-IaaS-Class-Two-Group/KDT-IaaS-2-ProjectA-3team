@@ -5,6 +5,8 @@ import {
   projectSection,
   section,
 } from "client/styles/admin/admindashboard.css";
+import Link from "next/link";
+
 import {
   calendarsection,
   companybutton,
@@ -46,7 +48,9 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>noticeboard</div>
-        <Button onClick={() => onclick(<NoticeBoard />)} />
+        <Link href="/noticeMain" passHref>
+          <Button>게시판</Button>
+        </Link>
         <NoticeBoard />
       </div>
       <div className={`${usersection} ${companybutton}`}>

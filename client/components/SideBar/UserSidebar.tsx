@@ -7,7 +7,7 @@ import NoticeMainPage from "../../pages/noticeMain";
 import UserPersonal from "../users/userpersonal";
 import { useEffect, useState } from "react";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
-
+import Link from "next/link";
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -78,10 +78,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
                 text="칸반보드"
                 onClick={() => handleMenuItemClick(<KanbanBoard />)}
               />
-              <MenuItem
-                text="게시판"
-                onClick={() => handleMenuItemClick(<NoticeMainPage />)}
-              />
+              <MenuItem text="게시판" link="/noticeMain" />
               <MenuItem
                 text="개인정보 조회"
                 onClick={() => handleMenuItemClick(<UserPersonal />)}
@@ -96,16 +93,27 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
 };
 
 // 메뉴 항목 컴포넌트
-const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
-  text,
-  onClick,
-}) => {
-  return (
-    <li className={styles.menuitem} onClick={onClick}>
-      <span className={styles.menuitemicon}></span>
-      <span>{text}</span>
-    </li>
-  );
+const MenuItem: React.FC<{
+  text: string;
+  onClick?: () => void;
+  link?: string;
+}> = ({ text, onClick, link }) => {
+  if (link) {
+    return (
+      <li className={styles.menuitem}>
+        <Link href={link} className={styles.menuitemicon}>
+          {text}
+        </Link>
+      </li>
+    );
+  } else {
+    return (
+      <li className={styles.menuitem} onClick={onClick}>
+        <span className={styles.menuitemicon}></span>
+        <span>{text}</span>
+      </li>
+    );
+  }
 };
 
 const ProjectView: React.FC = () => <div>프로젝트 조회 컴포넌트</div>;
