@@ -1,22 +1,32 @@
 import React, { useState } from "react";
 
 const FollowPage: React.FC = () => {
+  interface User {
+    user_id: string;
+    username: string;
+    email: string;
+    isFollowing: boolean; // 이 속성은 팔로우 상태를 나타냅니다.
+  }
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]); // User[] 타입을 명시합니다.
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/getUser/search?query=${searchQuery}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/api/getUser/search?query=${searchQuery}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
-        const data = await response.json();
+        const data: User[] = await response.json(); // 데이터를 User[] 타입으로 변환합니다.
         setUsers(data);
       } else {
         console.error("Failed to fetch users");
@@ -31,7 +41,7 @@ const FollowPage: React.FC = () => {
   const handleFollow = async (userId: string, isFollowing: boolean) => {
     try {
       const response = await fetch(
-        `/api/getUser/${isFollowing ? "unfollow" : "follow"}`,
+        `http://localhost:3001/api/getUser/${isFollowing ? "unfollow" : "follow"}`,
         {
           method: "POST",
           headers: {

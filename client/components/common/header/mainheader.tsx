@@ -6,7 +6,7 @@ import {
   admintext,
 } from "client/styles/admin/greet/greet.css";
 import { section } from "client/styles/admin/admindashboard.css";
-import REQUEST_URL from 'client/ts/enum/request/REQUEST_URL.ENUM';
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 interface SessionData {
   user_id: string;
@@ -24,9 +24,9 @@ const MainHeader: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: 'include', // 쿠키를 포함하여 요청합니다.
+          credentials: "include",
         });
-    
+
         if (response.ok) {
           const data = await response.json();
           setSessionData(data.session);
@@ -38,11 +38,10 @@ const MainHeader: React.FC = () => {
         console.error("Failed to fetch session data", error);
       }
     };
-    
 
     fetchSessionData();
   }, []);
- 
+
   return (
     <div className={`${section} ${fullRowSection}`}>
       <div className={titlecontainer}>

@@ -62,14 +62,14 @@ export class UsersController {
     @Query('query') query: string,
     @Req() req: Request,
   ): Promise<any> {
+    const currentUserId = req.session.user?.user_id;
+    console.log(`Current User ID: ${currentUserId}`);
     if (!query) {
       throw new HttpException(
         'Query string is required',
         HttpStatus.BAD_REQUEST,
       );
     }
-
-    const currentUserId = req.session.user?.user_id;
     const users = await this.queryBuilder
       .SELECT('users', ['user_id', 'username', 'email'])
       .WHERE('username ILIKE $1 OR user_id ILIKE $1', [`%${query}%`])
