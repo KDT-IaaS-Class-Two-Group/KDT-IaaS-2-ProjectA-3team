@@ -1,9 +1,12 @@
+import { dblist, dblistitem } from "client/styles/databaseGUI/maindbgui.css";
 import {
   userlist,
   userlistitem,
 } from "client/styles/sidebar/SidebarStyles.css";
 import React, { useState, useEffect } from "react";
-
+import Link from "next/link";
+import { tdn } from "client/styles/templatebutton.css";
+import { DBButton } from "./common/elements/button";
 interface Table {
   table_name: string;
 }
@@ -41,10 +44,11 @@ const DBGUI: React.FC = () => {
 
   return (
     <div>
-      <ul className={userlist}>
+      <ul className={dblist}>
         {tables.slice(0, 3).map((table, index) => (
-          <li key={index} className={userlistitem}>
+          <li key={index} className={dblistitem}>
             {table.table_name}
+            <DBButton link={`/tables/${table.table_name}`}>게시판</DBButton>
           </li>
         ))}
       </ul>

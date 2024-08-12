@@ -12,7 +12,7 @@ interface ButtonProps {
   children?: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, link }) => {
+export const Button: React.FC<ButtonProps> = ({ onClick, link }) => {
   if (link) {
     return <Link href={link}>+</Link>;
   }
@@ -23,5 +23,10 @@ const Button: React.FC<ButtonProps> = ({ onClick, link }) => {
     </button>
   );
 };
-
-export default Button;
+interface DBButtonProps {
+  link: string;
+  children: React.ReactNode;
+}
+export const DBButton: React.FC<DBButtonProps> = ({ link }) => {
+  return <Link href={link}>See More</Link>;
+};
