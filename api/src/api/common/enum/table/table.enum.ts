@@ -15,4 +15,5 @@ export enum TABLE_NAME {
   __ROLE_PERMISSION = 'role_permission',
   __PROFILE = 'profile',
   __FIELD = 'field',
+  __RELATION_PROJECT_STACK = 'relation_project_stack',
 }

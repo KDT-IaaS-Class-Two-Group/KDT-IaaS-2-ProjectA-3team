@@ -154,121 +154,150 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
 
   return (
     <div className={styles.maincontainter}>
-      <h1>개인 프로필 조회</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.user_id}>
-            {editingUserId === user.user_id ? (
-              <div>
-                <label>
-                  아이디:
-                  <input type="text" value={user.user_id} readOnly />
-                </label>
-                <label>
-                  이름:
-                  <input
-                    type="text"
-                    value={editFields.username || ""}
-                    onChange={(e) =>
-                      handleFieldChange("username", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  생년월일:
-                  <input
-                    type="text"
-                    value={editFields.birth_date || ""}
-                    onChange={(e) =>
-                      handleFieldChange("birth_date", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  주소:
-                  <input
-                    type="text"
-                    value={editFields.address || ""}
-                    onChange={(e) =>
-                      handleFieldChange("address", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  핸드폰 번호:
-                  <input
-                    type="text"
-                    value={editFields.phone || ""}
-                    onChange={(e) => handleFieldChange("phone", e.target.value)}
-                  />
-                </label>
-                <label>
-                  이메일:
-                  <input
-                    type="text"
-                    value={editFields.email || ""}
-                    onChange={(e) => handleFieldChange("email", e.target.value)}
-                  />
-                </label>
-                <label>
-                  비밀번호:
-                  <input
-                    type="password"
-                    value={editFields.password || ""}
-                    onChange={(e) =>
-                      handleFieldChange("password", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  자기소개:
-                  <input
-                    type="text"
-                    value={bios.get(user.user_id) || ""}
-                    onChange={(e) =>
-                      handleBioChange(user.user_id, e.target.value)
-                    }
-                  />
-                </label>
-                <div>
-                  <button onClick={() => handleUpdateUser(user.user_id)} className={styles.blueButton}>
-                    save
-                  </button>
-                  <button onClick={() => handleCancelEdit()} className={styles.yellowButton}>cancle</button>
+      <div className={styles.secondcontainer}>
+        <h1>개인 프로필 조회</h1>
+        <ul>
+          {users.map((user) => (
+            <li key={user.user_id} className={styles.listyle}>
+              {editingUserId === user.user_id ? (
+                <div className={styles.divstyle}>
+                  <label>
+                    아이디:
+                    <input
+                      type="text"
+                      value={user.user_id}
+                      readOnly
+                      className={styles.input}
+                    />
+                  </label>
+                  <label>
+                    이름:
+                    <input
+                      type="text"
+                      value={editFields.username || ""}
+                      onChange={(e) =>
+                        handleFieldChange("username", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    생년월일:
+                    <input
+                      type="text"
+                      value={editFields.birth_date || ""}
+                      onChange={(e) =>
+                        handleFieldChange("birth_date", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    주소:
+                    <input
+                      type="text"
+                      value={editFields.address || ""}
+                      onChange={(e) =>
+                        handleFieldChange("address", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    핸드폰 번호:
+                    <input
+                      type="text"
+                      value={editFields.phone || ""}
+                      onChange={(e) =>
+                        handleFieldChange("phone", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    이메일:
+                    <input
+                      type="text"
+                      value={editFields.email || ""}
+                      onChange={(e) =>
+                        handleFieldChange("email", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    비밀번호:
+                    <input
+                      type="password"
+                      value={editFields.password || ""}
+                      onChange={(e) =>
+                        handleFieldChange("password", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    자기소개:
+                    <input
+                      type="text"
+                      value={bios.get(user.user_id) || ""}
+                      onChange={(e) =>
+                        handleBioChange(user.user_id, e.target.value)
+                      }
+                    />
+                  </label>
+                  <div>
+                    <button
+                      onClick={() => handleUpdateUser(user.user_id)}
+                      className={styles.blueButton}
+                    >
+                      save
+                    </button>
+                    <button
+                      onClick={() => handleCancelEdit()}
+                      className={styles.yellowButton}
+                    >
+                      cancle
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div>
-                <strong>아이디 : </strong> {user.user_id}
-                <strong>이름 : </strong> {user.username}
-                <strong>생년월일 : </strong> {user.birth_date}
-                <strong>주소 : </strong> {user.address}
-                <strong>핸드폰 번호 : </strong> {user.phone}
-                <strong>이메일 : </strong> {user.email}
-                <strong>비밀번호 : </strong> {user.password}
+              ) : (
                 <div>
-                  <strong>자기소개 : </strong>
-                  <span>
-                    {profiles?.get(user.user_id) || bios.get(user.user_id)}
-                  </span>
-                  {disabledUsers.get(user.user_id) && <span>(비활성화됨)</span>}
-                  {!disabledUsers.get(user.user_id) && (
-                    <div>
-                      <button onClick={() => handleEditClick(user.user_id)} className={styles.yellowButton}>
-                        edit
-                      </button>
-                      <button onClick={() => handleDisableBio(user.user_id)} className={styles.greenButton}>
-                        secret
-                      </button>
-                    </div>
-                  )}
+                  <strong>아이디 : </strong> {user.user_id}
+                  <strong>이름 : </strong> {user.username}
+                  <strong>생년월일 : </strong> {user.birth_date}
+                  <strong>주소 : </strong> {user.address}
+                  <strong>핸드폰 번호 : </strong> {user.phone}
+                  <strong>이메일 : </strong> {user.email}
+                  <strong>비밀번호 : </strong> {user.password}
+                  <div>
+                    <strong>자기소개 : </strong>
+                    <span>
+                      {profiles?.get(user.user_id) || bios.get(user.user_id)}
+                    </span>
+                    {disabledUsers.get(user.user_id) && (
+                      <span>(비활성화됨)</span>
+                    )}
+                    {!disabledUsers.get(user.user_id) && (
+                      <div>
+                        <button
+                          onClick={() => handleEditClick(user.user_id)}
+                          className={styles.yellowButton}
+                        >
+                          edit
+                        </button>
+                        <button
+                          onClick={() => handleDisableBio(user.user_id)}
+                          className={styles.greenButton}
+                        >
+                          secret
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleSave} className={styles.blueButton}>save</button>
+              )}
+            </li>
+          ))}
+        </ul>
+        <button onClick={handleSave} className={styles.blueButton}>
+          save
+        </button>
+      </div>
     </div>
   );
 };

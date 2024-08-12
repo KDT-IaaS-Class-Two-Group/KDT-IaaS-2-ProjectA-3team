@@ -9,6 +9,7 @@ enum REQUEST_URL {
   __GET_PROJECT_LIST = "http://localhost:3001/project/list",
   __GET_TEAM_ALL = "http://localhost:3001/team/all",
   __GET_SEARCH_STACK = 'http://localhost:3001/stack/search',
-  __POST_SAVE_STACK = "http://localhost:3001/save/stack"
+  __POST_SAVE_STACK = "http://localhost:3001/save/stack",
+  __GET_PROJECT_INFO = 'http://localhost:3001/project/getTeamMember'
 }
 export default REQUEST_URL;

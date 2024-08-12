@@ -5,8 +5,9 @@ import fetchPostStack from "../service/fetchPostStack";
 
 interface Stack_Props {
   project_name: string;
+  onClose: () => void;
 }
-const StackSearch: React.FC<Stack_Props> = ({project_name}) => {
+const StackSearch: React.FC<Stack_Props> = ({ project_name, onClose }) => {
   // query -> input 창에 존재하는 value 값 : fetch를 통해 전송되는 값
   const [query, setQuery] = useState("");
   // result -> fetch를 통해 출력되는 검색 결과 값
@@ -40,10 +41,10 @@ const StackSearch: React.FC<Stack_Props> = ({project_name}) => {
         <button
           onClick={() => {
             fetchPostStack(projectStack, project_name);
+            onClose();
           }}
         >
-          {" "}
-          저장{" "}
+          저장
         </button>
       </div>
       <input

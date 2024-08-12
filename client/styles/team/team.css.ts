@@ -66,7 +66,7 @@ export const listyle = style({
   justifyContent: "center",
   textAlign: "center",
 });
-
+// 버튼
 export const baseButton = style({
   padding: `${Spacing.small} ${Spacing.medium}`,
   border: "none",
