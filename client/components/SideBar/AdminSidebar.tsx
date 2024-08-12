@@ -83,6 +83,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
                 text="게시판"
                 onClick={() => handleMenuItemClick(<NoticeMainPage />)}
               />
+
               <MenuItem
                 text="DB GUI"
                 onClick={() => handleMenuItemClick(<DBGUI />)}

@@ -7,12 +7,10 @@ import {
 } from "client/styles/admin/greet/greet.css";
 import { section } from "client/styles/admin/admindashboard.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
-
 interface SessionData {
   user_id: string;
   role_name: string;
 }
-
 const MainHeader: React.FC = () => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
