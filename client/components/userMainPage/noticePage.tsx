@@ -2,11 +2,12 @@ import { backcontainer } from "client/styles/info/index.css";
 import { uploadbutton } from "client/styles/notice/notice.css";
 import {
   centeredflexcolcontainer,
-  flexcolcontainer,
 } from "client/styles/standardcontainer.css";
 import { greenButton } from "client/styles/templatebutton.css";
 import Link from "next/link";
 import React, { useState } from "react";
+import * as styles from "../../styles/notice/notice.css";
+
 
 /**
  * * Function : RegisterForm
@@ -45,27 +46,29 @@ const NoticeBoard: React.FC = () => {
   };
 
   return (
-    <div className={flexcolcontainer}>
-      <div className={centeredflexcolcontainer}>
+    <div className={styles.wrtiePage}>
+      <div className={styles.checksize}>
         <input
           type="text"
           value={state}
           onChange={(ele) => setState(ele.target.value)}
           placeholder="글 제목"
+          className={styles.inputSize}
         />
+      </div>
+      <div className={styles.testsize}>
         <textarea
           value={stateContent}
           onChange={(ele) => setStateContent(ele.target.value)}
           name="content"
           id="content"
           placeholder="글 내용"
-          cols={30}
-          rows={10}
-        ></textarea>
-        <Link href="/noticeMain" passHref className={uploadbutton}>
-          <button onClick={send} className={greenButton}>
-            upload
-          </button>
+          className={styles.textareaSize}
+        />
+      </div>
+      <div className={styles.btnsize}>
+        <Link href="/noticeMain" passHref className={styles.uploadbutton}>
+          <button onClick={send} className={greenButton}>upload</button>
         </Link>
       </div>
     </div>

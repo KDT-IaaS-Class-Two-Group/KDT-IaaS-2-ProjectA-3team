@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as styles from "../../styles/admin/databaseGUI/databasegui.css";
 
 interface Table {
   table_name: string;
@@ -30,13 +31,15 @@ const DBGUI = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.maincontainter}>
       <h1>Database Tables</h1>
       {error && <p>{error}</p>}
-      <ul>
+      <ul className={styles.ulliststlye}>
         {tables.map((table) => (
           <li key={table.table_name}>
-            <a href={`/tables/${table.table_name}`}>{table.table_name}</a>
+            <a href={`/tables/${table.table_name}`} className={styles.astyle}>
+              {table.table_name}
+            </a>
           </li>
         ))}
       </ul>

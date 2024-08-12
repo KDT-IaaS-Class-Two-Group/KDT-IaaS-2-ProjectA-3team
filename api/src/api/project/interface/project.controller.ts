@@ -11,8 +11,10 @@ import {
 import { Response } from 'express';
 import { ProjectService } from '../project.service';
 import { ProjectDTO } from '../DTO/Project.DTO';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('/project')
+@ApiTags('Project API')
 /**
  * * Class : ProjectController
  * 작성자 : @naviadev / 2024-08-08
@@ -27,6 +29,10 @@ export class ProjectController {
 
   // [ ] 권한 확인 추가. (req.session.user를 통해 세션 키 확인.)
   @Post('/create')
+  @ApiOperation({
+    summary: '프로젝트 생성 엔드포인트',
+    description: '요청된 프로젝트를 생성하는 엔드포인트.',
+  })
   @HttpCode(200)
   async projectCreate(@Body() projectData: ProjectDTO, @Res() res: Response) {
     try {
@@ -44,6 +50,10 @@ export class ProjectController {
   }
 
   @Get('list')
+  @ApiOperation({
+    summary: '프로젝트 리스트 출력 엔드포인트',
+    description: '모든 프로젝트에 대한 데이터를 반환한다.',
+  })
   async findProjectAll(@Res() response: Response) {
     try {
       const data = await this.projectService.getProjectList();
@@ -57,6 +67,11 @@ export class ProjectController {
 
   @Get('/getTeamMember/:id')
   @HttpCode(200)
+  @ApiOperation({
+    summary: '프로젝트 팀 데이터 확인 엔드포인트',
+    description:
+      '프로젝트에 할당된 팀원들의 세부 데이터를 반환하는 역할을 수행한다.',
+  })
   async getTeamData(@Param('id') id: string, @Res() res: Response) {
     try {
       const result = await this.projectService.searchProjectMemeberData(id);

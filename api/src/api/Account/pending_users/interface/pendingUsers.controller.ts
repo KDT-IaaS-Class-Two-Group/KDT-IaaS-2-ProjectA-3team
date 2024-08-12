@@ -13,8 +13,10 @@ import { DeleteUsers } from '../application/services/deleteUsers';
 import { PendingUserDTO } from '../../../common/infrastructure/DTO/pendingUsers';
 
 import { RES_ERROR_MSG } from '../../../common/enum/message/error/responseErrorMessage.enum';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller('/pending-process')
+@ApiTags('Pending-Process API')
 export class PendingUsersController {
   constructor(
     private readonly checkPendingUsers: CheckPendingUsers,
@@ -25,6 +27,11 @@ export class PendingUsersController {
 
   @Post('/approve')
   @HttpCode(200)
+  @ApiOperation({
+    summary: '대기중인 회원에 대한 요청을 수락하는 엔드포인트',
+    description:
+      'Pending_users 테이블에서 users 테이블로 마이그레이션을 진행한다',
+  })
   async approveUser(@Body() pendingUserData: PendingUserDTO) {
     const { user_id } = pendingUserData;
 
@@ -46,6 +53,10 @@ export class PendingUsersController {
 
   @Post('/cancel')
   @HttpCode(200)
+  @ApiOperation({
+    summary: '요청 취소 엔드포인트',
+    description: '사용자 회원가입 요청을 취소하는 엔드포인트.',
+  })
   async cancleUser(@Body() pendingUserData: PendingUserDTO) {
     await this.deleteUsers.deleteUser(pendingUserData.user_id);
   }

@@ -6,3 +6,38 @@ export const databaseGUISection = style({
   gridColumn: "span 12",
   gridRow: "span 3",
 });
+
+export const maincontainter = style({
+  backgroundColor: Colors.FontPrimary,
+  width: Size.full,
+  height: Size.full,
+  borderRadius: Size.border,
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
+});
+
+export const ulliststlye = style({
+  listStyle: "none",
+  textDecoration: "none",
+  display: "grid",
+  gridTemplateColumns: "repeat(3, 260px)",
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
+});
+
+export const astyle = style({
+  textAlign: "center",
+  alignItems: "center",
+  justifyContent: "center",
+  display: "block",
+  textDecoration: "none",
+  backgroundColor: Colors.StatusYellow,
+  height: "40px",
+  margin: "10px",
+  fontSize: "20px",
+  color: Colors.FontPrimary,
+  borderRadius: Size.border,
+  paddingTop: "15px"
+});

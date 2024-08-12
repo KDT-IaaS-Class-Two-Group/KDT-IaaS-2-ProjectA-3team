@@ -9,6 +9,13 @@ import {
   Get,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBody,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 import { UserDTO } from '@shared/DTO/SharedDTO';
 import { LoginService } from './login.service';
@@ -22,11 +29,37 @@ import { REDIRECT_PATH } from './Enum/REDIRECT_PATH.enum';
  * @description : /login 요청을 처리하는 컨트롤러. 기본적인 유효성 검사와 Database 검사 후, 세션 키 발급 로직을 수행함.
  */
 @Controller('login')
+@ApiTags('Login API')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post()
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: '사용자 로그인을 처리하는 엔드포인트',
+    description:
+      '사용자의 ID와 비밀번호를 검증하고 세션을 생성하여 로그인하는 엔드포인트이다.',
+  })
+  @ApiBody({
+    description: '로그인 요청에 필요한 사용자 정보를 담고 있는 DTO이다.',
+  })
+  @ApiOkResponse({
+    description: '성공적으로 로그인한 후 세션 정보를 반환하는 응답이다.',
+    schema: {
+      example: {
+        message: 'ok',
+        redirect: REDIRECT_PATH.USER_MAIN,
+      },
+    },
+  })
+  @ApiUnauthorizedResponse({
+    description: '인증 실패 시 반환되는 응답이다.',
+    schema: {
+      example: {
+        message: 'Invalid credentials',
+      },
+    },
+  })
   async login(
     @Body() data: UserDTO,
     @Req() req: Request,
@@ -67,6 +100,29 @@ export class LoginController {
     }
   }
   @Get('/session') // <-- 새로운 엔드포인트 추가
+  @ApiOperation({
+    summary: '현재 세션 정보를 조회하는 엔드포인트',
+    description: '현재 세션 정보를 조회하고 반환하는 엔드포인트이다.',
+  })
+  @ApiOkResponse({
+    description: '현재 세션 정보를 반환하는 응답이다.',
+    schema: {
+      example: {
+        session: {
+          user_id: 'exampleUserId',
+          role_name: 'exampleRole',
+        },
+      },
+    },
+  })
+  @ApiUnauthorizedResponse({
+    description: '세션이 없는 경우 반환되는 응답이다.',
+    schema: {
+      example: {
+        message: 'No session found',
+      },
+    },
+  })
   getSession(@Req() req: Request, @Res() res: Response) {
     const session = req.session.user;
     if (session) {
