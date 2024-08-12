@@ -52,7 +52,7 @@ const NoticeMainContent = () => {
           <div key={notice._id}>
             <Link href={`/notice/${notice._id}`} className={styles.uploadbutton}>
               <div className={styles.noticelengh}>
-                <p className={styles.TagSize}>{index + 4 + (currentPage - 1) * itemsPerPage}</p>
+                <p className={styles.TagSize}>{index + 4 + (currentPage - 1) * itemsPerPage + '.'}</p>
                 <p className={styles.pTagTitle}>{notice.title}</p>
                 <p className={styles.TagSize}>{notice.user_id}</p>
                 <p className={styles.TagSize}>{notice.createdAt}</p>
