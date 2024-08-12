@@ -3,7 +3,7 @@ import { StackResult } from "../interface/stackResult.interface";
 
 const searchStacks = async (searchQuery: string, setResults: Dispatch<SetStateAction<StackResult[]>>) => {
   try {
-    const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`);
+    const response = await fetch(`http://localhost:3001/stack/search/${searchQuery}`);
     const data: StackResult[] = await response.json();
     setResults(data);
   } catch (error) {
