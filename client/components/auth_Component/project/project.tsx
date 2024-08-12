@@ -16,7 +16,6 @@ import {
   projectTable,
   projectTableCell,
   projectTableHeader,
-  projectTableRow,
 } from "client/styles/admin/project/project.css";
 
 const Project: React.FC = () => {
@@ -68,7 +67,7 @@ const Project: React.FC = () => {
         <tbody>
           {projects.length > 0 ? (
             projects.map((project, index) => (
-              <tr key={index} className={projectTableRow}>
+              <tr key={index}>
                 <td className={projectTableCell}>{index + 1}</td>
                 <td className={projectTableCell}>
                   {project.team_name || "N/A"}
