@@ -10,7 +10,8 @@ export const noticecontent = style([
   centeredflexcolcontainer,
   {
     backgroundColor: Colors.BackgroundDefault,
-    height: '70vh'
+    height: '70vh',
+    justifyContent: 'flex-start'
   }
 ])
 export const title = style([
