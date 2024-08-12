@@ -14,11 +14,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ onClick, link }) => {
   if (link) {
-    return (
-      <Link href={link} passHref className={plusButton}>
-        <button className={plusButton}>+</button>
-      </Link>
-    );
+    return <Link href={link}>+</Link>;
   }
 
   return (

@@ -10,6 +10,7 @@ import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
+import { tdn } from "client/styles/templatebutton.css";
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -102,7 +103,7 @@ const MenuItem: React.FC<{
   if (link) {
     return (
       <li className={styles.menuitem}>
-        <Link href={link} className={styles.menuitemicon}>
+        <Link href={link} className={tdn}>
           {text}
         </Link>
       </li>

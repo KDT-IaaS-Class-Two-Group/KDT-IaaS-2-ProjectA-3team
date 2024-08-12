@@ -22,6 +22,7 @@ import Button from "../common/elements/button";
 import { useEffect, useState } from "react";
 import React from "react";
 import ClockInOutModal from "../ClockInOutModal";
+import { plusButton, tdn } from "client/styles/templatebutton.css";
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -74,7 +75,7 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>noticeboard</div>
-        <Link href="/noticeMain">
+        <Link href="/noticeMain" className={tdn}>
           <Button>게시판</Button>
         </Link>
         <NoticeBoard />

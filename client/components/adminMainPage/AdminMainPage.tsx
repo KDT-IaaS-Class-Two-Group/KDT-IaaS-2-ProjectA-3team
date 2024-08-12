@@ -29,6 +29,7 @@ import ProjectView from "../project/info";
 import PendingUserLook from "../auth_Component/userRequestConfirm/userlookup";
 import UserRequest from "../auth_Component/userRequestConfirm/checkprofile";
 import DBGUI from "../dbGUI/databaseGUI";
+import { tdn } from "client/styles/templatebutton.css";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -67,7 +68,7 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
       <div className={`${section} ${noticeBoardSection}`}>
         <div className={cardHeader}>Notice Board</div>
         <div className={cardContent}>
-          <Link href="/noticeMain">
+          <Link href="/noticeMain" className={tdn}>
             <Button>게시판</Button>
           </Link>
           <NoticeBoard />
