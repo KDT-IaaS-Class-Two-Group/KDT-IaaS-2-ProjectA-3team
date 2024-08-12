@@ -88,12 +88,7 @@ export class QueryBuilder {
     this.RESET();
     const columns = Object.keys(data);
     const placeholders = columns
-      .map((col, index) => {
-        if (col === 'endTime') {
-          return `${col} = $${index + 1}::timestamp`;
-        }
-        return `${col} = $${index + 1}`;
-      })
+      .map((col, index) => `${col} = $${index + 1}`)
       .join(', ');
 
     this.queryString = `UPDATE ${tableName} SET ${placeholders} WHERE ${condition}`;
