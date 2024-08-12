@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "./modal/work.Modal";
+import Modal from "./modal/modal";
 interface ClockInOutModalProps {
   isOpen: boolean;
   onClose: () => void;

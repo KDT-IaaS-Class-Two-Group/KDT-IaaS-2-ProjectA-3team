@@ -13,12 +13,10 @@ export const projectTableHeader = style({
   textAlign: "center",
 });
 
-export const projectTableRow = style({
-  borderBottom: `1px solid ${Colors.BackgroundSecondary}`,
-});
-
 export const projectTableCell = style({
   padding: Spacing.small,
+  textAlign: "center",
+  border: "1px solid lightgray",
 });
 export const projectitletext = style([
   bold15Text,

@@ -1,6 +1,7 @@
 import { maincontainter } from "client/styles/team/team.css";
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/team/team.css";
+import * as button from "../../styles/templatebutton.css";
 
 interface User {
   user_id: string;
@@ -146,60 +147,87 @@ function UserSelection() {
 
   return (
     <div className={styles.maincontainter}>
-      <div>
-        <label htmlFor="teamName">팀 이름:</label>
-        <input
-          type="text"
-          id="teamName"
-          name="teamName"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-        />
-      </div>
+      <div className={styles.secondcontainer}>
+        <h3 className={styles.margin}>팀 제작하기</h3>
+        <div className={styles.teampadding}>
+          <label htmlFor="teamName">팀 이름:</label>
+          <input
+            type="text"
+            id="teamName"
+            name="teamName"
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
+            className={styles.input}
+          />
+        </div>
 
-      <div>팀장: {selectedLeader ? selectedLeader.user_id : "없음"}</div>
-      <div>
-        <ul>
-          {leaders.map((user) => (
-            <li key={user.user_id}>
-              <strong>ID:</strong> {user.user_id}
-              <button onClick={() => addLeader(user)}>추가</button>
-              {selectedLeader && selectedLeader.user_id === user.user_id && (
-                <button onClick={removeLeader}>삭제</button>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div className={styles.padding}>
+          팀장: {selectedLeader ? selectedLeader.user_id : "없음"}
+          <ul>
+            {leaders.map((user) => (
+              <li key={user.user_id} className={styles.listyle}>
+                <strong>ID:</strong> {user.user_id}
+                <button
+                  onClick={() => addLeader(user)}
+                  className={button.yellowButton}
+                >
+                  추가
+                </button>
+                {selectedLeader && selectedLeader.user_id === user.user_id && (
+                  <button
+                    onClick={removeLeader}
+                    className={button.yellowButton}
+                  >
+                    삭제
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div>
-        팀원:{" "}
-        {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
-      </div>
-      <div>
-        <ul>
-          {members.map((user) => (
-            <li key={user.user_id}>
-              {user.user_id}
-              <button onClick={() => addMember(user)}>추가</button>
-              {selectedMembers.some(
-                (member) => member.user_id === user.user_id
-              ) && <button onClick={() => removeMember(user)}>삭제</button>}
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div className={styles.padding}>
+          팀원:{" "}
+          {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
+          <ul>
+            {members.map((user) => (
+              <li key={user.user_id} className={styles.listyle}>
+                {user.user_id}
+                <button
+                  onClick={() => addMember(user)}
+                  className={button.yellowButton}
+                >
+                  추가
+                </button>
+                {selectedMembers.some(
+                  (member) => member.user_id === user.user_id
+                ) && (
+                  <button
+                    onClick={() => removeMember(user)}
+                    className={button.yellowButton}
+                  >
+                    삭제
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div>
-        <label htmlFor="teamDescription">팀 특징 서술:</label>
-        <textarea
-          id="teamDescription"
-          name="teamDescription"
-          value={teamDescription}
-          onChange={(e) => setTeamDescription(e.target.value)}
-        />
+        <div className={styles.padding}>
+          <label htmlFor="teamDescription">팀 특징 서술:</label>
+          <textarea
+            id="teamDescription"
+            name="teamDescription"
+            value={teamDescription}
+            onChange={(e) => setTeamDescription(e.target.value)}
+            className={styles.textarea}
+          />
+        </div>
+        <button onClick={handleSubmit} className={button.blueButton}>
+          submit
+        </button>
       </div>
-      <button onClick={handleSubmit}>전송</button>
     </div>
   );
 }

@@ -1,3 +1,11 @@
+import {
+  requestmaincontainer,
+  requestmaintext,
+} from "client/styles/admin/requests/mainuserrequest.css";
+import {
+  centerbetweenflexrowcontainer,
+  flexrowcontainer,
+} from "client/styles/standardcontainer.css";
 import React, { useEffect, useState } from "react";
 
 const CheckUsersCount: React.FC = () => {
@@ -29,7 +37,10 @@ const CheckUsersCount: React.FC = () => {
   return (
     <div>
       {userCount !== null ? (
-        <p>현재 총 {userCount}명의 사용자가 있습니다.</p>
+        <div className={requestmaincontainer}>
+          <div>Requested by {userCount} users</div>
+          <div className={requestmaintext}>{userCount}</div>
+        </div>
       ) : (
         <p>데이터를 불러오는 중...</p>
       )}
