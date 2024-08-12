@@ -135,6 +135,7 @@ export const userlisttitle = style({
   fontSize: FontSize.Medium /* 텍스트 크기 축소 */,
   marginBottom: Spacing.small,
   textAlign: "center",
+  fontWeight: "bold",
 });
 
 export const searchcontainer = style({
@@ -154,13 +155,13 @@ export const searchinput = style({
   color: Colors.FontSecondary,
   flex: 1,
   outline: "none",
-  fontSize: FontSize.Small /* 입력 텍스트 크기 축소 */,
+  fontSize: "0.95rem" /* 입력 텍스트 크기 축소 */,
 });
 
 export const userlist = style({
   listStyleType: "none",
-  padding: 0,
   margin: 0,
+  padding: "0.5vw 1vw 0vw 1vw",
 });
 
 export const userlistitem = style({
@@ -168,7 +169,7 @@ export const userlistitem = style({
   alignItems: "center",
   marginBottom: Spacing.small,
   gap: Spacing.small,
-  fontSize: FontSize.Small /* 텍스트 크기 축소 */,
+  fontSize: "1rem" /* 텍스트 크기 축소 */,
 });
 
 export const userlistitemavatar = style({
