@@ -243,7 +243,7 @@ function UserSelection() {
         </div>
         <div className={teambuttoncontainer}>
           <button onClick={handleSubmit} className={styles.blueButton}>
-            submit
+            팀 생성
           </button>
         </div>
       </div>

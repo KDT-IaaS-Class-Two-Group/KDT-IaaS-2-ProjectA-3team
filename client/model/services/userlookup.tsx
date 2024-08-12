@@ -1,3 +1,11 @@
+import { greenButton } from "client/styles/templatebutton.css";
+import {
+  listinitial,
+  liststylemainattendance,
+  pendingdiv,
+  pendinglist,
+  pendingmaindiv,
+} from "client/styles/users/attendancestyle.css";
 import { useEffect, useState } from "react";
 
 export interface User {
@@ -70,14 +78,13 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>사용자 조회</h1>
-      <ul>
+    <div className={pendingmaindiv}>
+      <ul className={listinitial}>
         {users.map((user, index) => (
-          <li key={user.id}>
-            <strong>이름:</strong> {user.username}
+          <li key={user.id} className={pendinglist}>
+            이름 : {user.username}
             <div>
-              <label htmlFor={`salary-${index}`}>월급:</label>
+              <label htmlFor={`salary-${index}`}>월급 : </label>
               <input
                 id={`salary-${index}`}
                 type="number"
@@ -87,7 +94,7 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
               />
             </div>
             <div>
-              <label htmlFor={`role-${index}`}>권한:</label>
+              <label htmlFor={`role-${index}`}>권한 : </label>
               <select
                 id={`role-${index}`}
                 value={user.role_name || ""}
@@ -100,7 +107,7 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
               </select>
             </div>
             <div>
-              <label htmlFor={`field-${index}`}>분야:</label>
+              <label htmlFor={`field-${index}`}>분야 : </label>
               <select
                 id={`field-${index}`}
                 value={user.field_name || ""}
@@ -116,7 +123,11 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
           </li>
         ))}
       </ul>
-      <button onClick={handleSave}>저장하기</button>
+      <div className={pendingdiv}>
+        <button onClick={handleSave} className={greenButton}>
+          사용자 승인
+        </button>
+      </div>
     </div>
   );
 };

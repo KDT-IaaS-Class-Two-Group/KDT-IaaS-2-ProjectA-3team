@@ -11,8 +11,30 @@ export const liststylemainattendance = style([
     fontSize: FontSize.Medium,
   },
 ]);
+export const pendinglist = style([
+  listinitial,
+  liststylemainattendance,
+  {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "1vw",
+  },
+]);
 export const listline = style({
   borderBottom: "1px solid white",
   marginBottom: "0.25vw",
   paddingBottom: "0.5vw",
 });
+export const pendingdiv = style({
+  display: "flex",
+  justifyContent: "flex-end",
+  paddingTop: "1vw",
+});
+export const pendingmaindiv = style([
+  pendingdiv,
+  {
+    display: "flex",
+    flexDirection: "column",
+  },
+]);

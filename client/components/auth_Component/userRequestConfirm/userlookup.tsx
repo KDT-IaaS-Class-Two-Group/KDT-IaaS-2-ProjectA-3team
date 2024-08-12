@@ -1,10 +1,9 @@
-import { useState } from "react";
+import React from "react";
 
 import UserLookup, { User } from "client/model/services/userlookup";
+import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 
 const PendingUserLook: React.FC = () => {
-  const [status, setStatus] = useState<boolean>(false);
-
   const handleSave = async (users: User[]) => {
     try {
       const response = await fetch("http://localhost:3001/getUser/all", {
@@ -24,10 +23,9 @@ const PendingUserLook: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>사용자 조회하기</h1>
-      {status && <UserLookup onSave={handleSave} />}
-      <button onClick={() => setStatus(true)}>조회하기</button>
+    <div className={pagemainmain}>
+      <div className={pagemaintext}>회원가입 대기 사용자 조회</div>
+      <UserLookup onSave={handleSave} />
     </div>
   );
 };
