@@ -1,10 +1,21 @@
 import React from "react";
+import Link from "next/link";
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
+  link?: string;
+  children?: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, link }) => {
+  if (link) {
+    return (
+      <Link href={link} passHref>
+        <button>+</button>
+      </Link>
+    );
+  }
+
   return <button onClick={onClick}>+</button>;
 };
 

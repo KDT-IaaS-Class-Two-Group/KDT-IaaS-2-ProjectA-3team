@@ -9,6 +9,7 @@ import ProjectView from "../project/info";
 import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import Link from "next/link";
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -79,10 +80,11 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
                 text="프로젝트 제작"
                 onClick={() => handleMenuItemClick(<ProjectView />)}
               />
-              <MenuItem
-                text="게시판"
-                onClick={() => handleMenuItemClick(<NoticeMainPage />)}
-              />
+              <li>
+                <Link href="/noticeMain" passHref>
+                  게시판
+                </Link>
+              </li>
               <MenuItem
                 text="DB GUI"
                 onClick={() => handleMenuItemClick(<DBGUI />)}

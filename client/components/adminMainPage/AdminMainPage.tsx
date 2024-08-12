@@ -66,7 +66,9 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
       <div className={`${section} ${noticeBoardSection}`}>
         <div className={cardHeader}>Notice Board</div>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<NoticeBoard />)} />
+          <Link href="/noticeMain" passHref>
+            <Button>게시판</Button>
+          </Link>
           <NoticeBoard />
         </div>
       </div>
