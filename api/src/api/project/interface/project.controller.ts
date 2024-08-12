@@ -9,8 +9,8 @@ import {
   Param,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ProjectService } from './project.service';
-import { ProjectDTO } from './DTO/Project.DTO';
+import { ProjectService } from '../project.service';
+import { ProjectDTO } from '../DTO/Project.DTO';
 
 @Controller('/project')
 /**

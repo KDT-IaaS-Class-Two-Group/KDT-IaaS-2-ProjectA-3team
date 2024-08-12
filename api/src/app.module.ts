@@ -14,6 +14,7 @@ import { TableService } from './database/table.service';
 import { AccountModule } from './api/Account/Account.module';
 import { ProjectModule } from './api/project/project.module';
 import { TeamModule } from './api/Team/team.module';
+import { StackModule } from './api/Stack/stack.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TeamModule } from './api/Team/team.module';
     AccountModule,
     ProjectModule,
     TeamModule,
+    StackModule,
   ],
   controllers: [
     StructureController,
