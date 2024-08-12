@@ -55,11 +55,6 @@ const Project: React.FC = () => {
 
   return (
     <div>
-      <div className={projectHeader}>
-        <div className={projectTitle}>
-          <span className={projectitletext}>Project</span>
-        </div>
-      </div>
       <table className={projectTable}>
         <thead>
           <tr>
