@@ -40,4 +40,9 @@ export const astyle = style({
   color: Colors.FontPrimary,
   borderRadius: Size.border,
   paddingTop: "15px",
+  ":hover": {
+    backgroundColor: Colors.StatusYellow,
+    color: "black",
+    cursor: "pointer",
+  },
 });
