@@ -11,6 +11,8 @@ import {
   proceedingButton,
   allTasksButton,
   maincontentcontainer,
+  projectHeader,
+  projectTitle,
 } from "client/styles/admin/admindashboard.css";
 import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
@@ -30,6 +32,7 @@ import PendingUserLook from "../auth_Component/userRequestConfirm/userlookup";
 import UserRequest from "../auth_Component/userRequestConfirm/checkprofile";
 import DBGUI from "../dbGUI/databaseGUI";
 import { tdn } from "client/styles/templatebutton.css";
+import { projectitletext } from "client/styles/admin/project/project.css";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -38,16 +41,21 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
   return (
     <div className={maincontentcontainer}>
       <div className={`${section} ${projectSection}`}>
-        <div className={cardContent}>
-          <Button onClick={() => onclick(<ProjectView />)} />
-          <Project />
+        <div className={cardHeader}>
+          <div className={projectTitle}>
+            <span className={projectitletext}>Project</span>
+            <Button onClick={() => onclick(<ProjectView />)} />
+          </div>
         </div>
+        <div className={cardContent}></div>
+        <Project />
       </div>
 
       <div className={`${section} ${requestSection}`}>
         <div className={cardHeader}>User Requests</div>
-        <Button onClick={() => onclick(<UserRequest />)} />
-
+        <div className={cardContent}>
+          <Button onClick={() => onclick(<UserRequest />)} />
+        </div>
         <CheckUsersCount />
       </div>
 

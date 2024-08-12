@@ -59,6 +59,9 @@ export const cardHeader = style({
 
 export const cardContent = style({
   fontSize: FontSize.Small,
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "row-reverse",
 });
 
 export const button = style({
@@ -86,6 +89,7 @@ export const projectTitle = style({
   display: "flex",
   alignItems: "center",
   gap: Spacing.small,
+  justifyContent: "space-between",
 });
 
 export const proceedingButton = style({

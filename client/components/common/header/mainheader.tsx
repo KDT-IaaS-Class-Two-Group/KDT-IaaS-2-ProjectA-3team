@@ -41,7 +41,7 @@ const MainHeader: React.FC = () => {
   }, []);
 
   return (
-    <div className={`${section} ${fullRowSection}`}>
+    <div className={fullRowSection}>
       <div className={titlecontainer}>
         {sessionData ? (
           <>
