@@ -1,5 +1,13 @@
-// TestPage.tsx
-import React, { useState } from "react";
+import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
+import { greenButton } from "client/styles/templatebutton.css";
+import {
+  buttonparent,
+  listinitial,
+  pendinglist,
+  pendingmaindiv,
+  profilelist,
+} from "client/styles/users/attendancestyle.css";
+import React, { useState, useEffect } from "react";
 
 export interface User {
   user_id: string;
@@ -36,6 +44,11 @@ const UserRequest: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    // 컴포넌트가 처음 마운트될 때 사용자 정보를 가져오는 함수 호출
+    fetchCheckProfile();
+  }, []);
+
   const handleAccept = async (user_id: string) => {
     try {
       const response = await fetch("http://localhost:3001/getUser/accept", {
@@ -54,6 +67,7 @@ const UserRequest: React.FC = () => {
       console.error("변경 수락 실패:", error);
     }
   };
+
   const handleReject = async (user_id: string) => {
     try {
       const response = await fetch("http://localhost:3001/getUser/reject", {
@@ -74,31 +88,43 @@ const UserRequest: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>사용자 프로필 수정 요청</h1>
-      <button onClick={fetchCheckProfile}>조회하기</button>
+    <div className={pagemainmain}>
+      <div className={pagemaintext}>사용자 프로필 수정 요청</div>
       {loading && <div>Loading...</div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
-      <div>
+      <div className={pendingmaindiv}>
         {users.length > 0 ? (
-          <ul>
+          <ul className={listinitial}>
             {users.map((user) => (
-              <li key={user.user_id}>
-                <strong>아이디: </strong> {user.user_id}
+              <li key={user.user_id} className={profilelist}>
+                아이디 : {user.user_id}
                 <br />
-                <strong>이름: </strong> {user.username}
+                이름 : {user.username}
                 <br />
-                <strong>생년월일: </strong> {user.birth_date}
+                생년월일 : {user.birth_date}
                 <br />
-                <strong>주소: </strong> {user.address}
+                주소 : {user.address}
                 <br />
-                <strong>핸드폰 번호: </strong> {user.phone}
+                핸드폰 번호 : {user.phone}
                 <br />
-                <strong>이메일: </strong> {user.email}
+                이메일 : {user.email}
                 <br />
-                <strong>비밀번호: </strong> {user.password}
-                <button onClick={() => handleAccept(user.user_id)}>수락</button>
-                <button onClick={() => handleReject(user.user_id)}>거절</button>
+                비밀번호 : {user.password}
+                <br />
+                <div className={buttonparent}>
+                  <button
+                    onClick={() => handleAccept(user.user_id)}
+                    className={greenButton}
+                  >
+                    수락
+                  </button>
+                  <button
+                    onClick={() => handleReject(user.user_id)}
+                    className={greenButton}
+                  >
+                    거절
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

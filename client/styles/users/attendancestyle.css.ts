@@ -4,6 +4,7 @@ export const listinitial = style({
   listStyleType: "none",
   margin: 0,
   padding: 0,
+  fontSize: FontSize.Medium,
 });
 export const liststylemainattendance = style([
   listinitial,
@@ -19,6 +20,19 @@ export const pendinglist = style([
     justifyContent: "space-between",
     alignItems: "center",
     padding: "1vw",
+  },
+]);
+export const profilelist = style([
+  listinitial,
+  liststylemainattendance,
+  {
+    backgroundColor: Colors.BackgroundSecondary,
+    borderRadius: Size.border,
+    display: "flex",
+    padding: "1vw",
+    flexDirection: "column",
+    alignContent: "flex-start",
+    marginBottom: "1vw",
   },
 ]);
 export const listline = style({
@@ -38,3 +52,8 @@ export const pendingmaindiv = style([
     flexDirection: "column",
   },
 ]);
+export const buttonparent = style({
+  display: "flex",
+  justifyContent: "flex-end",
+  gap: "1vw",
+});
