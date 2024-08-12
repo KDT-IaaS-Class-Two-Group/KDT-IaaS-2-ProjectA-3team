@@ -64,7 +64,7 @@ const NoticeBoard: React.FC = () => {
           id="content"
           placeholder="글 내용"
           className={styles.textareaSize}
-        ></textarea>
+        />
       </div>
       <div className={styles.btnsize}>
         <Link href="/noticeMain" passHref className={styles.uploadbutton}>

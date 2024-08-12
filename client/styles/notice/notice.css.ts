@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { greenButton } from "../templatebutton.css";
-import { flexcolcontainer, centeredflexcolcontainer, centeredflexrowcontainer } from "../standardcontainer.css";
+import { flexcolcontainer, centeredflexcolcontainer, centeredflexrowcontainer, flexrowcontainer } from "../standardcontainer.css";
 import { Colors, FontSize, Size, Spacing } from "../standard.css";
 import { base20Text, base15Text, bold24Text } from "../standardtextsize.css";
 
@@ -94,5 +94,13 @@ export const btnsize = style([
     width: '60.3vw',
     height:'10vh',
     alignItems:'flex-end'
+  }
+])
+
+export const sujungbtn = style([
+  flexrowcontainer,centeredflexcolcontainer,{
+    width: '60.3vw',
+    height:'10vh',
+    justifyContent:'flex-end'
   }
 ])
