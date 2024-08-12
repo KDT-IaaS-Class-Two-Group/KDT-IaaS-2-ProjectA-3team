@@ -4,6 +4,10 @@ import { centeredflexcolcontainer } from "client/styles/standardcontainer.css";
 export const requestmaincontainer = style([
   centeredflexcolcontainer,
   {
+    display: "flex",
+    justifyContent: "space-between",
+
+    flexDirection: "row",
     padding: "1vw 0.5vw 1vw 0vw",
   },
 ]);
