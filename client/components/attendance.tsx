@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ClockInOutModal from "./modal/work.Modal";
+import { userlist } from "client/styles/sidebar/SidebarStyles.css";
 
 interface AttendanceRecord {
   user_id: string;
@@ -57,7 +58,7 @@ const Attendance: React.FC = () => {
   return (
     <div>
       <div>
-        <ul>
+        <ul className={userlist}>
           {attendanceRecords.map((record) => (
             <li key={record.user_id}>
               <p>{record.username}</p>

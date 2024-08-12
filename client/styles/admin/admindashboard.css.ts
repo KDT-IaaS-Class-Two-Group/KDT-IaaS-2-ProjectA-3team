@@ -61,7 +61,6 @@ export const cardContent = style({
   fontSize: FontSize.Small,
   display: "flex",
   alignItems: "center",
-  flexDirection: "row-reverse",
 });
 
 export const button = style({
