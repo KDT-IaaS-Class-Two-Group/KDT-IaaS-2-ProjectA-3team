@@ -1,5 +1,8 @@
+import {
+  userlist,
+  userlistitem,
+} from "client/styles/sidebar/SidebarStyles.css";
 import React, { useState, useEffect } from "react";
-
 
 interface Table {
   table_name: string;
@@ -38,9 +41,11 @@ const DBGUI: React.FC = () => {
 
   return (
     <div>
-      <ul>
+      <ul className={userlist}>
         {tables.slice(0, 3).map((table, index) => (
-          <li key={index}>{table.table_name}</li>
+          <li key={index} className={userlistitem}>
+            {table.table_name}
+          </li>
         ))}
       </ul>
     </div>
