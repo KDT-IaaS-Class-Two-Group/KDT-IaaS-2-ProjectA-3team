@@ -11,7 +11,7 @@ export interface User {
   password: string;
 }
 
-const TestPage: React.FC = () => {
+const UserRequest: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -110,4 +110,4 @@ const TestPage: React.FC = () => {
   );
 };
 
-export default TestPage;
+export default UserRequest;

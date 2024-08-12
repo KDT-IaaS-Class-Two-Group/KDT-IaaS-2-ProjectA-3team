@@ -25,6 +25,10 @@ import { requestSection } from "client/styles/admin/requests/requests.css";
 import PendingUsersList from "client/components/PendingUsersList";
 import CheckUsersCount from "client/components/checktest";
 import Button from "../common/elements/button";
+import ProjectView from "../project/info";
+import PendingUserLook from "../auth_Component/userRequestConfirm/userlookup";
+import UserRequest from "../auth_Component/userRequestConfirm/checkprofile";
+import DBGUI from "../dbGUI/databaseGUI";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -34,21 +38,21 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
     <div className={maincontentcontainer}>
       <div className={`${section} ${projectSection}`}>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<Project />)} />
+          <Button onClick={() => onclick(<ProjectView />)} />
           <Project />
         </div>
       </div>
 
       <div className={`${section} ${requestSection}`}>
         <div className={cardHeader}>User Requests</div>
-        <Button onClick={() => onclick(<CheckUsersCount />)} />
+        <Button onClick={() => onclick(<UserRequest />)} />
 
         <CheckUsersCount />
       </div>
 
       <div className={`${section} ${requestSection}`}>
         <div className={cardHeader}>User Sign up Management</div>
-        <Button onClick={() => onclick(<PendingUsersList />)} />
+        <Button onClick={() => onclick(<PendingUserLook />)} />
         <PendingUsersList />
       </div>
 
@@ -63,7 +67,9 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
       <div className={`${section} ${noticeBoardSection}`}>
         <div className={cardHeader}>Notice Board</div>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<NoticeBoard />)} />
+          <Link href="/noticeMain" passHref>
+            <Button>게시판</Button>
+          </Link>
           <NoticeBoard />
         </div>
       </div>
@@ -71,7 +77,7 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
       <div className={`${section} ${databaseGUISection}`}>
         <div className={cardHeader}>Database GUI</div>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<DatabaseGUI />)} />
+          <Button onClick={() => onclick(<DBGUI />)} />
           <DatabaseGUI />
         </div>
       </div>
