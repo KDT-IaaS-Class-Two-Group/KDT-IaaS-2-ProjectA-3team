@@ -41,6 +41,7 @@ export const pageul = style({
   margin: "0",
   padding: "0",
   paddingTop: "1.5vw",
+  overflow: "auto",
 });
 export const pagetextarea = style({
   outline: "none",
