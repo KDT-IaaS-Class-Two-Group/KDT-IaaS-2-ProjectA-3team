@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { StackName } from '../Value-Object/stack_name.vo';
 import { StackTypeValueObject } from '../Value-Object/stack_type.vo';
 
@@ -11,7 +12,9 @@ import { StackTypeValueObject } from '../Value-Object/stack_type.vo';
  * @description : Stack Entity : static create 메서드를 통해 Body에 들어온 값을 StackEntity로 변환할 수 있도록 작성하였다.
  */
 export class Stack {
+  @ApiProperty({ description: '이름', type: StackName })
   private stack_name: StackName;
+  @ApiProperty({ description: '타입', type: StackTypeValueObject })
   private stack_type: StackTypeValueObject;
 
   constructor(name: StackName, type: StackTypeValueObject) {
