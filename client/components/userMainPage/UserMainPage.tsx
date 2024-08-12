@@ -18,7 +18,7 @@ import {
 } from "client/styles/users/userdashboard.css";
 import CalendarComponent from "../Calendar/calendar";
 import NoticeBoard from "../Notice/NoticeBoard";
-import Button from "../common/elements/button";
+import { Button } from "../common/elements/button";
 import { useEffect, useState } from "react";
 import React from "react";
 import ClockInOutModal from "../ClockInOutModal";
