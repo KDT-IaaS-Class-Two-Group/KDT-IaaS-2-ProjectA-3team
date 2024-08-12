@@ -105,18 +105,26 @@ export const menulist = style({
 });
 
 export const menuitem = style({
+  color: "white",
   marginBottom: Spacing.medium,
   display: "flex",
   alignItems: "center",
   cursor: "pointer",
-  padding: `${ViewHeightSpacing.xxsmall}${ViewHeightSpacing.xsmall}`,
+  padding: "0.25vw",
+  textDecoration: "none",
   borderRadius: "8px",
   ":hover": {
-    backgroundColor: "#3a3a3a",
+    color: Colors.StatusLightYellow,
   },
-  fontSize: FontSize.Small /* 아이콘과 텍스트 크기 축소 */,
+  fontSize: FontSize.Medium /* 아이콘과 텍스트 크기 축소 */,
 });
-
+export const atagmenuitem = style([
+  menuitem,
+  {
+    padding: "0",
+    margin: "0",
+  },
+]);
 export const menuitemicon = style({
   marginRight: Spacing.small,
   fontSize: FontSize.Small /* 아이콘 크기 축소 */,
