@@ -59,7 +59,10 @@ export const plusButton = style([
     },
   },
 ]);
-export const tdn = style({ textDecoration: "none" });
+export const tdn = style({
+  textDecoration: "none",
+  color: "white",
+});
 export const purpleButton = style([
   baseButton,
   {
