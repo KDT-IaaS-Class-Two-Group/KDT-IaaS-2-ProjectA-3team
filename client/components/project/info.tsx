@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as style from "client/styles/project/root.css";
+import * as styles from "../../styles/sideproject/sideproject.css";
 import Side from "client/components/userMainPage/userLeftContent";
 import { useEffect } from "react";
 import ProjectTableComponent from "client/components/project_table/project_table";
@@ -8,8 +8,7 @@ import {
   ResponseProject,
   ResponseProject_WithTeam,
 } from "client/components/project_table/interface/project.interface";
-import CreateProjectModal from "../MODAL/createProject_Modal/createProject.modal";
-
+import CreateProjectModal from "../modal/createProject_Modal/createProject.modal";
 
 const ProjectView: React.FC = () => {
   const [data, setData] = useState<ResponseProject_WithTeam[]>([]);
@@ -35,9 +34,9 @@ const ProjectView: React.FC = () => {
   };
 
   return (
-    <div className={style.root}>
+    <div className={styles.maincontainter}>
       <div>
-        <h1>프로젝트 View</h1>
+        <h2>프로젝트 View</h2>
         <CreateProjectModal onProjectCreated={handleProjectCreation} />
         {isLoading ? (
           <div>Loading...</div>
