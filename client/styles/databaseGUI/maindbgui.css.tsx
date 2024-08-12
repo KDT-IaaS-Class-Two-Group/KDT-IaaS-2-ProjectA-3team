@@ -7,6 +7,7 @@ export const dblist = style([
   {
     display: "flex",
     gap: "1vw",
+    justifyContent: "space-evenly",
   },
 ]);
 export const dblistitem = style([
