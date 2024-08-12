@@ -33,7 +33,7 @@ export class StackRepository {
 
   async deleteStack(name: string): Promise<void> {
     await this.qb
-      .DELETE(TABLE_NAME.__STACK, QUERY_PLACEHOLDER.__STACK_NAME, name)
+      .DELETE(TABLE_NAME.__STACK, QUERY_PLACEHOLDER.__STACK_NAME, [name])
       .execution();
   }
 }

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { StackCommandHandler } from '../application/command/handler/stack.command.service';
 import { StackQueryHandler } from '../application/query/handler/stack.query.service';
-import { stackDTO } from './DTO /stack.DTO';
+import { stackDTO } from './DTO/stack.DTO';
 import { CreateStackCommand } from '../application/command/createStack.command';
 import { SearchStacksQuery } from '../application/query/searchStack.query';
 import { DeleteStackCommand } from '../application/command/deleteStack.command';
