@@ -80,11 +80,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
                 text="프로젝트 제작"
                 onClick={() => handleMenuItemClick(<ProjectView />)}
               />
-              <li>
-                <Link href="/noticeMain" passHref>
-                  게시판
-                </Link>
-              </li>
+              <MenuItem text="게시판" link="/noticeMain" />
               <MenuItem
                 text="DB GUI"
                 onClick={() => handleMenuItemClick(<DBGUI />)}
@@ -98,16 +94,27 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
   );
 };
 
-const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
-  text,
-  onClick,
-}) => {
-  return (
-    <li className={styles.menuitem} onClick={onClick}>
-      <span className={styles.menuitemicon}></span>
-      <span>{text}</span>
-    </li>
-  );
+const MenuItem: React.FC<{
+  text: string;
+  onClick?: () => void;
+  link?: string;
+}> = ({ text, onClick, link }) => {
+  if (link) {
+    return (
+      <li className={styles.menuitem}>
+        <Link href={link} className={styles.menuitemicon}>
+          {text}
+        </Link>
+      </li>
+    );
+  } else {
+    return (
+      <li className={styles.menuitem} onClick={onClick}>
+        <span className={styles.menuitemicon}></span>
+        <span>{text}</span>
+      </li>
+    );
+  }
 };
 
 export default AdminSidebar;

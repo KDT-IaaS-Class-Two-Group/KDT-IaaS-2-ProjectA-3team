@@ -28,6 +28,7 @@ import Button from "../common/elements/button";
 import ProjectView from "../project/info";
 import PendingUserLook from "../auth_Component/userRequestConfirm/userlookup";
 import UserRequest from "../auth_Component/userRequestConfirm/checkprofile";
+import DBGUI from "../dbGUI/databaseGUI";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -76,7 +77,7 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
       <div className={`${section} ${databaseGUISection}`}>
         <div className={cardHeader}>Database GUI</div>
         <div className={cardContent}>
-          <Button onClick={() => onclick(<DatabaseGUI />)} />
+          <Button onClick={() => onclick(<DBGUI />)} />
           <DatabaseGUI />
         </div>
       </div>
