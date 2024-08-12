@@ -11,11 +11,11 @@ export const maincontainter = style({
   textAlign: "center",
 });
 
-export const center = style ({
+export const center = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-})
+});
 
 export const baseButton = style({
   padding: `${Spacing.small} ${Spacing.medium}`,
@@ -46,13 +46,18 @@ export const table = style({
   borderCollapse: "collapse",
   width: "70%",
   borderStyle: "none",
-  marginLeft:"15%"
-,  borderRadius: Size.border,
+  marginLeft: "15%",
+  borderRadius: Size.border,
 });
 
 export const thstyle = style({
   padding: "10px",
   backgroundColor: Colors.StatusGreen,
+  borderStyle: "none",
+});
+export const secondthstyle = style({
+  backgroundColor: Colors.BackgroundSecondary,
+  padding: "10px",
   borderStyle: "none",
 });
 export const tbodystyle = style({
