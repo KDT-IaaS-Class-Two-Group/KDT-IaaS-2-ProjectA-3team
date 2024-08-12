@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+interface User {
+  user_id: string;
+  username: string;
+  email: string;
+}
 
 const FollowingListPage: React.FC = () => {
-  const [followingList, setFollowingList] = useState([]);
+  const [followingList, setFollowingList] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,7 +21,7 @@ const FollowingListPage: React.FC = () => {
         });
 
         if (response.ok) {
-          const data = await response.json();
+          const data: User[] = await response.json();
           setFollowingList(data);
         } else {
           console.error("Failed to fetch following list");
@@ -38,7 +43,7 @@ const FollowingListPage: React.FC = () => {
         <p>로딩 중...</p>
       ) : (
         <ul>
-          {followingList.map((user) => (
+          {followingList.map((user: User) => (
             <li key={user.user_id}>
               {user.username} ({user.email})
             </li>

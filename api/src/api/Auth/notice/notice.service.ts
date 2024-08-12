@@ -293,22 +293,48 @@ export class NoticeService {
     return result.insertedId;
   }
 
-  async updateComment(postId: string, content: string) {
+  async updateComment(postId: string, content: string, user_id: string, role: string) {
     const mongoDatabase = this.client.db('notice');
     const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
-    const result = await mongoCollection.updateOne(
-      { _id: new ObjectId(postId) },
-      { $set: { content } },
-    );
-    return result.modifiedCount > 0;
+    const id = await mongoCollection.findOne({ _id: new ObjectId(postId) });
+    if(user_id === id.userId) {
+      const result = await mongoCollection.updateOne(
+        { _id: new ObjectId(postId) },
+        { $set: { content } },
+      );
+      return result.modifiedCount > 0;
+    }
+    return 'false';
   }
 
-  async deleteComment(postId: string) {
+  async deleteComment(postId: string, user_id: string, role: string) {
     const mongoDatabase = this.client.db('notice');
     const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
-    const result = await mongoCollection.deleteOne({
-      _id: new ObjectId(postId),
-    });
-    return result.deletedCount > 0;
+    const id = await mongoCollection.findOne({ _id: new ObjectId(postId) });
+    if(user_id === id.userId || role === 'admin' || role === 'sub_admin') {
+      const result = await mongoCollection.deleteOne({
+        _id: new ObjectId(postId),
+      });
+      return result.deletedCount > 0;
+    }
+    return 'false';
+  }
+
+  async homeUserNotices(){
+    const mongoCollection = this.client
+    .db('notice')
+    .collection<NoticeDTO>('noticeTable');
+
+  // 최신순으로 5개만 반환
+  return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
+  }
+
+  async homeAuthNotices(){
+    const mongoCollection = this.client
+    .db('notice')
+    .collection<NoticeDTO>('noticeAuthTable');
+
+  // 최신순으로 5개만 반환
+  return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
   }
 }

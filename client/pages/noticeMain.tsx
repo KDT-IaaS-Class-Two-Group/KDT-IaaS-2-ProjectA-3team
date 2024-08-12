@@ -3,7 +3,7 @@ import NoticeContent from "client/components/userMainPage/noticeMainContent";
 import NoticeFooter from "client/components/userMainPage/noticeMainFooter";
 import NoticeAuthContent from "client/components/authNotice/noticeAuthContent";
 import Link from "next/link";
-import * as styles from "../../styles/notice/notice.css";
+import * as styles from "../styles/notice/notice.css";
 
 const NoticeMainPage: React.FC = () => {
   return (

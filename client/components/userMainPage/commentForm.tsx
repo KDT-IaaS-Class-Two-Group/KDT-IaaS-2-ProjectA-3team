@@ -15,7 +15,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
   const itemsPerPage = 10; // 한 페이지당 항목 수
-  const [editMode, setEditMode] = useState(false); // 댓글 수정
+  const [editState, setEditState] = useState<{ [key: string]: boolean }>({}); // 댓글 수정 상태
 
   const fetchComment = () => {
     fetch(`http://localhost:3001/usercomment/${postId}?page=${currentPage}&limit=${itemsPerPage}`)
@@ -23,12 +23,21 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
       .then((data: { comments: ListComment[]; totalPages: number }) => {
         setCommentList(data.comments); // 댓글 데이터
         setTotalPages(data.totalPages); // 총 페이지 수 설정
+        initializeEditState(data.comments); // 댓글 수정 상태 초기화
       })
       .catch((err) => {
         console.error('데이터를 가져오는 중 오류 발생:', err);
       });
   };
   
+  const initializeEditState = (comments: ListComment[]) => {
+    const initialEditState: { [key: string]: boolean } = {};
+    comments.forEach(comment => {
+      initialEditState[comment._id] = false; // 모든 댓글을 비수정 상태로 초기화
+    });
+    setEditState(initialEditState);
+  };
+
   useEffect(() => {
     fetchComment(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, [postId, currentPage]) // currentPage가 변경될 때마다 fetch
@@ -63,7 +72,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
       .then((text) => {
         if (text === 'true') {
           fetchComment(); // 댓글 수정 후 데이터 새로고침
-          setEditMode(false); // 수정 모드 비활성화
+          setEditState(prevState => ({
+            ...prevState,
+            [postId]: false // 수정 완료 후 수정 모드 비활성화
+          }));
         } else {
           alert('댓글 수정에 실패했습니다.');
         }
@@ -95,45 +107,57 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
 
   return (
     <div>
-    <div>
       <div>
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="댓글을 작성하세요."
-        />
+        <div>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="댓글을 작성하세요."
+          />
+        </div>
+        <div>
+          <button onClick={commentSend}>댓글 작성</button>
+        </div>
       </div>
       <div>
-        <button onClick={commentSend}>댓글 작성</button>
-      </div>
-    </div>
-    <div>
-      {commentList.length > 0 ? (
-        commentList.map((comment) => (
-          <div key={comment._id}>
-            {editMode ? (
-              <div>
-                <textarea
-                  value={comment.content}
-                  onChange={(e) => commentUpdate(comment._id, e.target.value)}
-                  placeholder="댓글 수정"
-                />
-                <button onClick={() => commentUpdate(comment._id, comment.content)}>수정 완료</button>
-              </div>
-            ) : (
-              <div>
-                <h3>{comment.userId}</h3>
-                <p>{comment.content}</p>
-                <p>{comment.createdAt}</p>
-                <button onClick={() => setEditMode(true)}>수정</button>
-                <button onClick={() => commentDelete(comment._id)}>삭제</button>
-              </div>
-            )}
-          </div>
-        ))
-      ) : (
-        <div>댓글 없음</div>
-      )}
+        {commentList.length > 0 ? (
+          commentList.map((comment) => (
+            <div key={comment._id}>
+              {editState[comment._id] ? (
+                <div>
+                  <textarea
+                    value={comment.content}
+                    placeholder='댓글 수정하세요.'
+                    onChange={(e) => {
+                      const newContent = e.target.value;
+                      setCommentList(prevList =>
+                        prevList.map(c =>
+                          c._id === comment._id
+                            ? { ...c, content: newContent }
+                            : c
+                        )
+                      );
+                    }}
+                  />
+                  <button onClick={() => commentUpdate(comment._id, comment.content)}>수정 완료</button>
+                </div>
+              ) : (
+                <div>
+                  <h3>{comment.userId}</h3>
+                  <p>{comment.content}</p>
+                  <p>{comment.createdAt}</p>
+                  <button onClick={() => setEditState(prevState => ({
+                    ...prevState,
+                    [comment._id]: true // 선택한 댓글만 수정 모드로 설정
+                  }))}>수정</button>
+                  <button onClick={() => commentDelete(comment._id)}>삭제</button>
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <div>댓글 없음</div>
+        )}
       </div>
       {/* 페이징 버튼 UI */}
       <div>

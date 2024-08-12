@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import UserLookup, { User } from "client/model/services/userlookup";
 
-const TestPage: React.FC = () => {
+const PendingUserLook: React.FC = () => {
   const [status, setStatus] = useState<boolean>(false);
 
   const handleSave = async (users: User[]) => {
@@ -32,4 +32,4 @@ const TestPage: React.FC = () => {
   );
 };
 
-export default TestPage;
+export default PendingUserLook;

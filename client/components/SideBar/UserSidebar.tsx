@@ -3,23 +3,57 @@ import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../userMainPage/UserMainPage";
-import NoticeMainPage from "../Notice/noticeMain";
+import NoticeMainPage from "../../pages/noticeMain";
 import UserPersonal from "../users/userpersonal";
+import { useEffect, useState } from "react";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
 
+interface SessionData {
+  user_id: string;
+  role_name: string;
+}
+
 const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
-  // 메뉴 아이템 클릭 시 호출되는 함수
+  const [sessionData, setSessionData] = useState<SessionData | null>(null);
+
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSessionData(data.session);
+          console.log("Session data fetched:", data.session);
+        } else {
+          console.error("Failed to fetch session data", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch session data", error);
+      }
+    };
+
+    fetchSessionData();
+  }, []);
+
   const handleMenuItemClick = (component: React.ReactNode) => {
     onMenuItemClick(component);
   };
 
-  // 로고 클릭 시 호출되는 함수
   const handleLogoClick = () => {
     onMenuItemClick(<UserMainContent onclick={() => {}} />);
   };
+
   return (
     <div className={styles.mainpagecontainer}>
       <div className={styles.sidebarcontainer}>
@@ -27,7 +61,11 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
         <div className={styles.profilecontainer}>
           <div className={styles.profile}>
             <div className={styles.profilecircle}></div>
-            <span className={styles.profilename}>matomabo</span>
+            {sessionData ? (
+              <span className={styles.profilename}>{sessionData.user_id}</span>
+            ) : (
+              <span className={styles.profilename}>Loading...</span>
+            )}
             <span className={styles.menuicon}>⋮</span>
           </div>
           <nav>
@@ -69,8 +107,10 @@ const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
     </li>
   );
 };
+
 const ProjectView: React.FC = () => <div>프로젝트 조회 컴포넌트</div>;
 const KanbanBoard: React.FC = () => <div>칸반보드 컴포넌트</div>;
 const NoticeBoard: React.FC = () => <div>게시판 컴포넌트</div>;
 const UserProfile: React.FC = () => <div>개인정보 조회 컴포넌트</div>;
+
 export default UserSidebar;

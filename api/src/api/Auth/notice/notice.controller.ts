@@ -107,12 +107,29 @@ export class NoticeController {
   async updateComment(
     @Param('postId') postId: string,
     @Body('content') content: string,
+    @Req() req: Request,
   ) {
-    return this.noticeService.updateComment(postId, content);
+    const session = req.session.user;
+    const user_id = session?.user_id;
+    const role = session?.role_name;
+    return this.noticeService.updateComment(postId, content, user_id, role);
   }
 
   @Delete('comments/:postId')
-  async deleteComment(@Param('postId') postId: string) {
-    return this.noticeService.deleteComment(postId);
+  async deleteComment(@Param('postId') postId: string, @Req() req: Request) {
+    const session = req.session.user;
+    const user_id = session?.user_id;
+    const role = session?.role_name;
+    return this.noticeService.deleteComment(postId, user_id, role);
+  }
+  
+  @Get('homeusernotice')
+  async homeUserNotice(){
+    return await this.noticeService.homeUserNotices();
+  }
+
+  @Get('homeauthnotice')
+  async homeAuthNotice(){
+    return await this.noticeService.homeAuthNotices();
   }
 }

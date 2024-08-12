@@ -1,23 +1,58 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserSelection from "../team/team";
 import AdminMainContent from "../adminMainPage/AdminMainPage";
 import ProjectView from "../project/info";
-import NoticeMainPage from "../Notice/noticeMain";
+import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import Link from "next/link";
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
 
+interface SessionData {
+  user_id: string;
+  role_name: string;
+}
+
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
+  const [sessionData, setSessionData] = useState<SessionData | null>(null);
+
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSessionData(data.session);
+          console.log("Session data fetched:", data.session);
+        } else {
+          console.error("Failed to fetch session data", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch session data", error);
+      }
+    };
+
+    fetchSessionData();
+  }, []);
+
   const handleMenuItemClick = (component: React.ReactNode) => {
     onMenuItemClick(component);
   };
 
   const handleLogoClick = () => {
-    // onClick 핸들러를 적절히 설정합니다.
     onMenuItemClick(<AdminMainContent onclick={handleMenuItemClick} />);
   };
 
@@ -28,7 +63,11 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
         <div className={styles.profilecontainer}>
           <div className={styles.profile}>
             <div className={styles.profilecircle}></div>
-            <span className={styles.profilename}>matomabo</span>
+            {sessionData ? (
+              <span className={styles.profilename}>{sessionData.user_id}</span>
+            ) : (
+              <span className={styles.profilename}>Loading...</span>
+            )}
             <span className={styles.menuicon}>⋮</span>
           </div>
           <nav>
@@ -41,10 +80,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
                 text="프로젝트 제작"
                 onClick={() => handleMenuItemClick(<ProjectView />)}
               />
-              <MenuItem
-                text="게시판"
-                onClick={() => handleMenuItemClick(<NoticeMainPage />)}
-              />
+              <MenuItem text="게시판" link="/noticeMain" />
               <MenuItem
                 text="DB GUI"
                 onClick={() => handleMenuItemClick(<DBGUI />)}
@@ -58,16 +94,27 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
   );
 };
 
-const MenuItem: React.FC<{ text: string; onClick: () => void }> = ({
-  text,
-  onClick,
-}) => {
-  return (
-    <li className={styles.menuitem} onClick={onClick}>
-      <span className={styles.menuitemicon}></span>
-      <span>{text}</span>
-    </li>
-  );
+const MenuItem: React.FC<{
+  text: string;
+  onClick?: () => void;
+  link?: string;
+}> = ({ text, onClick, link }) => {
+  if (link) {
+    return (
+      <li className={styles.menuitem}>
+        <Link href={link} className={styles.menuitemicon}>
+          {text}
+        </Link>
+      </li>
+    );
+  } else {
+    return (
+      <li className={styles.menuitem} onClick={onClick}>
+        <span className={styles.menuitemicon}></span>
+        <span>{text}</span>
+      </li>
+    );
+  }
 };
 
 export default AdminSidebar;
