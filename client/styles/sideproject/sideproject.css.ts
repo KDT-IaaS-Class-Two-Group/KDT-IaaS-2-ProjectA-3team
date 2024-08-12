@@ -63,3 +63,10 @@ export const tbodystyle = style({
   padding: "10px",
   borderStyle: "none",
 });
+export const tdstyle = style({
+  padding: "12px 15px", // 패딩 조정
+  textAlign: "center",
+  fontSize: FontSize.Medium,
+  backgroundColor: Colors.BackgroundSecondary,
+  borderBottom: Colors.StatusGreen,
+});
