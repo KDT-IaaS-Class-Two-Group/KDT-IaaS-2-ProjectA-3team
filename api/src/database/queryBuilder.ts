@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database.service';
 import columns from 'ts/type/querybuilder/columns.type';
+import { QUERY_BUILDER_MESSAGE } from 'src/api/common/enum/message/log/QuerybuilderMessage.enum';
 
 @Injectable()
 export class QueryBuilder {
@@ -21,16 +22,16 @@ export class QueryBuilder {
 
   async execution() {
     try {
-      console.log('Executing query:', this.queryString);
-      console.log('With params:', this.params);
+      console.log(QUERY_BUILDER_MESSAGE.__EXEQUTION, this.queryString);
+      console.log(QUERY_BUILDER_MESSAGE.__PARAMS, this.params);
       const result = await this.databaseService.query(
         this.queryString,
         this.params,
       );
       return result.rows;
     } catch (error) {
-      console.error('Failed execution :', error);
-      throw new Error('database Error');
+      console.error(QUERY_BUILDER_MESSAGE.__EXEQUTION_ERROR, error);
+      throw new Error(QUERY_BUILDER_MESSAGE.__EXEQUTION_ERROR);
     }
   }
 
