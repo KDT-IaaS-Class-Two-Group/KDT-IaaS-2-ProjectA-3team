@@ -9,6 +9,7 @@ export const pagemaintext = style({
   paddingBottom: "2vw",
   borderBottom: "1px solid white",
   marginBottom: "1vw",
+  fontWeight: "bold",
 });
 export const pagemainmain = style({
   backgroundColor: Colors.FontPrimary,

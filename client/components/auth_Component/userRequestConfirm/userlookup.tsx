@@ -24,7 +24,7 @@ const PendingUserLook: React.FC = () => {
 
   return (
     <div className={pagemainmain}>
-      <div className={pagemaintext}>회원가입 대기 사용자 조회</div>
+      <div className={pagemaintext}>회원가입 대기 사용자 수락</div>
       <UserLookup onSave={handleSave} />
     </div>
   );

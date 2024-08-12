@@ -75,7 +75,7 @@ const UserRequest: React.FC = () => {
 
   return (
     <div>
-      <h1>사용자 프로필 요청 수락하기</h1>
+      <h1>사용자 프로필 수정 요청</h1>
       <button onClick={fetchCheckProfile}>조회하기</button>
       {loading && <div>Loading...</div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
