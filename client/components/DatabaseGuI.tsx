@@ -1,4 +1,8 @@
-import { dblist, dblistitem } from "client/styles/databaseGUI/maindbgui.css";
+import {
+  dbbuttonstyle,
+  dblist,
+  dblistitem,
+} from "client/styles/databaseGUI/maindbgui.css";
 import {
   userlist,
   userlistitem,
@@ -48,7 +52,7 @@ const DBGUI: React.FC = () => {
         {tables.slice(0, 3).map((table, index) => (
           <li key={index} className={dblistitem}>
             {table.table_name}
-            <DBButton link={`/tables/${table.table_name}`}>게시판</DBButton>
+            <DBButton link={`/tables/${table.table_name}`}>null</DBButton>
           </li>
         ))}
       </ul>

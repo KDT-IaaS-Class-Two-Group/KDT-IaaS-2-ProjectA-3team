@@ -5,6 +5,7 @@ import {
   plusButton,
   purpleButton,
 } from "client/styles/templatebutton.css";
+import { dbbuttonstyle } from "client/styles/databaseGUI/maindbgui.css";
 
 interface ButtonProps {
   onClick?: () => void;
@@ -28,5 +29,9 @@ interface DBButtonProps {
   children: React.ReactNode;
 }
 export const DBButton: React.FC<DBButtonProps> = ({ link }) => {
-  return <Link href={link}>See More</Link>;
+  return (
+    <Link href={link} className={dbbuttonstyle}>
+      See More
+    </Link>
+  );
 };
