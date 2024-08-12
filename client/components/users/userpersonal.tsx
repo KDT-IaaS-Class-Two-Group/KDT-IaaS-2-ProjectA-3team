@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import * as styles from "../../styles/userpersonal/userpersonal.css";
 
 export interface User {
   user_id: string;
