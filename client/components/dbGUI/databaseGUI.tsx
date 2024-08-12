@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/admin/databaseGUI/databasegui.css";
+import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 
 interface Table {
   table_name: string;
@@ -31,8 +32,8 @@ const DBGUI = () => {
   }, []);
 
   return (
-    <div className={styles.maincontainter}>
-      <h1>Database Tables</h1>
+    <div className={pagemainmain}>
+      <div className={pagemaintext}>DB Table 조회</div>
       {error && <p>{error}</p>}
       <ul className={styles.ulliststlye}>
         {tables.map((table) => (

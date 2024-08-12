@@ -81,7 +81,9 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
                 text="프로젝트 제작"
                 onClick={() => handleMenuItemClick(<ProjectView />)}
               />
-              <MenuItem text="게시판" link="/noticeMain" />
+              <MenuItem text="게시판" 
+               onClick={() => handleMenuItemClick(<NoticeMainPage />)}
+               />
               <MenuItem
                 text="DB GUI"
                 onClick={() => handleMenuItemClick(<DBGUI />)}

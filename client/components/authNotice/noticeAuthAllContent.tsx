@@ -39,7 +39,7 @@ const NoticeAuthAllContent = () => {
       {userList.length > 0 ? (
         userList.map((notice,index) => (
           <div key={notice._id}>
-            <Link href={`/notice/${notice._id}`}>
+            <Link href={`/noticeAuth/${notice._id}`}>
               <h3>{index+1+ (currentPage - 1) * itemsPerPage}</h3>
               <h3>{notice.title}</h3>
               <h3>{notice.user_id}</h3>

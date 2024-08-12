@@ -42,11 +42,10 @@ export const blueButton = style([
   },
 ]);
 export const table = style({
-  marginTop: Spacing.medium,
+  marginTop: "2vw",
   borderCollapse: "collapse",
-  width: "70%",
+  width: "60vw",
   borderStyle: "none",
-  marginLeft: "15%",
   borderRadius: Size.border,
 });
 
@@ -63,4 +62,11 @@ export const secondthstyle = style({
 export const tbodystyle = style({
   padding: "10px",
   borderStyle: "none",
+});
+export const tdstyle = style({
+  padding: "12px 15px", // 패딩 조정
+  textAlign: "center",
+  fontSize: FontSize.Medium,
+  backgroundColor: Colors.BackgroundSecondary,
+  borderBottom: Colors.StatusGreen,
 });

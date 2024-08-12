@@ -467,13 +467,16 @@ export class UsersController {
   async clockIn(@Body() body: { userId: string }): Promise<any> {
     const { userId } = body;
     const now = new Date(); // 현재 시간을 여기서 생성합니다.
+
+    console.log('Current time for INSERT:', now.toISOString()); // 현재 시간을 로그로 확인
+
     try {
       console.log('ClockIn started for userId:', userId);
 
       const result = await this.queryBuilder
         .INSERT('work_table', {
           user_id: userId,
-          startTime: now,
+          startTime: now, // Date 객체를 그대로 전달
         })
         .execution();
 

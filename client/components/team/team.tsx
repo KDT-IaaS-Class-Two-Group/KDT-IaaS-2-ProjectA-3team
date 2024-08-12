@@ -2,6 +2,17 @@ import { maincontainter } from "client/styles/team/team.css";
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/team/team.css";
 import * as button from "../../styles/templatebutton.css";
+import {
+  pageinput,
+  pagemaincontainer,
+  pagemainmain,
+  pagemaintext,
+  pageteamtext,
+  pagetextarea,
+  pagetextsub,
+  pageul,
+  teambuttoncontainer,
+} from "client/styles/team/teampage.css";
 
 interface User {
   user_id: string;
@@ -146,10 +157,10 @@ function UserSelection() {
   };
 
   return (
-    <div className={styles.maincontainter}>
-      <div className={styles.secondcontainer}>
-        <h3 className={styles.margin}>팀 제작하기</h3>
-        <div className={styles.teampadding}>
+    <div className={pagemainmain}>
+      <div className={pagemaincontainer}>
+        <div className={pagemaintext}>팀 제작</div>
+        <div className={pageinput}>
           <label htmlFor="teamName">팀 이름:</label>
           <input
             type="text"
@@ -157,16 +168,16 @@ function UserSelection() {
             name="teamName"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
-            className={styles.input}
           />
         </div>
 
-        <div className={styles.padding}>
-          팀장: {selectedLeader ? selectedLeader.user_id : "없음"}
-          <ul>
+        <div className={pageteamtext}>
+          <p> 팀장: {selectedLeader ? selectedLeader.user_id : "없음"}</p>
+
+          <ul className={pageul}>
             {leaders.map((user) => (
-              <li key={user.user_id} className={styles.listyle}>
-                <strong>ID:</strong> {user.user_id}
+              <li key={user.user_id} className={pagetextsub}>
+                <strong>ID :</strong> {user.user_id}
                 <button
                   onClick={() => addLeader(user)}
                   className={styles.yellowButton}
@@ -186,13 +197,17 @@ function UserSelection() {
           </ul>
         </div>
 
-        <div className={styles.padding}>
-          팀원:{" "}
-          {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
-          <ul>
+        <div className={pageteamtext}>
+          <p>
+            팀원:{" "}
+            {selectedMembers.map((member) => member.user_id).join(", ") ||
+              "없음"}
+          </p>
+
+          <div className={pageul}>
             {members.map((user) => (
-              <li key={user.user_id} className={styles.listyle}>
-                {user.user_id}
+              <div key={user.user_id} className={pagetextsub}>
+                <strong>ID :</strong> {user.user_id}
                 <button
                   onClick={() => addMember(user)}
                   className={styles.yellowButton}
@@ -209,20 +224,24 @@ function UserSelection() {
                     삭제
                   </button>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
-        <div className={styles.teampadding}>
-          <label htmlFor="teamDescription">팀 특징 서술:</label>
+        <div className={pagetextsub}>
+          <label htmlFor="teamDescription" className={pageteamtext}>
+            팀 특징 서술:
+          </label>
           <textarea
             id="teamDescription"
             name="teamDescription"
             value={teamDescription}
             onChange={(e) => setTeamDescription(e.target.value)}
-            className={styles.textarea}
+            className={pagetextarea}
           />
+        </div>
+        <div className={teambuttoncontainer}>
           <button onClick={handleSubmit} className={styles.blueButton}>
             submit
           </button>

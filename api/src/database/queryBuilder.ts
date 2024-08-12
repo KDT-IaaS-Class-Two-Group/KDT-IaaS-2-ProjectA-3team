@@ -67,12 +67,27 @@ export class QueryBuilder {
     return this;
   }
 
+  // INSERT(tableName: string, data: { [key: string]: any }) {
+  //   this.RESET();
+  //   const columns = Object.keys(data);
+  //   const values = Object.values(data).map((value) =>
+  //     value instanceof Date ? value.toISOString() : value,
+  //   );
+  //   const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
+
+  //   this.queryString = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`;
+  //   this.params = values;
+  //   return this;
+  // }
   INSERT(tableName: string, data: { [key: string]: any }) {
     this.RESET();
     const columns = Object.keys(data);
+
+    // Date 객체는 그대로 전달, 문자열로 변환하지 않음
     const values = Object.values(data).map((value) =>
-      value instanceof Date ? value.toISOString() : value,
+      value instanceof Date ? value : value,
     );
+
     const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
 
     this.queryString = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`;

@@ -51,5 +51,5 @@ export const hovertextstyle = style([
   },
 ]);
 export const paddingtop1vwstyle = style({
-  paddingTop: "1vw",
+  paddingTop: "0.5vw",
 });

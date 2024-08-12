@@ -5,6 +5,10 @@ import Step2 from "./item/step2";
 import Step3 from "./item/step3";
 import Step4 from "./item/step4";
 import * as styles from "../../../styles/sideproject/sideproject.css";
+import {
+  projectbuttoncontainer,
+  teambuttoncontainer,
+} from "client/styles/team/teampage.css";
 
 interface CreateProjectModalProps {
   onProjectCreated: () => void;
@@ -37,10 +41,9 @@ const CreateProjectModal: React.FC<CreateProjectModalProps> = ({
   };
 
   return (
-    <div className={styles.center}>
+    <div className={projectbuttoncontainer}>
       <button onClick={openModal} className={styles.blueButton}>
-        {" "}
-        프로젝트 생성{" "}
+        프로젝트 생성
       </button>
       <Modal isOpen={isOpen} onClose={closeModal}>
         {step === 1 && (

@@ -33,6 +33,7 @@ import UserRequest from "../auth_Component/userRequestConfirm/checkprofile";
 import DBGUI from "../dbGUI/databaseGUI";
 import { tdn } from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
+import NoticeMainPage from "../../pages/noticeMain";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -89,9 +90,9 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
         <div className={cardHeader}>
           <div className={projectTitle}>
             <span className={projectitletext}>Notice Board</span>
-            <Link href="/noticeMain" className={tdn}>
-              <Button>게시판</Button>
-            </Link>
+            <div className={tdn}>
+              <Button onClick={() => onclick(<NoticeMainPage />)}>게시판</Button>
+            </div>
           </div>
         </div>
         <div className={cardContent}></div>

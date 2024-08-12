@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { greenButton } from "../templatebutton.css";
 import { flexcolcontainer, centeredflexcolcontainer, centeredflexrowcontainer, flexrowcontainer } from "../standardcontainer.css";
 import { Colors, FontSize, Size, Spacing } from "../standard.css";
-import { base20Text, base15Text, bold24Text } from "../standardtextsize.css";
+import { base20Text, bold32Text, bold24Text, bold20Text } from "../standardtextsize.css";
 
 export const uploadbutton = style({ textDecorationLine: "none" });
 
 export const noticecontent = style([
   centeredflexcolcontainer,
   {
-    backgroundColor: Colors.BackgroundDefault,
+    backgroundColor: Colors.BackgroundAlt,
     height: '70vh',
     justifyContent: 'flex-start'
   }
@@ -102,5 +102,94 @@ export const sujungbtn = style([
     width: '60.3vw',
     height:'10vh',
     justifyContent:'flex-end'
+  }
+])
+
+export const authnotice = style([
+  centeredflexcolcontainer
+])
+
+export const authnoticetitle = style([
+  centeredflexrowcontainer,bold32Text,{
+    height: '5vh',
+    width: '100vw',
+    gap: '100px'
+  }
+])
+
+export const authfooter = style([
+  flexrowcontainer,{
+    justifyContent: 'flex-end',
+    height: '5vh',
+    width: '100vw',
+  }
+])
+
+export const authnoticecontent = style([
+  centeredflexrowcontainer,bold20Text,
+  {
+    width: '100vw',
+    height: '60vh',
+  }
+])
+
+export const usernoticeall = style([
+  centeredflexcolcontainer
+])
+
+export const usernotcietitle = style([
+  centeredflexrowcontainer,bold32Text,{
+    width: '100vw',
+    height: '5vh',
+  }
+])
+
+export const usernoticecontent = style([
+  centeredflexrowcontainer
+])
+
+export const usercontent = style([
+  centeredflexrowcontainer,bold20Text,{
+  width:'45vw',
+  textAlign:'center',
+  height: '60vh',
+}
+])
+export const usercomment = style([
+  flexcolcontainer,{
+  width:'45vw',
+  height: '50vh',
+  justifyContent:'flex-start',
+  marginTop:'30px'
+}])
+
+export const commentcreate = style([
+  centeredflexrowcontainer,{
+    gap:'10px'
+  }
+])
+
+export const commenttext = style({
+  width: '30vw'
+})
+
+export const commentcontent = style([
+  centeredflexcolcontainer
+])
+
+export const commentinnercontent = style([
+  centeredflexcolcontainer,
+])
+
+export const comment = style([
+  base20Text,{
+    width:'35vw'
+  }
+])
+
+export const commentbtn = style([
+  centeredflexrowcontainer,{
+    justifyContent:'flex-end',
+    width:'35vw'
   }
 ])
