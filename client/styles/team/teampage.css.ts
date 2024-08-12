@@ -13,7 +13,7 @@ export const pagemaintext = style({
 export const pagemainmain = style({
   backgroundColor: Colors.FontPrimary,
   borderRadius: Size.border,
-  padding: "5vw 5vw 0vw 5vw",
+  padding: "3vw 3vw 0vw 3vw",
 });
 export const pageinput = style({
   fontSize: FontSize.Large,
