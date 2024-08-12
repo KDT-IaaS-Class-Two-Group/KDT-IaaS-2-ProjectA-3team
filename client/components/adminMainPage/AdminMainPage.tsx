@@ -26,6 +26,7 @@ import PendingUsersList from "client/components/PendingUsersList";
 import CheckUsersCount from "client/components/checktest";
 import Button from "../common/elements/button";
 import ProjectView from "../project/info";
+import PendingUserLook from "../auth_Component/pendingUser/userlookup";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
@@ -49,7 +50,7 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
 
       <div className={`${section} ${requestSection}`}>
         <div className={cardHeader}>User Sign up Management</div>
-        <Button onClick={() => onclick(<PendingUsersList />)} />
+        <Button onClick={() => onclick(<PendingUserLook />)} />
         <PendingUsersList />
       </div>
 
