@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
 import { tdn } from "client/styles/templatebutton.css";
+import ProjectCheckComponent from "../__userHome/project";
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
+  sessionData : SessionData | null;
 }
 
 interface SessionData {
@@ -18,35 +20,8 @@ interface SessionData {
   role_name: string;
 }
 
-const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
-  const [sessionData, setSessionData] = useState<SessionData | null>(null);
-
-  useEffect(() => {
-    const fetchSessionData = async () => {
-      try {
-        const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setSessionData(data.session);
-          console.log("Session data fetched:", data.session);
-        } else {
-          console.error("Failed to fetch session data", response.statusText);
-        }
-      } catch (error) {
-        console.error("Failed to fetch session data", error);
-      }
-    };
-
-    fetchSessionData();
-  }, []);
-
+const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick, sessionData}) => {
+  
   const handleMenuItemClick = (component: React.ReactNode) => {
     onMenuItemClick(component);
   };
@@ -73,7 +48,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
             <ul className={styles.menulist}>
               <MenuItem
                 text="프로젝트 조회"
-                onClick={() => handleMenuItemClick(<ProjectView />)}
+                onClick={() => handleMenuItemClick(<ProjectCheckComponent sessionData={sessionData} />)}
               />
               <MenuItem
                 text="칸반보드"
