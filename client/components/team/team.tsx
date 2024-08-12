@@ -1,4 +1,6 @@
+import { maincontainter } from "client/styles/team/team.css";
 import React, { useState, useEffect } from "react";
+import * as styles from "../../styles/team/team.css";
 
 interface User {
   user_id: string;
@@ -143,7 +145,7 @@ function UserSelection() {
   };
 
   return (
-    <div>
+    <div className={styles.maincontainter}>
       <div>
         <label htmlFor="teamName">팀 이름:</label>
         <input
