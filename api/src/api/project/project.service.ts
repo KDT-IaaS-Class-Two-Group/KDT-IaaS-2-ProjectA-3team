@@ -4,6 +4,7 @@ import { ProjectDTO } from './DTO/Project.DTO';
 import { TABLE_NAME } from '../common/enum/table/table.enum';
 import { SERVICE_ERROR } from '../common/enum/message/error/serviceErrorMessage';
 import { Stack } from './DTO/StackDTO';
+import { RelationTeamUsers } from './DTO/relation_team_project.DTO';
 
 @Injectable()
 /**
@@ -82,6 +83,44 @@ export class ProjectService {
       return result;
     } catch (error) {
       throw new Error(`스택 참조 에러 :${error}`);
+    }
+  }
+
+  // [ ] Join을 통해 데이터 통합 .
+  async getProjectDataById(id: string) {
+    try {
+      const result = await this.queryBuilder
+        .SELECT('relation_team_users')
+        .WHERE('user_id = $1', [id])
+        .execution();
+      return result;
+    } catch (error) {
+      throw new Error(`유효하지 않은 아이디 : ${error}`);
+    }
+  }
+
+  async getProjectTeamData(team_name: RelationTeamUsers[]): Promise<any[]> {
+    if (Array.isArray(team_name)) {
+      try {
+        // 모든 프로미스가 완료될 때까지 기다림
+        const projectList = await Promise.all(
+          team_name.map(async (value) => {
+            const data = await this.queryBuilder
+              .SELECT('project')
+              .WHERE('team_name = $1', [value.team_name])
+              .execution();
+
+            console.log(data);
+            return data;
+          }),
+        );
+
+        return projectList;
+      } catch (error) {
+        throw new Error(`프로젝트 팀 데이터를 가져오는 중 오류 발생: ${error}`);
+      }
+    } else {
+      throw new Error('팀 이름 데이터가 배열이 아닙니다.');
     }
   }
 }
