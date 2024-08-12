@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM"; // 필요한 경우 경로를 수정하세요.
+
 interface User {
   user_id: string;
   username: string;
@@ -13,12 +15,16 @@ const FollowingListPage: React.FC = () => {
     const fetchFollowingList = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`/api/getUser/followingList`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `http://localhost:3001/getUser/followingList`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
+          }
+        );
 
         if (response.ok) {
           const data: User[] = await response.json();

@@ -71,26 +71,27 @@ export class UsersController {
 
     return result;
   }
-
   @Get('/search')
   async searchUsers(
     @Query('query') query: string,
     @Req() req: Request,
   ): Promise<any> {
-    const currentUserId = req.session.user?.user_id;
-    console.log(`Current User ID: ${currentUserId}`);
+    const currentUserId = req.session.user?.user_id; // 현재 로그인한 사용자 ID
+
     if (!query) {
       throw new HttpException(
         'Query string is required',
         HttpStatus.BAD_REQUEST,
       );
     }
+
+    // 데이터베이스에서 사용자를 검색
     const users = await this.queryBuilder
       .SELECT('users', ['user_id', 'username', 'email'])
       .WHERE('username ILIKE $1 OR user_id ILIKE $1', [`%${query}%`])
       .execution();
 
-    // 각 사용자에 대해 팔로우 상태 확인
+    // 현재 사용자가 팔로우하고 있는지 여부 확인
     const userIds = users.map((user) => user.user_id);
     const followingList = await this.queryBuilder
       .SELECT('followers', ['following_id'])
@@ -102,7 +103,7 @@ export class UsersController {
 
     const followingIds = new Set(followingList.map((f) => f.following_id));
 
-    // 팔로우 상태 추가
+    // 각 사용자 객체에 팔로우 상태를 추가하여 반환
     const result = users.map((user) => ({
       ...user,
       isFollowing: followingIds.has(user.user_id),
@@ -111,31 +112,78 @@ export class UsersController {
     return result;
   }
 
-  @Post('/follow')
-  async followUser(
-    @Body() body: { followerId: string; followingId: string },
-  ): Promise<any> {
-    const { followerId, followingId } = body;
+  // @Get('/search')
+  // async searchUsers(
+  //   @Query('query') query: string,
+  //   @Req() req: Request,
+  // ): Promise<any> {
+  //   const currentUserId = req.session.user?.user_id;
+  //   console.log(`Current User ID: ${currentUserId}`);
+  //   if (!query) {
+  //     throw new HttpException(
+  //       'Query string is required',
+  //       HttpStatus.BAD_REQUEST,
+  //     );
+  //   }
+  //   const users = await this.queryBuilder
+  //     .SELECT('users', ['user_id', 'username', 'email'])
+  //     .WHERE('username ILIKE $1 OR user_id ILIKE $1', [`%${query}%`])
+  //     .execution();
 
-    if (!followerId || !followingId) {
+  //   // 각 사용자에 대해 팔로우 상태 확인
+  //   const userIds = users.map((user) => user.user_id);
+  //   const followingList = await this.queryBuilder
+  //     .SELECT('followers', ['following_id'])
+  //     .WHERE('follower_id = $1 AND following_id = ANY($2)', [
+  //       currentUserId,
+  //       userIds,
+  //     ])
+  //     .execution();
+
+  //   const followingIds = new Set(followingList.map((f) => f.following_id));
+
+  //   // 팔로우 상태 추가
+  //   const result = users.map((user) => ({
+  //     ...user,
+  //     isFollowing: followingIds.has(user.user_id),
+  //   }));
+
+  //   return result;
+  // }
+  @Get('/followingList')
+  async getFollowingList(@Req() req: Request): Promise<any> {
+    const currentUserId = req.session.user?.user_id;
+
+    if (!currentUserId) {
       throw new HttpException(
-        'Follower ID and Following ID are required',
-        HttpStatus.BAD_REQUEST,
+        'User not logged in or session expired',
+        HttpStatus.UNAUTHORIZED,
       );
     }
 
-    const existingFollow = await this.queryBuilder
-      .SELECT('followers')
-      .WHERE('follower_id = $1 AND following_id = $2', [
-        followerId,
-        followingId,
-      ])
+    // 팔로우한 사용자 목록을 가져옵니다.
+    const followingList = await this.queryBuilder
+      .SELECT('users', ['user_id', 'username', 'email'])
+      .JOIN('followers', 'users.user_id = followers.following_id')
+      .WHERE('followers.follower_id = $1', [currentUserId])
       .execution();
 
-    if (existingFollow.length > 0) {
-      return { message: 'Already following this user' };
+    return followingList;
+  }
+  @Post('/follow')
+  async followUser(
+    @Req() req: Request,
+    @Body() body: { followingId: string },
+  ): Promise<any> {
+    const followerId = req.session.user?.user_id; // 현재 로그인한 사용자의 ID
+    const { followingId } = body;
+
+    // 현재 로그인한 사용자가 유효한지 확인
+    if (!followerId) {
+      throw new HttpException('User not logged in', HttpStatus.UNAUTHORIZED);
     }
 
+    // 팔로우 관계 삽입
     await this.queryBuilder
       .INSERT('followers', {
         follower_id: followerId,
@@ -148,17 +196,17 @@ export class UsersController {
 
   @Post('/unfollow')
   async unfollowUser(
-    @Body() body: { followerId: string; followingId: string },
+    @Req() req: Request,
+    @Body() body: { followingId: string },
   ): Promise<any> {
-    const { followerId, followingId } = body;
+    const followerId = req.session.user?.user_id; // 현재 로그인한 사용자의 ID
+    const { followingId } = body;
 
-    if (!followerId || !followingId) {
-      throw new HttpException(
-        'Follower ID and Following ID are required',
-        HttpStatus.BAD_REQUEST,
-      );
+    if (!followerId) {
+      throw new HttpException('User not logged in', HttpStatus.UNAUTHORIZED);
     }
 
+    // 팔로우 관계 삭제
     await this.queryBuilder
       .DELETE('followers', 'follower_id = $1 AND following_id = $2', [
         followerId,
