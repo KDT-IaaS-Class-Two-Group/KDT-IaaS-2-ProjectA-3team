@@ -6,9 +6,9 @@ export const maincontainter = style({
   width: Size.full,
   height: Size.full,
   borderRadius: Size.border,
-  // alignItems: "center",
-  // justifyContent: "center",
-  // textAlign: "center",
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
 });
 
 export const padding = style({
@@ -19,10 +19,12 @@ export const padding = style({
 export const teampadding = style([
   padding,
   {
-    textAlign : "center",
+    textAlign: "center",
   },
 ]);
-
+export const margin = style({
+  margin: "0",
+});
 export const display = style({
   display: "flex",
 });
@@ -49,4 +51,6 @@ export const textarea = style({
 
 export const listyle = style({
   listStyle: "none",
+  display: "flex",
+  padding: "5px",
 });

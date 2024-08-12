@@ -161,7 +161,7 @@ function UserSelection() {
 
       <div className={styles.padding}>
         팀장: {selectedLeader ? selectedLeader.user_id : "없음"}
-        <ul>
+        <ul className={styles.margin}>
           {leaders.map((user) => (
             <li key={user.user_id} className={styles.listyle}>
               <strong>ID:</strong> {user.user_id}
@@ -181,12 +181,10 @@ function UserSelection() {
         </ul>
       </div>
 
-      <div>
-        <div>
-          팀원:{" "}
-          {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
-        </div>
-        <ul>
+      <div className={styles.padding}>
+        팀원:{" "}
+        {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
+        <ul className={styles.margin}>
           {members.map((user) => (
             <li key={user.user_id} className={styles.listyle}>
               {user.user_id}
@@ -211,7 +209,7 @@ function UserSelection() {
         </ul>
       </div>
 
-      <div>
+      <div className={styles.padding}>
         <label htmlFor="teamDescription">팀 특징 서술:</label>
         <textarea
           id="teamDescription"
