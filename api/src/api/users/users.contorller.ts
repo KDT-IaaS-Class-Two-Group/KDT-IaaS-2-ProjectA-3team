@@ -41,36 +41,88 @@ export class UsersController {
       .execution();
     return records;
   }
+  private async getUserRoleByUserId(userId: string): Promise<string> {
+    const roleTables = [
+      'admin_role_users',
+      'leader_role_users',
+      'sub_admin_role_users',
+      'employee_role_users',
+    ];
+
+    for (const table of roleTables) {
+      const roleQuery = await this.queryBuilder
+        .SELECT(table, ['role_name'])
+        .WHERE('user_id = $1', [userId])
+        .execution();
+
+      if (roleQuery.length > 0) {
+        return roleQuery[0].role_name;
+      }
+    }
+
+    return 'employee'; // 기본 역할
+  }
+  private async getUserRoleFromSession(req: Request): Promise<string | null> {
+    const userId = req.session.user?.user_id;
+
+    if (!userId) {
+      return null;
+    }
+
+    const roleTables = [
+      'admin_role_users',
+      'leader_role_users',
+      'sub_admin_role_users',
+      'employee_role_users',
+    ];
+
+    for (const table of roleTables) {
+      const roleQuery = await this.queryBuilder
+        .SELECT(table, ['role_name'])
+        .WHERE('user_id = $1', [userId])
+        .execution();
+
+      if (roleQuery.length > 0) {
+        return roleQuery[0].role_name;
+      }
+    }
+
+    return null;
+  }
 
   @Get('/all')
-  async CheckUser(@Body() data: any, @Req() req: Request): Promise<any> {
-    const currentUserId = req.session.user?.user_id;
-    console.log(data);
+  async CheckUser(@Req() req: Request): Promise<any> {
+    const currentUserRole = await this.getUserRoleFromSession(req);
+
+    if (!currentUserRole) {
+      throw new HttpException('User role not found', HttpStatus.FORBIDDEN);
+    }
+
+    // 역할 계층 구조 정의
+    const roleHierarchy = {
+      admin: 1,
+      leader: 2,
+      sub_admin: 3,
+      employee: 4,
+    };
 
     const users = await this.queryBuilder
       .SELECT('users', this.nonePasswordObject)
       .execution();
 
-    // 각 사용자에 대해 팔로우 상태 확인
-    const userIds = users.map((user) => user.user_id);
-    const followingList = await this.queryBuilder
-      .SELECT('followers', ['following_id'])
-      .WHERE('follower_id = $1 AND following_id = ANY($2)', [
-        currentUserId,
-        userIds,
-      ])
-      .execution();
+    // 사용자 목록을 필터링하여 현재 사용자의 권한과 동일하거나 더 낮은 권한을 가진 사용자만 포함
+    const filteredUsers = [];
+    for (const user of users) {
+      const userRole = await this.getUserRoleByUserId(user.user_id);
 
-    const followingIds = new Set(followingList.map((f) => f.following_id));
+      if (roleHierarchy[userRole] >= roleHierarchy[currentUserRole]) {
+        filteredUsers.push(user);
+      }
+    }
 
-    // 팔로우 상태 추가
-    const result = users.map((user) => ({
-      ...user,
-      isFollowing: followingIds.has(user.user_id),
-    }));
-
-    return result;
+    return filteredUsers;
   }
+
   @Get('/search')
   async searchUsers(
     @Query('query') query: string,
