@@ -1,5 +1,5 @@
 import React from "react";
-import TextOnlyNoticeAuthAllContent from "../../../client/components/TextContent";
+import TextOnlyNoticeUserContent from "../../../client/components/TextContent";
 import TextOnlyNoticeAuthContent from "../../../client/components/TextNoticeAuth";
 
 const NoticeBoard: React.FC = () => {
@@ -12,13 +12,13 @@ const NoticeBoard: React.FC = () => {
         {/* 관리자 게시물 표시 */}
         <div style={{ flex: 1, marginRight: "20px" }}>
           <h2>관리자 게시물</h2>
-          <TextOnlyNoticeAuthAllContent />
+          <TextOnlyNoticeAuthContent />
         </div>
 
         {/* 사용자 게시물 표시 */}
         <div style={{ flex: 1 }}>
           <h2>사용자 게시물</h2>
-          <TextOnlyNoticeAuthContent />
+          <TextOnlyNoticeUserContent />
         </div>
       </div>
     </div>
