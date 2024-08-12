@@ -1,11 +1,8 @@
 import { GetServerSideProps } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { useState } from 'react';
-import {
-  centeredflexcolcontainer,
-  flexcolcontainer,
-} from "client/styles/standardcontainer.css";
 import { greenButton } from "client/styles/templatebutton.css";
+import * as styles from "../../styles/notice/notice.css";
 
 interface PostProps {
   title: string;
@@ -64,24 +61,34 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
   }
 
   return (
-    <div className={flexcolcontainer}>
+    <div>
       {editMode ? (
-        <div className={centeredflexcolcontainer}>
-          <div>관리자</div>
-          <input
-            type="text"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            placeholder='제목'
-          />
-          <textarea
-            value={newContent}
-            onChange={(e) => setNewContent(e.target.value)}
-            placeholder='내용'
-            cols={30}
-            rows={10}
-          />
-          <button onClick={handleUpdate} className={greenButton}>Save</button>
+        <div className={styles.wrtiePage}>
+          <div className={styles.checksize}>
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder='제목'
+              className={styles.inputSize}
+            />
+          </div>
+          <div className={styles.testsize}>
+            <textarea
+              value={newContent}
+              onChange={(e) => setNewContent(e.target.value)}
+              placeholder='내용'
+              className={styles.textareaSize}
+            />
+          </div>
+          <div className={styles.sujungbtn}>
+            <div>
+              <button onClick={handleUpdate} className={greenButton}>Save</button>
+            </div>
+            <div>
+              <button onClick={back} className={greenButton}>취소</button>
+            </div>
+          </div>
         </div>
       ) : (
         <div>
@@ -90,11 +97,11 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
           <p>{createdAt}</p>
           <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
           <button onClick={handleDelete} className={greenButton}>삭제</button>
+          <div>
+            <button onClick={back} className={greenButton}>뒤로가기</button>
+          </div>
         </div>
       )}
-      <div>
-        <button onClick={back} className={greenButton}>뒤로가기</button>
-      </div>
     </div>
   );
 };

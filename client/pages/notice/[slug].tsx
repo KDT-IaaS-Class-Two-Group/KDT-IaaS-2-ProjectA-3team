@@ -90,7 +90,7 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
               <button onClick={handleUpdate} className={greenButton}>Save</button>
             </div>
             <div>
-              <button onClick={back} className={greenButton}>뒤로가기</button>
+              <button onClick={back} className={greenButton}>취소</button>
             </div>
           </div>
         </div>
