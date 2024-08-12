@@ -42,11 +42,10 @@ export const blueButton = style([
   },
 ]);
 export const table = style({
-  marginTop: Spacing.medium,
+  marginTop: "2vw",
   borderCollapse: "collapse",
-  width: "70%",
+  width: "60vw",
   borderStyle: "none",
-  marginLeft: "15%",
   borderRadius: Size.border,
 });
 
