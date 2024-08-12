@@ -19,11 +19,37 @@ import {
 import CalendarComponent from "../Calendar/calendar";
 import NoticeBoard from "../Notice/NoticeBoard";
 import Button from "../common/elements/button";
+import { useEffect, useState } from "react";
+import React from "react";
+import ClockInOutModal from "../ClockInOutModal";
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
 
 const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // 세션 데이터를 가져오는 가상 메서드 (실제 사용 시 세션 데이터에서 userId를 가져와야 함)
+  const fetchSessionData = () => {
+    return { user_id: "sampleUserId", role_name: "user" };
+  };
+
+  React.useEffect(() => {
+    const sessionData = fetchSessionData();
+    if (sessionData) {
+      setUserId(sessionData.user_id);
+    }
+  }, []);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div className={`${usersection} ${favsection}`}>
@@ -55,7 +81,18 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${companybutton}`}>
         <div className={cardHeader}>출퇴근 버튼</div>
-        <div className={cardContent}>Authorize 5 users</div>
+        <div className={cardContent}>
+          {userId && (
+            <>
+              <button onClick={handleOpenModal}>출퇴근</button>
+              <ClockInOutModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                userId={userId} // 세션에서 가져온 user_id를 전달
+              />
+            </>
+          )}
+        </div>
       </div>
     </>
   );
