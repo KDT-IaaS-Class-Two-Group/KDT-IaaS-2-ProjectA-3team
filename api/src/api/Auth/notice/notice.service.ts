@@ -319,4 +319,22 @@ export class NoticeService {
     }
     return 'false';
   }
+
+  async homeUserNotices(){
+    const mongoCollection = this.client
+    .db('notice')
+    .collection<NoticeDTO>('noticeTable');
+
+  // 최신순으로 5개만 반환
+  return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
+  }
+
+  async homeAuthNotices(){
+    const mongoCollection = this.client
+    .db('notice')
+    .collection<NoticeDTO>('noticeAuthTable');
+
+  // 최신순으로 5개만 반환
+  return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
+  }
 }

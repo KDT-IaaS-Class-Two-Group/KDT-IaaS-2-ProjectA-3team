@@ -122,4 +122,14 @@ export class NoticeController {
     const role = session?.role_name;
     return this.noticeService.deleteComment(postId, user_id, role);
   }
+  
+  @Get('homeusernotice')
+  async homeUserNotice(){
+    return await this.noticeService.homeUserNotices();
+  }
+
+  @Get('homeauthnotice')
+  async homeAuthNotice(){
+    return await this.noticeService.homeAuthNotices();
+  }
 }
