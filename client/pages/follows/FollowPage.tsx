@@ -1,16 +1,49 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 interface User {
   user_id: string;
   username: string;
   email: string;
-  isFollowing: boolean; // 이 속성은 팔로우 상태를 나타냅니다.
+  isFollowing: boolean;
+}
+
+interface SessionData {
+  user_id: string;
+  role_name: string;
 }
 
 const FollowPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [users, setUsers] = useState<User[]>([]); // User[] 타입을 명시합니다.
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
+  const [sessionData, setSessionData] = useState<SessionData | null>(null);
+
+  useEffect(() => {
+    // 세션 데이터를 가져와서 설정합니다.
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSessionData(data.session);
+          console.log("Session data fetched:", data.session);
+        } else {
+          console.error("Failed to fetch session data", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch session data", error);
+      }
+    };
+
+    fetchSessionData();
+  }, []);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -22,12 +55,13 @@ const FollowPage: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
         }
       );
 
       if (response.ok) {
         const data: User[] = await response.json();
-        setUsers(data); // 검색된 사용자 목록을 설정
+        setUsers(data);
       } else {
         console.error("Failed to fetch users");
       }
@@ -39,10 +73,16 @@ const FollowPage: React.FC = () => {
   };
 
   const handleFollow = async (userId: string, isFollowing: boolean) => {
+    if (!sessionData) {
+      console.error("Session data is not available");
+      return;
+    }
+
     const action = isFollowing ? "unfollow" : "follow";
     const confirmMessage = isFollowing
       ? "팔로우를 취소하시겠습니까?"
       : "팔로우 하시겠습니까?";
+
     if (!window.confirm(confirmMessage)) {
       return;
     }
@@ -53,15 +93,15 @@ const FollowPage: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
         body: JSON.stringify({
-          followerId: "currentUserId", // 현재 로그인한 사용자의 ID를 사용해야 합니다
+          followerId: sessionData.user_id, // 세션에서 가져온 현재 사용자 ID
           followingId: userId,
         }),
       });
 
       if (response.ok) {
-        // 팔로우/언팔로우 후 목록을 다시 로드합니다.
-        handleSearch();
+        handleSearch(); // 팔로우/언팔로우 후 목록을 다시 로드합니다.
       } else {
         console.error(`Failed to ${action} user`);
       }

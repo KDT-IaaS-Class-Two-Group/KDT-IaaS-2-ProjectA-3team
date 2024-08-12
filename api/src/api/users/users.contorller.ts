@@ -150,13 +150,40 @@ export class UsersController {
 
   //   return result;
   // }
+  @Get('/followingList')
+  async getFollowingList(@Req() req: Request): Promise<any> {
+    const currentUserId = req.session.user?.user_id;
 
+    if (!currentUserId) {
+      throw new HttpException(
+        'User not logged in or session expired',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    // 팔로우한 사용자 목록을 가져옵니다.
+    const followingList = await this.queryBuilder
+      .SELECT('users', ['user_id', 'username', 'email'])
+      .JOIN('followers', 'users.user_id = followers.following_id')
+      .WHERE('followers.follower_id = $1', [currentUserId])
+      .execution();
+
+    return followingList;
+  }
   @Post('/follow')
   async followUser(
-    @Body() body: { followerId: string; followingId: string },
+    @Req() req: Request,
+    @Body() body: { followingId: string },
   ): Promise<any> {
-    const { followerId, followingId } = body;
+    const followerId = req.session.user?.user_id; // 현재 로그인한 사용자의 ID
+    const { followingId } = body;
 
+    // 현재 로그인한 사용자가 유효한지 확인
+    if (!followerId) {
+      throw new HttpException('User not logged in', HttpStatus.UNAUTHORIZED);
+    }
+
+    // 팔로우 관계 삽입
     await this.queryBuilder
       .INSERT('followers', {
         follower_id: followerId,
@@ -169,10 +196,17 @@ export class UsersController {
 
   @Post('/unfollow')
   async unfollowUser(
-    @Body() body: { followerId: string; followingId: string },
+    @Req() req: Request,
+    @Body() body: { followingId: string },
   ): Promise<any> {
-    const { followerId, followingId } = body;
+    const followerId = req.session.user?.user_id; // 현재 로그인한 사용자의 ID
+    const { followingId } = body;
 
+    if (!followerId) {
+      throw new HttpException('User not logged in', HttpStatus.UNAUTHORIZED);
+    }
+
+    // 팔로우 관계 삭제
     await this.queryBuilder
       .DELETE('followers', 'follower_id = $1 AND following_id = $2', [
         followerId,
