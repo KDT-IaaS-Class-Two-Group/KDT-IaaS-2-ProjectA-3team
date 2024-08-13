@@ -13,15 +13,38 @@ import ProjectInfoBottomContainer from "./style/projectInfoBottom.css";
 import Issue from "./interface/issue.interface";
 import IssueList from "./item/issueList";
 import { StackResult } from "./interface/stackResult.interface";
+import IssueComponent from "../issue/issue";
 
 const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   const [memberData, setMemberData] = useState([]);
   const [projectStack, setProjectStack] = useState<StackResult[]>([]);
   const [issues, setIssues] = useState<Issue[]>([]);
+  const [isOpen, setOpen] = useState<boolean>(false);
+
+  const onOpen = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
-    fetchProjectInfo(project_name, setMemberData, setProjectStack);
-    // fetchIssueData(project_name);
-  }, [project_name]);
+    console.log("projectStack updated:", projectStack);
+
+    const loadData = async () => {
+      try {
+        const res = await fetchProjectInfo(project_name);
+        if (res !== undefined) {
+          await setMemberData(res.member);
+          await setProjectStack(res.stack);
+        }
+      } catch (error) {
+        console.error("프로젝트 동기 실패:", error);
+      }
+    };
+
+    loadData();
+  }, [project_name, isOpen]);
 
   return (
     <div className={ProjectInfoSection}>
@@ -29,14 +52,23 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
         <MemberInfoItem memberData={memberData}></MemberInfoItem>
       </div>
       <div className={ProjectInfoContainer}>
-        <ProjectInfoItem
-          project_name={project_name}
-          projectStack={projectStack}
-        ></ProjectInfoItem>
+        <div>
+          <h1>{project_name}</h1>
+          {projectStack.map((stack, index) => {
+            return <p>{stack.stack_name}</p>;
+          })}
+        </div>
         <div className={ProjectInfoBottomContainer}>
-          <AddStackButton stack = {projectStack}setProjectStack={setProjectStack} project_name={project_name}></AddStackButton>
+          <AddStackButton
+            stack={projectStack}
+            setProjectStack={setProjectStack}
+            project_name={project_name}
+            onClose={onClose}
+            onOpen={onOpen}
+            isOpen={isOpen}
+          ></AddStackButton>
           <div>
-            <IssueList issues={issues}></IssueList>
+            <IssueComponent project_name={project_name}></IssueComponent>
           </div>
         </div>
       </div>
