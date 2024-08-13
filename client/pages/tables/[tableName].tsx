@@ -19,11 +19,8 @@ import {
   pendinglist,
 } from "client/styles/users/attendancestyle.css";
 import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
-import {
-  table,
-  tdstyle,
-  thstyle,
-} from "client/styles/sideproject/sideproject.css";
+import * as styles from "../../styles/sideproject/sideproject.css";
+
 import { blueButton } from "client/styles/templatebutton.css";
 
 interface Column {
@@ -176,7 +173,7 @@ const TablePage: React.FC = () => {
       <AdminSidebar onMenuItemClick={handleMenuClick} />
       <div className={contentcontainer}>
         <div>
-          <MainHeader />
+          <MainHeader/>
           <div className={pagemainmain}>
             <div className={pagemaincontainer}>
               <div className={pagemaintext}>Table: {tableName}</div>
@@ -190,16 +187,16 @@ const TablePage: React.FC = () => {
                 ))}
               </ul>
               <h2>Data</h2>
-              <table className={table}>
+              <table className={styles.table}>
                 <thead>
                   <tr>
                     {structure.map((column: Column) => (
-                      <th key={column.column_name} className={thstyle}>
+                      <th key={column.column_name} className={styles.thstyle}>
                         {column.column_name}
                       </th>
                     ))}
                     {(tableName === "stack" || tableName === "field") && (
-                      <th className={thstyle}>Actions</th>
+                      <th className={styles.thstyle}>Actions</th>
                     )}
                   </tr>
                 </thead>
@@ -207,14 +204,14 @@ const TablePage: React.FC = () => {
                   {data.map((row: Row) => (
                     <tr key={row[getIdField(tableName as string)]}>
                       {structure.map((column: Column) => (
-                        <td key={column.column_name} className={tdstyle}>
+                        <td key={column.column_name} className={styles.tdstyle}>
                           {row[column.column_name]}
                         </td>
                       ))}
                       {(tableName === "stack" || tableName === "field") && (
-                        <td className={tdstyle}>
+                        <td className={styles.tdstyle}>
                           <button
-                            className={blueButton}
+                            className={styles.blueButton}
                             onClick={() => {
                               console.log("Edit button clicked:", row);
                               const idField = getIdField(tableName as string);
