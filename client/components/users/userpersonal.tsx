@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as styles from "../../styles/userpersonal/userpersonal.css";
+import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
+import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 
 export interface User {
   user_id: string;
@@ -153,9 +155,9 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className={styles.maincontainter}>
-      <div className={styles.secondcontainer}>
-        <h1>개인 프로필 조회</h1>
+    <div>
+      <div className={pagemainmain}>
+        <div className={pagemaintext}>개인 프로필 조회</div>
         <ul>
           {users.map((user) => (
             <li key={user.user_id} className={styles.listyle}>

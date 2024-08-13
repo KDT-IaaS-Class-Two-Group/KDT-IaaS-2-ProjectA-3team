@@ -230,7 +230,7 @@ export const authcontentdiv = style({
   border: "1px solid black",
   borderRadius: Size.border,
   backgroundColor: Colors.BackgroundDefault,
-  marginBottom: "1vw",
+  marginBottom: "0.8vh",
 });
 export const usercontentdiv = style({
   border: "1px solid black",

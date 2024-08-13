@@ -4,6 +4,7 @@ import * as styles from "../../styles/notice/notice.css";
 import { yellowButton } from "client/styles/templatebutton.css";
 import {
   centeredflexrowcontainer,
+  centeredflexrowcontainergap,
   flexrowcontainer,
 } from "client/styles/standardcontainer.css";
 
@@ -17,8 +18,8 @@ interface ListNotice {
 /**
  * * Function : NoticeMainContent
  * 작성자 : @yun-21 / 2024-08-01
- * 편집자 : @yun-21 / 2024-08-01
- * Issue : yun-21
+ * 편집자 : @dalramjwi / 2024-08-13
+ * Issue : 
  * @function NoticeMainContent
  * @description 
 
@@ -77,7 +78,7 @@ const NoticeMainContent = () => {
           <div>게시물 없음</div>
         )}
       </div>
-      <div className={centeredflexrowcontainer}>
+      <div className={centeredflexrowcontainergap}>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <button
