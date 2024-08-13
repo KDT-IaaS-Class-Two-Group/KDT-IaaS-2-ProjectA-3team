@@ -12,10 +12,11 @@ import ProjectInfoProps from "./interface/props/projectInfo.props";
 import ProjectInfoBottomContainer from "./style/projectInfoBottom.css";
 import Issue from "./interface/issue.interface";
 import IssueList from "./item/issueList";
+import { StackResult } from "./interface/stackResult.interface";
 
 const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   const [memberData, setMemberData] = useState([]);
-  const [projectStack, setProjectStack] = useState([]);
+  const [projectStack, setProjectStack] = useState<StackResult[]>([]);
   const [issues, setIssues] = useState<Issue[]>([]);
   useEffect(() => {
     fetchProjectInfo(project_name, setMemberData, setProjectStack);
@@ -33,7 +34,7 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
           projectStack={projectStack}
         ></ProjectInfoItem>
         <div className={ProjectInfoBottomContainer}>
-          <AddStackButton setProjectStack={setProjectStack}></AddStackButton>
+          <AddStackButton stack = {projectStack}setProjectStack={setProjectStack} project_name={project_name}></AddStackButton>
           <div>
             <IssueList issues={issues}></IssueList>
           </div>
