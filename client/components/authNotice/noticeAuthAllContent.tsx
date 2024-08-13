@@ -1,5 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
+import AdminSidebar from "../SideBar/AdminSidebar";
+import AdminMainContent from "../adminMainPage/AdminMainPage";
+import MainHeader from "../common/header/mainheader";
+import {
+  pagemaincontainer,
+  pagemainmain,
+  pagemaintext,
+} from "client/styles/team/teampage.css";
+
 interface ListNotice {
   _id: string;
   title: string;
@@ -15,7 +25,9 @@ const NoticeAuthAllContent = () => {
 
   useEffect(() => {
     const fetchNotices = () => {
-      fetch(`http://localhost:3001/authallnotices?page=${currentPage}&limit=${itemsPerPage}`)
+      fetch(
+        `http://localhost:3001/authallnotices?page=${currentPage}&limit=${itemsPerPage}`
+      )
         .then((response) => {
           return response.json();
         })
@@ -24,7 +36,7 @@ const NoticeAuthAllContent = () => {
           setTotalPages(data.totalPages); // 총 페이지 수 설정
         })
         .catch((err) => {
-          console.error('데이터를 가져오는 중 오류 발생:', err);
+          console.error("데이터를 가져오는 중 오류 발생:", err);
         });
     };
     fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
@@ -33,34 +45,57 @@ const NoticeAuthAllContent = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page); // 페이지 변경
   };
+  // 함수 선언
+  const handleMenuClick = (component: React.ReactNode) => {
+    setCurrentComponent(component);
+  };
+
+  // 상태 훅 설정
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+    <AdminMainContent onclick={handleMenuClick} />
+  );
 
   return (
-    <div>
-      {userList.length > 0 ? (
-        userList.map((notice,index) => (
-          <div key={notice._id}>
-            <Link href={`/noticeAuth/${notice._id}`}>
-              <h3>{index+1+ (currentPage - 1) * itemsPerPage}</h3>
-              <h3>{notice.title}</h3>
-              <h3>{notice.user_id}</h3>
-              <h3>{notice.createdAt}</h3>
-            </Link>
-          </div>
-        ))
-      ) : (
-        <div>게시물 없음</div>
-      )}
-      {/* 페이징 버튼 UI */}
+    <div className={mainpagecontainer}>
+      <AdminSidebar onMenuItemClick={handleMenuClick} />
       <div>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageChange(page)}
-            disabled={currentPage === page}
-          >
-            {page}
-          </button>
-        ))}
+        <MainHeader />
+        <div className={pagemainmain}>
+          <div className={pagemaincontainer}>
+            <div className={pagemaintext}>관리자 게시물</div>{" "}
+            <div>
+              {userList.length > 0 ? (
+                userList.map((notice, index) => (
+                  <div key={notice._id}>
+                    <Link href={`/noticeAuth/${notice._id}`}>
+                      <h3>{index + 1 + (currentPage - 1) * itemsPerPage}</h3>
+                      <h3>{notice.title}</h3>
+                      <h3>{notice.user_id}</h3>
+                      <h3>{notice.createdAt}</h3>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <div>게시물 없음</div>
+              )}
+              {/* 페이징 버튼 UI */}
+              <div>
+                {Array.from(
+                  { length: totalPages },
+                  (_, index) => index + 1
+                ).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    disabled={currentPage === page}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
