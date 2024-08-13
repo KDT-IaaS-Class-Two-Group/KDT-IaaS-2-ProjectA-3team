@@ -23,6 +23,7 @@ import { Button } from "../common/elements/button";
 import { useEffect, useState } from "react";
 import React from "react";
 import {
+  calendartitle,
   choltwediv,
   choltwedivcontainer,
   plusButton,
@@ -105,7 +106,7 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>
-          <div className={projectTitle}>
+          <div className={calendartitle}>
             <CalendarComponent />
           </div>
         </div>

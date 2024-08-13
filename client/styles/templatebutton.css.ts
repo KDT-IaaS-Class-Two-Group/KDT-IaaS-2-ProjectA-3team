@@ -111,3 +111,10 @@ export const choltwediv = style({
   gap: "6.5vw",
   paddingTop: "0.5vw",
 });
+export const calendartitle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: Spacing.small,
+  justifyContent: "space-around",
+  paddingTop: "0.18rem",
+});

@@ -8,10 +8,8 @@ export const mainContentAll = style({
 export const mainContentHeader = style({
   display: "flex",
   justifyContent: "space-between",
-  flexDirection : "column"
+  flexDirection: "column",
 });
-
-
 
 export const mainFavorites = style({
   display: "flex",
@@ -60,7 +58,6 @@ export const calendarTile = style({
 export const mainProjectCalender = style({
   gridRow: "3 / 5",
   gridColumn: "1 / 2",
-  border: "1px solid",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
