@@ -536,7 +536,6 @@ export class UsersController {
           startTime: now, // Date 객체를 그대로 전달
         })
         .execution();
-
       console.log('Insert result:', result);
 
       return { message: 'Clock-in successful.', result };

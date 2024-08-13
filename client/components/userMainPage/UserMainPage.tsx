@@ -38,8 +38,16 @@ interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
 
+interface User {
+  user_id: string;
+  username: string;
+  email: string;
+}
+
 const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
   const [userId, setUserId] = useState<string | null>(null);
+  const [followingUsers, setFollowingUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // 서버에서 세션 데이터를 가져오는 함수
   const fetchSessionData = async () => {
@@ -65,11 +73,40 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
     }
   };
 
+  // 팔로우한 사용자 목록을 가져오는 함수
+  const fetchFollowingList = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3001/getUser/followingList`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
+        }
+      );
+
+      if (response.ok) {
+        const data: User[] = await response.json();
+        setFollowingUsers(data);
+      } else {
+        console.error("Failed to fetch following list");
+      }
+    } catch (error) {
+      console.error("Error occurred while fetching following list", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const loadSessionData = async () => {
       const sessionData = await fetchSessionData();
       if (sessionData) {
         setUserId(sessionData.user_id);
+        fetchFollowingList(); // 사용자 ID로 팔로우한 사용자 목록 가져오기
       }
     };
 
@@ -79,13 +116,19 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
   return (
     <>
       <div className={`${usersection} ${favsection}`}>
-        <div className={cardContent}></div>
+        <div className={cardContent}>
+          {followingUsers[0]?.username || "No followed users"}
+        </div>
       </div>
       <div className={`${usersection} ${favsection}`}>
-        <div className={cardContent}></div>
+        <div className={cardContent}>
+          {followingUsers[1]?.username || "No followed users"}
+        </div>
       </div>
       <div className={`${usersection} ${favsection}`}>
-        <div className={cardContent}></div>
+        <div className={cardContent}>
+          {followingUsers[2]?.username || "No followed users"}
+        </div>
       </div>
       <div className={`${usersection} ${kanbansection}`}>
         <div className={cardHeader}>kanban board</div>
@@ -93,7 +136,7 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${calendarsection}`}>
         <div className={projectTitle}>
-          <span className={projectitletext}>Notice Board</span>
+          <span>Notice Board</span>
           <div className={tdn}>
             <Button onClick={() => onclick(<NoticeMainPage />)}>게시판</Button>
           </div>
@@ -106,9 +149,7 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>
-          <div className={calendartitle}>
-            <CalendarComponent />
-          </div>
+          <CalendarComponent />
         </div>
       </div>
       <div className={`${usersection} ${companybutton}`}>
