@@ -19,6 +19,7 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   const [issues, setIssues] = useState<Issue[]>([]);
   useEffect(() => {
     fetchProjectInfo(project_name, setMemberData, setProjectStack);
+    // fetchIssueData(project_name);
   }, [project_name]);
 
   return (

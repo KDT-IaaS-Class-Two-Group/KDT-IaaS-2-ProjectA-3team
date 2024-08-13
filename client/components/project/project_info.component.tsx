@@ -11,22 +11,17 @@ import BackButton from "client/components/backButtonSection/backbutton";
 import { USERS_URL } from "client/ts/enum/url/USER_URL.enum";
 import { BUTTON_NAME } from "client/ts/enum/button_name/BUTTON_NAME.enum";
 
+interface IProjectTestComponent {
+  project_name: string;
+}
 // [ ] 테이블 만들기
-const UserHome: React.FC = () => {
-  const router = useRouter();
-  const { id, query } = router.query;
-
-  let projectName: string = "";
-  if (id !== undefined && !Array.isArray(id)) {
-    projectName = id;
-  }
-
+const ProjectTestComponent: React.FC<IProjectTestComponent> = ({
+  project_name,
+}) => {
   // [ ] MainHeader 아랫쪽 div component 생성
   return (
     <div className={style.root}>
-      <Side />
       <div className={style.contentContainer}>
-        <MainHeader />
         <div className={style.teamInfoContainer}>
           <div className={style.ContentHeader}>
             <BackButton
@@ -35,11 +30,11 @@ const UserHome: React.FC = () => {
             />
           </div>
 
-          <ProjectInfoComponent project_name={projectName} />
+          <ProjectInfoComponent project_name={project_name} />
         </div>
       </div>
     </div>
   );
 };
 
-export default UserHome;
+export default ProjectTestComponent;
