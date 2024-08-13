@@ -103,7 +103,7 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
             <div className={styles.authnoticetitle}>
               <div>{title}</div>
             </div>
-            <div className={styles.noticetextleft}>{createdAt}</div>{" "}
+            <div className={styles.noticetextleft}>{createdAt}</div>
             <div>
               <button onClick={back} className={styles.greenbackBtn}>
                 돌아가기

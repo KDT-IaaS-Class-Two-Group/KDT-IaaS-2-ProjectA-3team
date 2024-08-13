@@ -119,9 +119,10 @@ export const btnsize = style([
   flexcolcontainer,
   centeredflexcolcontainer,
   {
-    width: "60.3vw",
-    height: "10vh",
+    marginTop: "2.5vh",
     alignItems: "flex-end",
+    marginRight: "5vw",
+    marginBottom: "2.5vh",
   },
 ]);
 
@@ -139,6 +140,7 @@ export const authnotice = style([
   centeredflexcolcontainer,
   {
     backgroundColor: Colors.BackgroundSecondary,
+    paddingBottom: "10vh",
     alignItems: "flex-end",
   },
 ]);
@@ -148,7 +150,7 @@ export const authnoticetitle = style([
   bold32Text,
   {
     height: "5vh",
-    width: "100vw",
+    width: "100%",
     paddingBottom: "1vw",
     borderBottom: "1px solid white",
   },
@@ -207,7 +209,9 @@ export const usercomment = style([
 export const commentcreate = style([
   centeredflexrowcontainer,
   {
+    width: "100%",
     gap: "10px",
+    margin: "2vw 0vw",
   },
 ]);
 
@@ -274,3 +278,19 @@ export const greenbackBtn = style([
     marginTop: "1vw",
   },
 ]);
+export const btnright = style({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-end",
+});
+export const usermainwrite = style([
+  {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+]);
+export const vw50 = style({ width: "50vw" });
+export const usermaintext = style({
+  alignSelf: "center",
+});

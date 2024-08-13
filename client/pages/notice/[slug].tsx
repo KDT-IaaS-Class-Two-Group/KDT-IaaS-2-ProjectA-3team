@@ -4,6 +4,7 @@ import { useState } from "react";
 import CommentForm from "../../components/userMainPage/commentForm";
 import { greenButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/notice/notice.css";
+import { flexrowcontainer } from "client/styles/standardcontainer.css";
 
 interface PostProps {
   title: string;
@@ -97,33 +98,42 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
           </div>
         </div>
       ) : (
-        <div className={styles.usernoticeall}>
-          <div className={styles.usernotcietitle}>
-            <div>{userId}</div>
-            <div className={styles.pTagTitle}>{title}</div>
-            <div>{createdAt}</div>
+        <div className={styles.usermainwrite}>
+          <div className={styles.vw50}>
+            <div className={styles.authnoticetitle}>
+              <div>{title}</div>
+            </div>
+            <div className={styles.authnotice}>
+              <div className={styles.noticetextleft}>{userId}</div>
+              <div className={styles.noticetextleft}>{createdAt}</div>
+              <div>
+                <button onClick={back} className={styles.greenbackBtn}>
+                  돌아가기
+                </button>
+              </div>
+              <div className={styles.usermaintext}>
+                <div>{content}</div>
+              </div>
+            </div>
           </div>
-          <div className={styles.usernoticecontent}>
-            <div className={styles.usercontent}>{content}</div>
-            <div className={styles.usercomment}>
+          <div className={styles.vw50}>
+            <div>
               <CommentForm postId={id as string} />
             </div>
-          </div>
-          <div className={styles.authfooter}>
-            <div>
-              <button onClick={() => setEditMode(true)} className={greenButton}>
-                수정
-              </button>
-            </div>
-            <div>
-              <button onClick={handleDelete} className={greenButton}>
-                삭제
-              </button>
-            </div>
-            <div>
-              <button onClick={back} className={greenButton}>
-                뒤로가기
-              </button>
+            <div className={styles.authfooter}>
+              <div>
+                <button
+                  onClick={() => setEditMode(true)}
+                  className={greenButton}
+                >
+                  수정
+                </button>
+              </div>
+              <div>
+                <button onClick={handleDelete} className={greenButton}>
+                  삭제
+                </button>
+              </div>
             </div>
           </div>
         </div>
