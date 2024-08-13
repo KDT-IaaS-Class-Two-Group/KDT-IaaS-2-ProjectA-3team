@@ -26,6 +26,7 @@ import { plusButton, tdn } from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import ClockInButton from "../backButtonSection/ClockInButton"; // 새로 만든 ClockInButton 컴포넌트 임포트
+import NoticeMainPage from "client/pages/noticeMain";
 
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
@@ -87,10 +88,9 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       <div className={`${usersection} ${calendarsection}`}>
         <div className={projectTitle}>
           <span className={projectitletext}>Notice Board</span>
-
-          <Link href="/noticeMain" className={tdn}>
-            <Button>게시판</Button>
-          </Link>
+          <div className={tdn}>
+            <Button onClick={() => onclick(<NoticeMainPage />)}>게시판</Button>
+          </div>
         </div>
         <NoticeBoard />
       </div>
