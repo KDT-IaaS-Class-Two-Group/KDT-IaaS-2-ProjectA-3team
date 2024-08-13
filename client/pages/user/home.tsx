@@ -5,6 +5,7 @@ import {
   maincontentcontainer,
   mainpagecontainer,
   section,
+  usercontentcontainer,
 } from "client/styles/admin/admindashboard.css";
 import MainHeader from "client/components/common/header/mainheader";
 import UserMainContent from "client/components/userMainPage/UserMainPage";
@@ -50,8 +51,11 @@ const UserHome: React.FC = () => {
   };
   return (
     <div className={mainpagecontainer}>
-      <UserSidebar onMenuItemClick={handleMenuClick} sessionData={sessionData}/>
-      <div className={contentcontainer}>
+      <UserSidebar
+        onMenuItemClick={handleMenuClick}
+        sessionData={sessionData}
+      />
+      <div className={usercontentcontainer}>
         <MainHeader sessionData={sessionData} setSessionData={setSessionData} />
         <>{currentComponent}</>
       </div>

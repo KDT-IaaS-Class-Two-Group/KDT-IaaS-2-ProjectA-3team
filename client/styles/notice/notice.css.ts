@@ -23,7 +23,6 @@ export const noticecontent = style([
     height: "63vh",
     justifyContent: "flex-start",
     borderRadius: Size.border,
-    marginBottom: "1vw",
   },
 ]);
 export const title = style([
@@ -72,6 +71,7 @@ export const writeButton = style([
   centeredflexcolcontainer,
   {
     alignItems: "flex-end",
+    marginTop: "0.5vw",
   },
 ]);
 
@@ -172,7 +172,6 @@ export const usernotcietitle = style([
   centeredflexrowcontainer,
   bold32Text,
   {
-    width: "100vw",
     height: "5vh",
   },
 ]);
