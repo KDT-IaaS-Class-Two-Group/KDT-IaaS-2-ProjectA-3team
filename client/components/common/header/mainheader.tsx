@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   fullRowSection,
   titlecontainer,
@@ -15,41 +15,34 @@ interface SessionData {
   role_name: string;
 }
 
-interface MainHeaderProps {
-  sessionData: SessionData | null;
-  setSessionData: Dispatch<SetStateAction<SessionData | null>>;
-}
-const MainHeader: React.FC<MainHeaderProps> = ({
-  sessionData,
-  setSessionData,
-}) => {
-  // const [sessionData, setSessionData] = useState<SessionData | null>(null);
+const MainHeader: React.FC = () => {
+  const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
-  // useEffect(() => {
-  //   const fetchSessionData = async () => {
-  //     try {
-  //       const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         credentials: "include",
-  //       });
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
 
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setSessionData(data.session);
-  //         console.log("Session data fetched:", data.session);
-  //       } else {
-  //         console.error("Failed to fetch session data", response.statusText);
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to fetch session data", error);
-  //     }
-  //   };
+        if (response.ok) {
+          const data = await response.json();
+          setSessionData(data.session);
+          console.log("Session data fetched:", data.session);
+        } else {
+          console.error("Failed to fetch session data", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch session data", error);
+      }
+    };
 
-  //   fetchSessionData();
-  // }, []);
+    fetchSessionData();
+  }, []);
 
   return (
     <div className={fullRowSection}>
