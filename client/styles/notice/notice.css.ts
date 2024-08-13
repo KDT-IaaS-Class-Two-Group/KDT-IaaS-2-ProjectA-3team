@@ -95,15 +95,15 @@ export const checksize = style([
 
 export const inputSize = style({
   width: "50vw",
-  height: "6vh",
-  fontSize: "2vw",
+  height: "5vh",
+  fontSize: "1.5rem",
   textAlign: "center",
 });
 
 export const textareaSize = style({
   width: "60vw",
   height: "55vh",
-  fontSize: "1vw",
+  fontSize: "1.25rem",
 });
 
 export const testsize = style([

@@ -1,18 +1,15 @@
 import { backcontainer } from "client/styles/info/index.css";
 import { uploadbutton } from "client/styles/notice/notice.css";
-import {
-  centeredflexcolcontainer,
-} from "client/styles/standardcontainer.css";
+import { centeredflexcolcontainer } from "client/styles/standardcontainer.css";
 import { greenButton } from "client/styles/templatebutton.css";
 import Link from "next/link";
 import React, { useState } from "react";
 import * as styles from "../../styles/notice/notice.css";
 
-
 /**
  * * Function : RegisterForm
  * 작성자 : @신지윤 / 2024-07-31
- * 편집자 : @yun-21 / 2024-08-01
+ * 편집자 : @dalramjwi / 2024-08-13
  * Issue :
  * @function : NoticeBoard
  * @description : 게시판
@@ -68,7 +65,9 @@ const NoticeBoard: React.FC = () => {
       </div>
       <div className={styles.btnsize}>
         <Link href="/noticeMain" passHref className={styles.uploadbutton}>
-          <button onClick={send} className={greenButton}>upload</button>
+          <button onClick={send} className={greenButton}>
+            게시글 작성
+          </button>
         </Link>
       </div>
     </div>
