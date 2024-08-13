@@ -1,8 +1,10 @@
-import { GetServerSideProps } from 'next';
-import { MongoClient, ObjectId } from 'mongodb';
-import { useState } from 'react';
+import { GetServerSideProps } from "next";
+import { MongoClient, ObjectId } from "mongodb";
+import { useState } from "react";
 import { greenButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/notice/notice.css";
+import UserSidebar from "client/components/SideBar/UserSidebar";
+import { buttonparent } from "client/styles/users/attendancestyle.css";
 
 interface PostProps {
   title: string;
@@ -18,9 +20,9 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
 
   const handleUpdate = () => {
     fetch(`http://localhost:3001/notice/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ title: newTitle, content: newContent }),
     })
       .then((response) => {
@@ -30,38 +32,38 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
         alert(data);
         window.location.reload();
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        window.location.href = '/noticeMain';
-        alert('수정 중 오류 발생');
+        window.location.href = "/noticeMain";
+        alert("수정 중 오류 발생");
       });
   };
 
   const handleDelete = () => {
     fetch(`http://localhost:3001/notice/${id}`, {
-      method: 'DELETE',
-      credentials: 'include',
+      method: "DELETE",
+      credentials: "include",
     })
       .then((response) => {
         return response.text();
       })
       .then((data) => {
         alert(data);
-        window.location.href = '/noticeMain';
+        window.location.href = "/noticeMain";
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
-        alert('삭제 중 오류 발생')
-        window.location.href = '/noticeMain';
+        alert("삭제 중 오류 발생");
+        window.location.href = "/noticeMain";
       });
   };
 
   const back = () => {
-    window.location.href = '/noticeMain';
-  }
+    window.location.href = "/noticeMain";
+  };
 
   return (
-    <div>
+    <div className={styles.noticecolor}>
       {editMode ? (
         <div className={styles.wrtiePage}>
           <div className={styles.checksize}>
@@ -69,7 +71,7 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              placeholder='제목'
+              placeholder="제목"
               className={styles.inputSize}
             />
           </div>
@@ -77,40 +79,54 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
             <textarea
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
-              placeholder='내용'
+              placeholder="내용"
               className={styles.textareaSize}
             />
           </div>
           <div className={styles.sujungbtn}>
             <div>
-              <button onClick={handleUpdate} className={greenButton}>Save</button>
+              <button onClick={handleUpdate} className={greenButton}>
+                Save
+              </button>
             </div>
             <div>
-              <button onClick={back} className={greenButton}>취소</button>
+              <button onClick={back} className={greenButton}>
+                취소
+              </button>
             </div>
           </div>
         </div>
       ) : (
-        <div className={styles.authnotice}>
-          <div className={styles.authnoticetitle}>
-            <div>{title}</div>
-            <div>{createdAt}</div>
-          </div>
-          <div className={styles.authnoticecontent}>
-            <div>{content}</div>
-          </div>
-          <div className={styles.authfooter}>
+        <>
+          {/* <div>delan</div> */}
+          <div className={styles.authnotice}>
+            <div className={styles.authnoticetitle}>
+              <div>{title}</div>
+            </div>
+            <div className={styles.noticetextleft}>{createdAt}</div>
             <div>
-              <button onClick={() => setEditMode(true)} className={greenButton}>수정</button>
+              <button onClick={back} className={styles.greenbackBtn}>
+                돌아가기
+              </button>
+            </div>
+            <div className={styles.authnoticecontent}>
+              <div>{content}</div>
             </div>
             <div>
-              <button onClick={handleDelete} className={greenButton}>삭제</button>
-            </div>
-            <div>
-              <button onClick={back} className={greenButton}>뒤로가기</button>
+              <div className={buttonparent}>
+                <button
+                  onClick={() => setEditMode(true)}
+                  className={greenButton}
+                >
+                  수정
+                </button>
+                <button onClick={handleDelete} className={greenButton}>
+                  삭제
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
@@ -118,14 +134,16 @@ const Post = ({ title, content, id, createdAt }: PostProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const slug = Array.isArray(context.params?.slug) ? context.params.slug[0] : context.params?.slug;
-    if (!slug || typeof slug !== 'string') {
+    const slug = Array.isArray(context.params?.slug)
+      ? context.params.slug[0]
+      : context.params?.slug;
+    if (!slug || typeof slug !== "string") {
       return { notFound: true };
     }
 
-    const client = await MongoClient.connect('mongodb://localhost:27017');
-    const db = client.db('notice');
-    const collection = db.collection('noticeAuthTable');
+    const client = await MongoClient.connect("mongodb://localhost:27017");
+    const db = client.db("notice");
+    const collection = db.collection("noticeAuthTable");
 
     const post = await collection.findOne({ _id: new ObjectId(slug) });
     client.close();
@@ -139,11 +157,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         title: post.title,
         content: post.content,
         createdAt: post.createdAt,
-        id: slug
-      }
+        id: slug,
+      },
     };
   } catch (error) {
-    console.error('Error fetching post:', error);
+    console.error("Error fetching post:", error);
     return { notFound: true };
   }
 };

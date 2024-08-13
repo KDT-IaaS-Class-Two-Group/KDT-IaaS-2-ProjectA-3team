@@ -95,15 +95,15 @@ export const checksize = style([
 
 export const inputSize = style({
   width: "50vw",
-  height: "6vh",
-  fontSize: "2vw",
+  height: "5vh",
+  fontSize: "1.5rem",
   textAlign: "center",
 });
 
 export const textareaSize = style({
   width: "60vw",
   height: "55vh",
-  fontSize: "1vw",
+  fontSize: "1.25rem",
 });
 
 export const testsize = style([
@@ -119,9 +119,10 @@ export const btnsize = style([
   flexcolcontainer,
   centeredflexcolcontainer,
   {
-    width: "60.3vw",
-    height: "10vh",
+    marginTop: "2.5vh",
     alignItems: "flex-end",
+    marginRight: "5vw",
+    marginBottom: "2.5vh",
   },
 ]);
 
@@ -135,15 +136,23 @@ export const sujungbtn = style([
   },
 ]);
 
-export const authnotice = style([centeredflexcolcontainer]);
+export const authnotice = style([
+  centeredflexcolcontainer,
+  {
+    backgroundColor: Colors.BackgroundSecondary,
+    paddingBottom: "10vh",
+    alignItems: "flex-end",
+  },
+]);
 
 export const authnoticetitle = style([
   centeredflexrowcontainer,
   bold32Text,
   {
     height: "5vh",
-    width: "100vw",
-    gap: "100px",
+    width: "100%",
+    paddingBottom: "1vw",
+    borderBottom: "1px solid white",
   },
 ]);
 
@@ -200,7 +209,9 @@ export const usercomment = style([
 export const commentcreate = style([
   centeredflexrowcontainer,
   {
+    width: "100%",
     gap: "10px",
+    margin: "2vw 0vw",
   },
 ]);
 
@@ -254,4 +265,32 @@ export const pagebutton = style({
   ":hover": {
     backgroundColor: Colors.StatusYellow,
   },
+});
+export const noticetextleft = style({
+  textAlign: "left",
+  marginRight: "1vw",
+  marginTop: "1vw",
+});
+export const noticecolor = style({ backgroundColor: Colors.FontPrimary });
+export const greenbackBtn = style([
+  greenButton,
+  {
+    marginTop: "1vw",
+  },
+]);
+export const btnright = style({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-end",
+});
+export const usermainwrite = style([
+  {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+]);
+export const vw50 = style({ width: "50vw" });
+export const usermaintext = style({
+  alignSelf: "center",
 });

@@ -50,8 +50,8 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
   }, []);
 
   const handleLogoClick = () => {
-    router.push("/admin/home");
     console.log("Logo clicked");
+    router.push("/admin/home");
     onMenuItemClick(
       <AdminMainContent
         onclick={(component: React.ReactNode) => {

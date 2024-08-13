@@ -198,7 +198,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         )}
       </div>
       {/* 페이징 버튼 UI */}
-      <div>
+      {/* <div>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <button
@@ -210,7 +210,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
             </button>
           )
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
