@@ -4,7 +4,7 @@ import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
 import { Dispatch, SetStateAction } from "react";
 import { StackResult } from "../interface/stackResult.interface";
 
-const fetchProjectInfo = async (project_name: string, setMemberData: Dispatch<SetStateAction<never[]>>, setProjectStack: Dispatch<SetStateAction<StackResult[]>>) => {
+const fetchProjectInfo = async (project_name: string) => {
   try {
     const res = await fetch(
       `${REQUEST_URL.__GET_PROJECT_INFO}/${project_name}`
@@ -13,8 +13,8 @@ const fetchProjectInfo = async (project_name: string, setMemberData: Dispatch<Se
       throw new Error(FETCH_ERROR.__FAILURE_GET_PROJECT_INFO);
     }
     const res_data: ProjectInfo = await res.json();
-    setMemberData(res_data.member);
-    setProjectStack (res_data.stack);
+    
+    return res_data;
   } catch (error) {
     console.error(error);
   }
