@@ -94,8 +94,6 @@ export class ProjectController {
   @Post('/save/stack/:id')
   async addStack(@Body() data, @Param() id) {
     this.projectService.saveProjectStack(data, id.id);
-
-    // id , stack 삽입. -> relation 반복 .
   }
 
   @Get('/check/:id')

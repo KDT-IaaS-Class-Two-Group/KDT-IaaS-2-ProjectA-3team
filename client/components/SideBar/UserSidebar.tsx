@@ -52,7 +52,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({
                 text="프로젝트 조회"
                 onClick={() =>
                   handleMenuItemClick(
-                    <ProjectCheckComponent sessionData={sessionData} />
+                    <ProjectCheckComponent sessionData={sessionData} onMenuItemClick={handleMenuItemClick}/>
                   )
                 }
               />

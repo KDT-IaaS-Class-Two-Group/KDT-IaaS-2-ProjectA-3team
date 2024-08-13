@@ -41,7 +41,6 @@ const UserHome: React.FC = () => {
         console.error(response.statusText);
       }
     };
-
     getProjectInfo();
   }, []);
 
