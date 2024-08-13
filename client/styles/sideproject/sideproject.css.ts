@@ -35,7 +35,7 @@ export const blueButton = style([
   {
     backgroundColor: Colors.StatusLightBlue,
     color: Colors.FontSecondary,
-    marginTop: Spacing.small,
+    marginLeft:"44%",
     ":hover": {
       backgroundColor: Colors.StatusBlue,
     },
@@ -69,4 +69,7 @@ export const tdstyle = style({
   fontSize: FontSize.Medium,
   backgroundColor: Colors.BackgroundSecondary,
   borderBottom: Colors.StatusGreen,
+  borderBottomStyle: "hidden",
+  alignItems: "center",
+  justifyContent: "center",
 });

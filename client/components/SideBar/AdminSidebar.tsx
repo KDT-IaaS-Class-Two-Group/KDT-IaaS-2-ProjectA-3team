@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
@@ -10,7 +9,8 @@ import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
-import { tdn } from "client/styles/templatebutton.css";
+import router, { Router } from "next/router";
+
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -22,39 +22,43 @@ interface SessionData {
 
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSessionData = async () => {
       try {
         const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
           setSessionData(data.session);
-          console.log("Session data fetched:", data.session);
         } else {
           console.error("Failed to fetch session data", response.statusText);
         }
       } catch (error) {
         console.error("Failed to fetch session data", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchSessionData();
   }, []);
 
-  const handleMenuItemClick = (component: React.ReactNode) => {
-    onMenuItemClick(component);
-  };
-
   const handleLogoClick = () => {
-    onMenuItemClick(<AdminMainContent onclick={handleMenuItemClick} />);
+    router.push("/admin/home");
+    console.log("Logo clicked");
+    onMenuItemClick(
+      <AdminMainContent
+        onclick={(component: React.ReactNode) => {
+          onMenuItemClick(component);
+        }}
+      />
+    ); // 또는 다른 함수 전달
   };
 
   return (
@@ -64,10 +68,12 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
         <div className={styles.profilecontainer}>
           <div className={styles.profile}>
             <div className={styles.profilecircle}></div>
-            {sessionData ? (
-              <span className={styles.profilename}>{sessionData.user_id}</span>
-            ) : (
+            {loading ? (
               <span className={styles.profilename}>Loading...</span>
+            ) : (
+              <span className={styles.profilename}>
+                {sessionData?.user_id || "Unknown User"}
+              </span>
             )}
             <span className={styles.menuicon}>⋮</span>
           </div>
@@ -75,18 +81,19 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
             <ul className={styles.menulist}>
               <MenuItem
                 text="팀 제작"
-                onClick={() => handleMenuItemClick(<UserSelection />)}
+                onClick={() => onMenuItemClick(<UserSelection />)}
               />
               <MenuItem
                 text="프로젝트 제작"
-                onClick={() => handleMenuItemClick(<ProjectView />)}
+                onClick={() => onMenuItemClick(<ProjectView />)}
               />
-              <MenuItem text="게시판" 
-               onClick={() => handleMenuItemClick(<NoticeMainPage />)}
-               />
+              <MenuItem
+                text="게시판"
+                onClick={() => onMenuItemClick(<NoticeMainPage />)}
+              />
               <MenuItem
                 text="DB GUI"
-                onClick={() => handleMenuItemClick(<DBGUI />)}
+                onClick={() => onMenuItemClick(<DBGUI />)}
               />
             </ul>
           </nav>
@@ -102,23 +109,18 @@ const MenuItem: React.FC<{
   onClick?: () => void;
   link?: string;
 }> = ({ text, onClick, link }) => {
-  if (link) {
-    return (
-      <li className={styles.menuitem}>
-        <span className={styles.menuitemicon}></span>
+  return (
+    <li className={styles.menuitem} onClick={onClick}>
+      <span className={styles.menuitemicon}></span>
+      {link ? (
         <Link href={link} className={styles.atagmenuitem}>
           {text}
         </Link>
-      </li>
-    );
-  } else {
-    return (
-      <li className={styles.menuitem} onClick={onClick}>
-        <span className={styles.menuitemicon}></span>
+      ) : (
         <span>{text}</span>
-      </li>
-    );
-  }
+      )}
+    </li>
+  );
 };
 
 export default AdminSidebar;

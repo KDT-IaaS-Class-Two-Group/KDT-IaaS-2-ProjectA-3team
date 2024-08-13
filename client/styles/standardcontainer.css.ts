@@ -29,11 +29,19 @@ export const centeredflexrowcontainer = style([
     justifyContent: "center",
   },
 ]);
+export const centeredflexrowcontainergap = style([
+  flexrowcontainer,
+  {
+    gap: "0.25vw",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+]);
 
 export const centerbetweenflexrowcontainer = style([
   flexrowcontainer,
   {
     alignItems: "center",
-    justifyContent: "space-between"
-  }
-])
+    justifyContent: "space-between",
+  },
+]);

@@ -8,6 +8,7 @@ import {
   mainpagecontainer,
 } from "client/styles/admin/admindashboard.css";
 import {
+  dbinput,
   pagemaincontainer,
   pagemainmain,
   pagemaintext,
@@ -18,6 +19,10 @@ import {
   pendinglist,
 } from "client/styles/users/attendancestyle.css";
 import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
+
+import * as styles from "../../styles/sideproject/sideproject.css";
+
+import { blueButton } from "client/styles/templatebutton.css";
 
 interface Column {
   column_name: string;
@@ -169,7 +174,7 @@ const TablePage: React.FC = () => {
       <AdminSidebar onMenuItemClick={handleMenuClick} />
       <div className={contentcontainer}>
         <div>
-          <MainHeader />
+          <MainHeader/>
           <div className={pagemainmain}>
             <div className={pagemaincontainer}>
               <div className={pagemaintext}>Table: {tableName}</div>
@@ -183,14 +188,16 @@ const TablePage: React.FC = () => {
                 ))}
               </ul>
               <h2>Data</h2>
-              <table>
+              <table className={styles.table}>
                 <thead>
                   <tr>
                     {structure.map((column: Column) => (
-                      <th key={column.column_name}>{column.column_name}</th>
+                      <th key={column.column_name} className={styles.thstyle}>
+                        {column.column_name}
+                      </th>
                     ))}
                     {(tableName === "stack" || tableName === "field") && (
-                      <th>Actions</th>
+                      <th className={styles.thstyle}>Actions</th>
                     )}
                   </tr>
                 </thead>
@@ -198,13 +205,14 @@ const TablePage: React.FC = () => {
                   {data.map((row: Row) => (
                     <tr key={row[getIdField(tableName as string)]}>
                       {structure.map((column: Column) => (
-                        <td key={column.column_name}>
+                        <td key={column.column_name} className={styles.tdstyle}>
                           {row[column.column_name]}
                         </td>
                       ))}
                       {(tableName === "stack" || tableName === "field") && (
-                        <td>
+                        <td className={styles.tdstyle}>
                           <button
+                            className={styles.blueButton}
                             onClick={() => {
                               console.log("Edit button clicked:", row);
                               const idField = getIdField(tableName as string);
@@ -232,7 +240,7 @@ const TablePage: React.FC = () => {
                   <div>
                     <h2>Edit Data</h2>
                     {structure.map((column: Column) => (
-                      <div key={column.column_name}>
+                      <div key={column.column_name} className={dbinput}>
                         <label>{column.column_name}</label>
                         <input
                           placeholder="스택을 입력하세요"
@@ -245,18 +253,25 @@ const TablePage: React.FC = () => {
                             })
                           }
                           onKeyDown={(e) => handleKeyDown(e, updateRow)}
-                        />
+                        />{" "}
+                        <button className={blueButton} onClick={updateRow}>
+                          Save
+                        </button>
+                        <button
+                          className={blueButton}
+                          onClick={() => setEditingId(null)}
+                        >
+                          Cancel
+                        </button>
                       </div>
                     ))}
-                    <button onClick={updateRow}>Save</button>
-                    <button onClick={() => setEditingId(null)}>Cancel</button>
                   </div>
                 )}
               {(tableName === "stack" || tableName === "field") && (
                 <div>
                   <h2>Add Data</h2>
                   {structure.map((column: Column) => (
-                    <div key={column.column_name}>
+                    <div key={column.column_name} className={dbinput}>
                       <label>{column.column_name}</label>
                       <input
                         placeholder="스택을 입력하세요"
@@ -269,10 +284,12 @@ const TablePage: React.FC = () => {
                           })
                         }
                         onKeyDown={(e) => handleKeyDown(e, addNewRow)}
-                      />
+                      />{" "}
+                      <button onClick={addNewRow} className={blueButton}>
+                        추가
+                      </button>
                     </div>
                   ))}
-                  <button onClick={addNewRow}>Add</button>
                 </div>
               )}
             </div>

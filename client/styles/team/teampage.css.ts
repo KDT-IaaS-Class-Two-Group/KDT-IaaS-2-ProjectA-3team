@@ -14,8 +14,10 @@ export const pagemaintext = style({
 export const pagemainmain = style({
   backgroundColor: Colors.FontPrimary,
   borderRadius: Size.border,
-  padding: "3vw 3vw 0vw 3vw",
+  padding: "3vw",
   overflow: "auto",
+  width:'77vw',
+  height:'78vh'
 });
 export const pageinput = style({
   fontSize: FontSize.Large,
@@ -60,4 +62,8 @@ export const teambuttoncontainer = style({
 export const projectbuttoncontainer = style({
   display: "flex",
   justifyContent: "flex-end",
+});
+export const dbinput = style({
+  display: "flex",
+  gap: "1vw",
 });

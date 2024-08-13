@@ -20,10 +20,9 @@ export const noticecontent = style([
   centeredflexcolcontainer,
   {
     backgroundColor: Colors.BackgroundAlt,
-    height: "65vh",
+    height: "63vh",
     justifyContent: "flex-start",
     borderRadius: Size.border,
-    marginBottom: "1vw",
   },
 ]);
 export const title = style([
@@ -72,6 +71,7 @@ export const writeButton = style([
   centeredflexcolcontainer,
   {
     alignItems: "flex-end",
+    marginTop: "0.5vw",
   },
 ]);
 
@@ -172,7 +172,6 @@ export const usernotcietitle = style([
   centeredflexrowcontainer,
   bold32Text,
   {
-    width: "100vw",
     height: "5vh",
   },
 ]);
@@ -231,7 +230,7 @@ export const authcontentdiv = style({
   border: "1px solid black",
   borderRadius: Size.border,
   backgroundColor: Colors.BackgroundDefault,
-  marginBottom: "1vw",
+  marginBottom: "0.8vh",
 });
 export const usercontentdiv = style({
   border: "1px solid black",

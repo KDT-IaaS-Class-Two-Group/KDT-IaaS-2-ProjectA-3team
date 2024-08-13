@@ -11,7 +11,15 @@ export const mainpagecontainer = style({
 
 export const contentcontainer = style({
   flex: 1,
-  overflowY: "hidden",
+  overflowY: "auto",
+  display: "grid",
+  gridTemplateColumns: "repeat(12, 1fr)",
+  gridTemplateRows: "repeat(12, 1fr)",
+  padding: "0vw 1vw 1vw 1vw",
+  borderRadius: Size.border,
+});
+export const usercontentcontainer = style({
+  flex: 1,
   display: "grid",
   gridTemplateColumns: "repeat(12, 1fr)",
   gridTemplateRows: "repeat(12, 1fr)",
