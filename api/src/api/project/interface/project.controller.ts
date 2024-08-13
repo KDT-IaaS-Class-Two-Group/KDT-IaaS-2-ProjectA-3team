@@ -100,12 +100,9 @@ export class ProjectController {
 
   @Get('/check/:id')
   async getProjectData(@Param('id') id) {
-    console.log(id);
     const result = await this.projectService.getProjectDataById(id);
     // [ ] 해당 데이터를 기반으로 프로젝트 조회를 진행.
-
     const projectSearch = await this.projectService.getProjectTeamData(result);
-
     return projectSearch;
   }
 }
