@@ -22,7 +22,13 @@ import NoticeBoard from "../Notice/NoticeBoard";
 import { Button } from "../common/elements/button";
 import { useEffect, useState } from "react";
 import React from "react";
-import { plusButton, tdn } from "client/styles/templatebutton.css";
+import {
+  calendartitle,
+  choltwediv,
+  choltwedivcontainer,
+  plusButton,
+  tdn,
+} from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import ClockInButton from "../backButtonSection/ClockInButton"; // 새로 만든 ClockInButton 컴포넌트 임포트
@@ -100,14 +106,14 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${usernoticesection}`}>
         <div className={cardHeader}>
-          <div className={projectTitle}>
+          <div className={calendartitle}>
             <CalendarComponent />
           </div>
         </div>
       </div>
       <div className={`${usersection} ${companybutton}`}>
         <div className={cardHeader}>출퇴근 버튼</div>
-        <div className={cardContent}>
+        <div className={choltwedivcontainer}>
           {userId && <ClockInButton userId={userId} />}
         </div>
       </div>
