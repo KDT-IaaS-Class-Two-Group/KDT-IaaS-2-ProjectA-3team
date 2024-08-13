@@ -1,6 +1,23 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useFetchTableData } from "../../hooks/useFetchTableData";
+import AdminSidebar from "./../../components/SideBar/AdminSidebar";
+import MainHeader from "client/components/common/header/mainheader";
+import {
+  contentcontainer,
+  mainpagecontainer,
+} from "client/styles/admin/admindashboard.css";
+import {
+  pagemaincontainer,
+  pagemainmain,
+  pagemaintext,
+} from "client/styles/team/teampage.css";
+import {
+  listinitial,
+  listtable,
+  pendinglist,
+} from "client/styles/users/attendancestyle.css";
+import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
 
 interface Column {
   column_name: string;
@@ -137,107 +154,131 @@ const TablePage: React.FC = () => {
       action();
     }
   };
+  // 함수 선언
+  const handleMenuClick = (component: React.ReactNode) => {
+    setCurrentComponent(component);
+  };
+
+  // 상태 훅 설정
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+    <AdminMainContent onclick={handleMenuClick} />
+  );
 
   return (
-    <div>
-      <h1>Table: {tableName}</h1>
-      {error && <p>{error}</p>}
-      <h2>Structure</h2>
-      <ul>
-        {structure.map((column: Column) => (
-          <li key={column.column_name}>
-            {column.column_name} ({column.data_type})
-          </li>
-        ))}
-      </ul>
-      <h2>Data</h2>
-      <table>
-        <thead>
-          <tr>
-            {structure.map((column: Column) => (
-              <th key={column.column_name}>{column.column_name}</th>
-            ))}
-            {(tableName === "stack" || tableName === "field") && (
-              <th>Actions</th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row: Row) => (
-            <tr key={row[getIdField(tableName as string)]}>
-              {structure.map((column: Column) => (
-                <td key={column.column_name}>{row[column.column_name]}</td>
-              ))}
-              {(tableName === "stack" || tableName === "field") && (
-                <td>
-                  <button
-                    onClick={() => {
-                      console.log("Edit button clicked:", row);
-                      const idField = getIdField(tableName as string);
-                      if (row[idField] !== undefined) {
-                        setEditingId(row[idField]);
-                        setUpdateRowData(row);
-                      } else {
-                        console.error(`Row ${idField} is undefined:`, row);
-                      }
-                    }}
-                  >
-                    Edit
-                  </button>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {editingId !== null &&
-        (tableName === "stack" || tableName === "field") && (
-          <div>
-            <h2>Edit Data</h2>
-            {structure.map((column: Column) => (
-              <div key={column.column_name}>
-                <label>{column.column_name}</label>
-                <input
-                  placeholder="스택을 입력하세요"
-                  type="text"
-                  value={updateRowData[column.column_name] || ""}
-                  onChange={(e) =>
-                    setUpdateRowData({
-                      ...updateRowData,
-                      [column.column_name]: e.target.value,
-                    })
-                  }
-                  onKeyDown={(e) => handleKeyDown(e, updateRow)}
-                />
-              </div>
-            ))}
-            <button onClick={updateRow}>Save</button>
-            <button onClick={() => setEditingId(null)}>Cancel</button>
-          </div>
-        )}
-      {(tableName === "stack" || tableName === "field") && (
+    <div className={mainpagecontainer}>
+      <AdminSidebar onMenuItemClick={handleMenuClick} />
+      <div className={contentcontainer}>
         <div>
-          <h2>Add Data</h2>
-          {structure.map((column: Column) => (
-            <div key={column.column_name}>
-              <label>{column.column_name}</label>
-              <input
-                placeholder="스택을 입력하세요"
-                type="text"
-                value={newData[column.column_name] || ""}
-                onChange={(e) =>
-                  setNewData({
-                    ...newData,
-                    [column.column_name]: e.target.value,
-                  })
-                }
-                onKeyDown={(e) => handleKeyDown(e, addNewRow)}
-              />
+          <MainHeader />
+          <div className={pagemainmain}>
+            <div className={pagemaincontainer}>
+              <div className={pagemaintext}>Table: {tableName}</div>
+              {error && <p>{error}</p>}
+              <h2>Structure</h2>
+              <ul className={listtable}>
+                {structure.map((column: Column) => (
+                  <li key={column.column_name} className={pendinglist}>
+                    {column.column_name} ({column.data_type})
+                  </li>
+                ))}
+              </ul>
+              <h2>Data</h2>
+              <table>
+                <thead>
+                  <tr>
+                    {structure.map((column: Column) => (
+                      <th key={column.column_name}>{column.column_name}</th>
+                    ))}
+                    {(tableName === "stack" || tableName === "field") && (
+                      <th>Actions</th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((row: Row) => (
+                    <tr key={row[getIdField(tableName as string)]}>
+                      {structure.map((column: Column) => (
+                        <td key={column.column_name}>
+                          {row[column.column_name]}
+                        </td>
+                      ))}
+                      {(tableName === "stack" || tableName === "field") && (
+                        <td>
+                          <button
+                            onClick={() => {
+                              console.log("Edit button clicked:", row);
+                              const idField = getIdField(tableName as string);
+                              if (row[idField] !== undefined) {
+                                setEditingId(row[idField]);
+                                setUpdateRowData(row);
+                              } else {
+                                console.error(
+                                  `Row ${idField} is undefined:`,
+                                  row
+                                );
+                              }
+                            }}
+                          >
+                            Edit
+                          </button>
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {editingId !== null &&
+                (tableName === "stack" || tableName === "field") && (
+                  <div>
+                    <h2>Edit Data</h2>
+                    {structure.map((column: Column) => (
+                      <div key={column.column_name}>
+                        <label>{column.column_name}</label>
+                        <input
+                          placeholder="스택을 입력하세요"
+                          type="text"
+                          value={updateRowData[column.column_name] || ""}
+                          onChange={(e) =>
+                            setUpdateRowData({
+                              ...updateRowData,
+                              [column.column_name]: e.target.value,
+                            })
+                          }
+                          onKeyDown={(e) => handleKeyDown(e, updateRow)}
+                        />
+                      </div>
+                    ))}
+                    <button onClick={updateRow}>Save</button>
+                    <button onClick={() => setEditingId(null)}>Cancel</button>
+                  </div>
+                )}
+              {(tableName === "stack" || tableName === "field") && (
+                <div>
+                  <h2>Add Data</h2>
+                  {structure.map((column: Column) => (
+                    <div key={column.column_name}>
+                      <label>{column.column_name}</label>
+                      <input
+                        placeholder="스택을 입력하세요"
+                        type="text"
+                        value={newData[column.column_name] || ""}
+                        onChange={(e) =>
+                          setNewData({
+                            ...newData,
+                            [column.column_name]: e.target.value,
+                          })
+                        }
+                        onKeyDown={(e) => handleKeyDown(e, addNewRow)}
+                      />
+                    </div>
+                  ))}
+                  <button onClick={addNewRow}>Add</button>
+                </div>
+              )}
             </div>
-          ))}
-          <button onClick={addNewRow}>Add</button>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

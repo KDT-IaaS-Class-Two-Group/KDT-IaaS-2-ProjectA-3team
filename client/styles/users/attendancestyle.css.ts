@@ -6,6 +6,14 @@ export const listinitial = style({
   padding: 0,
   fontSize: FontSize.Medium,
 });
+export const listtable = style({
+  listStyleType: "none",
+  margin: 0,
+  padding: 0,
+  fontSize: FontSize.Medium,
+  height: "5vh",
+  overflow: "auto ",
+});
 export const liststylemainattendance = style([
   listinitial,
   {
