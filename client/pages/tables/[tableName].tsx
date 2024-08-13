@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useRouter } from "next/router";
 import { useFetchTableData } from "../../hooks/useFetchTableData";
 import AdminSidebar from "./../../components/SideBar/AdminSidebar";
 import MainHeader from "client/components/common/header/mainheader";
+import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
 import {
   contentcontainer,
   mainpagecontainer,
@@ -13,11 +14,10 @@ import {
   pagemaintext,
 } from "client/styles/team/teampage.css";
 import {
-  listinitial,
   listtable,
   pendinglist,
 } from "client/styles/users/attendancestyle.css";
-import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
+import { SessionData } from "client/ts/Interface/SessionData.interface";
 
 interface Column {
   column_name: string;
@@ -28,259 +28,189 @@ interface Row {
   [key: string]: any;
 }
 
+const getIdField = (tableName: string) => {
+  const idFields: { [key: string]: string } = {
+    stack: "stack_name",
+    field: "field_name",
+    users: "user_id",
+    pending_users: "user_id",
+    checkusers: "user_id",
+    Profile: "user_id",
+    admin_role_users: "user_id",
+    leader_role_users: "user_id",
+    sub_admin_role_users: "user_id",
+    employee_role_users: "user_id",
+    users_salary: "user_id",
+    relation_users_field_name: "user_id",
+    role: "role_name",
+    Team: "team_name",
+    relation_team_users: "team_name",
+    Project: "project_id",
+    Kanban: "kanban_id",
+    Issue: "issue_id",
+    role_permission: "role_name",
+  };
+  return idFields[tableName] || "id";
+};
+
 const TablePage: React.FC = () => {
   const router = useRouter();
   const { tableName } = router.query;
   const { structure, data, error, fetchTableData, setData, setError } =
     useFetchTableData(tableName as string);
-  const [newData, setNewData] = useState<Row>({});
-  const [updateRowData, setUpdateRowData] = useState<Row>({});
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [formData, setFormData] = useState<Row>({});
 
-  const getIdField = (tableName: string) => {
-    switch (tableName) {
-      case "stack":
-        return "stack_name";
-      case "field":
-        return "field_name";
-      case "users":
-      case "pending_users":
-      case "checkusers":
-      case "Profile":
-        return "user_id";
-      case "admin_role_users":
-      case "leader_role_users":
-      case "sub_admin_role_users":
-      case "employee_role_users":
-      case "users_salary":
-      case "relation_users_field_name":
-        return "user_id";
-      case "role":
-        return "role_name";
-      case "Team":
-        return "team_name";
-      case "relation_team_users":
-        return "team_name"; // 복합 키 중 하나로 지정
-      case "Project":
-        return "project_id";
-      case "Kanban":
-        return "kanban_id";
-      case "Issue":
-        return "issue_id";
-      case "role_permission":
-        return "role_name";
-      default:
-        return "id"; // 기본 키가 다를 경우 여기에 추가합니다.
-    }
+  const handleInputChange = (column: string, value: any) => {
+    setFormData((prevData) => ({ ...prevData, [column]: value }));
   };
 
-  const addNewRow = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/tables/${tableName}/rows`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newData),
-        }
-      );
-      if (response.ok) {
-        fetchTableData();
-        setNewData({});
-      } else {
-        const errorData = await response.json();
-        throw new Error(`Error adding new row: ${errorData.message}`);
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Unknown error occurred");
-      }
-    }
-  };
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+    <AdminMainContent
+      onclick={function (component: React.ReactNode): void {
+        throw new Error("Function not implemented.");
+      }}
+    />
+  );
 
-  const updateRow = async () => {
-    if (editingId === null) {
-      setError("Invalid ID for update");
-      return;
-    }
-    console.log(
-      `Updating row with ${getIdField(tableName as string)}: ${editingId}`,
-      updateRowData
-    );
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/tables/${tableName}/rows/${editingId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updateRowData),
-        }
-      );
-
-      if (response.ok) {
-        setData((prevData: Row[]) =>
-          prevData.map((row) =>
-            row[getIdField(tableName as string)] === editingId
-              ? updateRowData
-              : row
-          )
-        );
-        setEditingId(null);
-        setUpdateRowData({});
-      } else {
-        const errorData = await response.json();
-        throw new Error(`Error updating row: ${errorData.message}`);
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Unknown error occurred");
-      }
-    }
-  };
-
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLInputElement>,
-    action: () => void
-  ) => {
-    if (event.key === "Enter") {
-      action();
-    }
-  };
-  // 함수 선언
   const handleMenuClick = (component: React.ReactNode) => {
+    console.log("test");
     setCurrentComponent(component);
   };
 
-  // 상태 훅 설정
-  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
-    <AdminMainContent onclick={handleMenuClick} />
-  );
+  const handleSave = async () => {
+    const idField = getIdField(tableName as string);
+    const url = `http://localhost:3001/api/tables/${tableName}/rows${
+      formData[idField] ? `/${formData[idField]}` : ""
+    }`;
+    const method = formData[idField] ? "PUT" : "POST";
+
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        fetchTableData();
+        setFormData({});
+      } else {
+        const errorData = await response.json();
+        throw new Error(`Error saving data: ${errorData.message}`);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error occurred");
+    }
+  };
+
+  const handleEdit = (row: Row) => {
+    setFormData(row);
+  };
 
   return (
     <div className={mainpagecontainer}>
       <AdminSidebar onMenuItemClick={handleMenuClick} />
       <div className={contentcontainer}>
-        <div>
-          <MainHeader />
-          <div className={pagemainmain}>
-            <div className={pagemaincontainer}>
-              <div className={pagemaintext}>Table: {tableName}</div>
-              {error && <p>{error}</p>}
-              <h2>Structure</h2>
-              <ul className={listtable}>
-                {structure.map((column: Column) => (
-                  <li key={column.column_name} className={pendinglist}>
-                    {column.column_name} ({column.data_type})
-                  </li>
-                ))}
-              </ul>
-              <h2>Data</h2>
-              <table>
-                <thead>
-                  <tr>
-                    {structure.map((column: Column) => (
-                      <th key={column.column_name}>{column.column_name}</th>
-                    ))}
-                    {(tableName === "stack" || tableName === "field") && (
-                      <th>Actions</th>
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((row: Row) => (
-                    <tr key={row[getIdField(tableName as string)]}>
-                      {structure.map((column: Column) => (
-                        <td key={column.column_name}>
-                          {row[column.column_name]}
-                        </td>
-                      ))}
-                      {(tableName === "stack" || tableName === "field") && (
-                        <td>
-                          <button
-                            onClick={() => {
-                              console.log("Edit button clicked:", row);
-                              const idField = getIdField(tableName as string);
-                              if (row[idField] !== undefined) {
-                                setEditingId(row[idField]);
-                                setUpdateRowData(row);
-                              } else {
-                                console.error(
-                                  `Row ${idField} is undefined:`,
-                                  row
-                                );
-                              }
-                            }}
-                          >
-                            Edit
-                          </button>
-                        </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {editingId !== null &&
-                (tableName === "stack" || tableName === "field") && (
-                  <div>
-                    <h2>Edit Data</h2>
-                    {structure.map((column: Column) => (
-                      <div key={column.column_name}>
-                        <label>{column.column_name}</label>
-                        <input
-                          placeholder="스택을 입력하세요"
-                          type="text"
-                          value={updateRowData[column.column_name] || ""}
-                          onChange={(e) =>
-                            setUpdateRowData({
-                              ...updateRowData,
-                              [column.column_name]: e.target.value,
-                            })
-                          }
-                          onKeyDown={(e) => handleKeyDown(e, updateRow)}
-                        />
-                      </div>
-                    ))}
-                    <button onClick={updateRow}>Save</button>
-                    <button onClick={() => setEditingId(null)}>Cancel</button>
-                  </div>
-                )}
-              {(tableName === "stack" || tableName === "field") && (
-                <div>
-                  <h2>Add Data</h2>
-                  {structure.map((column: Column) => (
-                    <div key={column.column_name}>
-                      <label>{column.column_name}</label>
-                      <input
-                        placeholder="스택을 입력하세요"
-                        type="text"
-                        value={newData[column.column_name] || ""}
-                        onChange={(e) =>
-                          setNewData({
-                            ...newData,
-                            [column.column_name]: e.target.value,
-                          })
-                        }
-                        onKeyDown={(e) => handleKeyDown(e, addNewRow)}
-                      />
-                    </div>
-                  ))}
-                  <button onClick={addNewRow}>Add</button>
-                </div>
-              )}
-            </div>
+        <MainHeader
+          sessionData={null}
+          setSessionData={function (
+            value: SetStateAction<SessionData | null>
+          ): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+        <div className={pagemainmain}>
+          {currentComponent} {/* 현재 선택된 컴포넌트가 렌더링되는 위치 */}
+          <div className={pagemaincontainer}>
+            <div className={pagemaintext}>Table: {tableName}</div>
+            {error && <p>{error}</p>}
+            <TableStructure structure={structure} />
+            <TableData
+              data={data}
+              structure={structure}
+              onEdit={handleEdit}
+              idField={getIdField(tableName as string)}
+            />
+            <Form
+              structure={structure}
+              formData={formData}
+              onInputChange={handleInputChange}
+              onSave={handleSave}
+            />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const TableStructure: React.FC<{ structure: Column[] }> = ({ structure }) => (
+  <>
+    <h2>Structure</h2>
+    <ul className={listtable}>
+      {structure.map((column) => (
+        <li key={column.column_name} className={pendinglist}>
+          {column.column_name} ({column.data_type})
+        </li>
+      ))}
+    </ul>
+  </>
+);
+
+const TableData: React.FC<{
+  data: Row[];
+  structure: Column[];
+  onEdit: (row: Row) => void;
+  idField: string;
+}> = ({ data, structure, onEdit, idField }) => (
+  <>
+    <h2>Data</h2>
+    <table>
+      <thead>
+        <tr>
+          {structure.map((column) => (
+            <th key={column.column_name}>{column.column_name}</th>
+          ))}
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row) => (
+          <tr key={row[idField]}>
+            {structure.map((column) => (
+              <td key={column.column_name}>{row[column.column_name]}</td>
+            ))}
+            <td>
+              <button onClick={() => onEdit(row)}>Edit</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </>
+);
+
+const Form: React.FC<{
+  structure: Column[];
+  formData: Row;
+  onInputChange: (column: string, value: any) => void;
+  onSave: () => void;
+}> = ({ structure, formData, onInputChange, onSave }) => (
+  <>
+    <h2>{formData.id ? "Edit Data" : "Add Data"}</h2>
+    {structure.map((column) => (
+      <div key={column.column_name}>
+        <label>{column.column_name}</label>
+        <input
+          type="text"
+          value={formData[column.column_name] || ""}
+          onChange={(e) => onInputChange(column.column_name, e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && onSave()}
+        />
+      </div>
+    ))}
+    <button onClick={onSave}>{formData.id ? "Update" : "Add"}</button>
+  </>
+);
 
 export default TablePage;
