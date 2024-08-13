@@ -456,7 +456,6 @@ export class UsersController {
             })
             .execution();
         }
-
         if (user.field_name) {
           const existingField = await this.queryBuilder
             .SELECT('relation_users_field_name')
