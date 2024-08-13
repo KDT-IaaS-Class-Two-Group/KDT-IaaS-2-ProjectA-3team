@@ -24,6 +24,14 @@ export class UsersController {
     'phone',
     'email',
   ];
+  @Get('/test')
+  async CheckUsers(@Body() data) {
+    console.log(data);
+    const obj = this.queryBuilder
+      .SELECT('users', this.nonePasswordObject)
+      .execution();
+    return obj;
+  }
 
   private role_users = ['user_id'];
   @Get('/attendance/random')
@@ -438,9 +446,7 @@ export class UsersController {
 
         if (existingUser.length > 0) {
           await this.queryBuilder
-            .UPDATE('users_salary', { salary: salary }, 'user_id = $1', [
-              user.user_id,
-            ])
+            .UPDATE('users_salary', { salary: salary }, 'user_id = $1')
             .execution();
         } else {
           await this.queryBuilder
@@ -450,7 +456,6 @@ export class UsersController {
             })
             .execution();
         }
-
         if (user.field_name) {
           const existingField = await this.queryBuilder
             .SELECT('relation_users_field_name')
@@ -557,7 +562,7 @@ export class UsersController {
           'work_table',
           { endTime: now },
           'user_id = $2 AND endTime IS NULL',
-          [userId], // 여기서 올바른 userId가 전달되어야 함
+          // 여기서 올바른 userId가 전달되어야 함
         )
         .execution();
 
@@ -640,7 +645,7 @@ export class UsersController {
 
       if (existingProfile.length > 0) {
         await this.queryBuilder
-          .UPDATE('Profile', { bio: bio }, 'user_id = $1', [user_id])
+          .UPDATE('Profile', { bio: bio }, 'user_id = $1')
           .execution();
       } else {
         await this.queryBuilder
@@ -666,7 +671,7 @@ export class UsersController {
 
     try {
       await this.queryBuilder
-        .UPDATE('checkusers', fields, 'user_id = $1', [user_id])
+        .UPDATE('checkusers', fields, 'user_id = $1')
         .execution();
       console.log('User information updated successfully');
       return { message: 'User information updated successfully.' };
@@ -757,7 +762,6 @@ export class UsersController {
             password: checkUser[0].password,
           },
           'user_id = $1',
-          [checkUser[0].user_id],
         )
         .execution();
 

@@ -91,7 +91,9 @@ const AdminMainContent: React.FC<AdminMainContentProps> = ({ onclick }) => {
           <div className={projectTitle}>
             <span className={projectitletext}>Notice Board</span>
             <div className={tdn}>
-              <Button onClick={() => onclick(<NoticeMainPage />)}>게시판</Button>
+              <Button onClick={() => onclick(<NoticeMainPage />)}>
+                게시판
+              </Button>
             </div>
           </div>
         </div>
