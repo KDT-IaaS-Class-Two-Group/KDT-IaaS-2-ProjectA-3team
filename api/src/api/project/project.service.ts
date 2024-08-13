@@ -109,12 +109,9 @@ export class ProjectService {
               .SELECT('project')
               .WHERE('team_name = $1', [value.team_name])
               .execution();
-
-            console.log(data);
             return data;
           }),
         );
-
         return projectList;
       } catch (error) {
         throw new Error(`프로젝트 팀 데이터를 가져오는 중 오류 발생: ${error}`);

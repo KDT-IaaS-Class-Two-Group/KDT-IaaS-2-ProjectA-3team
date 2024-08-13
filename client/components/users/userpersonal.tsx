@@ -7,6 +7,8 @@ import {
   listinitial,
   profilelistpadding,
 } from "client/styles/users/attendancestyle.css";
+import { flexcolcontainer } from "client/styles/standardcontainer.css";
+import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 export interface User {
   user_id: string;
@@ -167,9 +169,9 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
           {users.map((user) => (
             <li key={user.user_id} className={listinitial}>
               {editingUserId === user.user_id ? (
-                <div className={styles.divstyle}>
-                  <label>
-                    이름:
+                <div className={flexcolcontainer}>
+                  <label className={profilelistpadding}>
+                    이름 :
                     <input
                       type="text"
                       value={editFields.username || ""}
@@ -178,8 +180,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <label>
-                    아이디:
+                  <label className={profilelistpadding}>
+                    아이디 :
                     <input
                       type="text"
                       value={user.user_id}
@@ -187,8 +189,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       className={styles.input}
                     />
                   </label>
-                  <label>
-                    비밀번호:
+                  <label className={profilelistpadding}>
+                    비밀번호 :
                     <input
                       type="password"
                       value={editFields.password || ""}
@@ -197,8 +199,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <label>
-                    이메일:
+                  <label className={profilelistpadding}>
+                    이메일 :
                     <input
                       type="text"
                       value={editFields.email || ""}
@@ -207,8 +209,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <label>
-                    핸드폰 번호:
+                  <label className={profilelistpadding}>
+                    핸드폰 번호 :
                     <input
                       type="text"
                       value={editFields.phone || ""}
@@ -217,8 +219,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <label>
-                    생년월일:
+                  <label className={profilelistpadding}>
+                    생년월일 :
                     <input
                       type="text"
                       value={editFields.birth_date || ""}
@@ -227,8 +229,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <label>
-                    주소:
+                  <label className={profilelistpadding}>
+                    주소 :
                     <input
                       type="text"
                       value={editFields.address || ""}
@@ -237,8 +239,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <label>
-                    자기소개:
+                  <label className={profilelistpadding}>
+                    자기소개 :
                     <input
                       type="text"
                       value={bios.get(user.user_id) || ""}
@@ -247,47 +249,43 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       }
                     />
                   </label>
-                  <div>
-                    <button
-                      onClick={() => handleUpdateUser(user.user_id)}
-                      className={styles.blueButton}
-                    >
-                      save
-                    </button>
+                  <div className={buttonparent}>
                     <button
                       onClick={() => handleCancelEdit()}
-                      className={styles.yellowButton}
+                      className={yellowButton}
                     >
-                      cancel
+                      수정 취소
+                    </button>
+                    <button
+                      onClick={() => handleUpdateUser(user.user_id)}
+                      className={blueButton}
+                    >
+                      수정 요청 전송
                     </button>
                   </div>
                 </div>
               ) : (
                 <div>
                   <div className={profilelistpadding}>
-                    이름 : {user.username}
+                    이름 :{user.username}
                   </div>
                   <div className={profilelistpadding}>
-                    아이디 : {user.user_id}
+                    아이디 :{user.user_id}
                   </div>
                   <div className={profilelistpadding}>
-                    비밀번호 : {user.password}
+                    비밀번호 :{user.password}
+                  </div>
+                  <div className={profilelistpadding}>이메일 :{user.email}</div>
+                  <div className={profilelistpadding}>
+                    핸드폰 번호 :{user.phone}
                   </div>
                   <div className={profilelistpadding}>
-                    이메일 : {user.email}
+                    생년월일 :{user.birth_date}
                   </div>
-                  <div className={profilelistpadding}>
-                    핸드폰 번호 : {user.phone}
-                  </div>
-                  <div className={profilelistpadding}>
-                    생년월일 : {user.birth_date}
-                  </div>
-                  <div className={profilelistpadding}>
-                    주소 : {user.address}
-                  </div>
+                  <div className={profilelistpadding}>주소 :{user.address}</div>
                   <div>
                     <div className={profilelistpadding}>
-                      자기소개 :{" "}
+                      자기소개 :
                       <span>
                         {profiles?.get(user.user_id) || bios.get(user.user_id)}
                       </span>
@@ -321,11 +319,11 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
             </li>
           ))}
         </ul>
-        <div className={buttonparent}>
+        {/* <div className={buttonparent}>
           <button onClick={handleSave} className={styles.blueButton}>
             수정 요청 전송
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
