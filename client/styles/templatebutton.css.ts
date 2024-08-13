@@ -78,3 +78,36 @@ export const iconStyle = style({
   marginLeft: Spacing.xsmall,
   fontSize: FontSize.Small,
 });
+export const cholbtn = style([
+  baseButton,
+  {
+    backgroundColor: Colors.StatusLightPurple,
+    color: Colors.FontSecondary,
+    padding: "2.5vw",
+    ":hover": {
+      backgroundColor: Colors.StatusPurple,
+    },
+  },
+]);
+export const twebtn = style([
+  baseButton,
+  {
+    backgroundColor: Colors.StatusLightPurple,
+    color: Colors.FontSecondary,
+    padding: "2.5vw",
+    ":hover": {
+      backgroundColor: Colors.StatusPurple,
+    },
+  },
+]);
+export const choltwedivcontainer = style({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-around",
+});
+export const choltwediv = style({
+  display: "flex",
+  justifyContent: "space-around",
+  gap: "6.5vw",
+  paddingTop: "0.5vw",
+});

@@ -1,3 +1,15 @@
+import {
+  centeredflexrowcontainer,
+  flexrowcontainer,
+} from "client/styles/standardcontainer.css";
+import {
+  cholbtn,
+  choltwediv,
+  purpleButton,
+  twebtn,
+  yellowButton,
+} from "client/styles/templatebutton.css";
+import { buttonparent } from "client/styles/users/attendancestyle.css";
 import React, { useState } from "react";
 
 interface ClockInButtonProps {
@@ -57,11 +69,17 @@ const ClockInButton: React.FC<ClockInButtonProps> = ({ userId }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleClockIn}>출근</button>
-      <button onClick={handleClockOut}>퇴근</button>
-      {status && <p>{status}</p>}
-    </div>
+    <>
+      <div className={choltwediv}>
+        <button onClick={handleClockIn} className={cholbtn}>
+          출근
+        </button>
+        <button onClick={handleClockOut} className={twebtn}>
+          퇴근
+        </button>
+      </div>
+      {status && <p className={centeredflexrowcontainer}>{status}</p>}
+    </>
   );
 };
 
