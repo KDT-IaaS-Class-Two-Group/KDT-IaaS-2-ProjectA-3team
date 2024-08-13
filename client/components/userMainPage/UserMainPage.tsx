@@ -33,6 +33,7 @@ import { projectitletext } from "client/styles/admin/project/project.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import ClockInButton from "../backButtonSection/ClockInButton"; // 새로 만든 ClockInButton 컴포넌트 임포트
 import NoticeMainPage from "client/pages/noticeMain";
+import { followerlist } from "client/styles/notice/notice.css";
 
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
@@ -116,17 +117,17 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
   return (
     <>
       <div className={`${usersection} ${favsection}`}>
-        <div className={cardContent}>
+        <div className={followerlist}>
           {followingUsers[0]?.username || "No followed users"}
         </div>
       </div>
       <div className={`${usersection} ${favsection}`}>
-        <div className={cardContent}>
+        <div className={followerlist}>
           {followingUsers[1]?.username || "No followed users"}
         </div>
       </div>
       <div className={`${usersection} ${favsection}`}>
-        <div className={cardContent}>
+        <div className={followerlist}>
           {followingUsers[2]?.username || "No followed users"}
         </div>
       </div>
