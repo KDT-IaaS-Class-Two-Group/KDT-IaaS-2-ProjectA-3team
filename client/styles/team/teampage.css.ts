@@ -16,6 +16,8 @@ export const pagemainmain = style({
   borderRadius: Size.border,
   padding: "3vw 3vw 0vw 3vw",
   overflow: "auto",
+  width:'77vw',
+  height:'85vh'
 });
 export const pageinput = style({
   fontSize: FontSize.Large,

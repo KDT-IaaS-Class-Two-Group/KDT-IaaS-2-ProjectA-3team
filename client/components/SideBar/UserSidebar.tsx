@@ -29,7 +29,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({
   };
 
   const handleLogoClick = () => {
-    onMenuItemClick(<UserMainContent onclick={() => {}} />);
+    onMenuItemClick(<UserMainContent onclick={() => { }} />);
   };
 
   return (
@@ -60,7 +60,9 @@ const UserSidebar: React.FC<UserSidebarProps> = ({
                 text="칸반보드"
                 onClick={() => handleMenuItemClick(<KanbanBoard />)}
               />
-              <MenuItem text="게시판" link="/noticeMain" />
+              <MenuItem
+                text="게시판" onClick={() => handleMenuItemClick(<NoticeMainPage />)}
+              />
               <MenuItem
                 text="개인정보 조회"
                 onClick={() => handleMenuItemClick(<UserPersonal />)}
