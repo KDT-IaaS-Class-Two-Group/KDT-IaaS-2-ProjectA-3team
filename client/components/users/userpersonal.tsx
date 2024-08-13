@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import * as styles from "../../styles/userpersonal/userpersonal.css";
 import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
+import {
+  buttonparent,
+  listinitial,
+  profilelistpadding,
+} from "client/styles/users/attendancestyle.css";
 
 export interface User {
   user_id: string;
@@ -158,11 +163,21 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
     <div>
       <div className={pagemainmain}>
         <div className={pagemaintext}>개인 프로필 조회</div>
-        <ul>
+        <ul className={listinitial}>
           {users.map((user) => (
-            <li key={user.user_id} className={styles.listyle}>
+            <li key={user.user_id} className={listinitial}>
               {editingUserId === user.user_id ? (
                 <div className={styles.divstyle}>
+                  <label>
+                    이름:
+                    <input
+                      type="text"
+                      value={editFields.username || ""}
+                      onChange={(e) =>
+                        handleFieldChange("username", e.target.value)
+                      }
+                    />
+                  </label>
                   <label>
                     아이디:
                     <input
@@ -173,12 +188,32 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     />
                   </label>
                   <label>
-                    이름:
+                    비밀번호:
+                    <input
+                      type="password"
+                      value={editFields.password || ""}
+                      onChange={(e) =>
+                        handleFieldChange("password", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    이메일:
                     <input
                       type="text"
-                      value={editFields.username || ""}
+                      value={editFields.email || ""}
                       onChange={(e) =>
-                        handleFieldChange("username", e.target.value)
+                        handleFieldChange("email", e.target.value)
+                      }
+                    />
+                  </label>
+                  <label>
+                    핸드폰 번호:
+                    <input
+                      type="text"
+                      value={editFields.phone || ""}
+                      onChange={(e) =>
+                        handleFieldChange("phone", e.target.value)
                       }
                     />
                   </label>
@@ -203,36 +238,6 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     />
                   </label>
                   <label>
-                    핸드폰 번호:
-                    <input
-                      type="text"
-                      value={editFields.phone || ""}
-                      onChange={(e) =>
-                        handleFieldChange("phone", e.target.value)
-                      }
-                    />
-                  </label>
-                  <label>
-                    이메일:
-                    <input
-                      type="text"
-                      value={editFields.email || ""}
-                      onChange={(e) =>
-                        handleFieldChange("email", e.target.value)
-                      }
-                    />
-                  </label>
-                  <label>
-                    비밀번호:
-                    <input
-                      type="password"
-                      value={editFields.password || ""}
-                      onChange={(e) =>
-                        handleFieldChange("password", e.target.value)
-                      }
-                    />
-                  </label>
-                  <label>
                     자기소개:
                     <input
                       type="text"
@@ -253,42 +258,62 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                       onClick={() => handleCancelEdit()}
                       className={styles.yellowButton}
                     >
-                      cancle
+                      cancel
                     </button>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <strong>아이디 : </strong> {user.user_id}
-                  <strong>이름 : </strong> {user.username}
-                  <strong>생년월일 : </strong> {user.birth_date}
-                  <strong>주소 : </strong> {user.address}
-                  <strong>핸드폰 번호 : </strong> {user.phone}
-                  <strong>이메일 : </strong> {user.email}
-                  <strong>비밀번호 : </strong> {user.password}
+                  <div className={profilelistpadding}>
+                    이름 : {user.username}
+                  </div>
+                  <div className={profilelistpadding}>
+                    아이디 : {user.user_id}
+                  </div>
+                  <div className={profilelistpadding}>
+                    비밀번호 : {user.password}
+                  </div>
+                  <div className={profilelistpadding}>
+                    이메일 : {user.email}
+                  </div>
+                  <div className={profilelistpadding}>
+                    핸드폰 번호 : {user.phone}
+                  </div>
+                  <div className={profilelistpadding}>
+                    생년월일 : {user.birth_date}
+                  </div>
+                  <div className={profilelistpadding}>
+                    주소 : {user.address}
+                  </div>
                   <div>
-                    <strong>자기소개 : </strong>
-                    <span>
-                      {profiles?.get(user.user_id) || bios.get(user.user_id)}
-                    </span>
+                    <div className={profilelistpadding}>
+                      자기소개 :{" "}
+                      <span>
+                        {profiles?.get(user.user_id) || bios.get(user.user_id)}
+                      </span>
+                    </div>
+
                     {disabledUsers.get(user.user_id) && (
                       <span>(비활성화됨)</span>
                     )}
                     {!disabledUsers.get(user.user_id) && (
-                      <div>
-                        <button
-                          onClick={() => handleEditClick(user.user_id)}
-                          className={styles.yellowButton}
-                        >
-                          edit
-                        </button>
-                        <button
-                          onClick={() => handleDisableBio(user.user_id)}
-                          className={styles.greenButton}
-                        >
-                          secret
-                        </button>
-                      </div>
+                      <>
+                        <div className={buttonparent}>
+                          <button
+                            onClick={() => handleDisableBio(user.user_id)}
+                            className={styles.greenButton}
+                          >
+                            자기소개 비활성화
+                          </button>
+                          <button
+                            onClick={() => handleEditClick(user.user_id)}
+                            className={styles.yellowButton}
+                          >
+                            개인 정보 수정
+                          </button>
+                        </div>
+                        <div></div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -296,9 +321,11 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
             </li>
           ))}
         </ul>
-        <button onClick={handleSave} className={styles.blueButton}>
-          save
-        </button>
+        <div className={buttonparent}>
+          <button onClick={handleSave} className={styles.blueButton}>
+            수정 요청 전송
+          </button>
+        </div>
       </div>
     </div>
   );
