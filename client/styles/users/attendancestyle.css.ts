@@ -11,8 +11,11 @@ export const listtable = style({
   margin: 0,
   padding: 0,
   fontSize: FontSize.Medium,
-  height: "5vh",
+  height: "15vh",
   overflow: "auto ",
+  backgroundColor: Colors.BackgroundSecondary,
+  borderRadius: Size.border,
+  width: "50vw",
 });
 export const liststylemainattendance = style([
   listinitial,
