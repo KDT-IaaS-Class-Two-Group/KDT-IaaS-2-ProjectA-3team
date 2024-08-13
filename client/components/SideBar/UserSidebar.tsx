@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../userMainPage/UserMainPage";
 import NoticeMainPage from "../../pages/noticeMain";
 import UserPersonal from "../users/userpersonal";
-import { useEffect, useState } from "react";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
-import { tdn } from "client/styles/templatebutton.css";
+
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -20,6 +19,9 @@ interface SessionData {
 
 const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+    <UserMainContent onclick={onMenuItemClick} />
+  );
 
   useEffect(() => {
     const fetchSessionData = async () => {
@@ -48,11 +50,16 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
   }, []);
 
   const handleMenuItemClick = (component: React.ReactNode) => {
+    setCurrentComponent(component);
     onMenuItemClick(component);
   };
 
   const handleLogoClick = () => {
-    onMenuItemClick(<UserMainContent onclick={() => {}} />);
+    const userMainContentComponent = (
+      <UserMainContent onclick={handleMenuItemClick} />
+    );
+    setCurrentComponent(userMainContentComponent);
+    onMenuItemClick(userMainContentComponent);
   };
 
   return (
