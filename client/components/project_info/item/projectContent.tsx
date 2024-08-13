@@ -1,7 +1,8 @@
+import { StackResult } from "../interface/stackResult.interface";
 import { MemberList } from "../style/memberList.css";
 interface ProjectInfoProps {
   project_name: string;
-  projectStack: never[];
+  projectStack: StackResult[];
 }
 interface Stack {
   stack_name: string;

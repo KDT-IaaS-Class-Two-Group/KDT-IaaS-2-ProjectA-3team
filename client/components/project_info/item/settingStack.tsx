@@ -2,18 +2,22 @@ import { useEffect, useState } from "react";
 import { StackResult } from "../interface/stackResult.interface";
 import searchStacks from "../service/fetchSearchData";
 import fetchPostStack from "../service/fetchPostStack";
-
+import { Dispatch } from "react";
+import { SetStateAction } from "react";
 interface Stack_Props {
   project_name: string;
   onClose: () => void;
+  setStateProject : Dispatch<SetStateAction<StackResult[]>>;
+  stack : StackResult[]
 }
-const StackSearch: React.FC<Stack_Props> = ({ project_name, onClose }) => {
+const StackSearch: React.FC<Stack_Props> = ({ project_name, onClose, setStateProject, stack }) => {
   // query -> input 창에 존재하는 value 값 : fetch를 통해 전송되는 값
   const [query, setQuery] = useState("");
   // result -> fetch를 통해 출력되는 검색 결과 값
   const [results, setResults] = useState<StackResult[]>([]);
   // projectStack -> fetch 를 통해 Post 할 예정인 값.
   const [projectStack, setProjectStack] = useState<StackResult[]>([]);
+
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -40,6 +44,12 @@ const StackSearch: React.FC<Stack_Props> = ({ project_name, onClose }) => {
         )}
         <button
           onClick={() => {
+            const data : StackResult[] = stack;
+            projectStack.forEach((item)=>{
+              data.push(item);
+            })
+            console.log(data);
+            setStateProject(data)
             fetchPostStack(projectStack, project_name);
             onClose();
           }}

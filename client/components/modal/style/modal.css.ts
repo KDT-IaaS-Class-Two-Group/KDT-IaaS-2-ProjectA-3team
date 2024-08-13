@@ -1,4 +1,8 @@
 import { style } from "@vanilla-extract/css";
+import { Size } from "client/styles/standard.css";
+import { bold24Text } from "client/styles/standardtextsize.css";
+import { blueButton } from "client/styles/templatebutton.css";
+import { listinitial } from "client/styles/users/attendancestyle.css";
 
 export const modalBackdrop = style({
   position: "fixed",
@@ -26,4 +30,34 @@ export const modalContent = style({
 export const closeButton = style({
   border: "solid 1px",
   fontSize: "1.5rem",
+});
+export const modalbtncontainer = style({
+  display: "flex",
+  justifyContent: "flex-end",
+  marginTop: "10px",
+});
+export const projectmodalbtn = style([
+  blueButton,
+  {
+    marginLeft: "1vw",
+  },
+]);
+export const projectgap = style({
+  paddingTop: "2vw",
+});
+export const teamlist = style([
+  listinitial,
+  bold24Text,
+  {
+    padding: "1vw",
+  },
+]);
+export const projectpadding = style({
+  padding: "1vw",
+});
+export const projectbackground = style({
+  marginTop: "2.5vh",
+  backgroundColor: "white",
+  padding: "1vw 1.5vw",
+  borderRadius: Size.border,
 });

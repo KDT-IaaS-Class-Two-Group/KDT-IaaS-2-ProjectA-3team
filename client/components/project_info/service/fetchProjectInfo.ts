@@ -2,8 +2,9 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import ProjectInfo from "../interface/project_info.interface";
 import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
 import { Dispatch, SetStateAction } from "react";
+import { StackResult } from "../interface/stackResult.interface";
 
-const fetchProjectInfo = async (project_name: string, setMemberData: Dispatch<SetStateAction<never[]>>, setProjectStack: Dispatch<SetStateAction<never[]>>) => {
+const fetchProjectInfo = async (project_name: string, setMemberData: Dispatch<SetStateAction<never[]>>, setProjectStack: Dispatch<SetStateAction<StackResult[]>>) => {
   try {
     const res = await fetch(
       `${REQUEST_URL.__GET_PROJECT_INFO}/${project_name}`

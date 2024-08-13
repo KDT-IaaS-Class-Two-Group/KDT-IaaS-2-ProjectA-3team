@@ -1,3 +1,3 @@
 export enum USERS_URL{
-  __INFO = "/user/project/info"
+  __INFO = "/user/home"
 }

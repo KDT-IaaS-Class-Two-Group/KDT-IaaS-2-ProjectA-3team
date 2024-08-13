@@ -68,3 +68,6 @@ export const buttonparent = style({
   justifyContent: "flex-end",
   gap: "1vw",
 });
+export const profilelistpadding = style({
+  padding: "0.5vw",
+});

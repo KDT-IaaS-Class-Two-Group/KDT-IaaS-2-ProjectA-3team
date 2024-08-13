@@ -9,13 +9,18 @@ import AddStackButton from "./item/addStackButton";
 import ProjectInfo from "./interface/project_info.interface";
 import fetchProjectInfo from "./service/fetchProjectInfo";
 import ProjectInfoProps from "./interface/props/projectInfo.props";
+import ProjectInfoBottomContainer from "./style/projectInfoBottom.css";
+import Issue from "./interface/issue.interface";
+import IssueList from "./item/issueList";
+import { StackResult } from "./interface/stackResult.interface";
 
 const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   const [memberData, setMemberData] = useState([]);
-  const [projectStack, setProjectStack] = useState([]);
-
+  const [projectStack, setProjectStack] = useState<StackResult[]>([]);
+  const [issues, setIssues] = useState<Issue[]>([]);
   useEffect(() => {
     fetchProjectInfo(project_name, setMemberData, setProjectStack);
+    // fetchIssueData(project_name);
   }, [project_name]);
 
   return (
@@ -23,13 +28,17 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
       <div className={MemeberContainer}>
         <MemberInfoItem memberData={memberData}></MemberInfoItem>
       </div>
-
       <div className={ProjectInfoContainer}>
         <ProjectInfoItem
           project_name={project_name}
           projectStack={projectStack}
         ></ProjectInfoItem>
-        <AddStackButton setProjectStack={setProjectStack}></AddStackButton>
+        <div className={ProjectInfoBottomContainer}>
+          <AddStackButton stack = {projectStack}setProjectStack={setProjectStack} project_name={project_name}></AddStackButton>
+          <div>
+            <IssueList issues={issues}></IssueList>
+          </div>
+        </div>
       </div>
     </div>
   );

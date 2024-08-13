@@ -11,11 +11,13 @@ import BackButton from "client/components/backButtonSection/backbutton";
 import { USERS_URL } from "client/ts/enum/url/USER_URL.enum";
 import { BUTTON_NAME } from "client/ts/enum/button_name/BUTTON_NAME.enum";
 
+
+
 // [ ] 테이블 만들기
 const UserHome: React.FC = () => {
   const router = useRouter();
   const { id, query } = router.query;
-
+   
   let projectName: string = "";
   if (id !== undefined && !Array.isArray(id)) {
     projectName = id;
@@ -26,7 +28,6 @@ const UserHome: React.FC = () => {
     <div className={style.root}>
       <Side />
       <div className={style.contentContainer}>
-        <MainHeader />
         <div className={style.teamInfoContainer}>
           <div className={style.ContentHeader}>
             <BackButton
@@ -34,7 +35,6 @@ const UserHome: React.FC = () => {
               button_name={BUTTON_NAME.PROJECT_INFO_BACK}
             />
           </div>
-
           <ProjectInfoComponent project_name={projectName} />
         </div>
       </div>

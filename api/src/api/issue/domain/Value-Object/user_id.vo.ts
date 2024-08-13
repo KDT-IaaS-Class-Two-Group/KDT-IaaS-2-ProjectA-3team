@@ -1,0 +1,24 @@
+/**
+ * * Class : UserId
+ * 작성자 : @naviadev / 2024-08-13
+ * 편집자 : @naviadev / 2024-08-13
+ * Issue :
+ * @class UserId
+ * @param value: string
+ * @description : 사용자 ID에 관한 VO. IssueEntity를 구성하는 객체이며, user의 ID를 가진 객체. 유효성 검사를 실행한다.
+ */
+export class UserId {
+  value: string;
+
+  constructor(value: string) {
+    if (!this.isValid(value)) {
+      throw new Error('사용자 ID에 대한 유효성 검사가 일치하지 않음.');
+    }
+    this.value = value;
+  }
+
+  private isValid(value: string): boolean {
+    if (value === null) return false;
+    return value.length > 0 && value.length <= 255;
+  }
+}
