@@ -3,14 +3,24 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import { SetStateAction, Dispatch } from "react";
 import { useState, useEffect } from "react";
 import fetchTeamList from "../service/fetchTeamData";
+import { bold32Text } from "client/styles/standardtextsize.css";
+import { listinitial } from "client/styles/users/attendancestyle.css";
+import {
+  projectgap,
+  projectmodalbtn,
+  projectpadding,
+  teamlist,
+} from "../../style/modal.css";
+import { flexrowcontainer } from "client/styles/standardcontainer.css";
+import { blueButton } from "client/styles/templatebutton.css";
 interface Team {
   team_name: string;
   description: string;
 }
 interface StepProps {
   handleNext: () => void;
-  setTeam : Dispatch<SetStateAction<string>>;
-  team : string
+  setTeam: Dispatch<SetStateAction<string>>;
+  team: string;
 }
 
 const Step3: React.FC<StepProps> = ({ handleNext, setTeam, team }) => {
@@ -46,17 +56,27 @@ const Step3: React.FC<StepProps> = ({ handleNext, setTeam, team }) => {
 
   return (
     <div>
-      <h2>팀 할당</h2>
-      <ul>
+      <div className={bold32Text}>팀 할당</div>
+      <ul className={listinitial}>
         {data.map((item, index) => (
-          <li key={index}>
+          <li key={index} className={projectpadding}>
             {item.team_name} : {item.description}
-            <button onClick={()=>{setTeam(item.team_name)}}>해당 팀 선택</button>
+            <button
+              className={projectmodalbtn}
+              onClick={() => {
+                setTeam(item.team_name);
+              }}
+            >
+              해당 팀 선택
+            </button>
           </li> // 데이터의 title 프로퍼티를 사용하여 리스트 아이템을 렌더링
-          
         ))}
-        <p>현재 선택된 팀 : {team}</p>
-        <button onClick={handleNext}>다음</button>
+        <div className={flexrowcontainer}>
+          <div className={teamlist}>현재 선택된 팀 : {team}</div>
+          <button className={projectmodalbtn} onClick={handleNext}>
+            다음
+          </button>
+        </div>
       </ul>
     </div>
   );
