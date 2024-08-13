@@ -235,7 +235,7 @@ export const commentbtn = style([
   {
     justifyContent: "flex-end",
     width: "35vw",
-    gap:"1vw",
+    gap: "1vw",
   },
 ]);
 export const authcontentdiv = style({
@@ -294,4 +294,10 @@ export const usermainwrite = style([
 export const vw50 = style({ width: "50vw" });
 export const usermaintext = style({
   alignSelf: "center",
+});
+export const followerlist = style({
+  fontSize: "1.5rem",
+  textAlign: "center",
+  lineHeight: "13vh",
+  height: "12vh",
 });
