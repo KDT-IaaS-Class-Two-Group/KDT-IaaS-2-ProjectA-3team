@@ -9,6 +9,7 @@ import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
+import router from "next/router";
 
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
@@ -49,14 +50,14 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
   }, []);
 
   const handleLogoClick = () => {
-    console.log("Logo clicked");
+    router.push("/admin/home");
     onMenuItemClick(
       <AdminMainContent
         onclick={function (component: React.ReactNode): void {
           throw new Error("Function not implemented.");
         }}
       />
-    ); // 또는 다른 함수 전달
+    );
   };
 
   return (
