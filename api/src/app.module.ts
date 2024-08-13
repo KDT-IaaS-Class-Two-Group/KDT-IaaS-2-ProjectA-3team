@@ -15,6 +15,7 @@ import { AccountModule } from './api/Account/Account.module';
 import { ProjectModule } from './api/project/project.module';
 import { TeamModule } from './api/Team/team.module';
 import { StackModule } from './api/Stack/stack.module';
+import { IssueModule } from './api/issue/issue.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { StackModule } from './api/Stack/stack.module';
     ProjectModule,
     TeamModule,
     StackModule,
+    IssueModule,
   ],
   controllers: [
     StructureController,
