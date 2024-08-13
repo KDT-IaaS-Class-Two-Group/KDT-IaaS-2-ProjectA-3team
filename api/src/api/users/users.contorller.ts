@@ -558,11 +558,11 @@ export class UsersController {
 
     try {
       const result = await this.queryBuilder
-        .UPDATE(
+        .LIstUP(
           'work_table',
           { endTime: now },
           'user_id = $2 AND endTime IS NULL',
-          // 여기서 올바른 userId가 전달되어야 함
+          [userId], // 여기서 올바른 userId가 전달되어야 함
         )
         .execution();
 

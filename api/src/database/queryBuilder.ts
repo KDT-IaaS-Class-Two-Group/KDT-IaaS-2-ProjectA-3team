@@ -130,4 +130,19 @@ export class QueryBuilder {
     this.queryString += ` LIMIT ${limit}`;
     return this;
   }
+  LIstUP(
+    tableName: string,
+    data: { [key: string]: any },
+    condition: string,
+    conditionParams: any[],
+  ) {
+    this.RESET();
+    const columns = Object.keys(data);
+    const placeholders = columns
+      .map((col, index) => `${col} = $${index + 1}`)
+      .join(', ');
+    this.queryString = `UPDATE ${tableName} SET ${placeholders} WHERE ${condition}`;
+    this.params = [...Object.values(data), ...conditionParams];
+    return this;
+  }
 }
