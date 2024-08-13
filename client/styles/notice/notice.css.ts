@@ -235,6 +235,7 @@ export const commentbtn = style([
   {
     justifyContent: "flex-end",
     width: "35vw",
+    gap:"1vw",
   },
 ]);
 export const authcontentdiv = style({
