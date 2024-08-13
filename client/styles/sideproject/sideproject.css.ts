@@ -69,4 +69,5 @@ export const tdstyle = style({
   fontSize: FontSize.Medium,
   backgroundColor: Colors.BackgroundSecondary,
   borderBottom: Colors.StatusGreen,
+  borderBottomStyle: "hidden",
 });
