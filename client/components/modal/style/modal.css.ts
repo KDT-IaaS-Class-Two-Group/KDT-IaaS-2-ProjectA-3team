@@ -27,3 +27,8 @@ export const closeButton = style({
   border: "solid 1px",
   fontSize: "1.5rem",
 });
+export const modalbtncontainer = style({
+  display: "flex",
+  justifyContent: "flex-end",
+  marginTop: "10px",
+});
