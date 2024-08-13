@@ -31,7 +31,7 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
     const fetchUsers = async () => {
       try {
         const [userResponse, fieldResponse] = await Promise.all([
-          fetch("http://localhost:3001/getUser/test"),
+          fetch("http://localhost:3001/getUser/pending"),
           fetch("http://localhost:3001/getUser/fields"), // field 데이터 가져오기
         ]);
 
