@@ -17,7 +17,7 @@ export const pagemainmain = style({
   padding: "3vw",
   overflow: "auto",
   width:'77vw',
-  height:'85vh'
+  height:'78vh'
 });
 export const pageinput = style({
   fontSize: FontSize.Large,

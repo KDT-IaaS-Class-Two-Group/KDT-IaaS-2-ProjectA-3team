@@ -20,7 +20,7 @@ export const noticecontent = style([
   centeredflexcolcontainer,
   {
     backgroundColor: Colors.BackgroundAlt,
-    height: "65vh",
+    height: "63vh",
     justifyContent: "flex-start",
     borderRadius: Size.border,
     marginBottom: "1vw",
