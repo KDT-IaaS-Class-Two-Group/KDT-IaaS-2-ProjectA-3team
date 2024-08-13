@@ -12,7 +12,7 @@ import { tdn } from "client/styles/templatebutton.css";
 import ProjectCheckComponent from "../__userHome/project";
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
-  sessionData : SessionData | null;
+  sessionData: SessionData | null;
 }
 
 interface SessionData {
@@ -20,8 +20,10 @@ interface SessionData {
   role_name: string;
 }
 
-const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick, sessionData}) => {
-  
+const UserSidebar: React.FC<UserSidebarProps> = ({
+  onMenuItemClick,
+  sessionData,
+}) => {
   const handleMenuItemClick = (component: React.ReactNode) => {
     onMenuItemClick(component);
   };
@@ -48,14 +50,17 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick, sessionData}
             <ul className={styles.menulist}>
               <MenuItem
                 text="프로젝트 조회"
-                onClick={() => handleMenuItemClick(<ProjectCheckComponent sessionData={sessionData} />)}
+                onClick={() =>
+                  handleMenuItemClick(
+                    <ProjectCheckComponent sessionData={sessionData} />
+                  )
+                }
               />
               <MenuItem
                 text="칸반보드"
                 onClick={() => handleMenuItemClick(<KanbanBoard />)}
               />
-              <MenuItem text="게시판"
-              onClick={() => handleMenuItemClick(<NoticeMainPage />)}/>
+              <MenuItem text="게시판" link="/noticeMain" />
               <MenuItem
                 text="개인정보 조회"
                 onClick={() => handleMenuItemClick(<UserPersonal />)}

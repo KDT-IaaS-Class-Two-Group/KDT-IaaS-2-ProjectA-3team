@@ -17,9 +17,12 @@ interface SessionData {
 
 interface MainHeaderProps {
   sessionData: SessionData | null;
-  setSessionData :Dispatch<SetStateAction<SessionData | null>>
+  setSessionData: Dispatch<SetStateAction<SessionData | null>>;
 }
-const MainHeader: React.FC<MainHeaderProps> = ({ sessionData, setSessionData }) => {
+const MainHeader: React.FC<MainHeaderProps> = ({
+  sessionData,
+  setSessionData,
+}) => {
   // const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
   // useEffect(() => {
