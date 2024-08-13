@@ -135,7 +135,13 @@ export const sujungbtn = style([
   },
 ]);
 
-export const authnotice = style([centeredflexcolcontainer]);
+export const authnotice = style([
+  centeredflexcolcontainer,
+  {
+    backgroundColor: Colors.BackgroundSecondary,
+    alignItems: "flex-end",
+  },
+]);
 
 export const authnoticetitle = style([
   centeredflexrowcontainer,
@@ -143,7 +149,8 @@ export const authnoticetitle = style([
   {
     height: "5vh",
     width: "100vw",
-    gap: "100px",
+    paddingBottom: "1vw",
+    borderBottom: "1px solid white",
   },
 ]);
 
@@ -255,3 +262,15 @@ export const pagebutton = style({
     backgroundColor: Colors.StatusYellow,
   },
 });
+export const noticetextleft = style({
+  textAlign: "left",
+  marginRight: "1vw",
+  marginTop: "1vw",
+});
+export const noticecolor = style({ backgroundColor: Colors.FontPrimary });
+export const greenbackBtn = style([
+  greenButton,
+  {
+    marginTop: "1vw",
+  },
+]);
