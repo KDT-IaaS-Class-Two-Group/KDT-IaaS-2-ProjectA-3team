@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
 import { tdn } from "client/styles/templatebutton.css";
+import ProjectCheckComponent from "../__userHome/project";
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -20,7 +21,6 @@ interface SessionData {
 
 const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
-
   useEffect(() => {
     const fetchSessionData = async () => {
       try {
@@ -73,7 +73,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
             <ul className={styles.menulist}>
               <MenuItem
                 text="프로젝트 조회"
-                onClick={() => handleMenuItemClick(<ProjectView />)}
+                onClick={() => handleMenuItemClick(<ProjectCheckComponent sessionData={sessionData} onMenuItemClick={onMenuItemClick} />)}
               />
               <MenuItem
                 text="칸반보드"
