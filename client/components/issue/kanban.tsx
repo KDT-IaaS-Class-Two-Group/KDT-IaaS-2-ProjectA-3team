@@ -7,6 +7,7 @@ import Modal from "../modal/modal";
 import AddIssueComponent from "./item/addIssueComponent";
 import {
   IssueContainer,
+  KanbanListContainer,
   ListContainer,
 } from "../project_info/style/projectInfoContainer.css";
 import { blueButton } from "client/styles/templatebutton.css";
@@ -47,7 +48,7 @@ const KanbanComponent: React.FC<KanbanProps> = ({ user_id }) => {
   console.log(issue)
   return (
     <div>
-      <div className={ListContainer}>
+      <div className={KanbanListContainer}>
         {issue.length > 0 ? (
           issue.map((item: KanbanIssue) => (
             <div key={item.issue_id} className={IssueContainer}>

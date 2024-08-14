@@ -17,6 +17,14 @@ export const ListContainer = style({
   height: "50vh",
   overflow: "auto",
 })
+export const KanbanListContainer = style({
+  height: "40vh",
+  overflow: "auto",
+})
+
+globalStyle(`${KanbanListContainer}::-webkit-scrollbar`, {
+  display: 'none',
+});
 
 globalStyle(`${ListContainer}::-webkit-scrollbar`, {
   display: 'none',
