@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ProjectService } from '../project.service';
-import { ProjectDTO } from '../DTO/Project.DTO';
+import { ProjectDTO } from '../DTO/project.DTO';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('/project')

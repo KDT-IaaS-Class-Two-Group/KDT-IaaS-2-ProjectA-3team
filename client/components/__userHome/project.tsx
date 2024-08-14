@@ -4,6 +4,14 @@ import { ProjectCheckProps } from "./interface/props/ProjectCheckProps.interface
 import Link from "next/link";
 import ProjectView from "../project/info";
 import ProjectTestComponent from "../project/project_info.component";
+import {
+  pagemaincontainer,
+  pagemainmain,
+} from "client/styles/team/teampage.css";
+import { HeaderContainer, itemContainer } from "./style/itemStyle.css";
+import { formatDate } from "./service/formatDate";
+import ProjectInfoComponent from "../project_info/project_info";
+import { blueButton } from "client/styles/templatebutton.css";
 export interface ProjectData {
   project_id: number;
   project_name: string;
@@ -29,29 +37,26 @@ const ProjectCheckComponent: React.FC<ProjectCheckProps> = ({
   }, [sessionData?.user_id]);
 
   return (
-    <div>
+    <div className={pagemainmain}>
       {projectData.map((projectGroup, index) => (
-        <div key={index}>
+        <div key={index} className={pagemaincontainer}>
           {Object.values(projectGroup)
             .flat()
             .map((item: ProjectData, subIndex) => (
-              <div key={subIndex}>
+              <div key={subIndex} className={itemContainer}>
                 <h1
+                className={HeaderContainer} 
                   onClick={() => {
                     onMenuItemClick(
-                      <ProjectTestComponent
-                        project_name={item.project_name}
-                      />
+                      <ProjectInfoComponent project_name={item.project_name} />
                     );
                   }}
                 >
                   {item.project_name}
                 </h1>
-                <h2>{item.team_name}</h2>
-                <p>
-                  {item.project_start_date} / {item.project_end_date}
-                </p>
-                <p>-----------------</p>
+                <h2>Team | {item.team_name}</h2>
+                <p>프로젝트 시작일 : {formatDate(item.project_start_date)}</p>
+                <p>프로젝트 마감일 : {formatDate(item.project_end_date)}</p>
               </div>
             ))}
         </div>

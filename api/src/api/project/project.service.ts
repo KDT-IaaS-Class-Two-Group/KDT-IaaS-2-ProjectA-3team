@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { QueryBuilder } from 'src/database/queryBuilder';
-import { ProjectDTO } from './DTO/Project.DTO';
+import { ProjectDTO } from './DTO/project.DTO';
 import { TABLE_NAME } from '../common/enum/table/table.enum';
 import { SERVICE_ERROR } from '../common/enum/message/error/serviceErrorMessage';
-import { Stack } from './DTO/StackDTO';
+import { Stack } from './DTO/stack.DTO';
 import { RelationTeamUsers } from './DTO/relation_team_project.DTO';
 
 @Injectable()
