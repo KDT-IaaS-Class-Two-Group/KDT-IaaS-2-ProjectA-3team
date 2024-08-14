@@ -88,7 +88,7 @@ export class LoginController {
       console.log('session', session);
       req.session.user = session;
       // ! 임시 기능 (추가된 역할 테이블에 맞도록 구성할 필요가 있음)
-      if (session.role_name == 'admin') {
+      if (session.role_name == 'admin' || session.role_name === 'sub_admin') {
         return res.json({ message: 'ok', redirect: REDIRECT_PATH.ADMIN_MAIN });
       } else {
         return res.json({ message: 'ok', redirect: REDIRECT_PATH.USER_MAIN });

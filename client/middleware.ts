@@ -45,7 +45,7 @@ export const middleware = async (req: NextRequest) => {
     const response: ResponseJson = await res.json();
     const userRole = response.role;
     if (pathname.startsWith(ROUTE_PATH.__ADMIN)) {
-      if (userRole === USER_ROLE.__ADMIN) {
+      if (userRole === USER_ROLE.__ADMIN || userRole == USER_ROLE.__SUB_ADMIN) {
         return NextResponse.next();
       } else {
         const url = new URL(ROUTE_PATH.__LOGIN, req.url);
