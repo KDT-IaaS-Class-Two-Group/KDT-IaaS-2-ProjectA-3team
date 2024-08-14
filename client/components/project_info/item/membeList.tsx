@@ -13,10 +13,11 @@ interface Member {
 const MemberInfoItem: React.FC<MemberInfoProps> = ({ memberData }) => {
   return (
     <div>
+      <h2>Member</h2>
       {memberData.map((data: Member, index) => {
         return (
           <div className={MemberList}>
-            <p>User_Name : {data.username}</p>
+            <p>{data.username}</p>
           </div>
         );
       })}

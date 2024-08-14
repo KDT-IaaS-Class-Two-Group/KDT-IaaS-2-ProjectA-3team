@@ -34,6 +34,7 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import ClockInButton from "../backButtonSection/ClockInButton"; // 새로 만든 ClockInButton 컴포넌트 임포트
 import NoticeMainPage from "client/pages/noticeMain";
 import { followerlist } from "client/styles/notice/notice.css";
+import KanbanComponent from "../issue/kanban";
 
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
@@ -133,7 +134,9 @@ const UserMainContent: React.FC<UserMainContentProps> = ({ onclick }) => {
       </div>
       <div className={`${usersection} ${kanbansection}`}>
         <div className={cardHeader}>kanban board</div>
-        <div className={cardContent}>임시 내용</div>
+        <div className={cardContent}>
+          <KanbanComponent user_id={userId}></KanbanComponent>
+        </div>
       </div>
       <div className={`${usersection} ${calendarsection}`}>
         <div className={projectTitle}>

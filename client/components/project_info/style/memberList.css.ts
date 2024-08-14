@@ -7,8 +7,11 @@ export const MemberList = style({
   alignItems: "center",
   display : 'flex',
   justifyContent : 'center',
-  border : 'solid 1px',
   marginTop : '20px',
   marginBottom : '20px',
-  borderRadius : '10px'
+  borderRadius : '10px',
+  fontSize : "16px",
+  backgroundColor : "#1e1e1e",
+  color : "#12b981",
+  fontWeight : "bold"
 })

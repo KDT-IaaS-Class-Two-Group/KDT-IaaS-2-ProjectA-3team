@@ -69,6 +69,7 @@ export const cardContent = style({
   fontSize: FontSize.Small,
   display: "flex",
   alignItems: "center",
+  justifyContent : "center"
 });
 
 export const button = style({
