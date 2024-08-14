@@ -10,6 +10,7 @@ import ProjectInfoComponent from "client/components/project_info/project_info";
 import BackButton from "client/components/backButtonSection/backbutton";
 import { USERS_URL } from "client/ts/enum/url/USER_URL.enum";
 import { BUTTON_NAME } from "client/ts/enum/button_name/BUTTON_NAME.enum";
+import { pagemainmain } from "client/styles/team/teampage.css";
 
 interface IProjectTestComponent {
   project_name: string;
@@ -20,19 +21,8 @@ const ProjectTestComponent: React.FC<IProjectTestComponent> = ({
 }) => {
   // [ ] MainHeader 아랫쪽 div component 생성
   return (
-    <div className={style.root}>
-      <div className={style.contentContainer}>
-        <div className={style.teamInfoContainer}>
-          <div className={style.ContentHeader}>
-            <BackButton
-              url={USERS_URL.__INFO}
-              button_name={BUTTON_NAME.PROJECT_INFO_BACK}
-            />
-          </div>
-
-          <ProjectInfoComponent project_name={project_name} />
-        </div>
-      </div>
+    <div className={pagemainmain}>
+      <ProjectInfoComponent project_name={project_name} />
     </div>
   );
 };

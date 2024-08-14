@@ -19,6 +19,10 @@ export const pagemainmain = style({
   width:'77vw',
   height:'78vh'
 });
+
+
+
+
 export const pageinput = style({
   fontSize: FontSize.Large,
   paddingBottom: "1.5vw",

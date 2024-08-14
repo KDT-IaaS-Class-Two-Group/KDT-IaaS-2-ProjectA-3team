@@ -4,7 +4,11 @@ import ProjectInfoItem from "./item/projectContent";
 import { MemberList } from "./style/memberList.css";
 import { ProjectInfoSection } from "./style/projectInfoSection.css";
 import { MemeberContainer } from "./style/memberListContainer.css";
-import { ProjectInfoContainer } from "./style/projectInfoContainer.css";
+import {
+  ListContainer,
+  ProjectHeaderContainer,
+  ProjectInfoContainer,
+} from "./style/projectInfoContainer.css";
 import AddStackButton from "./item/addStackButton";
 import ProjectInfo from "./interface/project_info.interface";
 import fetchProjectInfo from "./service/fetchProjectInfo";
@@ -29,8 +33,6 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   };
 
   useEffect(() => {
-    console.log("projectStack updated:", projectStack);
-
     const loadData = async () => {
       try {
         const res = await fetchProjectInfo(project_name);
@@ -51,22 +53,27 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
       <div className={MemeberContainer}>
         <MemberInfoItem memberData={memberData}></MemberInfoItem>
       </div>
+
       <div className={ProjectInfoContainer}>
-        <div>
+        <div className={ProjectHeaderContainer}>
           <h1>{project_name}</h1>
-          {projectStack.map((stack, index) => {
-            return <p>{stack.stack_name}</p>;
-          })}
         </div>
+
         <div className={ProjectInfoBottomContainer}>
-          <AddStackButton
-            stack={projectStack}
-            setProjectStack={setProjectStack}
-            project_name={project_name}
-            onClose={onClose}
-            onOpen={onOpen}
-            isOpen={isOpen}
-          ></AddStackButton>
+          <div className={ListContainer}>
+            <AddStackButton
+              stack={projectStack}
+              setProjectStack={setProjectStack}
+              project_name={project_name}
+              onClose={onClose}
+              onOpen={onOpen}
+              isOpen={isOpen}
+            ></AddStackButton>
+            {projectStack.map((stack, index) => {
+              return <p>{stack.stack_name}</p>;
+            })}
+          </div>
+
           <div>
             <IssueComponent project_name={project_name}></IssueComponent>
           </div>
