@@ -13,6 +13,12 @@ import { ISSUE_REPONSE_ERROR } from '../enum/error/ISSUE_RESPONSE_ERROR.enum';
 @Controller('/issue')
 export class IssueQueryController {
   constructor(private readonly queryHandler: IssueQueryHandler) {}
+  @Get('/all')
+  async GetIssueAll() {
+    const result = await this.queryHandler.getIsseAllHandler();
+    return result;
+  }
+
   @Get('/:id')
   async GetIssue(@Param('id') project_name: string) {
     try {

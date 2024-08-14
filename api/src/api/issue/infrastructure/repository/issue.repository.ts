@@ -62,4 +62,9 @@ export class IssueRepository {
       ),
     );
   }
+
+  async getIssueAll() {
+    const rows = await this.qb.SELECT(TABLE_NAME.__ISSUE).execution();
+    return rows;
+  }
 }

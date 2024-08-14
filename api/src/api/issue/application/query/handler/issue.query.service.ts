@@ -9,4 +9,8 @@ export class IssueQueryHandler {
   async getIssueHandler(getIssueQuery: GetIssueQuery) {
     return await this.issueRepository.getIssue(getIssueQuery.project_name);
   }
+
+  async getIsseAllHandler() {
+    return await this.issueRepository.getIssueAll();
+  }
 }
