@@ -1,15 +1,16 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../userMainPage/UserMainPage";
 import NoticeMainPage from "../../pages/noticeMain";
 import UserPersonal from "../users/userpersonal";
-import { useEffect, useState } from "react";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
+
 import { tdn } from "client/styles/templatebutton.css";
 import ProjectCheckComponent from "../__userHome/project";
+
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
@@ -21,6 +22,11 @@ interface SessionData {
 
 const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
+
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+    <UserMainContent onclick={onMenuItemClick} />
+  );
+
   useEffect(() => {
     const fetchSessionData = async () => {
       try {
@@ -35,12 +41,11 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
         if (response.ok) {
           const data = await response.json();
           setSessionData(data.session);
-          console.log("Session data fetched:", data.session);
         } else {
-          console.error("Failed to fetch session data", response.statusText);
+          console.error("세션 가져오기 실패 : ", response.statusText);
         }
       } catch (error) {
-        console.error("Failed to fetch session data", error);
+        console.error("세션 가져오기 실패 : ", error);
       }
     };
 
@@ -48,11 +53,16 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
   }, []);
 
   const handleMenuItemClick = (component: React.ReactNode) => {
+    setCurrentComponent(component);
     onMenuItemClick(component);
   };
 
   const handleLogoClick = () => {
-    onMenuItemClick(<UserMainContent onclick={() => {}} />);
+    const userMainContentComponent = (
+      <UserMainContent onclick={handleMenuItemClick} />
+    );
+    setCurrentComponent(userMainContentComponent);
+    onMenuItemClick(userMainContentComponent);
   };
 
   return (
@@ -73,13 +83,23 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
             <ul className={styles.menulist}>
               <MenuItem
                 text="프로젝트 조회"
-                onClick={() => handleMenuItemClick(<ProjectCheckComponent sessionData={sessionData} onMenuItemClick={onMenuItemClick} />)}
+                onClick={() =>
+                  handleMenuItemClick(
+                    <ProjectCheckComponent
+                      sessionData={sessionData}
+                      onMenuItemClick={onMenuItemClick}
+                    />
+                  )
+                }
               />
               <MenuItem
                 text="칸반보드"
                 onClick={() => handleMenuItemClick(<KanbanBoard />)}
               />
-              <MenuItem text="게시판" link="/noticeMain" />
+              <MenuItem
+                text="게시판"
+                onClick={() => handleMenuItemClick(<NoticeMainPage />)}
+              />
               <MenuItem
                 text="개인정보 조회"
                 onClick={() => handleMenuItemClick(<UserPersonal />)}
