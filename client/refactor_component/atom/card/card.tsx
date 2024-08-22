@@ -1,8 +1,5 @@
-import { ReactNode } from "react";
-interface CardProps {
-  container_style: string;
-  children?: ReactNode;
-}
+import CardProps from "./props/card.props";
+
 const Card: React.FC<CardProps> = ({ container_style, children }) => {
   return <div className={container_style}>{children}</div>;
 };
