@@ -17,7 +17,7 @@ import {
   checkTeamNameExists,
   fetchLeadersAndMembers,
   saveTeamData,
-} from "./service/teamservice";
+} from "./service/teamService";
 
 interface User {
   user_id: string;
