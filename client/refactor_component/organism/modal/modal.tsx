@@ -1,7 +1,10 @@
 import { modalBackdrop } from "client/components/modal/style/modal.css";
+import ModalBackdrop from "client/refactor_component/atom/back_drop/back_drop";
 import Button from "client/refactor_component/atom/button/button";
 import Card from "client/refactor_component/atom/card/card";
 import CardProps from "client/refactor_component/atom/card/props/card.props";
+import ModalButtonContainer from "client/refactor_component/molecule/modal_close_button/modal_close_button";
+import ModalContent from "client/refactor_component/molecule/modal_content/modal_content";
 
 interface ModalProps extends CardProps {
   isOpen: boolean;
@@ -27,19 +30,12 @@ const Modal: React.FC<ModalProps> = ({
       onClose();
     }
   };
-
   return (
-    <div
-      className={modalBackdrop}
-      id="modal-overlay"
-      onClick={handleBackdropClick}
-    >
-      <Card container_style={container_style}>
-        <div>
-          <Button button_text="X" button_style="" onClick={onClose} />
-        </div>
+    <ModalBackdrop onClick={handleBackdropClick}>
+      <ModalContent>
+        <ModalButtonContainer onClose={onClose}></ModalButtonContainer>
         {children}
-      </Card>
-    </div>
+      </ModalContent>
+    </ModalBackdrop>
   );
 };
