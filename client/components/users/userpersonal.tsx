@@ -21,6 +21,8 @@ import { User, Profile, UserPersonalProps } from "./userpersonalmodule/usertypes
 import { fetchUsers } from "./userpersonalmodule/fetchUsers";
 
 
+import FormField from "../../refactor_component/molecule/formField/form_field";
+
 
 const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   const [users, setUsers] = useState<User[]>([]);
@@ -48,109 +50,100 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
             <li key={user.user_id} className={listinitial}>
               {editingUserId === user.user_id ? (
                 <div className={flexcolcontainer}>
-                  <label className={profilelistpadding}>
-                    이름 :
-                    <input
-                      type="text"
-                      value={editFields.username || ""}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          "username",
-                          e.target.value,
-                          setEditFields
-                        )
-                      }
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    아이디 :
-                    <input
-                      type="text"
-                      value={user.user_id}
-                      readOnly
-                      className={styles.input}
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    비밀번호 :
-                    <input
-                      type="password"
-                      value={editFields.password || ""}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          "password",
-                          e.target.value,
-                          setEditFields
-                        )
-                      }
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    이메일 :
-                    <input
-                      type="text"
-                      value={editFields.email || ""}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          "email",
-                          e.target.value,
-                          setEditFields
-                        )
-                      }
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    핸드폰 번호 :
-                    <input
-                      type="text"
-                      value={editFields.phone || ""}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          "phone",
-                          e.target.value,
-                          setEditFields
-                        )
-                      }
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    생년월일 :
-                    <input
-                      type="text"
-                      value={editFields.birth_date || ""}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          "birth_date",
-                          e.target.value,
-                          setEditFields
-                        )
-                      }
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    주소 :
-                    <input
-                      type="text"
-                      value={editFields.address || ""}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          "address",
-                          e.target.value,
-                          setEditFields
-                        )
-                      }
-                    />
-                  </label>
-                  <label className={profilelistpadding}>
-                    자기소개 :
-                    <input
-                      type="text"
-                      value={bios.get(user.user_id) || ""}
-                      onChange={(e) =>
-                        handleBioChange(user.user_id, e.target.value, setBios)
-                      }
-                    />
-                  </label>
+                  <FormField
+                    id="username"
+                    label="이름 :"
+                    value={editFields.username || ""}
+                    input_type="text"
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "username",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                  />
+                  <FormField
+                    id="user_id"
+                    label="아이디 :"
+                    value={user.user_id}
+                    input_type="text"
+                    onChange={() => {}} // readOnly input, no change handler needed
+                  />
+                  <FormField
+                    id="password"
+                    label="비밀번호 :"
+                    value={editFields.password || ""}
+                    input_type="password"
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "password",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                  />
+                  <FormField
+                    id="email"
+                    label="이메일 :"
+                    value={editFields.email || ""}
+                    input_type="text"
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "email",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                  />
+                  <FormField
+                    id="phone"
+                    label="핸드폰 번호 :"
+                    value={editFields.phone || ""}
+                    input_type="text"
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "phone",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                  />
+                  <FormField
+                    id="birth_date"
+                    label="생년월일 :"
+                    value={editFields.birth_date || ""}
+                    input_type="text"
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "birth_date",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                  />
+                  <FormField
+                    id="address"
+                    label="주소 :"
+                    value={editFields.address || ""}
+                    input_type="text"
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "address",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                  />
+                  <FormField
+                    id="bio"
+                    label="자기소개 :"
+                    value={bios.get(user.user_id) || ""}
+                    input_type="text"
+                    onChange={(e) =>
+                      handleBioChange(user.user_id, e.target.value, setBios)
+                    }
+                  />
                   <div className={buttonparent}>
                     <button
                       onClick={() =>
@@ -237,20 +230,6 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
             </li>
           ))}
         </ul>
-        {/* <div className={buttonparent}>
-     <button
-                    onClick={() =>
-                      handleUpdateUser(
-                        user.user_id,
-                        editFields,
-                        () => handleCancelEdit(setEditingUserId, setEditFields)
-                      )
-                    }
-                    className={blueButton}
-                  >
-                    수정 요청 전송
-                  </button>
-        </div> */}
       </div>
     </div>
   );
