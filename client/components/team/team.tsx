@@ -1,4 +1,3 @@
-import { maincontainter } from "client/styles/team/team.css";
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/team/team.css";
 import * as button from "../../styles/templatebutton.css";
@@ -13,6 +12,12 @@ import {
   pageul,
   teambuttoncontainer,
 } from "client/styles/team/teampage.css";
+import Button from "client/refactor_component/atom/button/button";
+import {
+  checkTeamNameExists,
+  fetchLeadersAndMembers,
+  saveTeamData,
+} from "./service/teamservice";
 
 interface User {
   user_id: string;
@@ -27,24 +32,13 @@ function UserSelection() {
   const [teamDescription, setTeamDescription] = useState<string>("");
 
   useEffect(() => {
-    const fetchLeadersAndMembers = async () => {
-      try {
-        const [leadersResponse, membersResponse] = await Promise.all([
-          fetch("http://localhost:3001/getUser/leaders"),
-          fetch("http://localhost:3001/getUser/members"),
-        ]);
-
-        const leadersData = await leadersResponse.json();
-        const membersData = await membersResponse.json();
-
-        setLeaders(leadersData);
-        setMembers(membersData);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
+    const initializeUsers = async () => {
+      const { leadersData, membersData } = await fetchLeadersAndMembers();
+      setLeaders(leadersData);
+      setMembers(membersData);
     };
 
-    fetchLeadersAndMembers();
+    initializeUsers();
   }, []);
 
   const addLeader = (user: User) => {
@@ -65,27 +59,6 @@ function UserSelection() {
     setSelectedMembers(
       selectedMembers.filter((member) => member.user_id !== user.user_id)
     );
-  };
-
-  const checkTeamNameExists = async (name: string) => {
-    try {
-      const response = await fetch(
-        "http://localhost:3001/getUser/checkTeamName",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ team_name: name }),
-        }
-      );
-
-      const result = await response.json();
-      return result.exists; // 서버에서 반환한 결과에 따라서 수정
-    } catch (error) {
-      console.error("Error checking team name:", error);
-      return false;
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -114,46 +87,31 @@ function UserSelection() {
     const teamData = {
       team_name: teamName,
       description: teamDescription,
-      teamLeader: selectedLeader
-        ? {
-            user_id: selectedLeader.user_id,
-          }
-        : null,
+      teamLeader: selectedLeader ? { user_id: selectedLeader.user_id } : null,
       teamMembers: selectedMembers.map((member) => ({
         user_id: member.user_id,
       })),
     };
 
     try {
-      const response = await fetch("http://localhost:3001/team/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(teamData),
-      });
-
-      // 서버의 응답 상태 코드 확인
-      if (!response.ok) {
-        throw new Error("팀 정보 저장 실패");
-      }
-
-      const result = await response.json();
+      const result = await saveTeamData(teamData);
 
       if (result.error) {
         alert(result.error);
       } else {
         alert(result.message || "팀 정보 저장 성공");
-        // 폼 리셋
-        setTeamName("");
-        setTeamDescription("");
-        setSelectedLeader(null);
-        setSelectedMembers([]);
+        resetForm();
       }
     } catch (error) {
-      console.error("Error saving team data:", error);
-      alert("팀 정보 저장 중 오류가 발생했습니다.");
+      alert("오류 발생");
     }
+  };
+
+  const resetForm = () => {
+    setTeamName("");
+    setTeamDescription("");
+    setSelectedLeader(null);
+    setSelectedMembers([]);
   };
 
   return (
@@ -178,19 +136,17 @@ function UserSelection() {
             {leaders.map((user) => (
               <li key={user.user_id} className={pagetextsub}>
                 <strong>ID :</strong> {user.user_id}
-                <button
+                <Button
+                  button_text="추가"
+                  button_style={styles.yellowButton}
                   onClick={() => addLeader(user)}
-                  className={styles.yellowButton}
-                >
-                  추가
-                </button>
+                />
                 {selectedLeader && selectedLeader.user_id === user.user_id && (
-                  <button
+                  <Button
+                    button_text="삭제"
+                    button_style={styles.yellowButton}
                     onClick={removeLeader}
-                    className={styles.yellowButton}
-                  >
-                    삭제
-                  </button>
+                  />
                 )}
               </li>
             ))}
@@ -208,21 +164,19 @@ function UserSelection() {
             {members.map((user) => (
               <div key={user.user_id} className={pagetextsub}>
                 <strong>ID :</strong> {user.user_id}
-                <button
+                <Button
+                  button_text="추가"
+                  button_style={styles.yellowButton}
                   onClick={() => addMember(user)}
-                  className={styles.yellowButton}
-                >
-                  추가
-                </button>
+                />
                 {selectedMembers.some(
                   (member) => member.user_id === user.user_id
                 ) && (
-                  <button
+                  <Button
+                    button_text="삭제"
+                    button_style={styles.yellowButton}
                     onClick={() => removeMember(user)}
-                    className={styles.yellowButton}
-                  >
-                    삭제
-                  </button>
+                  />
                 )}
               </div>
             ))}
@@ -242,9 +196,11 @@ function UserSelection() {
           />
         </div>
         <div className={teambuttoncontainer}>
-          <button onClick={handleSubmit} className={styles.blueButton}>
-            팀 생성
-          </button>
+          <Button
+            button_text="팀 생성"
+            button_style={styles.blueButton}
+            onClick={handleSubmit}
+          />
         </div>
       </div>
     </div>
