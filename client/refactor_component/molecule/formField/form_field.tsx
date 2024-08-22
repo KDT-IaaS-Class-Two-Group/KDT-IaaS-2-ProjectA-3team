@@ -1,0 +1,22 @@
+// src/components/molecule/formField/FormField.tsx
+import React from "react";
+import Input from "client/refactor_component/atom/input/input";
+import Label from "client/refactor_component/atom/label/label";
+import FormFieldProps from "./props/form_field.props";
+
+const FormField: React.FC<FormFieldProps> = ({
+  id,
+  label,
+  value,
+  input_type,
+  onChange,
+}) => {
+  return (
+    <div className="">
+      <Label htmlFor={id}>{label}</Label>
+      <Input id={id} type={input_type} value={value} onChange={onChange} />
+    </div>
+  );
+};
+
+export default FormField;
