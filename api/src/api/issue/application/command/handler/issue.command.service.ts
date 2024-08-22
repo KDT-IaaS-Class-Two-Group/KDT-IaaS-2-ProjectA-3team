@@ -12,8 +12,6 @@ export class IssueCommandHandler {
 
   async handleCreateIssue(command: CreateIssueCommand): Promise<void> {
     const { issue_name, project_name } = command;
-    console.log(issue_name);
-    console.log(project_name);
     const issue: Issue = Issue.create(
       undefined,
       issue_name,
@@ -21,7 +19,6 @@ export class IssueCommandHandler {
       project_name,
       null, // 할당된 사람 없음
     );
-
     this.issueRepository.createIssue(issue);
   }
 

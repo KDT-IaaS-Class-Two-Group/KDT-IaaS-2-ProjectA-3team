@@ -1,7 +1,7 @@
-import { IssueName } from '../Value-Object/issue_name.vo';
-import { UserId } from '../Value-Object/user_id.vo';
-import { ProjectName } from '../Value-Object/project_name.vo';
-import { Status } from '../Value-Object/status.vo';
+import { IssueName } from '../value-object/issue_name.vo';
+import { UserId } from '../value-object/user_id.vo';
+import { ProjectName } from '../value-object/project_name.vo';
+import { Status } from '../value-object/status.vo';
 
 /**
  * * Class : Issue
