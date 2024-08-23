@@ -16,6 +16,7 @@ import useFetchCheckProfile from "./checkprofilemodule/fetchCheckProfile";
 const UserRequest: React.FC = () => {
   const { users, loading, error } = useFetchCheckProfile();
 
+
   return (
     <div className={pagemainmain}>
       <div className={pagemaintext}>사용자 프로필 수정 요청</div>
