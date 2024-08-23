@@ -1,4 +1,4 @@
-import useFetchCheckProfile from "./fetchCheckProfile"
+import useFetchCheckProfile from "../hook/fetchCheckProfile";
 
 export const handleReject = async (user_id: string) => {
   try {
