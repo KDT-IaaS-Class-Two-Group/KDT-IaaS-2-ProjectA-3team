@@ -1,13 +1,8 @@
-import { backcontainer } from "client/styles/info/index.css";
-import { uploadbutton } from "client/styles/notice/notice.css";
-import { centeredflexcolcontainer } from "client/styles/standardcontainer.css";
 import { greenButton } from "client/styles/templatebutton.css";
 import Link from "next/link";
 import React, { useState } from "react";
 import * as styles from "../../styles/notice/notice.css";
-const back = () => {
-  window.location.href = "/noticeMain";
-};
+
 /**
  * * Function : RegisterForm
  * 작성자 : @신지윤 / 2024-07-31
@@ -42,6 +37,10 @@ const NoticeBoard: React.FC = () => {
       .catch((error) => {
         console.error("에러나어엉", error);
       });
+  };
+  
+  const back = () => {
+    window.location.href = "/noticeMain";
   };
 
   return (
