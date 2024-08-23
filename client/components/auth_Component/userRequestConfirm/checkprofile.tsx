@@ -1,3 +1,4 @@
+import React from "react";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 import { greenButton } from "client/styles/templatebutton.css";
 import {
@@ -7,15 +8,16 @@ import {
   pendingmaindiv,
   profilelist,
 } from "client/styles/users/attendancestyle.css";
-import React, { useState, useEffect } from "react";
-import {User} from "./checkprofilemodule/usertypes";
+import { User } from "./checkprofilemodule/usertypes";
 import { handleAccept } from "./checkprofilemodule/handelAccept";
 import { handleReject } from "./checkprofilemodule/handleReject";
 import useFetchCheckProfile from "./checkprofilemodule/fetchCheckProfile";
+import Ul from "../../../refactor_component/atom/ul/ul"; // Ul 컴포넌트의 올바른 경로를 사용하세요
+import Li from "../../../refactor_component/atom/li/li"; // Li 컴포넌트의 올바른 경로를 사용하세요
+import Button from "../../../refactor_component/atom/button/button"; // Button 컴포넌트의 올바른 경로를 사용하세요
 
 const UserRequest: React.FC = () => {
   const { users, loading, error } = useFetchCheckProfile();
-
 
   return (
     <div className={pagemainmain}>
@@ -24,9 +26,9 @@ const UserRequest: React.FC = () => {
       {error && <div>{error}</div>}
       <div className={pendingmaindiv}>
         {users.length > 0 ? (
-          <ul className={listinitial}>
+          <Ul ul_style={listinitial}>
             {users.map((user) => (
-              <li key={user.user_id} className={profilelist}>
+              <Li key={user.user_id} li_style={profilelist}>
                 아이디 : {user.user_id}
                 <br />
                 이름 : {user.username}
@@ -42,22 +44,20 @@ const UserRequest: React.FC = () => {
                 비밀번호 : {user.password}
                 <br />
                 <div className={buttonparent}>
-                  <button
+                  <Button
+                    button_text="변경 수락"
+                    button_style={greenButton}
                     onClick={() => handleAccept(user.user_id)}
-                    className={greenButton}
-                  >
-                    변경 수락
-                  </button>
-                  <button
+                  />
+                  <Button
+                    button_text="변경 거절"
+                    button_style={greenButton}
                     onClick={() => handleReject(user.user_id)}
-                    className={greenButton}
-                  >
-                    변경 거절
-                  </button>
+                  />
                 </div>
-              </li>
+              </Li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           !loading && <div>조회된 사용자가 없습니다.</div>
         )}
