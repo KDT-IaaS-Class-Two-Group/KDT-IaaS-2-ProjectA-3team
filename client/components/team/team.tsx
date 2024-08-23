@@ -20,50 +20,42 @@ import {
   pageul,
   teambuttoncontainer,
 } from "client/styles/team/teampage.css";
-import Button from "client/refactor_component/atom/button/button";
 import fetchCheckTeamNameExists from "./service/checkTeamNameExist/fetchCheckTeamNameExists";
-import fetchLeadersAndMembers from "./service/leaderAndMembers/fetchLeadersAndMembers";
 import fetchSaveTeamData from "./service/saveTeamData/fetchSaveTeamData";
-import { User } from "./interface/team.interface";
+import TeamNameField from "./components/TeamNameField";
+import TeamLeaderSelect from "./components/TeamLeaderSelect";
+import MemberSelect from "./components/TeamMemberSelect";
+import TeamDescriptionField from "./components/TeamDescriptionField";
+import TeamButton from "./components/TeamButton";
+import useTeamFetch from "./hook/useTeamFetch";
+import useTeamState from "./hook/useTeamState";
 
+/**
+ * @brief 팀 생성 폼 UI 컴포넌트
+ * @details 팀 이름, 팀장, 팀원, 팀 설명 등을 입력받고 폼을 제출하는 UI를 제공.
+ * @return 팀 생성 폼 UI 컴포넌트
+ */
 function UserSelection() {
-  const [teamName, setTeamName] = useState<string>("");
-  const [leaders, setLeaders] = useState<User[]>([]);
-  const [members, setMembers] = useState<User[]>([]);
-  const [selectedLeader, setSelectedLeader] = useState<User | null>(null);
-  const [selectedMembers, setSelectedMembers] = useState<User[]>([]);
-  const [teamDescription, setTeamDescription] = useState<string>("");
+  const { leaders, members } = useTeamFetch();
+  const {
+    teamName,
+    setTeamName,
+    selectedLeader,
+    selectedMembers,
+    teamDescription,
+    setTeamDescription,
+    addLeader,
+    removeLeader,
+    addMember,
+    removeMember,
+    resetForm,
+  } = useTeamState();
 
-  useEffect(() => {
-    const initializeUsers = async () => {
-      const { leadersData, membersData } = await fetchLeadersAndMembers();
-      setLeaders(leadersData);
-      setMembers(membersData);
-    };
-
-    initializeUsers();
-  }, []);
-
-  const addLeader = (user: User) => {
-    setSelectedLeader(user);
-  };
-
-  const removeLeader = () => {
-    setSelectedLeader(null);
-  };
-
-  const addMember = (user: User) => {
-    if (!selectedMembers.some((member) => member.user_id === user.user_id)) {
-      setSelectedMembers([...selectedMembers, user]);
-    }
-  };
-
-  const removeMember = (user: User) => {
-    setSelectedMembers(
-      selectedMembers.filter((member) => member.user_id !== user.user_id)
-    );
-  };
-
+  /**
+   * @brief 폼 제출 처리 함수
+   * @details 폼 제출 시 팀 이름, 팀장, 팀원이 모두 유효한지 확인하고, 서버로 팀 데이터를 저장하는 요청을 보낸다.
+   * @param {React.FormEvent} e 폼 제출 객체
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -110,100 +102,29 @@ function UserSelection() {
     }
   };
 
-  const resetForm = () => {
-    setTeamName("");
-    setTeamDescription("");
-    setSelectedLeader(null);
-    setSelectedMembers([]);
-  };
-
   return (
     <div className={pagemainmain}>
       <div className={pagemaincontainer}>
         <div className={pagemaintext}>팀 제작</div>
-        <div className={pageinput}>
-          <label htmlFor="teamName">팀 이름:</label>
-          <input
-            type="text"
-            id="teamName"
-            name="teamName"
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
-          />
-        </div>
-
-        <div className={pageteamtext}>
-          <p> 팀장: {selectedLeader ? selectedLeader.user_id : "없음"}</p>
-
-          <ul className={pageul}>
-            {leaders.map((user) => (
-              <li key={user.user_id} className={pagetextsub}>
-                <strong>ID :</strong> {user.user_id}
-                <Button
-                  button_text="추가"
-                  button_style={styles.yellowButton}
-                  onClick={() => addLeader(user)}
-                />
-                {selectedLeader && selectedLeader.user_id === user.user_id && (
-                  <Button
-                    button_text="삭제"
-                    button_style={styles.yellowButton}
-                    onClick={removeLeader}
-                  />
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className={pageteamtext}>
-          <p>
-            팀원:{" "}
-            {selectedMembers.map((member) => member.user_id).join(", ") ||
-              "없음"}
-          </p>
-
-          <div className={pageul}>
-            {members.map((user) => (
-              <div key={user.user_id} className={pagetextsub}>
-                <strong>ID :</strong> {user.user_id}
-                <Button
-                  button_text="추가"
-                  button_style={styles.yellowButton}
-                  onClick={() => addMember(user)}
-                />
-                {selectedMembers.some(
-                  (member) => member.user_id === user.user_id
-                ) && (
-                  <Button
-                    button_text="삭제"
-                    button_style={styles.yellowButton}
-                    onClick={() => removeMember(user)}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={pagetextsub}>
-          <label htmlFor="teamDescription" className={pageteamtext}>
-            팀 특징 서술:
-          </label>
-          <textarea
-            id="teamDescription"
-            name="teamDescription"
-            value={teamDescription}
-            onChange={(e) => setTeamDescription(e.target.value)}
-            className={pagetextarea}
-          />
-        </div>
+        <TeamNameField teamName={teamName} setTeamName={setTeamName} />
+        <TeamLeaderSelect
+          leaders={leaders}
+          selectedLeader={selectedLeader}
+          addLeader={addLeader}
+          removeLeader={removeLeader}
+        />
+        <MemberSelect
+          members={members}
+          selectedMembers={selectedMembers}
+          addMember={addMember}
+          removeMember={removeMember}
+        />
+        <TeamDescriptionField
+          teamDescription={teamDescription}
+          setTeamDescription={setTeamDescription}
+        />
         <div className={teambuttoncontainer}>
-          <Button
-            button_text="팀 생성"
-            button_style={styles.blueButton}
-            onClick={handleSubmit}
-          />
+          <TeamButton handleSubmit={handleSubmit} />
         </div>
       </div>
     </div>
