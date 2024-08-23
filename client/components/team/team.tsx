@@ -13,13 +13,10 @@ import {
   teambuttoncontainer,
 } from "client/styles/team/teampage.css";
 import Button from "client/refactor_component/atom/button/button";
-import fetchCheckTeamNameExists from "./service/fetchCheckTeamNameExists";
-import fetchLeadersAndMembers from "./service/fetchLeadersAndMembers";
-import fetchSaveTeamData from "./service/fetchSaveTeamData";
-
-interface User {
-  user_id: string;
-}
+import fetchCheckTeamNameExists from "./service/checkTeamNameExist/fetchCheckTeamNameExists";
+import fetchLeadersAndMembers from "./service/leaderAndMembers/fetchLeadersAndMembers";
+import fetchSaveTeamData from "./service/saveTeamData/fetchSaveTeamData";
+import { User } from "./interface/team.interface";
 
 function UserSelection() {
   const [teamName, setTeamName] = useState<string>("");
