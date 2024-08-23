@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {User, Profile, UserPersonalProps} from "./userpersonalmodule/usertypes";
-import { fetchUsersAndProfiles } from "./userpersonalmodule/fetchUsersAndProfiles"; 
+import { User, Profile, UserPersonalProps } from "./userpersonalmodule/usertypes";
+import { fetchUsersAndProfiles } from "./userpersonalmodule/fetchUsersAndProfiles";
+import Ul from "../../refactor_component/atom/ul/ul"; 
+import Li from "../../refactor_component/atom/li/li"; 
+import Input from "../../refactor_component/atom/input/input"; 
+import Button from "../../refactor_component/atom/button/button";
+import { greenButton } from "client/styles/templatebutton.css";
+import {
+  listinitial,
+  pendingdiv,
+  pendinglist,
+  pendingmaindiv,
+} from "client/styles/users/attendancestyle.css";
+
 
 const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   const [users, setUsers] = useState<User[]>([]);
-  const [profiles, setProfiles] = useState<Map<string, string>>(); // user_id와 bio를 매핑한 Map
-  const [bios, setBios] = useState<Map<string, string>>(new Map()); // 사용자별 자기소개 입력 상태 초기화
+  const [profiles, setProfiles] = useState<Map<string, string>>(); 
+  const [bios, setBios] = useState<Map<string, string>>(new Map());
   const [disabledUsers, setDisabledUsers] = useState<Map<string, boolean>>(
     new Map()
   ); // 비활성화된 사용자
@@ -38,7 +50,6 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
 
     loadUsersAndProfiles();
   }, []);
-
 
   const handleBioChange = (userId: string, value: string) => {
     setBios((prevBios) => new Map(prevBios).set(userId, value));
@@ -73,9 +84,9 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   return (
     <div>
       <h1>개인 프로필 조회</h1>
-      <ul>
+      <Ul ul_style={listinitial}>
         {users.map((user) => (
-          <li key={user.user_id}>
+          <Li key={user.user_id} li_style={pendinglist}>
             <strong>아이디 : </strong> {user.user_id}
             <strong>이름 : </strong> {user.username}
             <strong>생년월일 : </strong> {user.birth_date}
@@ -91,24 +102,27 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
               {disabledUsers.get(user.user_id) && <span>(비활성화됨)</span>}
               {!disabledUsers.get(user.user_id) && (
                 <div>
-                  <input
+                  <Input
                     type="text"
                     value={bios.get(user.user_id) || ""} // bios.get(user.user_id)이 undefined일 경우 빈 문자열로 대체
-                    onChange={(e) =>
-                      handleBioChange(user.user_id, e.target.value)
-                    }
-                    placeholder="자기소개를 입력하세요"
+                    onChange={(e) => handleBioChange(user.user_id, e.target.value)}
+                    placeholder="자기소개를 입력하세요" id={""}/>
+                  <Button
+                    button_text="비활성화하기"
+                    button_style={greenButton}
+                    onClick={() => handleDisableBio(user.user_id)}
                   />
-                  <button onClick={() => handleDisableBio(user.user_id)}>
-                    비활성화하기
-                  </button>
                 </div>
               )}
             </div>
-          </li>
+          </Li>
         ))}
-      </ul>
-      <button onClick={handleSave}>저장하기</button>
+      </Ul>
+      <Button
+        button_text="저장하기"
+        button_style={greenButton}
+        onClick={handleSave}
+      />
     </div>
   );
 };
