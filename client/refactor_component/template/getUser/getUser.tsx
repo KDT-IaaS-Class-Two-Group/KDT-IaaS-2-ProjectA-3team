@@ -4,7 +4,7 @@
  */
 import React from "react";
 import getUser from "client/model/services/getUsers";
-import Button from "../refactor_component/atom/button/button";
+import Button from "../../atom/button/button";
 import { greenButton } from "client/styles/templatebutton.css";
 /**
  * @brief 사용자를 조회하는 버튼을 포함하는 테스트 페이지 컴포넌트입니다.
