@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { greenButton, blueButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/notice/notice.css";
+import retrieveComment from "./commentFormModule/fetchCommentRetrieve"
+import { ListComment } from "./commentFormModule/ListComment";
 
 interface CommentFormProps {
   postId: string;
-}
-interface ListComment {
-  _id: string;
-  userId: string;
-  content: string;
-  createdAt: string;
 }
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
@@ -21,26 +17,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [editState, setEditState] = useState<{ [key: string]: boolean }>({}); // 댓글 수정 상태
 
   const fetchComment = () => {
-    fetch(
-      `http://localhost:3001/usercomment/${postId}?page=${currentPage}&limit=${itemsPerPage}`
-    )
-      .then((response) => response.json())
-      .then((data: { comments: ListComment[]; totalPages: number }) => {
-        setCommentList(data.comments); // 댓글 데이터
-        setTotalPages(data.totalPages); // 총 페이지 수 설정
-        initializeEditState(data.comments); // 댓글 수정 상태 초기화
-      })
-      .catch((err) => {
-        console.error("데이터를 가져오는 중 오류 발생:", err);
-      });
-  };
-
-  const initializeEditState = (comments: ListComment[]) => {
-    const initialEditState: { [key: string]: boolean } = {};
-    comments.forEach((comment) => {
-      initialEditState[comment._id] = false; // 모든 댓글을 비수정 상태로 초기화
-    });
-    setEditState(initialEditState);
+    retrieveComment(postId, currentPage, itemsPerPage, setCommentList, setTotalPages)
   };
 
   useEffect(() => {
