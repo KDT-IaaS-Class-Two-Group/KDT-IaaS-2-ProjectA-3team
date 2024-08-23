@@ -1,16 +1,12 @@
-/**
- * @file UserLookup.tsx
- * @brief 이 파일은 사용자 정보를 조회하고 수정할 수 있는 사용자 조회 컴포넌트를 포함하고 있습니다.
- */
-
 import { useEffect, useState } from "react";
-import { User, Field, UserLookupProps } from "./userlookupmodule/usertypes";
+import { User, UserLookupProps } from "./userlookupmodule/usertypes";
 import { handleInputChange } from "./userlookupmodule/handleInputChange";
 import { fetchUsers } from "./userlookupmodule/fetchUsers";
-import Button from "../../refactor_component/atom/button/button"; 
-import Ul from "../../refactor_component/atom/ul/ul"; 
-import Li from "../../refactor_component/atom/li/li"; 
-import FormField from "../../refactor_component/molecule/form_field/form_field"; 
+import Button from "../../refactor_component/atom/button/button";
+import Ul from "../../refactor_component/atom/ul/ul";
+import Li from "../../refactor_component/atom/li/li";
+import FormField from "../../refactor_component/molecule/form_field/form_field";
+import Select from "../../refactor_component/atom/select/select";  // Select 컴포넌트 import
 import { greenButton } from "client/styles/templatebutton.css";
 import {
   listinitial,
@@ -94,37 +90,25 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
               onChange={(e) => handleInputChangeWrapper(index, e, "salary")}
               placeholder={""}
             />
-            <div>
-              <label htmlFor={`role-${index}`}>권한 : </label>
-              <select
-                id={`role-${index}`}
-                value={user.role_name || ""}
-                onChange={(e) =>
-                  handleInputChangeWrapper(index, e, "role_name")
-                }
-              >
-                <option value="admin">1</option>
-                <option value="user">2</option>
-                <option value="guest">3</option>
-                <option value="editor">4</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor={`field-${index}`}>분야 : </label>
-              <select
-                id={`field-${index}`}
-                value={user.field_name || ""}
-                onChange={(e) =>
-                  handleInputChangeWrapper(index, e, "field_name")
-                }
-              >
-                {fields.map((field) => (
-                  <option key={field} value={field}>
-                    {field}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Select
+              id={`role-${index}`}
+              value={user.role_name || ""}
+              onChange={(e) => handleInputChangeWrapper(index, e, "role_name")}
+              options={[
+                { value: "admin", label: "Admin" },
+                { value: "user", label: "User" },
+                { value: "guest", label: "Guest" },
+                { value: "editor", label: "Editor" },
+              ]}
+              label="권한 : "
+            />
+            <Select
+              id={`field-${index}`}
+              value={user.field_name || ""}
+              onChange={(e) => handleInputChangeWrapper(index, e, "field_name")}
+              options={fields.map((field) => ({ value: field, label: field }))}
+              label="분야 : "
+            />
           </Li>
         ))}
       </Ul>
