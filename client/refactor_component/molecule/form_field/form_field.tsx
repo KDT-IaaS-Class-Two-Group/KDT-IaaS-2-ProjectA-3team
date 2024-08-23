@@ -9,12 +9,13 @@ const FormField: React.FC<FormFieldProps> = ({
   label,
   value,
   input_type,
+  placeholder,
   onChange,
 }) => {
   return (
     <div className="">
       <Label htmlFor={id}>{label}</Label>
-      <Input id={id} type={input_type} value={value} onChange={onChange} />
+      <Input id={id} type={input_type} value={value} onChange={onChange} placeholder={placeholder}/>
     </div>
   );
 };
