@@ -9,6 +9,7 @@ import {
 } from "client/styles/users/attendancestyle.css";
 import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { blueButton, yellowButton } from "client/styles/templatebutton.css";
+
 // 모듈
 import { handleEditClick } from "./userpersonalmodule/handleEditClick";
 import { handleUpdateUser } from "./userpersonalmodule/handleUpdateUser";
@@ -20,9 +21,8 @@ import { handleSave } from "./userpersonalmodule/handleSave";
 import { User, Profile, UserPersonalProps } from "./userpersonalmodule/usertypes"; 
 import { fetchUsers } from "./userpersonalmodule/fetchUsers";
 
-
 import FormField from "../../refactor_component/molecule/formField/form_field";
-
+import Button from "../../refactor_component/atom/button/button";
 
 const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   const [users, setUsers] = useState<User[]>([]);
@@ -145,25 +145,23 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     }
                   />
                   <div className={buttonparent}>
-                    <button
+                    <Button
+                      button_text="수정 취소"
+                      button_style={yellowButton}
                       onClick={() =>
                         handleCancelEdit(setEditingUserId, setEditFields)
                       }
-                      className={yellowButton}
-                    >
-                      수정 취소
-                    </button>
-                    <button
+                    />
+                    <Button
                       key={user.user_id}
+                      button_text="수정 요청 전송"
+                      button_style={blueButton}
                       onClick={() =>
                         handleUpdateUser(user.user_id, editFields, () =>
                           handleCancelEdit(setEditingUserId, setEditFields)
                         )
                       }
-                      className={blueButton}
-                    >
-                      수정 요청 전송
-                    </button>
+                    />
                   </div>
                 </div>
               ) : (
@@ -199,15 +197,16 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     {!disabledUsers.get(user.user_id) && (
                       <>
                         <div className={buttonparent}>
-                          <button
+                          <Button
+                            button_text="자기소개 비활성화"
+                            button_style={styles.greenButton}
                             onClick={() =>
                               handleDisableBio(user.user_id, setDisabledUsers)
                             }
-                            className={styles.greenButton}
-                          >
-                            자기소개 비활성화
-                          </button>
-                          <button
+                          />
+                          <Button
+                            button_text="개인 정보 수정"
+                            button_style={styles.yellowButton}
                             onClick={() =>
                               handleEditClick(
                                 user.user_id,
@@ -216,12 +215,8 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                                 setEditFields
                               )
                             }
-                            className={styles.yellowButton}
-                          >
-                            개인 정보 수정
-                          </button>
+                          />
                         </div>
-                        <div></div>
                       </>
                     )}
                   </div>
