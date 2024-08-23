@@ -10,7 +10,7 @@ import { fetchCheckUsers } from "./checkprofilemodule/fetchCheckUsers";
 // Custom Li and Ul components
 import Li from "../../atoms/li";
 import Ul from "../../atoms/ul";
-import Button from "../../atoms/button";
+import Button from "client/refactor_component/atom/button/button";
 
 /**
  * @brief 사용자 프로필을 조회하고, 수락할 수 있는 컴포넌트입니다.
@@ -76,11 +76,11 @@ const Checkprofile: React.FC<CheckprofileProps> = ({ onSave }) => {
           </Li>
         ))}
       </Ul>
-      {/* <Button 
+      <Button 
         button_text="변경사항 저장하기" 
         button_style="custom-button-style" 
         onClick={handleSaveClick} 
-      /> */}
+      />
     </div>
   );
 };

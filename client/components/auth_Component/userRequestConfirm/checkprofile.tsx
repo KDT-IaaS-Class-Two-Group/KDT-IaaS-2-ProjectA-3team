@@ -91,7 +91,7 @@ const UserRequest: React.FC = () => {
     <div className={pagemainmain}>
       <div className={pagemaintext}>사용자 프로필 수정 요청</div>
       {loading && <div>Loading...</div>}
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      {error && <div>{error}</div>}
       <div className={pendingmaindiv}>
         {users.length > 0 ? (
           <ul className={listinitial}>
