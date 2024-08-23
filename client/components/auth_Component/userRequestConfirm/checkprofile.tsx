@@ -8,84 +8,14 @@ import {
   profilelist,
 } from "client/styles/users/attendancestyle.css";
 import React, { useState, useEffect } from "react";
-
-export interface User {
-  user_id: string;
-  username: string;
-  birth_date: string;
-  address: string;
-  phone: string;
-  email: string;
-  password: string;
-}
+import {User} from "./checkprofilemodule/usertypes";
+import { handleAccept } from "./checkprofilemodule/handelAccept";
+import { handleReject } from "./checkprofilemodule/handleReject";
+import useFetchCheckProfile from "./checkprofilemodule/fetchCheckProfile";
 
 const UserRequest: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const { users, loading, error } = useFetchCheckProfile();
 
-  const fetchCheckProfile = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(
-        "http://localhost:3001/getUser/checkprofile"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data: User[] = await response.json();
-      setUsers(data);
-    } catch (error) {
-      setError("사용자 정보 조회 실패: " + (error as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    // 컴포넌트가 처음 마운트될 때 사용자 정보를 가져오는 함수 호출
-    fetchCheckProfile();
-  }, []);
-
-  const handleAccept = async (user_id: string) => {
-    try {
-      const response = await fetch("http://localhost:3001/getUser/accept", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      alert("변경사항이 수락되었습니다.");
-      fetchCheckProfile(); // 데이터 새로 고침
-    } catch (error) {
-      console.error("변경 수락 실패:", error);
-    }
-  };
-
-  const handleReject = async (user_id: string) => {
-    try {
-      const response = await fetch("http://localhost:3001/getUser/reject", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      alert("변경사항이 거절되었습니다.");
-      fetchCheckProfile(); // 데이터 새로 고침
-    } catch (error) {
-      console.error("변경 거절 실패:", error);
-    }
-  };
 
   return (
     <div className={pagemainmain}>
