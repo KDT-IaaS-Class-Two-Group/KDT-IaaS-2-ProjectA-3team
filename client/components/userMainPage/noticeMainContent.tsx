@@ -2,13 +2,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as styles from "../../styles/notice/notice.css";
 import { centeredflexrowcontainergap } from "client/styles/standardcontainer.css";
-
-interface ListNotice {
-  _id: string;
-  title: string;
-  user_id: string;
-  createdAt: string;
-}
+import { ListNotice } from "./noticeMainContentModule/interfaceType";
+import fetchNotices from "./noticeMainContentModule/fetchNotice";
 
 /**
  * * Function : NoticeMainContent
@@ -26,22 +21,7 @@ const NoticeMainContent = () => {
   const itemsPerPage = 5; // 한 페이지당 항목 수
 
   useEffect(() => {
-    const fetchNotices = () => {
-      fetch(
-        `http://localhost:3001/notices?page=${currentPage}&limit=${itemsPerPage}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data: { notices: ListNotice[]; totalPages: number }) => {
-          setUserList(data.notices); // 게시물 데이터
-          setTotalPages(data.totalPages); // 총 페이지 수 설정
-        })
-        .catch((err) => {
-          console.error("데이터를 가져오는 중 오류 발생:", err);
-        });
-    };
-    fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
+    fetchNotices(currentPage, itemsPerPage, setUserList, setTotalPages);
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
