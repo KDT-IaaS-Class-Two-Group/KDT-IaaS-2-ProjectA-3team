@@ -1,5 +1,5 @@
 /**
- * @file Label.tsx
+ * @file label.tsx
  * @brief 라벨 컴포넌트 파일
  * @details 이 파일은 폼 요소와 연결된 레이블을 렌더링하는 재사용 가능한 Label 컴포넌트를 정의한다.
  *

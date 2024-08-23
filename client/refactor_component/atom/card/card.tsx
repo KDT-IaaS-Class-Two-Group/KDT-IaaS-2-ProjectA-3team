@@ -1,5 +1,5 @@
 /**
- * @file Card.tsx
+ * @file card.tsx
  * @brief 카드 컴포넌트 파일
  * @details 이 파일은 컨텐츠를 감싸는 카드 UI 컴포넌트를 정의한다.
  * @author @dalramjwi
