@@ -1,48 +1,20 @@
-// client/model/services/checkprofile.ts
 import React, { useEffect, useState } from "react";
-
-export interface User {
-  user_id: string;
-  username: string;
-  birth_date: string;
-  address: string;
-  phone: string;
-  email: string;
-  password: string;
-}
-
-interface CheckprofileProps {
-  onSave: (checkusers: User[]) => Promise<void>;
-}
+import { User, CheckprofileProps } from "./checkprofilemodule/usertypes";
+import { handleSave } from "./checkprofilemodule/handleSave";
+import { fetchCheckUsers } from "./checkprofilemodule/fetchCheckUsers";
 
 const Checkprofile: React.FC<CheckprofileProps> = ({ onSave }) => {
+  // 이 상태 관리 코드는 Checkprofile 컴포넌트 내에 있어야 합니다.
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchCheckUsers = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3001/getUser/checkprofile`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data: User[] = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error("사용자 정보 조회 실패:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCheckUsers();
+    fetchCheckUsers(setUsers, setLoading);
   }, []);
 
-  const handleSave = async () => {
+  const handleSaveClick = async () => {
     try {
-      await onSave(users);
+      await handleSave(users);
       console.log("사용자 정보 저장 성공");
     } catch (error) {
       console.error("사용자 정보 저장 실패:", error);
@@ -73,7 +45,7 @@ const Checkprofile: React.FC<CheckprofileProps> = ({ onSave }) => {
           </li>
         ))}
       </ul>
-      <button onClick={handleSave}>변경사항 저장하기</button>
+      <button onClick={handleSaveClick}>변경사항 저장하기</button>
     </div>
   );
 };
