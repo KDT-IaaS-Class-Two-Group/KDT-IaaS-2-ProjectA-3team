@@ -1,5 +1,5 @@
-import {User} from "./usertypes"
-import useFetchCheckProfile from "./fetchCheckProfile"
+import { User } from "../interface/usertypes";
+import useFetchCheckProfile from "../hook/fetchCheckProfile";
 
 export const handleAccept = async (user_id: string) => {
   try {

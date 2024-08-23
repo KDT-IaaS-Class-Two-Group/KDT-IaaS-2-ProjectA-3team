@@ -13,20 +13,20 @@ import {
   pendingmaindiv,
   profilelist,
 } from "client/styles/users/attendancestyle.css";
-import { User } from "./checkprofilemodule/usertypes";
-import { handleAccept } from "./checkprofilemodule/handelAccept";
-import { handleReject } from "./checkprofilemodule/handleReject";
-import useFetchCheckProfile from "./checkprofilemodule/fetchCheckProfile";
-import Ul from "../../../refactor_component/atom/ul/ul"; 
-import Li from "../../../refactor_component/atom/li/li"; 
-import Button from "../../../refactor_component/atom/button/button"; 
+import { User } from "./checkprofilemodule/interface/usertypes";
+import { handleAccept } from "./checkprofilemodule/service/handelAccept";
+import { handleReject } from "./checkprofilemodule/service/handleReject";
+import useFetchCheckProfile from "./checkprofilemodule/hook/fetchCheckProfile";
+import Ul from "../../../refactor_component/atom/ul/ul";
+import Li from "../../../refactor_component/atom/li/li";
+import Button from "../../../refactor_component/atom/button/button";
 
 /**
  * @brief 사용자 프로필 수정 요청 목록을 보여주고, 변경을 수락하거나 거절할 수 있는 컴포넌트입니다.
- * 
+ *
  * `useFetchCheckProfile` 훅을 사용하여 서버로부터 사용자 목록을 불러오고, 로딩 상태와 오류 상태를 처리합니다.
  * 각 사용자는 리스트 항목으로 표시되며, 관리자는 변경 요청을 수락하거나 거절할 수 있습니다.
- * 
+ *
  * @returns React.FC 이 컴포넌트는 React 함수형 컴포넌트입니다.
  */
 const UserRequest: React.FC = () => {
