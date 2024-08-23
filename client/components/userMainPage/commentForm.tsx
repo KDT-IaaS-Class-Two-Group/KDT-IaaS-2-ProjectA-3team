@@ -36,8 +36,8 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     commentUpdate(postId, newContent, fetchComment, setEditState);
   }
 
-  const deleteComment = () => {
-    commentDelete(postId,fetchComment)
+  const deleteComment = (postId:string) => {
+    commentDelete(postId, fetchComment)
   }
 
   return (
@@ -111,7 +111,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                     </div>
                     <div>
                       <button
-                        onClick={() => commentDelete(comment._id)}
+                        onClick={() => deleteComment(comment._id)}
                         className={greenButton}
                       >
                         삭제
