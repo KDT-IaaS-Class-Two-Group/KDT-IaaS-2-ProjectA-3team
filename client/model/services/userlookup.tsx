@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { User, Field, UserLookupProps } from "./userlookupmodule/usertypes";
 import { handleInputChange } from "./userlookupmodule/handleInputChange";
 import { fetchUsers } from "./userlookupmodule/fetchUsers";
+import Button from "../../refactor_component/atom/button/button"; // 버튼 모듈 임포트
+import Ul from "../../refactor_component/atom/ul/ul"; // ul 모듈 임포트
+import Li from "../../refactor_component/atom/li/li"; // li 모듈 임포트
+import FormField from "../../refactor_component/molecule/form_field/form_field"; // input과 label 모듈 임포트
 import { greenButton } from "client/styles/templatebutton.css";
 import {
   listinitial,
@@ -30,6 +34,7 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
 
     loadUsers();
   }, []);
+
   const handleSave = () => {
     onSave(users);
   };
@@ -46,26 +51,25 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
 
   return (
     <div className={pendingmaindiv}>
-      <ul className={listinitial}>
+      <Ul ul_style={listinitial}>
         {users.map((user, index) => (
-          <li key={user.id} className={pendinglist}>
+          <Li key={user.id} li_style={pendinglist}>
             이름 : {user.username}
-            <div>
-              <label htmlFor={`salary-${index}`}>월급 : </label>
-              <input
-                id={`salary-${index}`}
-                type="number"
-                value={user.salary || ""}
-                onChange={(e) => handleInputChangeWrapper(index, e, "salary")}
-                placeholder="월급을 입력하세요"
-              />
-            </div>
+            <FormField
+              id={`salary-${index}`}
+              label="월급 : "
+              value={user.salary ? user.salary.toString() : ""}
+              input_type="number"
+              onChange={(e) => handleInputChangeWrapper(index, e, "salary")}
+            />
             <div>
               <label htmlFor={`role-${index}`}>권한 : </label>
               <select
                 id={`role-${index}`}
                 value={user.role_name || ""}
-                onChange={(e) => handleInputChangeWrapper(index, e, "role_name")}
+                onChange={(e) =>
+                  handleInputChangeWrapper(index, e, "role_name")
+                }
               >
                 <option value="admin">1</option>
                 <option value="user">2</option>
@@ -78,7 +82,9 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
               <select
                 id={`field-${index}`}
                 value={user.field_name || ""}
-                onChange={(e) => handleInputChangeWrapper(index, e, "field_name")}
+                onChange={(e) =>
+                  handleInputChangeWrapper(index, e, "field_name")
+                }
               >
                 {fields.map((field) => (
                   <option key={field} value={field}>
@@ -87,13 +93,15 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
                 ))}
               </select>
             </div>
-          </li>
+          </Li>
         ))}
-      </ul>
+      </Ul>
       <div className={pendingdiv}>
-        <button onClick={handleSave} className={greenButton}>
-          사용자 승인
-        </button>
+        <Button
+          button_text="사용자 승인"
+          button_style={greenButton}
+          onClick={handleSave}
+        />
       </div>
     </div>
   );
