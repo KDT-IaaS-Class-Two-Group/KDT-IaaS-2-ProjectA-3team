@@ -27,6 +27,7 @@ const TeamNameField: React.FC<TeamNameFieldProps> = ({
       label="팀 이름:"
       value={teamName}
       input_type="text"
+      placeholder="팀 이름을 입력해주세요"
       onChange={(e) => setTeamName(e.target.value)}
     />
   );
