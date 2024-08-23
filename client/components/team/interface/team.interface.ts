@@ -15,3 +15,6 @@ export interface LeaderSelectProps {
   addLeader: (user: User) => void;
   removeLeader: () => void;
 }
+export interface TeamButtonProps {
+  handleSubmit: (e: React.FormEvent) => void;
+}
