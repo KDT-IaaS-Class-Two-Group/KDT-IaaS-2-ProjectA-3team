@@ -17,7 +17,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [commentList, setCommentList] = useState<ListComment[]>([]); // 서버에서 건너오는 댓글 데이터
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
-  const itemsPerPage = 4; // 한 페이지당 항목 수
+  const itemsPerPage = 3; // 한 페이지당 항목 수
   const [editState, setEditState] = useState<{ [key: string]: boolean }>({}); // 댓글 수정 상태
 
   const fetchComment = () => {
@@ -198,7 +198,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         )}
       </div>
       {/* 페이징 버튼 UI */}
-      {/* <div>
+      <div>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <button
@@ -210,7 +210,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
             </button>
           )
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

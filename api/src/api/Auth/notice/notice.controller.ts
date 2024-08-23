@@ -115,7 +115,7 @@ export class NoticeController {
   async getUserComment(
     @Param('postid') postId: string,
     @Query('page') page: string = '1',
-    @Query('limit') limit: string = '5',
+    @Query('limit') limit: string = '3',
   ) {
     const pageNumber = parseInt(page, 10); // 10진수로 변환
     const limitNumber = parseInt(limit, 10); // 10진수로 변환
