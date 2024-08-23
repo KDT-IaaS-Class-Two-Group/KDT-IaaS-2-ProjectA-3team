@@ -18,7 +18,7 @@ const PendingUserLook: React.FC = () => {
       }
       console.log("사용자 정보 저장 성공");
     } catch (error) {
-      console.error("사용자 정보 저장 실패:", error);
+      console.error("사용자 정보cr 저장 실패:", error);
     }
   };
 
