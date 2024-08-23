@@ -1,3 +1,11 @@
+/**
+ * @file team.tsx
+ * @brief 팀 생성 컴포넌트 파일
+ * @details 이 파일에는 팀 생성 폼과 관련된 모든 UI 컴포넌트와 상태 관리 로직이 포함되어 있다.
+ *
+ * @author @dalramjwi
+ * @date 2024-08-23
+ */
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/team/team.css";
 import * as button from "../../styles/templatebutton.css";
