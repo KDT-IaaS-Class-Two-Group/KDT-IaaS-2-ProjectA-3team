@@ -16,25 +16,29 @@ import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 // 모듈
-import { handleEditClick } from "./userpersonalmodule/handleEditClick";
-import { handleUpdateUser } from "./userpersonalmodule/handleUpdateUser";
-import { handleDisableBio } from "./userpersonalmodule/handleDisableBio";
-import { handleFieldChange } from "./userpersonalmodule/handleFieldChange";
-import { handleBioChange } from "./userpersonalmodule/handleBioChange";
-import { handleCancelEdit } from "./userpersonalmodule/handleCancelEdit";
-import { handleSave } from "./userpersonalmodule/handleSave";
-import { User, Profile, UserPersonalProps } from "./userpersonalmodule/usertypes"; 
-import { fetchUsers } from "./userpersonalmodule/fetchUsers";
+import { handleEditClick } from "./userpersonalmodule/hook/handleEditClick";
+import { handleUpdateUser } from "./userpersonalmodule/service/handleUpdateUser";
+import { handleDisableBio } from "./userpersonalmodule/hook/handleDisableBio";
+import { handleFieldChange } from "./userpersonalmodule/hook/handleFieldChange";
+import { handleBioChange } from "./userpersonalmodule/hook/handleBioChange";
+import { handleCancelEdit } from "./userpersonalmodule/hook/handleCancelEdit";
+import { handleSave } from "./userpersonalmodule/utils/handleSave";
+import {
+  User,
+  Profile,
+  UserPersonalProps,
+} from "./userpersonalmodule/interface/usertypes";
+import { fetchUsers } from "./userpersonalmodule/service/fetchUsers";
 
 import FormField from "../../refactor_component/molecule/form_field/form_field";
 import Button from "../../refactor_component/atom/button/button";
 
 /**
  * @brief 사용자 개인 정보를 조회하고 수정할 수 있는 컴포넌트입니다.
- * 
+ *
  * 이 컴포넌트는 사용자 목록을 표시하며, 사용자의 정보를 수정할 수 있는 폼을 제공합니다.
  * 사용자는 자신의 프로필을 조회하고, 자기소개를 비활성화하거나 개인 정보를 수정할 수 있습니다.
- * 
+ *
  * @param {UserPersonalProps} props - 컴포넌트의 props로 `onSave` 콜백 함수를 포함합니다.
  * @returns React.FC 이 컴포넌트는 React 함수형 컴포넌트입니다.
  */
@@ -52,7 +56,7 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   useEffect(() => {
     /**
      * @brief 사용자 데이터를 비동기적으로 불러오는 함수입니다.
-     * 
+     *
      * `fetchUsers`를 호출하여 사용자 데이터, 프로필, 자기소개, 비활성화 상태를 불러오고 상태에 저장합니다.
      */
     fetchUsers(setUsers, setProfiles, setBios, setDisabledUsers, setLoading);
@@ -74,74 +78,95 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     label="이름 :"
                     value={editFields.username || ""}
                     input_type="text"
-                    onChange={(e) => handleFieldChange(
-                      "username",
-                      e.target.value,
-                      setEditFields
-                    )} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "username",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                    placeholder={""}
+                  />
                   <FormField
                     id="user_id"
                     label="아이디 :"
                     value={user.user_id}
                     input_type="text"
-                    onChange={() => { } } // 읽기 전용 입력, 변경 핸들러 필요 없음
-                    placeholder={""}                  />
+                    onChange={() => {}} // 읽기 전용 입력, 변경 핸들러 필요 없음
+                    placeholder={""}
+                  />
                   <FormField
                     id="password"
                     label="비밀번호 :"
                     value={editFields.password || ""}
                     input_type="password"
-                    onChange={(e) => handleFieldChange(
-                      "password",
-                      e.target.value,
-                      setEditFields
-                    )} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "password",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                    placeholder={""}
+                  />
                   <FormField
                     id="email"
                     label="이메일 :"
                     value={editFields.email || ""}
                     input_type="text"
-                    onChange={(e) => handleFieldChange(
-                      "email",
-                      e.target.value,
-                      setEditFields
-                    )} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleFieldChange("email", e.target.value, setEditFields)
+                    }
+                    placeholder={""}
+                  />
                   <FormField
                     id="phone"
                     label="핸드폰 번호 :"
                     value={editFields.phone || ""}
                     input_type="text"
-                    onChange={(e) => handleFieldChange(
-                      "phone",
-                      e.target.value,
-                      setEditFields
-                    )} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleFieldChange("phone", e.target.value, setEditFields)
+                    }
+                    placeholder={""}
+                  />
                   <FormField
                     id="birth_date"
                     label="생년월일 :"
                     value={editFields.birth_date || ""}
                     input_type="text"
-                    onChange={(e) => handleFieldChange(
-                      "birth_date",
-                      e.target.value,
-                      setEditFields
-                    )} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "birth_date",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                    placeholder={""}
+                  />
                   <FormField
                     id="address"
                     label="주소 :"
                     value={editFields.address || ""}
                     input_type="text"
-                    onChange={(e) => handleFieldChange(
-                      "address",
-                      e.target.value,
-                      setEditFields
-                    )} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "address",
+                        e.target.value,
+                        setEditFields
+                      )
+                    }
+                    placeholder={""}
+                  />
                   <FormField
                     id="bio"
                     label="자기소개 :"
                     value={bios.get(user.user_id) || ""}
                     input_type="text"
-                    onChange={(e) => handleBioChange(user.user_id, e.target.value, setBios)} placeholder={""}                  />
+                    onChange={(e) =>
+                      handleBioChange(user.user_id, e.target.value, setBios)
+                    }
+                    placeholder={""}
+                  />
                   <div className={buttonparent}>
                     <Button
                       button_text="수정 취소"

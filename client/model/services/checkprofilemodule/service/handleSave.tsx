@@ -1,5 +1,4 @@
-import {User, CheckprofileProps } from "./usertypes"
-
+import { User, CheckprofileProps } from "../interface/usertypes";
 
 export const handleSave = async (users: User[]): Promise<void> => {
   try {

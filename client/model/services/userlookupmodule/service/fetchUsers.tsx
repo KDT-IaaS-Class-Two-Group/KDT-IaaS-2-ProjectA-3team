@@ -1,4 +1,4 @@
-import { User, Field } from "./usertypes";
+import { User, Field } from "../interface/usertypes";
 
 export const fetchUsers = async (): Promise<[User[], string[]]> => {
   try {

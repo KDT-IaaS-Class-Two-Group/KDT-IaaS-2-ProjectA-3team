@@ -1,5 +1,5 @@
 // client/model/services/checkprofilemodule/fetchCheckUsers.ts
-import { User } from "./usertypes";
+import { User } from "../interface/usertypes";
 
 export const fetchCheckUsers = async (
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,

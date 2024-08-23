@@ -1,13 +1,4 @@
-// handleUpdateUser.tsx
-interface User {
-  user_id: string;
-  username: string;
-  birth_date: string;
-  address: string;
-  phone: string;
-  email: string;
-  password: string;
-}
+import { User } from "../interface/usertypes";
 
 export const handleUpdateUser = async (
   userId: string,
