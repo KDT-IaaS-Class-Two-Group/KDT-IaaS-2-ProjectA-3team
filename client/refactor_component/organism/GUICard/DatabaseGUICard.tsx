@@ -1,6 +1,6 @@
-import React from 'react';
-import CardHeader from 'client/refactor_component/molecule/CardHeader/CardHeader';
-import DBGUI from 'client/components/DatabaseGuI';
+import React from "react";
+import CardHeader from "client/refactor_component/molecule/card_header/card_header";
+import DBGUI from "client/components/DatabaseGuI";
 
 interface DatabaseGUICardProps {
   onButtonClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -21,7 +21,9 @@ const DatabaseGUICard: React.FC<DatabaseGUICardProps> = ({
       <CardHeader
         title={title}
         onButtonClick={onButtonClick}
-        button_text={button_text} button_style={''}      >
+        button_text={button_text}
+        button_style={""}
+      >
         {children}
       </CardHeader>
       <div>
