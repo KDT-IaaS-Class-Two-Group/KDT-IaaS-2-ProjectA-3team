@@ -5,7 +5,8 @@ import retrieveComment from "./commentFormModule/fetchCommentRetrieve"
 import { ListComment } from "./commentFormModule/ListComment";
 import { CommentFormProps } from "./commentFormModule/CommentFormProps";
 import commentSend from "./commentFormModule/fetchCommentSend";
-
+import commentUpdate from "./commentFormModule/commentUpdate";
+import commentDelete from "./commentFormModule/commentDelete";
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [comment, setComment] = useState("");
@@ -31,50 +32,13 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     setCurrentPage(page); // 페이지 변경
   };
 
-  const commentUpdate = async (postId: string, newContent: string) => {
-    fetch(`http://localhost:3001/comments/${postId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ content: newContent }),
-    })
-      .then((response) => response.text()) // 서버에서 반환한 텍스트 값을 받음
-      .then((text) => {
-        if (text === "true") {
-          fetchComment(); // 댓글 수정 후 데이터 새로고침
-          setEditState((prevState) => ({
-            ...prevState,
-            [postId]: false, // 수정 완료 후 수정 모드 비활성화
-          }));
-        } else {
-          alert("댓글 수정에 실패했습니다.");
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.error("댓글 수정 중 오류 발생:", error);
-        alert("댓글 수정 중 오류 발생");
-      });
-  };
+  const updateComment = (postId: string, newContent: string) => {
+    commentUpdate(postId, newContent, fetchComment, setEditState);
+  }
 
-  const commentDelete = async (postId: string) => {
-    fetch(`http://localhost:3001/comments/${postId}`, {
-      method: "DELETE",
-      credentials: "include",
-    })
-      .then((response) => response.text()) // 서버에서 반환한 텍스트 값을 받음
-      .then((text) => {
-        if (text === "true") {
-          fetchComment(); // 댓글 삭제 후 데이터 새로고침
-        } else {
-          alert("댓글 삭제에 실패했습니다.");
-        }
-      })
-      .catch((error) => {
-        console.error("댓글 삭제 중 오류 발생:", error);
-        alert("댓글 삭제 중 오류 발생");
-      });
-  };
+  const deleteComment = () => {
+    commentDelete(postId,fetchComment)
+  }
 
   return (
     <div>
@@ -114,7 +78,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                     }}
                   />
                   <button
-                    onClick={() => commentUpdate(comment._id, comment.content)}
+                    onClick={() => updateComment(comment._id, comment.content)}
                     className={blueButton}
                   >
                     수정 완료
