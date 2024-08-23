@@ -9,3 +9,9 @@ export interface TeamDescriptionFieldProps {
   teamDescription: string;
   setTeamDescription: (description: string) => void;
 }
+export interface LeaderSelectProps {
+  leaders: User[];
+  selectedLeader: User | null;
+  addLeader: (user: User) => void;
+  removeLeader: () => void;
+}
