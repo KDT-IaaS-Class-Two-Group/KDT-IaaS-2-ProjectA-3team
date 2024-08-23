@@ -1,7 +1,7 @@
 // src/components/molecule/formField/FormField.tsx
 import React from "react";
 import Input from "client/refactor_component/atom/input/Input";
-import Label from "client/refactor_component/atom/label/label";
+import Label from "client/refactor_component/atom/label/Label";
 import FormFieldProps from "./props/form_field.props";
 
 const FormField: React.FC<FormFieldProps> = ({
