@@ -3,10 +3,9 @@ import { greenButton, blueButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/notice/notice.css";
 import retrieveComment from "./commentFormModule/fetchCommentRetrieve"
 import { ListComment } from "./commentFormModule/ListComment";
+import { CommentFormProps } from "./commentFormModule/CommentFormProps";
+import commentSend from "./commentFormModule/fetchCommentSend";
 
-interface CommentFormProps {
-  postId: string;
-}
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [comment, setComment] = useState("");
@@ -24,20 +23,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     fetchComment(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, [postId, currentPage]); // currentPage가 변경될 때마다 fetch
 
-  const commentSend = async (event: React.FormEvent) => {
-    event.preventDefault();
-    // 댓글 추가 API 호출
-    await fetch(`http://localhost:3001/comments/${postId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ content: comment }),
-    });
-    setComment(""); // 폼 초기화
-    fetchComment(); // 댓글 추가 후 데이터 새로고침
-  };
+  const sendComment = () =>{
+    commentSend(postId, comment, setComment, fetchComment);
+  }
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page); // 페이지 변경
@@ -100,7 +88,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
           />
         </div>
         <div>
-          <button onClick={commentSend} className={greenButton}>
+          <button onClick={sendComment} className={greenButton}>
             댓글 작성
           </button>
         </div>
