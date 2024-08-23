@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as styles from "../../styles/notice/notice.css";
-import { yellowButton } from "client/styles/templatebutton.css";
-import {
-  centeredflexrowcontainer,
-  centeredflexrowcontainergap,
-  flexrowcontainer,
-} from "client/styles/standardcontainer.css";
+import { centeredflexrowcontainergap } from "client/styles/standardcontainer.css";
 
 interface ListNotice {
   _id: string;
@@ -18,7 +13,7 @@ interface ListNotice {
 /**
  * * Function : NoticeMainContent
  * 작성자 : @yun-21 / 2024-08-01
- * 편집자 : @dalramjwi / 2024-08-13
+ * 편집자 : @yun-21 / 2024-08-23
  * Issue : 
  * @function NoticeMainContent
  * @description 
