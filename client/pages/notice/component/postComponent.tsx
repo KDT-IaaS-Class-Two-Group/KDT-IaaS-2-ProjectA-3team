@@ -2,8 +2,8 @@ import { useState } from "react";
 import CommentForm from "../../../components/userMainPage/commentForm";
 import { greenButton } from "client/styles/templatebutton.css";
 import * as styles from "../../../styles/notice/notice.css";
-import noticeUpdate from "./noticeUpdate";
-import noticeDelete from "./noticeDelete";
+import noticeUpdate from "./postComponent/noticeUpdate";
+import noticeDelete from "./postComponent/noticeDelete";
 
 interface PostProps {
   title: string;
@@ -19,29 +19,11 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
   const [newContent, setNewContent] = useState(content);
 
   const handleUpdate = () => {
-    noticeUpdate(id, newTitle, newContent)
-    .then(data => {
-      alert(data);
-      window.location.reload();
-    })
-    .catch(err => {
-      console.error(err);
-      alert("수정 중 오류 발생");
-      window.location.href = "/noticeMain";
-    });
+    noticeUpdate(id, newTitle, newContent);
   };
 
   const handleDelete = () => {
-    noticeDelete(id)
-    .then(data => {
-      alert(data);
-      window.location.href = "/noticeMain";
-    })
-    .catch(err => {
-      console.error(err);
-      alert("삭제 중 오류 발생");
-      window.location.href = "/noticeMain";
-    });
+    noticeDelete(id);
   };
 
   const back = () => {
@@ -49,7 +31,7 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
   };
 
   return (
-    <div>
+    <>
       {editMode ? (
         <div className={styles.wrtiePage}>
           <div className={styles.checksize}>
@@ -123,7 +105,7 @@ const Post = ({ title, content, id, createdAt, userId }: PostProps) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
