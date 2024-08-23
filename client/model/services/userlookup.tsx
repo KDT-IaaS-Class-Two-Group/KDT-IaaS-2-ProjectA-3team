@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { User, Field, UserLookupProps } from "./userlookupmodule/usertypes";
+import { User, UserLookupProps } from "./userlookupmodule/usertypes";
 import { handleInputChange } from "./userlookupmodule/handleInputChange";
 import { fetchUsers } from "./userlookupmodule/fetchUsers";
-import Button from "../../refactor_component/atom/button/button"; // 버튼 모듈 임포트
-import Ul from "../../refactor_component/atom/ul/ul"; // ul 모듈 임포트
-import Li from "../../refactor_component/atom/li/li"; // li 모듈 임포트
-import FormField from "../../refactor_component/molecule/form_field/form_field"; // input과 label 모듈 임포트
+import Button from "../../refactor_component/atom/button/button";
+import Ul from "../../refactor_component/atom/ul/ul";
+import Li from "../../refactor_component/atom/li/li";
+import FormField from "../../refactor_component/molecule/form_field/form_field";
+import Select from "../../refactor_component/atom/select/select";  // Select 컴포넌트 import
 import { greenButton } from "client/styles/templatebutton.css";
 import {
   listinitial,
@@ -14,12 +15,26 @@ import {
   pendingmaindiv,
 } from "client/styles/users/attendancestyle.css";
 
+/**
+ * @brief 사용자 정보를 조회하고 수정할 수 있는 컴포넌트입니다.
+ * 
+ * 이 컴포넌트는 사용자의 목록과 필드를 비동기적으로 불러와서 화면에 표시합니다. 사용자는
+ * 각 사용자에 대해 월급, 권한, 분야를 수정할 수 있으며, 수정된 정보를 저장할 수 있습니다.
+ * 
+ * @param {UserLookupProps} props - 컴포넌트의 props로 `onSave` 콜백 함수를 포함합니다.
+ * @returns React.FC 이 컴포넌트는 React 함수형 컴포넌트입니다.
+ */
 const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [fields, setFields] = useState<string[]>([]);
 
   useEffect(() => {
+    /**
+     * @brief 사용자와 필드 데이터를 비동기적으로 불러오는 함수입니다.
+     * 
+     * 이 함수는 `fetchUsers`를 호출하여 사용자 및 필드 데이터를 가져오고, 이를 상태에 저장합니다.
+     */
     const loadUsers = async () => {
       try {
         const [usersData, fieldsData] = await fetchUsers();
@@ -35,10 +50,22 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
     loadUsers();
   }, []);
 
+  /**
+   * @brief 사용자의 정보를 저장하는 함수입니다.
+   * 
+   * 수정된 사용자 정보를 `onSave` 콜백 함수를 통해 상위 컴포넌트에 전달합니다.
+   */
   const handleSave = () => {
     onSave(users);
   };
 
+  /**
+   * @brief 입력 값 변경을 처리하는 래퍼 함수입니다.
+   * 
+   * @param {number} index - 수정할 사용자 인덱스
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - 입력 이벤트
+   * @param {keyof User} field_name - 수정할 사용자 필드 이름
+   */
   const handleInputChangeWrapper = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -61,38 +88,27 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
               value={user.salary ? user.salary.toString() : ""}
               input_type="number"
               onChange={(e) => handleInputChangeWrapper(index, e, "salary")}
+              placeholder={""}
             />
-            <div>
-              <label htmlFor={`role-${index}`}>권한 : </label>
-              <select
-                id={`role-${index}`}
-                value={user.role_name || ""}
-                onChange={(e) =>
-                  handleInputChangeWrapper(index, e, "role_name")
-                }
-              >
-                <option value="admin">1</option>
-                <option value="user">2</option>
-                <option value="guest">3</option>
-                <option value="editor">4</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor={`field-${index}`}>분야 : </label>
-              <select
-                id={`field-${index}`}
-                value={user.field_name || ""}
-                onChange={(e) =>
-                  handleInputChangeWrapper(index, e, "field_name")
-                }
-              >
-                {fields.map((field) => (
-                  <option key={field} value={field}>
-                    {field}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Select
+              id={`role-${index}`}
+              value={user.role_name || ""}
+              onChange={(e) => handleInputChangeWrapper(index, e, "role_name")}
+              options={[
+                { value: "admin", label: "Admin" },
+                { value: "user", label: "User" },
+                { value: "guest", label: "Guest" },
+                { value: "editor", label: "Editor" },
+              ]}
+              label="권한 : "
+            />
+            <Select
+              id={`field-${index}`}
+              value={user.field_name || ""}
+              onChange={(e) => handleInputChangeWrapper(index, e, "field_name")}
+              options={fields.map((field) => ({ value: field, label: field }))}
+              label="분야 : "
+            />
           </Li>
         ))}
       </Ul>
