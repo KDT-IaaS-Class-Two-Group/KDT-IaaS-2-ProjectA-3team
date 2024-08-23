@@ -8,7 +8,6 @@
  * @date 2024-08-23
  */
 
-import { ReactNode } from "react";
 import TagProps from "./props/tag.props";
 
 /**

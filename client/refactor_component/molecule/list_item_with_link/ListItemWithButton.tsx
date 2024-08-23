@@ -1,6 +1,6 @@
 import React from "react";
 import Li from "client/atoms/li";
-import Link from "client/refactor_component/atom/Link/Link"; // Atom 컴포넌트
+import Link from "client/refactor_component/atom/link/link"; // Atom 컴포넌트
 
 interface ListItemWithLinkProps {
   li_style: string;
