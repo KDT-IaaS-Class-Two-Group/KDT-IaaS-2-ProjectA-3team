@@ -18,7 +18,7 @@ import { modalBackdrop } from "./style/back_drop.css";
  * @param {ModalBackdropProps} props 컴포넌트의 props로, onClick 핸들러와 자식 요소(children)를 받는다.
  * @return 백드롭이 적용된 div 요소를 반환
  */
-const ModalBackdrop: React.FC<ModalBackdropProps> = ({ onClick, children }) => {
+const Backdrop: React.FC<ModalBackdropProps> = ({ onClick, children }) => {
   return (
     <div className={modalBackdrop} onClick={onClick}>
       {children}
@@ -26,4 +26,4 @@ const ModalBackdrop: React.FC<ModalBackdropProps> = ({ onClick, children }) => {
   );
 };
 
-export default ModalBackdrop;
+export default Backdrop;
