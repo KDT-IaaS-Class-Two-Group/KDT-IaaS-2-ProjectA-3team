@@ -1,4 +1,5 @@
-import ButtonProps from "./props/button.props";
+import React from "react";
+import ButtonProps from "./props/button.props"; // 경로를 실제 파일 위치로 변경하세요.
 
 const Button: React.FC<ButtonProps> = ({
   button_text,
@@ -11,4 +12,5 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
 export default Button;

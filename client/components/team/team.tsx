@@ -13,11 +13,9 @@ import {
   teambuttoncontainer,
 } from "client/styles/team/teampage.css";
 import Button from "client/refactor_component/atom/button/button";
-import {
-  checkTeamNameExists,
-  fetchLeadersAndMembers,
-  saveTeamData,
-} from "./service/teamService";
+import fetchCheckTeamNameExists from "./service/fetchCheckTeamNameExists";
+import fetchLeadersAndMembers from "./service/fetchLeadersAndMembers";
+import fetchSaveTeamData from "./service/fetchSaveTeamData";
 
 interface User {
   user_id: string;
@@ -69,7 +67,7 @@ function UserSelection() {
       return;
     }
 
-    const nameExists = await checkTeamNameExists(teamName);
+    const nameExists = await fetchCheckTeamNameExists(teamName);
     if (nameExists) {
       alert("이미 존재하는 팀 이름입니다. 다른 팀 이름을 입력해 주세요.");
       return;
@@ -94,7 +92,7 @@ function UserSelection() {
     };
 
     try {
-      const result = await saveTeamData(teamData);
+      const result = await fetchSaveTeamData(teamData);
 
       if (result.error) {
         alert(result.error);
