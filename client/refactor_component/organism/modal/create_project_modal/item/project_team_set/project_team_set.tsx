@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { bold32Text } from "client/styles/standardtextsize.css";
 import { flexrowcontainer } from "client/styles/standardcontainer.css";
-import Button from "client/refactor_component/atom/button/button";
+import Button from "client/refactor_component/atom/button/Button";
 
 import { Dispatch, SetStateAction } from "react";
 import TeamList from "client/refactor_component/molecule/team_list/team_ul";

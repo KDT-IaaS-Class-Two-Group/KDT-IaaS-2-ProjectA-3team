@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
-import Button from "client/refactor_component/atom/button/button";
+import Button from "client/refactor_component/atom/button/Button";
 import FormField from "client/refactor_component/molecule/form_field/form_field";
 import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { bold24Text, bold32Text } from "client/styles/standardtextsize.css";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { User, UserLookupProps } from "./userlookupmodule/interface/usertypes";
 import { handleInputChange } from "./userlookupmodule/utils/handleInputChange";
 import { fetchUsers } from "./userlookupmodule/service/fetchUsers";
-import Button from "../../refactor_component/atom/button/button";
+import Button from "../../refactor_component/atom/button/Button";
 import Ul from "../../refactor_component/atom/ul/ul";
 import Li from "../../refactor_component/atom/li/li";
 import FormField from "../../refactor_component/molecule/form_field/form_field";

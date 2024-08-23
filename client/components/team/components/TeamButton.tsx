@@ -7,7 +7,7 @@
  * @date 2024-08-23
  */
 import React from "react";
-import Button from "client/refactor_component/atom/button/button";
+import Button from "client/refactor_component/atom/button/Button";
 import * as styles from "../../../styles/team/team.css";
 import { TeamButtonProps } from "../interface/team.interface";
 /**

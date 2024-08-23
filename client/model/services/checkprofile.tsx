@@ -13,7 +13,7 @@ import { fetchCheckUsers } from "./checkprofilemodule/service/fetchCheckUsers";
 // Custom Li and Ul components
 import Li from "../../atoms/li";
 import Ul from "../../atoms/ul";
-import Button from "client/refactor_component/atom/button/button";
+import Button from "client/refactor_component/atom/button/Button";
 
 /**
  * @brief 사용자 프로필을 조회하고, 수락할 수 있는 컴포넌트입니다.
