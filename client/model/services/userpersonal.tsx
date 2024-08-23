@@ -1,25 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-// 사용자 데이터 타입 정의
-export interface User {
-  user_id: string;
-  username: string;
-  birth_date: string;
-  address: string;
-  phone: string;
-  email: string;
-  password: string;
-}
-
-// 프로필 데이터 타입 정의
-interface Profile {
-  user_id: string; // 외래 키
-  bio: string; // 자기소개
-}
-
-interface UserPersonalProps {
-  onSave: (users: User[]) => Promise<void>;
-}
+import {User, Profile, UserPersonalProps} from "./userpersonalmodule/usertypes";
+import { fetchUsersAndProfiles } from "./userpersonalmodule/fetchUsersAndProfiles"; 
 
 const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   const [users, setUsers] = useState<User[]>([]);
@@ -31,68 +12,33 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const loadUsersAndProfiles = async () => {
       try {
-        const [userResponse, profileResponse] = await Promise.all([
-          fetch("http://localhost:3001/getUser/userpersonal", {
-            credentials: "include",
-          }),
-          fetch("http://localhost:3001/getUser/userprofile", {
-            credentials: "include",
-          }),
-        ]);
+        const { users: usersData, profiles: profileMap } = await fetchUsersAndProfiles();
+        setUsers(usersData);
+        setProfiles(profileMap);
 
-        if (!userResponse.ok || !profileResponse.ok) {
-          throw new Error(`HTTP error! Status: ${userResponse.status}`);
-        }
+        // 사용자별 자기소개 입력 상태 초기화
+        const biosMap = new Map<string, string>(
+          usersData.map((user) => [user.user_id, profileMap.get(user.user_id) || ""])
+        );
+        setBios(biosMap);
 
-        // 응답 데이터를 JSON으로 변환
-        const usersData: any = await userResponse.json();
-        const profilesData: any = await profileResponse.json();
-
-        // 응답이 배열인지 확인하고 필요한 경우 데이터 변환
-        if (Array.isArray(usersData) && Array.isArray(profilesData)) {
-          setUsers(usersData);
-
-          // 프로필 데이터를 user_id를 키로 하는 Map으로 변환
-          const profileMap = new Map<string, string>(
-            profilesData.map((profile: Profile) => [
-              profile.user_id,
-              profile.bio,
-            ])
-          );
-          setProfiles(profileMap);
-
-          // 사용자별 자기소개 입력 상태 초기화
-          const biosMap = new Map<string, string>(
-            usersData.map((user: User) => [
-              user.user_id,
-              profileMap.get(user.user_id) || "",
-            ])
-          );
-          setBios(biosMap);
-
-          // 사용자별 비활성화 상태 초기화
-          const disabledMap = new Map<string, boolean>(
-            usersData.map((user: User) => [user.user_id, false])
-          );
-          setDisabledUsers(disabledMap);
-        } else {
-          console.error(
-            "Unexpected response format: ",
-            usersData,
-            profilesData
-          );
-        }
+        // 사용자별 비활성화 상태 초기화
+        const disabledMap = new Map<string, boolean>(
+          usersData.map((user) => [user.user_id, false])
+        );
+        setDisabledUsers(disabledMap);
       } catch (error) {
-        console.error("사용자 조회 실패:", error);
+        console.error("사용자 또는 프로필 로드 실패:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    loadUsersAndProfiles();
   }, []);
+
 
   const handleBioChange = (userId: string, value: string) => {
     setBios((prevBios) => new Map(prevBios).set(userId, value));
