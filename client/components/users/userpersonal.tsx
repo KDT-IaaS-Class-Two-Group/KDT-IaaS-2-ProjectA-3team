@@ -21,7 +21,7 @@ import { handleSave } from "./userpersonalmodule/handleSave";
 import { User, Profile, UserPersonalProps } from "./userpersonalmodule/usertypes"; 
 import { fetchUsers } from "./userpersonalmodule/fetchUsers";
 
-import FormField from "../../refactor_component/molecule/formField/form_field";
+import FormField from "../../refactor_component/molecule/form_field/form_field";
 import Button from "../../refactor_component/atom/button/button";
 
 const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
