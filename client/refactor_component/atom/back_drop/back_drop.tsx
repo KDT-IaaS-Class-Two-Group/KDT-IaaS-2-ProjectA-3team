@@ -8,7 +8,7 @@
  * @date 2024-08-23
  */
 
-import ModalBackdropProps from "./props/back_drop.interface";
+import ModalBackdropProps from "./props/back_drop.props";
 import { modalBackdrop } from "./style/back_drop.css";
 
 /**
