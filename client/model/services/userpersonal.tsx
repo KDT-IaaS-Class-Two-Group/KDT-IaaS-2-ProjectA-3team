@@ -120,7 +120,7 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
       </Ul>
       <Button
         button_text="저장하기"
-        button_style={greenButton}
+       button_style={greenButton} 
         onClick={handleSave}
       />
     </div>
