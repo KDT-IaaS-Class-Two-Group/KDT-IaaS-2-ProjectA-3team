@@ -1,4 +1,4 @@
-import { User, Profile } from "./usertypes"; // 경로는 실제 위치로 변경
+import { User, Profile } from "../interface/usertypes"; // 경로는 실제 위치로 변경
 
 export const fetchUsersAndProfiles = async (): Promise<{
   users: User[];

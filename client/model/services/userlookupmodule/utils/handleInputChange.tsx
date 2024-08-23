@@ -1,5 +1,5 @@
 // userLookupHelpers.ts
-import { User } from "./usertypes";
+import { User } from "../interface/usertypes";
 
 export const handleInputChange = (
   index: number,
