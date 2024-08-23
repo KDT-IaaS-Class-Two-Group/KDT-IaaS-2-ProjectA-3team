@@ -5,4 +5,5 @@ export default interface FormFieldProps {
   value: string;
   input_type : string;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  placeholder : string;
 }

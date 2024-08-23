@@ -4,4 +4,5 @@ export default interface InputProps {
   type: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  placeholder : string;
 }
