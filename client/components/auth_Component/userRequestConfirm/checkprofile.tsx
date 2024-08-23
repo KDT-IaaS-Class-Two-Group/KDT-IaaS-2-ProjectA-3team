@@ -13,10 +13,10 @@ import {
   pendingmaindiv,
   profilelist,
 } from "client/styles/users/attendancestyle.css";
-import { User } from "./checkprofilemodule/interface/usertypes";
-import { handleAccept } from "./checkprofilemodule/service/handelAccept";
-import { handleReject } from "./checkprofilemodule/service/handleReject";
-import useFetchCheckProfile from "./checkprofilemodule/hook/fetchCheckProfile";
+import { User } from "./checkprofile_module/interface/usertypes";
+import { handleAccept } from "./checkprofile_module/service/handelAccept";
+import { handleReject } from "./checkprofile_module/service/handleReject";
+import useFetchCheckProfile from "./checkprofile_module/hook/fetchCheckProfile";
 import Ul from "../../../refactor_component/atom/ul/ul";
 import Li from "../../../refactor_component/atom/li/li";
 import Button from "../../../refactor_component/atom/button/button";
