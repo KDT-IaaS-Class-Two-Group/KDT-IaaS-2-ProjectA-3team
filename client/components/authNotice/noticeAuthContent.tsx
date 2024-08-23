@@ -1,31 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as styles from "../../styles/notice/notice.css";
-
-interface ListNotice {
-  _id: string;
-  title: string;
-  user_id: string;
-  createdAt: string;
-}
+import fetchNotices from "./noticeAuthContentModule/fetchNotice";
+import { ListNotice } from "./noticeAuthContentModule/interfaceType";
 
 const NoticeAuthContent = () => {
   const [authList, setAuthList] = useState<ListNotice[]>([]); // auth 서버에서 건너오는 게시물 데이터
 
   useEffect(() => {
-    const fetchNotices = () => {
-      fetch("http://localhost:3001/authnotices")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data: ListNotice[]) => {
-          setAuthList(data);
-        })
-        .catch((err) => {
-          console.error("데이터를 가져오는 중 오류 발생:", err);
-        });
-    };
-    fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
+    fetchNotices(setAuthList);
   }, []);
 
   return (
