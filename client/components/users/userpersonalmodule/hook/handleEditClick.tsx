@@ -1,22 +1,4 @@
-// handleEditClick.tsx
-interface User {
-  user_id: string;
-  username: string;
-  birth_date: string;
-  address: string;
-  phone: string;
-  email: string;
-  password: string;
-}
-
-interface EditFields {
-  username?: string;
-  birth_date?: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-  password?: string;
-}
+import { User, EditFields } from "../interface/usertypes";
 
 export const handleEditClick = (
   userId: string,
