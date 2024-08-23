@@ -2,11 +2,12 @@ import { greenButton } from "client/styles/templatebutton.css";
 import Link from "next/link";
 import React, { useState } from "react";
 import * as styles from "../../styles/notice/notice.css";
+import send from "./noticePageModule/fetchSendNotice";
 
 /**
  * * Function : RegisterForm
  * 작성자 : @신지윤 / 2024-07-31
- * 편집자 : @dalramjwi / 2024-08-13
+ * 편집자 : @yun-21 / 2024-08-23
  * Issue :
  * @function : NoticeBoard
  * @description : 게시판
@@ -16,28 +17,9 @@ const NoticeBoard: React.FC = () => {
   const [state, setState] = useState("");
   const [stateContent, setStateContent] = useState("");
 
-  const send = () => {
-    fetch("http://localhost:3001/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ title: state, content: stateContent }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then((data) => {
-        console.log("Success", data);
-      })
-      .catch((error) => {
-        console.error("에러나어엉", error);
-      });
-  };
+  const dataSend = () => {
+    send(state, stateContent);
+  }
   
   const back = () => {
     window.location.href = "/noticeMain";
@@ -73,7 +55,7 @@ const NoticeBoard: React.FC = () => {
       </div>{" "}
       <div className={styles.btnsize}>
         <Link href="/noticeMain" passHref className={styles.uploadbutton}>
-          <button onClick={send} className={greenButton}>
+          <button onClick={dataSend} className={greenButton}>
             게시글 작성
           </button>
         </Link>
