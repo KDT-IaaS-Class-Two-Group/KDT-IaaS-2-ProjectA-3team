@@ -12,7 +12,7 @@ import {
 import { fetchUsersAndProfiles } from "./userpersonalmodule/service/fetchUsersAndProfiles";
 import Ul from "../../refactor_component/atom/ul/ul";
 import Li from "../../refactor_component/atom/li/li";
-import Input from "../../refactor_component/atom/input/input";
+import Input from "../../refactor_component/atom/input/Input";
 import Button from "../../refactor_component/atom/button/Button";
 import { greenButton } from "client/styles/templatebutton.css";
 import {
