@@ -30,7 +30,7 @@ interface MemberSelectionProps {
  * @param {function} removeMember 선택된 팀원을 제거하는 함수
  * @return 팀원 선택 컴포넌트
  */
-const MemberSelection: React.FC<MemberSelectionProps> = ({
+const MemberSelect: React.FC<MemberSelectionProps> = ({
   members,
   selectedMembers,
   addMember,
@@ -67,4 +67,4 @@ const MemberSelection: React.FC<MemberSelectionProps> = ({
   );
 };
 
-export default MemberSelection;
+export default MemberSelect;

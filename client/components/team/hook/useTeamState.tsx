@@ -14,7 +14,7 @@ import { User } from "../interface/team.interface";
  * @details 팀 이름, 설명, 팀장 및 팀원 선택 등의 상태를 관리하고, 추가 및 제거 기능을 제공한다.
  * @return 폼 상태와 팀원/팀장 관리 함수들을 반환
  */
-const useTeamManagement = () => {
+const useTeamState = () => {
   const [teamName, setTeamName] = useState<string>("");
   const [selectedLeader, setSelectedLeader] = useState<User | null>(null);
   const [selectedMembers, setSelectedMembers] = useState<User[]>([]);
@@ -86,4 +86,4 @@ const useTeamManagement = () => {
   };
 };
 
-export default useTeamManagement;
+export default useTeamState;
