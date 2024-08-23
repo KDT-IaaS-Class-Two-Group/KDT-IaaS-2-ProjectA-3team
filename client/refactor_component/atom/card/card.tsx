@@ -6,7 +6,7 @@
  * @date 2024-08-23
  */
 
-import CardProps from "./props/card.interface";
+import CardProps from "./props/card.props";
 
 /**
  * @brief 카드 컴포넌트

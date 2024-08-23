@@ -1,4 +1,4 @@
-import Button from "client/refactor_component/atom/button/Button";
+import Button from "client/refactor_component/atom/button/button";
 import { bold24Text, bold32Text } from "client/styles/standardtextsize.css";
 
 interface ProjectSetCheckProps {

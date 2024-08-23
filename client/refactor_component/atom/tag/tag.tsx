@@ -9,7 +9,7 @@
  */
 
 import { ReactNode } from "react";
-import TagProps from "./props/tag.interface";
+import TagProps from "./props/tag.props";
 
 /**
  * @brief 태그 컴포넌트

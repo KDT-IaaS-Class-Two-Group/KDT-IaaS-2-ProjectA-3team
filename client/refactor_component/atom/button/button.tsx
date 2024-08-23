@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import ButtonProps from "./props/button.interface";
+import ButtonProps from "./props/button.props";
 
 /**
  * @brief 버튼 컴포넌트

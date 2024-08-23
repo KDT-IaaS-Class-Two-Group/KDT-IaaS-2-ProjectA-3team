@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import InputProps from "./props/input.interface";
+import InputProps from "./props/input.props";
 
 /**
  * @brief 입력 필드 컴포넌트

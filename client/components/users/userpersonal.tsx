@@ -31,7 +31,7 @@ import {
 import { fetchUsers } from "./userpersonalmodule/service/fetchUsers";
 
 import FormField from "../../refactor_component/molecule/form_field/form_field";
-import Button from "../../refactor_component/atom/button/Button";
+import Button from "../../refactor_component/atom/button/button";
 
 /**
  * @brief 사용자 개인 정보를 조회하고 수정할 수 있는 컴포넌트입니다.

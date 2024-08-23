@@ -1,4 +1,4 @@
-import ModalBackdrop from "client/refactor_component/atom/back_drop/Back_drop";
+import ModalBackdrop from "client/refactor_component/atom/back_drop/back_drop";
 import ModalButtonContainer from "client/refactor_component/molecule/modal_close_button/modal_close_button";
 import ModalContent from "client/refactor_component/molecule/modal_content/modal_content";
 import ModalProps from "../props/modal.props";

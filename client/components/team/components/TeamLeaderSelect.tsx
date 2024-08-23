@@ -8,7 +8,7 @@
  */
 import React from "react";
 import { LeaderSelectProps, User } from "../interface/team.interface";
-import Button from "client/refactor_component/atom/button/Button";
+import Button from "client/refactor_component/atom/button/button";
 import Ul from "client/atoms/ul";
 import {
   pageteamtext,

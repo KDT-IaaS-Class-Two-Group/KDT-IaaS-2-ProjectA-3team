@@ -19,7 +19,7 @@ import { handleReject } from "./checkprofile_module/service/handleReject";
 import useFetchCheckProfile from "./checkprofile_module/hook/fetchCheckProfile";
 import Ul from "../../../refactor_component/atom/ul/ul";
 import Li from "../../../refactor_component/atom/li/li";
-import Button from "../../../refactor_component/atom/button/Button";
+import Button from "../../../refactor_component/atom/button/button";
 
 /**
  * @brief 사용자 프로필 수정 요청 목록을 보여주고, 변경을 수락하거나 거절할 수 있는 컴포넌트입니다.

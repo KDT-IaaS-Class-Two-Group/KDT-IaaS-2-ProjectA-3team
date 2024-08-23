@@ -8,7 +8,7 @@
  */
 import React from "react";
 import { User } from "../interface/team.interface";
-import Button from "client/refactor_component/atom/button/Button";
+import Button from "client/refactor_component/atom/button/button";
 import Ul from "client/refactor_component/atom/ul/ul";
 import Li from "client/refactor_component/atom/li/li";
 import { yellowButton } from "client/styles/templatebutton.css";
