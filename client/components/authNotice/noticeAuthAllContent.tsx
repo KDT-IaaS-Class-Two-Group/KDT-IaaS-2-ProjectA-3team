@@ -4,22 +4,11 @@ import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
 import AdminSidebar from "../SideBar/AdminSidebar";
 import AdminMainContent from "../adminMainPage/AdminMainPage";
 import MainHeader from "../common/header/mainheader";
-import {
-  pagemaincontainer,
-  pagemainmain,
-  pagemaintext,
-} from "client/styles/team/teampage.css";
+import { pagemaincontainer, pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 import * as styles from "../../styles/notice/notice.css";
-import {
-  centeredflexrowcontainer,
-} from "client/styles/standardcontainer.css";
-
-interface ListNotice {
-  _id: string;
-  title: string;
-  user_id: string;
-  createdAt: string;
-}
+import { centeredflexrowcontainer } from "client/styles/standardcontainer.css";
+import { ListNotice } from "./noticeAuthContentModule/interfaceType";
+import fetchNotices from "./noticeAuthAllContentModule/fetchNotice"
 
 const NoticeAuthAllContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // admin 서버에서 건너오는 게시물 데이터
@@ -28,22 +17,7 @@ const NoticeAuthAllContent = () => {
   const itemsPerPage = 8; // 한 페이지당 항목 수
 
   useEffect(() => {
-    const fetchNotices = () => {
-      fetch(
-        `http://localhost:3001/authallnotices?page=${currentPage}&limit=${itemsPerPage}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data: { notices: ListNotice[]; totalPages: number }) => {
-          setUserList(data.notices); // 게시물 데이터
-          setTotalPages(data.totalPages); // 총 페이지 수 설정
-        })
-        .catch((err) => {
-          console.error("데이터를 가져오는 중 오류 발생:", err);
-        });
-    };
-    fetchNotices(); //컴포넌트가 처음 렌더링될 때 데이터 fetch
+    fetchNotices(currentPage, itemsPerPage, setUserList, setTotalPages);
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
