@@ -27,7 +27,7 @@ import Li from "client/refactor_component/atom/li/li";
  * @param {function} removeLeader 선택된 팀장을 제거하는 함수
  * @return 팀장 선택 컴포넌트
  */
-const LeaderSelection: React.FC<LeaderSelectProps> = ({
+const TeamLeaderSelect: React.FC<LeaderSelectProps> = ({
   leaders,
   selectedLeader,
   addLeader,
@@ -59,4 +59,4 @@ const LeaderSelection: React.FC<LeaderSelectProps> = ({
   );
 };
 
-export default LeaderSelection;
+export default TeamLeaderSelect;
