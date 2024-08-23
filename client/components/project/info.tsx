@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as styles from "../../styles/sideproject/sideproject.css";
-import Side from "client/components/userMainPage/userLeftContent";
+import Side from "client/components/userMainPage/basicDesign/userLeftContent";
 import { useEffect } from "react";
 import ProjectTableComponent from "client/components/project_table/project_table";
 import getProjectData from "client/components/project_table/service/fetchGetProjectData";

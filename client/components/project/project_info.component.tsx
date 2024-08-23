@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as style from "client/styles/project/root.css";
-import Side from "client/components/userMainPage/userLeftContent";
-import Content from "client/components/userMainPage/mainHeader";
+import Side from "client/components/userMainPage/basicDesign/userLeftContent";
+import Content from "client/components/userMainPage/basicDesign/mainHeader";
 import Link from "next/link";
 import CalendarComponent from "client/components/Calendar/calendar";
 import { useRouter } from "next/router";

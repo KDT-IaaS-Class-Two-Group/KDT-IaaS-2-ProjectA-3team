@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import * as styles from "../../styles/userMainContent.css";
+import * as styles from "../../../styles/userMainContent.css";
 interface mainProps {
   children: React.ReactNode;
 }
