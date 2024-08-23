@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import LabelProps from "./props/label.props";
+import LabelProps from "./props/label.interface";
 
 /**
  * @brief 라벨 컴포넌트

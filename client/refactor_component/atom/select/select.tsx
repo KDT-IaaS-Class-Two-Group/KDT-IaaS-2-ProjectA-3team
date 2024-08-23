@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import SelectProps from "./props/select.props";
+import SelectProps from "./props/select.interface";
 
 /**
  * @brief 셀렉트 박스 컴포넌트
