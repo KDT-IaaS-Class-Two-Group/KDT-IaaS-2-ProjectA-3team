@@ -8,6 +8,7 @@ import React from "react";
 import { User } from "client/model/services/userlookupmodule/interface/usertypes";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 import UserLookup from "client/model/services/userlookup";
+import {handleSave} from "./userlookup_module/service/handleSave";
 
 /**
  * @brief 대기 중인 사용자를 조회하고 승인하는 컴포넌트입니다.
@@ -26,23 +27,6 @@ const PendingUserLook: React.FC = () => {
    *
    * @param {User[]} users - 저장할 사용자 정보의 배열입니다.
    */
-  const handleSave = async (users: User[]) => {
-    try {
-      const response = await fetch("http://localhost:3001/getUser/all", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ users }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      console.log("사용자 정보 저장 성공");
-    } catch (error) {
-      console.error("사용자 정보 저장 실패:", error);
-    }
-  };
 
   return (
     <div className={pagemainmain}>
