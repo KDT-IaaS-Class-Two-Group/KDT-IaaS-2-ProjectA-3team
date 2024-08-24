@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import DBGUIList from "client/refactor_component/organism/dbgui_list/DBGUIList";
-import { fetchTables,Table } from "client/refactor_component/organism/dbgui_list/service/fetchTables";
+import { fetchTables, Table } from "client/refactor_component/organism/dbgui_list/service/fetchTables";
 import * as styles from "../../../styles/admin/databaseGUI/databasegui.css";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 
-const DBGUI: React.FC = () => {
+const DbGui: React.FC = () => {
   const [tables, setTables] = useState<Table[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,4 +28,4 @@ const DBGUI: React.FC = () => {
   );
 };
 
-export default DBGUI;
+export default DbGui;
