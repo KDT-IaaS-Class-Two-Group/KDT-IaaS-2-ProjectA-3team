@@ -1,6 +1,9 @@
 /**
  * @file UserPersonal.tsx
  * @brief 이 파일은 사용자 개인 정보를 조회하고 수정할 수 있는 컴포넌트를 포함하고 있습니다.
+ * 
+ * @author @zoeznm
+ * @date 2024-08-25
  */
 
 import React, { useEffect, useState } from "react";
