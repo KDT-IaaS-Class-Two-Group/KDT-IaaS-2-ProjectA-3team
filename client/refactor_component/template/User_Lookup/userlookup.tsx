@@ -23,6 +23,9 @@ import {
  *
  * 이 컴포넌트는 사용자의 목록과 필드를 비동기적으로 불러와서 화면에 표시합니다. 사용자는
  * 각 사용자에 대해 월급, 권한, 분야를 수정할 수 있으며, 수정된 정보를 저장할 수 있습니다.
+ * 
+ * @author @zoeznm
+ * @date 2024-08-25
  *
  * @param {UserLookupProps} props - 컴포넌트의 props로 `onSave` 콜백 함수를 포함합니다.
  * @returns React.FC 이 컴포넌트는 React 함수형 컴포넌트입니다.

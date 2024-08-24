@@ -1,6 +1,11 @@
 /**
  * @file PendingUserLook.tsx
  * @brief 대기 중인 사용자 목록을 조회하고 승인할 수 있는 컴포넌트를 포함합니다.
+ * 
+ * 
+ * @author @zoeznm
+ * @date 2024-08-25
+ * 
  */
 
 import React from "react";
