@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DBGUIList from "client/refactor_component/organism/modal/dbgui_list/DBGUIList";
-import { fetchTables, Table } from "../../../refactor_component/organism/modal/dbgui_list/service/fetchTables";
+import DBGUIList from "client/refactor_component/organism/dbgui_list/DBGUIList";
+import { fetchTables,Table } from "client/refactor_component/organism/dbgui_list/service/fetchTables";
 import * as styles from "../../../styles/admin/databaseGUI/databasegui.css";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 
@@ -21,7 +21,7 @@ const DBGUI: React.FC = () => {
       <DBGUIList
         tables={tables}
         ul_style={styles.ulliststlye}
-        li_style={styles.listyle}
+        li_style={styles.astyle}
         link_style={styles.astyle}
       />
     </div>

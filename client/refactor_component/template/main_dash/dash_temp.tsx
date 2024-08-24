@@ -1,5 +1,5 @@
 import React from "react";
-import DatabaseGUICard from "../../organism/modal/GUICard/DatabaseGUICard";
+import DatabaseGUICard from "client/refactor_component/organism/gui_card/db_card";
 
 interface DashboardTemplateProps {
   onDatabaseButtonClick: (event: React.MouseEvent<HTMLButtonElement>) => void;

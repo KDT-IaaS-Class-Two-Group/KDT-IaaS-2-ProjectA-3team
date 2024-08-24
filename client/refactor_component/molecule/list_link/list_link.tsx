@@ -1,13 +1,8 @@
 import React from "react";
 import Li from "client/atoms/li";
 import Link from "client/refactor_component/atom/link/link";
+import ListItemWithLinkProps from "./prpos/list_link.props";
 
-interface ListItemWithLinkProps {
-  li_style: string;
-  link_style: string;
-  text: string;
-  href: string;
-}
 
 const ListItemWithLink: React.FC<ListItemWithLinkProps> = ({
   li_style,
