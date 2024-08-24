@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { User, UserLookupProps } from "./userlookupmodule/interface/usertypes";
-import { handleInputChange } from "./userlookupmodule/utils/handleInputChange";
-import { fetchUsers } from "./userlookupmodule/service/fetchUsers";
-import Button from "../../refactor_component/atom/button/button";
-import Ul from "../../refactor_component/atom/ul/ul";
-import Li from "../../refactor_component/atom/li/li";
-import FormField from "../../refactor_component/molecule/form_field/form_field";
-import Select from "../../refactor_component/atom/select/select"; // Select 컴포넌트 import
+import {
+  User,
+  UserLookupProps,
+} from "../../organism/User_Lookup/interface/usertypes";
+import { handleInputChange } from "../../organism/User_Lookup/utils/handleInputChange";
+import { fetchUsers } from "../../organism/User_Lookup/service/fetchUsers";
+import Button from "../../atom/button/button";
+import Ul from "../../atom/ul/ul";
+import Li from "../../atom/li/li";
+import FormField from "../../molecule/form_field/form_field";
+import Select from "../../atom/select/select"; // Select 컴포넌트 import
 import { greenButton } from "client/styles/templatebutton.css";
 import {
   listinitial,

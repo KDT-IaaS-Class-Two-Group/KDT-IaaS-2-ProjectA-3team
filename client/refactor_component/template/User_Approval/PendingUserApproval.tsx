@@ -5,9 +5,9 @@
 
 import React from "react";
 
-import { User } from "client/model/services/userlookupmodule/interface/usertypes";
+import { User } from "client/refactor_component/organism/User_Lookup/interface/usertypes";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
-import UserLookup from "client/model/services/userlookup";
+import UserLookup from "../User_Lookup/userlookup";
 import { handleSave } from "../../organism/User_Approval/handleSave";
 
 /**

@@ -1,4 +1,4 @@
-import { User } from "client/model/services/userlookupmodule/interface/usertypes";
+import { User } from "client/refactor_component/organism/User_Lookup/interface/usertypes";
 
 export const handleSave = async (users: User[]) => {
   try {

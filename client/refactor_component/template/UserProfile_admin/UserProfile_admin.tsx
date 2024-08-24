@@ -8,12 +8,12 @@ import {
   User,
   Profile,
   UserPersonalProps,
-} from "./userpersonalmodule/interface/usertypes";
-import { fetchUsersAndProfiles } from "./userpersonalmodule/service/fetchUsersAndProfiles";
-import Ul from "../../refactor_component/atom/ul/ul";
-import Li from "../../refactor_component/atom/li/li";
-import Input from "../../refactor_component/atom/input/input";
-import Button from "../../refactor_component/atom/button/button";
+} from "../../organism/UserProfile_admin/interface/usertypes";
+import { fetchUsersAndProfiles } from "../../organism/UserProfile_admin/service/fetchUsersAndProfiles";
+import Ul from "../../atom/ul/ul";
+import Li from "../../atom/li/li";
+import Input from "../../atom/input/input";
+import Button from "../../atom/button/button";
 import { greenButton } from "client/styles/templatebutton.css";
 import {
   listinitial,
