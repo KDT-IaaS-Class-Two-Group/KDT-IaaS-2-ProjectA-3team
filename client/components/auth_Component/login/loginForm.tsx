@@ -1,5 +1,9 @@
+import React from "react";
 import useLoginHooks from "./hook/loginHooks";
+import Input from "../../../refactor_component/atom/login_input/login_input"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
+import Button from "../../../refactor_component/atom/button/button"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
 import * as styles from "../../../styles/info/index.css";
+
 /**
  * * Function : LoginForm
  * 작성자 : @naviadev / 2024-07-31
@@ -8,7 +12,7 @@ import * as styles from "../../../styles/info/index.css";
  * @function LoginForm
  * @description : 로그인 Form
  */
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
   const { setId, setPassword, handleLogin, isLoggedIn } = useLoginHooks();
 
   const handleKeyDown = async (
@@ -24,37 +28,31 @@ const LoginForm = () => {
       <h1 className={styles.signfont}>sign in</h1>
       <div>
         <p className={styles.idpwfont}>id</p>
-        <input
+        <Input
+          id="id"
           type="text"
-          className={styles.input}
           placeholder="id"
-          onChange={(e) => {
-            setId(e.target.value);
-          }}
-          onKeyDown={handleKeyDown}
-        />
+          onChange={(e) => setId(e.target.value)}
+          onKeyDown={handleKeyDown} value={""}  
+          className ={styles.input}      />
       </div>
       <div>
         <p className={styles.idpwfont}>password</p>
-        <input
+        <Input
+          id="password"
           type="password"
-          className={styles.input}
           placeholder="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          onKeyDown={handleKeyDown}
-        />
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown} value={""}  
+          className ={styles.input}       />
       </div>
-      <button
-        className={styles.buttonLink}
-        type="button"
+      <Button
+        button_text="sign in"
+        button_style={styles.buttonLink}
         onClick={async () => {
           await handleLogin();
         }}
-      >
-        sigin in
-      </button>
+      />
     </div>
   );
 };
