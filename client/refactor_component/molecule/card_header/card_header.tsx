@@ -10,7 +10,7 @@
 
 import React from "react";
 import CardHeaderProps from "./props/card_header.props";
-import Text from "client/refactor_component/atom/text/texttt";
+import Text from "client/refactor_component/atom/text/text";
 
 /**
  * @brief 카드 헤더 컴포넌트
