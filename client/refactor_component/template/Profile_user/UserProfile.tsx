@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import * as styles from "../../styles/userpersonal/userpersonal.css";
+import * as styles from "../../../styles/userpersonal/userpersonal.css";
 import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 import {
@@ -16,22 +16,22 @@ import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 // 모듈
-import { handleEditClick } from "./userpersonalmodule/hook/handleEditClick";
-import { handleUpdateUser } from "./userpersonalmodule/service/handleUpdateUser";
-import { handleDisableBio } from "./userpersonalmodule/hook/handleDisableBio";
-import { handleFieldChange } from "./userpersonalmodule/hook/handleFieldChange";
-import { handleBioChange } from "./userpersonalmodule/hook/handleBioChange";
-import { handleCancelEdit } from "./userpersonalmodule/hook/handleCancelEdit";
-import { handleSave } from "./userpersonalmodule/utils/handleSave";
+import { handleEditClick } from "../../organism/Profile_user/hook/handleEditClick";
+import { handleUpdateUser } from "../../organism/Profile_user/service/handleUpdateUser";
+import { handleDisableBio } from "../../organism/Profile_user/hook/handleDisableBio";
+import { handleFieldChange } from "../../organism/Profile_user/hook/handleFieldChange";
+import { handleBioChange } from "../../organism/Profile_user/hook/handleBioChange";
+import { handleCancelEdit } from "../../organism/Profile_user/hook/handleCancelEdit";
+import { handleSave } from "../../organism/Profile_user/utils/handleSave";
 import {
   User,
   Profile,
   UserPersonalProps,
-} from "./userpersonalmodule/interface/usertypes";
-import { fetchUsers } from "./userpersonalmodule/service/fetchUsers";
+} from "../../organism/Profile_user/interface/usertypes";
+import { fetchUsers } from "../../organism/Profile_user/service/fetchUsers";
 
-import FormField from "../../refactor_component/molecule/form_field/form_field";
-import Button from "../../refactor_component/atom/button/button";
+import FormField from "../../molecule/form_field/form_field";
+import Button from "../../atom/button/button";
 
 /**
  * @brief 사용자 개인 정보를 조회하고 수정할 수 있는 컴포넌트입니다.
