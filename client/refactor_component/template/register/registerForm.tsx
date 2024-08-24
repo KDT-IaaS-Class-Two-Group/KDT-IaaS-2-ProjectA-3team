@@ -7,12 +7,21 @@ import {
   input,
 } from "../../../../client/styles/info/register.css";
 import { buttonLinkClone } from "client/styles/info/index.css";
+
 /**
- * * Function : RegisterForm
- *  * @function RegisterForm
- * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @dalramjwi / 2024-08-07
- * @description : 회원가입 Form
+ * @function RegisterForm
+ * @brief 회원가입 폼 컴포넌트
+ * @description 사용자가 회원가입 정보를 입력할 수 있는 폼을 제공하는 컴포넌트입니다. 사용자는 사용자 이름, ID, 비밀번호, 비밀번호 확인, 이메일, 전화번호, 생년월일, 주소를 입력할 수 있으며, 'sign up' 버튼을 클릭하여 회원가입을 진행할 수 있습니다.
+ * 
+ * @author @zoeznm
+ * @date 2024-08-25
+ * 
+ * @component
+ * @returns {JSX.Element} 회원가입 폼을 포함하는 JSX 엘리먼트
+ * 
+ * @example
+ * // RegisterForm 컴포넌트를 렌더링하는 예제
+ * <RegisterForm />
  */
 const RegisterForm = () => {
   const {
@@ -44,7 +53,7 @@ const RegisterForm = () => {
       </div>
       <div className={formGroup}>
         <label htmlFor="id" className={label}>
-          id
+          ID
         </label>
         <input
           id="user_id"
@@ -67,7 +76,7 @@ const RegisterForm = () => {
           required
           className={input}
         />
-      </div>{" "}
+      </div>
       <div className={formGroup}>
         <label htmlFor="passwordCheck" className={label}>
           Confirm Password
@@ -106,7 +115,7 @@ const RegisterForm = () => {
           required
           className={input}
         />
-      </div>{" "}
+      </div>
       <div className={formGroup}>
         <label htmlFor="birthDate" className={label}>
           Date of Birth
@@ -138,7 +147,7 @@ const RegisterForm = () => {
           onClick={() => handleRegister()}
           className={buttonLinkClone}
         >
-          sign up
+          Sign Up
         </button>
       </div>
     </div>
