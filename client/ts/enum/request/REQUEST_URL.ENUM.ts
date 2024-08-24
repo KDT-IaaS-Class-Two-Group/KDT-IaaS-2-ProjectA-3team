@@ -13,5 +13,6 @@ enum REQUEST_URL {
   __GET_PROJECT_INFO = "http://localhost:3001/project/getTeamMember",
   __API = "__API",
   __USER = "__USER",
+  FOLLOWING_LIST = "FOLLOWING_LIST",
 }
 export default REQUEST_URL;
