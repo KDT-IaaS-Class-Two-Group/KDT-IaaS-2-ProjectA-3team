@@ -1,7 +1,7 @@
 import React from "react";
-import useLoginHooks from "./hook/loginHooks";
-import Input from "../../../refactor_component/atom/login_input/login_input"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
-import Button from "../../../refactor_component/atom/button/button"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
+import useLoginHooks from "../../organism/login/hook/loginHooks";
+import Input from "../../atom/login_input/login_input"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
+import Button from "../../atom/button/button"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
 import * as styles from "../../../styles/info/index.css";
 
 /**
@@ -33,8 +33,10 @@ const LoginForm: React.FC = () => {
           type="text"
           placeholder="id"
           onChange={(e) => setId(e.target.value)}
-          onKeyDown={handleKeyDown} value={""}  
-          className ={styles.input}      />
+          onKeyDown={handleKeyDown}
+          value={""}
+          className={styles.input}
+        />
       </div>
       <div>
         <p className={styles.idpwfont}>password</p>
@@ -43,8 +45,10 @@ const LoginForm: React.FC = () => {
           type="password"
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={handleKeyDown} value={""}  
-          className ={styles.input}       />
+          onKeyDown={handleKeyDown}
+          value={""}
+          className={styles.input}
+        />
       </div>
       <Button
         button_text="sign in"
