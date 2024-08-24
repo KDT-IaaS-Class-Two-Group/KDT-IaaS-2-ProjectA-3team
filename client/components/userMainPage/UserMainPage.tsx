@@ -34,7 +34,7 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import ClockInButton from "../backButtonSection/ClockInButton"; // 새로 만든 ClockInButton 컴포넌트 임포트
 import NoticeMainPage from "client/pages/noticeMain";
 import { followerlist } from "client/styles/notice/notice.css";
-import KanbanComponent from "../issue/kanban";
+import KanbanComponent from "../../refactor_component/template/kanban/kanban";
 
 interface UserMainContentProps {
   onclick: (component: React.ReactNode) => void;
