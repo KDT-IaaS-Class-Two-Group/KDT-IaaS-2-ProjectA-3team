@@ -7,12 +7,12 @@ import React, { useEffect, useState } from "react";
 import {
   User,
   CheckprofileProps,
-} from "./checkprofilemodule/interface/usertypes";
-import { fetchCheckUsers } from "./checkprofilemodule/service/fetchCheckUsers";
+} from "../../organism/CheckProfile_user/interface/usertypes";
+import { fetchCheckUsers } from "../../organism/CheckProfile_user/service/fetchCheckUsers";
 
 // Custom Li and Ul components
-import Li from "../../atoms/li";
-import Ul from "../../atoms/ul";
+import Li from "../../../atoms/li";
+import Ul from "../../../atoms/ul";
 import Button from "client/refactor_component/atom/button/button";
 
 /**
