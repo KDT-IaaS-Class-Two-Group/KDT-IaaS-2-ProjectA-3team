@@ -8,7 +8,7 @@ import React from "react";
 import { User } from "client/model/services/userlookupmodule/interface/usertypes";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 import UserLookup from "client/model/services/userlookup";
-import {handleSave} from "./userlookup_module/service/handleSave";
+import { handleSave } from "../../organism/User_Approval/handleSave";
 
 /**
  * @brief 대기 중인 사용자를 조회하고 승인하는 컴포넌트입니다.
