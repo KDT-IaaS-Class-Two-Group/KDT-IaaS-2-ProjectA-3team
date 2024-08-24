@@ -42,6 +42,7 @@ const RegisterForm = () => {
         onChange={(e) => setUsername(e.target.value)}
         className={input}
       />
+      {/* 문제 해결 */}
       <FormField
         id="user_id"
         label="ID"
@@ -60,6 +61,7 @@ const RegisterForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         className={input}
       />
+      {/* 여기까지 */}
       <FormField
         id="passwordCheck"
         label="Confirm Password"
