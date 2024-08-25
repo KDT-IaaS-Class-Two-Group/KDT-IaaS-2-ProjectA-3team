@@ -3,6 +3,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import * as styles from "../../styles/notice/notice.css";
 import send from "./noticePageModule/fetchSendNotice";
+import Input from "client/refactor_component/atom/input/input";
+import Button from "client/refactor_component/atom/button/button";
+import TextArea from "client/refactor_component/atom/text_area/text_area";
 
 /**
  * * Function : RegisterForm
@@ -19,8 +22,8 @@ const NoticeBoard: React.FC = () => {
 
   const dataSend = () => {
     send(state, stateContent);
-  }
-  
+  };
+
   const back = () => {
     window.location.href = "/noticeMain";
   };
@@ -28,9 +31,11 @@ const NoticeBoard: React.FC = () => {
   return (
     <>
       <div className={styles.btnsize}>
-        <button onClick={back} className={greenButton}>
-          뒤로가기
-        </button>
+        <Button
+          button_text="뒤로가기"
+          button_style={greenButton}
+          onClick={back}
+        />
       </div>
       <div className={styles.wrtiePage}>
         <div className={styles.checksize}>
@@ -55,9 +60,11 @@ const NoticeBoard: React.FC = () => {
       </div>{" "}
       <div className={styles.btnsize}>
         <Link href="/noticeMain" passHref className={styles.uploadbutton}>
-          <button onClick={dataSend} className={greenButton}>
-            게시글 작성
-          </button>
+          <Button
+            button_text="게시글 작성"
+            button_style={greenButton}
+            onClick={dataSend}
+          />
         </Link>
       </div>
     </>

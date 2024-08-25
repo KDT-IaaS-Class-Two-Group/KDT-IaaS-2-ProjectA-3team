@@ -122,13 +122,14 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
       <div>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
-            <button
+            <Button
               key={page}
-              onClick={() => handlePageChange(page)}
-              disabled={currentPage === page}
-            >
-              {page}
-            </button>
+              button_text={page.toString()} // 페이지 번호를 문자열로 설정
+              button_style={currentPage === page ? `${greenButton}` : greenButton}
+              onClick={() => handlePageChange(page)} // 페이지 변경 함수 호출
+              disabled={currentPage === page} // 현재 페이지인 경우 버튼 비활성화
+              // 버튼 스타일은 부모 컴포넌트에서 설정
+            />
           )
         )}
       </div>
