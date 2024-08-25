@@ -4,7 +4,8 @@ import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../userMainPage/UserMainPage";
 import NoticeMainPage from "../../pages/noticeMain";
-import UserPersonal from "../../refactor_component/template/Profile_user/UserProfile";
+import UserPersonal from "client/refactor_component/template/profile_user/user_profile"; 
+// "../../refactor_component/template/profile_user/UserProfile";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
 

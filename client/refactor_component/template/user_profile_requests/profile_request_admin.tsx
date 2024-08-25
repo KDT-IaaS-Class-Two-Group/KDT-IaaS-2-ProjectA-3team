@@ -1,5 +1,5 @@
 /**
- * @file UserRequest.tsx
+ * @file profile_request_admin.tsx
  * @brief 사용자 프로필 수정 요청을 처리하는 컴포넌트입니다.
  * 
  * @author @zoeznm
@@ -17,10 +17,14 @@ import {
   pendingmaindiv,
   profilelist,
 } from "client/styles/users/attendancestyle.css";
-import { User } from "../../organism/user_profile_requests/interface/usertypes";
-import { handleAccept } from "../../organism/user_profile_requests/service/handelAccept";
-import { handleReject } from "../../organism/user_profile_requests/service/handleReject";
-import useFetchCheckProfile from "../../organism/user_profile_requests/hook/fetchCheckProfile";
+import { User } from "../../organism/user_profile_requests/props/user.props";
+
+import { handleAccept } from "../../organism/user_profile_requests/service/handle_accept";
+
+import { handleReject } from "../../organism/user_profile_requests/service/handle_reject";
+
+import useFetchCheckProfile from "../../organism/user_profile_requests/hook/fetch_check_profile";
+
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";
 import Button from "../../atom/button/button";

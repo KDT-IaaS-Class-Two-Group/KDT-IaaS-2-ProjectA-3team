@@ -1,5 +1,5 @@
 /**
- * @file Checkprofile.tsx
+ * @file check_profile.tsx
  * @brief 이 파일은 사용자 프로필을 조회하고, 요청을 수락할 수 있는 컴포넌트를 포함하고 있습니다.
  * 
  * 
@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import {
   User,
   CheckprofileProps,
-} from "../../organism/check_profile_user/interface/user_types";
+} from "../../organism/check_profile_user/props/user.props";
 import { fetchCheckUsers } from "../../organism/check_profile_user/service/fetch_check_users";
 
 // Custom Li and Ul components

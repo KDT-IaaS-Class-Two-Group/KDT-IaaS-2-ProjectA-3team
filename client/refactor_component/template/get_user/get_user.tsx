@@ -1,5 +1,5 @@
 /**
- * @file TestPage.tsx
+ * @file get_user.tsx
  * @brief 이 파일은 사용자를 조회하는 버튼이 있는 테스트 페이지 컴포넌트를 포함하고 있습니다.
  */
 import React from "react";

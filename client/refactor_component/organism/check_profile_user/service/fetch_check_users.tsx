@@ -1,5 +1,5 @@
 /**
- * @file fetchCheckUsers.ts
+ * @file fetch_check_users.tsx
  * @brief 사용자 프로필 수정 요청 조회 모듈
  * @details 이 파일은 사용자 프로필 수정 요청을 조회하기 위한 비동기 함수 `fetchCheckUsers`를 정의합니다.
  * 이 함수는 API 요청을 통해 사용자 데이터를 가져와 상태를 업데이트하며, 로딩 상태를 관리합니다.

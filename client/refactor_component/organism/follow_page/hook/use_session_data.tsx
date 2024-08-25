@@ -1,5 +1,5 @@
 /**
- * @file useSessionData.ts
+ * @file use_session_data.ts
  * @brief 사용자 세션 데이터를 가져오는 커스텀 훅
  * @details 로그인된 사용자의 세션 데이터를 서버로부터 가져와 상태로 관리합니다.
  *

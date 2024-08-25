@@ -1,5 +1,5 @@
 /**
- * @file FollowPage.tsx
+ * @file follow_page.tsx
  * @brief 사용자 검색 및 팔로우 기능을 제공하는 페이지 컴포넌트입니다.
  * 
  * @author @zoeznm
@@ -9,7 +9,8 @@
 
 import React from "react";
 import { useFollowPage } from "../../organism/follow_page/hook/use_follow_page";
-import { handleFollow } from "../../organism/follow_page/service/handleFollow";
+import { handleFollow } from "client/refactor_component/organism/follow_page/service/handle_follow";
+// "../../organism/follow_page/service/handleFollow";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";
 import Button from "../../atom/button/button";

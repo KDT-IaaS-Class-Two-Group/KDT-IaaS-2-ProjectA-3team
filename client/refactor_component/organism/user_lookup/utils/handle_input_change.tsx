@@ -1,5 +1,5 @@
 /**
- * @file handleInputChange.ts
+ * @file handle_input_change.tsx
  * @brief 사용자 입력 변경을 처리하는 헬퍼 함수
  * @details 이 함수는 입력 필드의 변경을 처리하여 사용자 목록을 업데이트한다.
  *          입력된 값을 적절한 타입으로 변환하고, 해당 인덱스의 사용자의 정보를 업데이트한다.

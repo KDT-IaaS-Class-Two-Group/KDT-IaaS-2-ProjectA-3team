@@ -1,5 +1,5 @@
 /**
- * @file PendingUserLook.tsx
+ * @file pending_user_approval.tsx
  * @brief 대기 중인 사용자 목록을 조회하고 승인할 수 있는 컴포넌트를 포함합니다.
  * 
  * 
@@ -9,11 +9,9 @@
  */
 
 import React from "react";
-
-import { User } from "client/refactor_component/organism/user_lookup/interface/usertypes";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
-import UserLookup from "../User_Lookup/userlookup";
-import { handleSave } from "../../organism/user_approval/handleSave";
+import UserLookup from "../user_lookup/user_lookup";
+import { handleSave } from "client/refactor_component/organism/user_approval/handle_save"; 
 
 /**
  * @brief 대기 중인 사용자를 조회하고 승인하는 컴포넌트입니다.

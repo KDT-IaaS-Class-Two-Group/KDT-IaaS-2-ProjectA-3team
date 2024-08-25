@@ -1,5 +1,5 @@
 /**
- * @file fetchFollowingList.ts
+ * @file fetch_following_list.tsx
  * @brief 사용자 팔로잉 리스트를 가져오는 함수
  * @details 이 파일은 사용자의 팔로잉 리스트를 서버로부터 가져오는 `fetchFollowingList` 함수를 정의합니다.
  * 함수는 사용자의 팔로잉 목록을 포함하는 `User` 객체의 배열을 반환합니다.

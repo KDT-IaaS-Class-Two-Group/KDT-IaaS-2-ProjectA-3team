@@ -1,5 +1,5 @@
 /**
- * @file types.ts
+ * @file user.props.ts
  * @brief 사용자 및 필드 관련 데이터 타입 정의
  * @details 이 파일은 사용자 정보와 필드 정보를 정의하는 데이터 타입 및 사용자 정보를 저장하는 콜백 함수의 타입을 정의한다.
  * @author @zoeznm

@@ -1,5 +1,5 @@
 /**
- * @file handleAccept.ts
+ * @file handle_accept.tsx
  * @brief 사용자 요청을 수락하는 기능을 제공하는 서비스 파일
  * @details 이 파일은 특정 사용자 요청을 수락하는 `handleAccept` 함수를 정의한다.
  * @author @zoeznm

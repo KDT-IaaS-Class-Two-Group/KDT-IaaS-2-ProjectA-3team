@@ -1,12 +1,12 @@
 /**
- * @file fetchUsersAndProfiles.ts
+ * @file fetch_users_and_profiles.tsx
  * @brief 사용자와 프로필 정보를 조회하는 함수
  * @details 이 파일은 사용자와 그에 대한 프로필 정보를 동시에 조회하는 `fetchUsersAndProfiles` 함수를 정의한다.
  * @author @zoeznm
  * @date 2024-08-25
  */
 
-import { User, Profile } from "../props/user.props";  // 경로는 실제 위치로 변경
+import { User, Profile } from "../../user_profile_admin/props/user.props";  // 경로는 실제 위치로 변경
 
 /**
  * @function fetchUsersAndProfiles

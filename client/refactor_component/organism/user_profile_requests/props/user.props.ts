@@ -1,5 +1,5 @@
 /**
- * @file userTypes.ts
+ * @file user.props.ts
  * @brief 사용자 정보를 정의하는 인터페이스
  * @details 이 파일은 사용자 정보를 나타내는 `User` 인터페이스를 정의한다.
  * @author @zoeznm

@@ -1,5 +1,5 @@
 /**
- * @file handleSave.ts
+ * @file handle_save.tsx
  * @brief 사용자 정보 저장 처리 모듈
  * @details 이 파일은 사용자 정보를 저장하는 비동기 함수 `handleSave`를 정의합니다.
  * 실제 API 요청 또는 로컬 스토리지 저장 로직을 구현할 수 있습니다.

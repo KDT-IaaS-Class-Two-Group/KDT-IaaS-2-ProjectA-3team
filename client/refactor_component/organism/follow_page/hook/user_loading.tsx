@@ -1,5 +1,5 @@
 /**
- * @file useLoading.ts
+ * @file use_loading.ts
  * @brief 로딩 상태를 관리하는 커스텀 훅
  * @details 비동기 작업 중 로딩 상태를 쉽게 관리할 수 있도록 도와주는 커스텀 훅입니다.
  *

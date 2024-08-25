@@ -1,5 +1,5 @@
 /**
- * @file useFollowPage.ts
+ * @file use_follow_page.ts
  * @brief 사용자 검색 및 팔로우 페이지 관리를 위한 커스텀 훅
  * @details 이 훅은 사용자 검색, 팔로우 상태 및 로딩 상태를 관리합니다. 
  * 세션 데이터를 활용하여 현재 사용자 정보를 추적하고, 사용자 목록을 가져옵니다.
@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useSessionData } from "./use_session_data";
 import { useLoading } from "./user_loading";
 import { User } from "../props/user.props";
-import { fetchUsers } from "../service/fetchUsers";
+import { fetchUsers } from "../service/fetch_users";
 
 /**
  * @brief 팔로우 페이지 관리를 위한 커스텀 훅

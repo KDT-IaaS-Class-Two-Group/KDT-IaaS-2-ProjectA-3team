@@ -1,5 +1,5 @@
 /**
- * @file handleReject.ts
+ * @file handle_reject.tsx
  * @brief 사용자 요청을 거부하는 기능을 제공하는 서비스 파일
  * @details 이 파일은 특정 사용자 요청을 거부하는 `handleReject` 함수를 정의한다.
  * @author @zoeznm

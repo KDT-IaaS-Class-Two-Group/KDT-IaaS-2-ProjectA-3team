@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import {
   User,
   UserLookupProps,
-} from "../../organism/user_lookup/interface/usertypes";
-import { handleInputChange } from "../../organism/user_lookup/utils/handleInputChange";
-import { fetchUsers } from "../../organism/user_lookup/service/fetchUsers";
+} from "../../organism/user_lookup/props/user.props";
+import { handleInputChange } from "../../organism/user_lookup/utils/handle_input_change";
+import { fetchUsers } from "../../organism/user_lookup/service/fetch_users";
 import Button from "../../atom/button/button";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";

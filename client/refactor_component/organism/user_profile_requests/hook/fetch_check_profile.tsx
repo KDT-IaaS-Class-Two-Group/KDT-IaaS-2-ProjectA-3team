@@ -1,5 +1,5 @@
 /**
- * @file useFetchCheckProfile.ts
+ * @file fetch_check_profile.tsx
  * @brief 사용자 검토 프로필 데이터를 가져오는 커스텀 훅
  * @details 이 파일은 사용자의 검토 프로필 데이터를 비동기적으로 가져오는 `useFetchCheckProfile` 커스텀 훅을 정의한다.
  * @author @zoeznm

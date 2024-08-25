@@ -1,5 +1,5 @@
 /**
- * @file fetchUsers.ts
+ * @file fetch_users.tsx
  * @brief 사용자 및 필드 데이터를 비동기적으로 가져오는 함수
  * @details 이 함수는 사용자와 필드 데이터를 비동기적으로 가져오고, 사용자 데이터와 필드 이름 배열을 반환한다.
  * @author @zoeznm

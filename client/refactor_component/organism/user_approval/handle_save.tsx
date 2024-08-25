@@ -1,12 +1,14 @@
 /**
- * @file handleSave.ts
+ * @file handle_save.ts
  * @brief 사용자 정보를 서버에 저장하는 함수
  * @details 이 함수는 사용자 정보를 JSON 형식으로 변환하여 서버에 POST 요청을 보내고, 저장 결과를 콘솔에 출력한다.
  * @author @zoeznm
  * @date 2024-08-25
  */
 
-import { User } from "../Profile_user/interface/usertypes";
+// import { User } from "../../organism/profile_user/props/user.props";
+import { User as ProfileUser } from '../profile_user/props/user.props';
+import { User as LookupUser } from '../user_lookup/props/user.props';
 
 /**
  * @function handleSave
@@ -27,7 +29,7 @@ import { User } from "../Profile_user/interface/usertypes";
  * 
  * @note 사용자 정보 저장 작업은 비동기로 처리되며, 요청이 성공하면 콘솔에 성공 메시지가 출력된다.
  */
-export const handleSave = async (users: User[]) => {
+export const handleSave = async (users: ProfileUser[] | LookupUser[]): Promise<void> => {
   try {
     const response = await fetch("http://localhost:3001/getUser/all", {
       method: "POST",

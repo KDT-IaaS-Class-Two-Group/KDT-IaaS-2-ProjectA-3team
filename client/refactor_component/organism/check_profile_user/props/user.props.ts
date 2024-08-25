@@ -1,5 +1,5 @@
 /**
- * @file usertypes.ts
+ * @file user.props.ts
  * @brief 사용자 및 프로필 수정 요청 타입 정의
  * @details 이 파일은 사용자와 프로필 수정 요청에 관련된 타입을 정의합니다.
  * 

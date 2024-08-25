@@ -1,5 +1,5 @@
 /**
- * @file UserPersonal.tsx
+ * @file user_profile.tsx
  * @brief 이 파일은 사용자 개인 정보를 조회하고 수정할 수 있는 컴포넌트를 포함하고 있습니다.
  * 
  * @author @zoeznm
@@ -30,7 +30,7 @@ import {
   User,
   Profile,
   UserPersonalProps,
-} from "../../organism/profile_user/interface/usertypes";
+} from "../../organism/profile_user/props/user.props";
 import { fetchUsers } from "../../organism/profile_user/service/fetchUsers";
 
 import FormField from "../../molecule/form_field/form_field";

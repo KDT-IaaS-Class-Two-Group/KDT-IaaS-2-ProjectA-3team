@@ -1,5 +1,5 @@
 /**
- * @file FollowingListPage.tsx
+ * @file follow_list.tsx
  * @brief 팔로우 중인 사용자 목록 페이지
  * @details 이 컴포넌트는 현재 사용자가 팔로우 중인 사용자 목록을 서버로부터 가져와서 화면에 표시합니다.
  * 로딩 상태를 관리하며, 데이터를 가져오는 동안 "로딩 중..." 메시지를 보여줍니다.
@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { User } from "../../organism/follow_list/interface/user_type";
+import { User } from "../../organism/follow_list/props/user.props";
 import { fetchFollowingList } from "../../organism/follow_list/service/fetch_following_list";
 import { useLoading } from "../../organism/follow_list/hook/use_loading";
 import Ul from "../../atom/ul/ul";  // 목록을 표시하는 커스텀 Ul 컴포넌트
