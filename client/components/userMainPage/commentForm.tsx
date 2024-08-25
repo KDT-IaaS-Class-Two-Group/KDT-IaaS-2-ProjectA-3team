@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { greenButton, blueButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/notice/notice.css";
-import retrieveComment from "./commentFormModule/fetchCommentRetrieve"
+import retrieveComment from "./commentFormModule/fetchCommentRetrieve";
 import { ListComment } from "./commentFormModule/ListComment";
 import { CommentFormProps } from "./commentFormModule/CommentFormProps";
 import commentSend from "./commentFormModule/fetchCommentSend";
 import commentUpdate from "./commentFormModule/commentUpdate";
 import commentDelete from "./commentFormModule/commentDelete";
+import Button from "client/refactor_component/atom/button/button";
+import TextArea from "client/refactor_component/atom/text_area/text_area";
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [comment, setComment] = useState("");
@@ -17,16 +19,22 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [editState, setEditState] = useState<{ [key: string]: boolean }>({}); // 댓글 수정 상태
 
   const fetchComment = () => {
-    retrieveComment(postId, currentPage, itemsPerPage, setCommentList, setTotalPages)
+    retrieveComment(
+      postId,
+      currentPage,
+      itemsPerPage,
+      setCommentList,
+      setTotalPages
+    );
   };
 
   useEffect(() => {
     fetchComment(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, [postId, currentPage]); // currentPage가 변경될 때마다 fetch
 
-  const sendComment = () =>{
+  const sendComment = () => {
     commentSend(postId, comment, setComment, fetchComment);
-  }
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page); // 페이지 변경
@@ -34,27 +42,24 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
 
   const updateComment = (postId: string, newContent: string) => {
     commentUpdate(postId, newContent, fetchComment, setEditState);
-  }
+  };
 
-  const deleteComment = (postId:string) => {
-    commentDelete(postId, fetchComment)
-  }
+  const deleteComment = (postId: string) => {
+    commentDelete(postId, fetchComment);
+  };
 
   return (
-    <div>
+    <>
       <div className={styles.commentcreate}>
         <div>
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="댓글을 작성하세요."
-            className={styles.commenttext}
-          />
+          <TextArea className={styles.commenttext} children={comment} />
         </div>
         <div>
-          <button onClick={sendComment} className={greenButton}>
-            댓글 작성
-          </button>
+          <Button
+            button_text="댓글 작성"
+            button_style={greenButton}
+            onClick={sendComment}
+          />
         </div>
       </div>
       <div className={styles.commentcontent}>
@@ -63,26 +68,15 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
             <div key={comment._id}>
               {editState[comment._id] ? (
                 <div className={styles.commentcreate}>
-                  <textarea
-                    value={comment.content}
-                    placeholder="댓글 수정하세요."
-                    onChange={(e) => {
-                      const newContent = e.target.value;
-                      setCommentList((prevList) =>
-                        prevList.map((c) =>
-                          c._id === comment._id
-                            ? { ...c, content: newContent }
-                            : c
-                        )
-                      );
-                    }}
+                  <TextArea
+                    className={styles.commenttext}
+                    children={comment.content}
                   />
-                  <button
+                  <Button
+                    button_text="수정 완료"
+                    button_style={blueButton}
                     onClick={() => updateComment(comment._id, comment.content)}
-                    className={blueButton}
-                  >
-                    수정 완료
-                  </button>
+                  />
                 </div>
               ) : (
                 <div className={styles.commentinnercontent}>
@@ -97,25 +91,23 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                   </div>
                   <div className={styles.commentbtn}>
                     <div>
-                      <button
+                      <Button
+                        button_text="수정"
+                        button_style={greenButton}
                         onClick={() =>
                           setEditState((prevState) => ({
                             ...prevState,
-                            [comment._id]: true, // 선택한 댓글만 수정 모드로 설정
+                            [comment._id]: true,
                           }))
                         }
-                        className={greenButton}
-                      >
-                        수정
-                      </button>
+                      />
                     </div>
                     <div>
-                      <button
+                      <Button
+                        button_text="삭제"
+                        button_style={greenButton}
                         onClick={() => deleteComment(comment._id)}
-                        className={greenButton}
-                      >
-                        삭제
-                      </button>
+                      />
                     </div>
                   </div>
                 </div>
@@ -140,7 +132,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
           )
         )}
       </div>
-    </div>
+    </>
   );
 };
 
