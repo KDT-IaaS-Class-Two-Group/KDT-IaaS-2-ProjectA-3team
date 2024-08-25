@@ -22,7 +22,7 @@ import TeamNameField from "./components/TeamNameField";
 import TeamLeaderSelect from "./components/TeamLeaderSelect";
 import MemberSelect from "./components/TeamMemberSelect";
 import TeamDescriptionField from "./components/TeamDescriptionField";
-import TeamButton from "../../refactor_component/molecule/team_button/TeamButton";
+import TeamButton from "../../refactor_component/molecule/team_button/team_button";
 import useTeamFetch from "./hook/useTeamFetch";
 import useTeamState from "./hook/useTeamState";
 import submitHanlde from "./utils/team_submit_handle";
