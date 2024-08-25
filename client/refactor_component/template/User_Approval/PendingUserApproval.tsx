@@ -10,10 +10,10 @@
 
 import React from "react";
 
-import { User } from "client/refactor_component/organism/User_Lookup/interface/usertypes";
+import { User } from "client/refactor_component/organism/user_lookup/interface/usertypes";
 import { pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
 import UserLookup from "../User_Lookup/userlookup";
-import { handleSave } from "../../organism/User_Approval/handleSave";
+import { handleSave } from "../../organism/user_approval/handleSave";
 
 /**
  * @brief 대기 중인 사용자를 조회하고 승인하는 컴포넌트입니다.

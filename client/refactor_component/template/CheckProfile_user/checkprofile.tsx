@@ -13,8 +13,8 @@ import React, { useEffect, useState } from "react";
 import {
   User,
   CheckprofileProps,
-} from "../../organism/CheckProfile_user/interface/usertypes";
-import { fetchCheckUsers } from "../../organism/CheckProfile_user/service/fetchCheckUsers";
+} from "../../organism/check_profile_user/interface/user_types";
+import { fetchCheckUsers } from "../../organism/check_profile_user/service/fetch_check_users";
 
 // Custom Li and Ul components
 import Li from "../../../atoms/li";

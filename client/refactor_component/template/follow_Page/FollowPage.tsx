@@ -8,8 +8,8 @@
  */
 
 import React from "react";
-import { useFollowPage } from "../../organism/follow_Page/hook/useFollowPage";
-import { handleFollow } from "../../organism/follow_Page/service/handleFollow";
+import { useFollowPage } from "../../organism/follow_page/hook/use_follow_page";
+import { handleFollow } from "../../organism/follow_page/service/handleFollow";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";
 import Button from "../../atom/button/button";

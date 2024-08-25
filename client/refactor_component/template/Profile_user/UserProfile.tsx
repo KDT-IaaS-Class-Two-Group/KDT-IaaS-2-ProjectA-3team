@@ -19,19 +19,19 @@ import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 // 모듈
-import { handleEditClick } from "../../organism/Profile_user/hook/handleEditClick";
-import { handleUpdateUser } from "../../organism/Profile_user/service/handleUpdateUser";
-import { handleDisableBio } from "../../organism/Profile_user/hook/handleDisableBio";
-import { handleFieldChange } from "../../organism/Profile_user/hook/handleFieldChange";
-import { handleBioChange } from "../../organism/Profile_user/hook/handleBioChange";
-import { handleCancelEdit } from "../../organism/Profile_user/hook/handleCancelEdit";
-import { handleSave } from "../../organism/Profile_user/utils/handleSave";
+import { handleEditClick } from "../../organism/profile_user/hook/handleEditClick";
+import { handleUpdateUser } from "../../organism/profile_user/service/handleUpdateUser";
+import { handleDisableBio } from "../../organism/profile_user/hook/handleDisableBio";
+import { handleFieldChange } from "../../organism/profile_user/hook/handleFieldChange";
+import { handleBioChange } from "../../organism/profile_user/hook/handleBioChange";
+import { handleCancelEdit } from "../../organism/profile_user/hook/handleCancelEdit";
+import { handleSave } from "../../organism/profile_user/utils/handleSave";
 import {
   User,
   Profile,
   UserPersonalProps,
-} from "../../organism/Profile_user/interface/usertypes";
-import { fetchUsers } from "../../organism/Profile_user/service/fetchUsers";
+} from "../../organism/profile_user/interface/usertypes";
+import { fetchUsers } from "../../organism/profile_user/service/fetchUsers";
 
 import FormField from "../../molecule/form_field/form_field";
 import Button from "../../atom/button/button";

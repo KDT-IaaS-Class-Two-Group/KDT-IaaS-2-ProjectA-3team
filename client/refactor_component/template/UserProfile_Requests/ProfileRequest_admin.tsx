@@ -17,10 +17,10 @@ import {
   pendingmaindiv,
   profilelist,
 } from "client/styles/users/attendancestyle.css";
-import { User } from "../../organism/UserProfile_Requests/interface/usertypes";
-import { handleAccept } from "../../organism/UserProfile_Requests/service/handelAccept";
-import { handleReject } from "../../organism/UserProfile_Requests/service/handleReject";
-import useFetchCheckProfile from "../../organism/UserProfile_Requests/hook/fetchCheckProfile";
+import { User } from "../../organism/user_profile_requests/interface/usertypes";
+import { handleAccept } from "../../organism/user_profile_requests/service/handelAccept";
+import { handleReject } from "../../organism/user_profile_requests/service/handleReject";
+import useFetchCheckProfile from "../../organism/user_profile_requests/hook/fetchCheckProfile";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";
 import Button from "../../atom/button/button";

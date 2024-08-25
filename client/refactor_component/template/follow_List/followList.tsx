@@ -9,9 +9,9 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { User } from "../../organism/follow_List/interface/usertype";
-import { fetchFollowingList } from "../../organism/follow_List/service/fetchFollowingList";
-import { useLoading } from "../../organism/follow_List/hook/useLoading";
+import { User } from "../../organism/follow_list/interface/user_type";
+import { fetchFollowingList } from "../../organism/follow_list/service/fetch_following_list";
+import { useLoading } from "../../organism/follow_list/hook/use_loading";
 import Ul from "../../atom/ul/ul";  // 목록을 표시하는 커스텀 Ul 컴포넌트
 import Li from "../../atom/li/li";  // 목록 항목을 표시하는 커스텀 Li 컴포넌트
 

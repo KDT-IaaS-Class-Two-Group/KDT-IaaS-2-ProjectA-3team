@@ -12,8 +12,8 @@ import {
   User,
   Profile,
   UserPersonalProps,
-} from "../../organism/UserProfile_admin/interface/usertypes";
-import { fetchUsersAndProfiles } from "../../organism/UserProfile_admin/service/fetchUsersAndProfiles";
+} from "../../organism/user_profile_admin/interface/usertypes";
+import { fetchUsersAndProfiles } from "../../organism/user_profile_admin/service/fetchUsersAndProfiles";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";
 import Input from "../../atom/input/input";
