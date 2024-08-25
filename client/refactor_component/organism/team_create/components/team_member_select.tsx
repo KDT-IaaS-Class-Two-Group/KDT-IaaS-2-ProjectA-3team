@@ -7,7 +7,7 @@
  * @date 2024-08-23
  */
 import React from "react";
-import { User } from "../interface/team.interface";
+import { User } from "../props/team.interface";
 import Button from "client/refactor_component/atom/button/button";
 import Ul from "client/refactor_component/atom/ul/ul";
 import Li from "client/refactor_component/atom/li/li";

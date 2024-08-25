@@ -8,7 +8,7 @@
  */
 import TextArea from "client/refactor_component/atom/text_area/text_area";
 import React from "react";
-import { TeamDescriptionFieldProps } from "../interface/team.interface";
+import { TeamDescriptionFieldProps } from "../props/team.interface";
 
 /**
  * @brief 팀 설명을 입력받는 필드 컴포넌트

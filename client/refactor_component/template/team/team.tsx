@@ -18,21 +18,21 @@ import {
   pageul,
   teambuttoncontainer,
 } from "client/styles/team/teampage.css";
-import TeamNameField from "./components/TeamNameField";
-import TeamLeaderSelect from "./components/TeamLeaderSelect";
-import MemberSelect from "./components/TeamMemberSelect";
-import TeamDescriptionField from "./components/TeamDescriptionField";
-import TeamButton from "../../refactor_component/molecule/team_button/team_button";
-import useTeamFetch from "./hook/useTeamFetch";
-import useTeamState from "./hook/useTeamState";
-import submitHanlde from "./utils/team_submit_handle";
+import TeamLeaderSelect from "../../organism/team_create/components/team_leader_select";
+import MemberSelect from "../../organism/team_create/components/team_member_select";
+import TeamDescriptionField from "../../organism/team_create/components/team_description_field";
+import TeamButton from "../../molecule/team_button/team_button";
+import submitHanlde from "../../organism/team_create/utils/team_submit_handle";
+import useTeam from "client/refactor_component/organism/team_create/hook/use_team";
+import useTeamState from "client/refactor_component/organism/team_create/hook/use_team_state";
+import TeamNameField from "client/refactor_component/organism/team_create/components/team_name_field";
 /**
  * @brief 팀 생성 폼 UI 컴포넌트
  * @details 팀 이름, 팀장, 팀원, 팀 설명 등을 입력받고 폼을 제출하는 UI를 제공.
  * @return 팀 생성 폼 UI 컴포넌트
  */
 function UserSelection() {
-  const { leaders, members } = useTeamFetch();
+  const { leaders, members } = useTeam();
   const {
     teamName,
     setTeamName,

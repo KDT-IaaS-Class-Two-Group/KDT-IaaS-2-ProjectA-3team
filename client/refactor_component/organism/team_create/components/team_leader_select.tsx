@@ -7,14 +7,14 @@
  * @date 2024-08-23
  */
 import React from "react";
-import { LeaderSelectProps, User } from "../interface/team.interface";
+import { LeaderSelectProps, User } from "../props/team.interface";
 import Button from "client/refactor_component/atom/button/button";
 import Ul from "client/atoms/ul";
 import {
   pageteamtext,
   pagetextsub,
   pageul,
-} from "./../../../styles/team/teampage.css";
+} from "../../../../styles/team/teampage.css";
 import { yellowButton } from "client/styles/templatebutton.css";
 import Li from "client/refactor_component/atom/li/li";
 

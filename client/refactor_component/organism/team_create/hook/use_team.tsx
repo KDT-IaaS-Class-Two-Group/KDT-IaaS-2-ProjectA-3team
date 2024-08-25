@@ -7,15 +7,15 @@
  * @date 2024-08-23
  */
 import { useState, useEffect } from "react";
-import fetchLeadersAndMembers from "../service/leaderAndMembers/fetchLeadersAndMembers";
-import { User } from "../interface/team.interface";
+import { User } from "../props/team.interface";
+import fetchLeadersAndMembers from "../service/leader_and_members/fetch_leaders_and_members";
 
 /**
  * @brief 팀장과 팀원 데이터를 가져와 상태를 초기화하는 훅
  * @details 서버로부터 팀장과 팀원 데이터를 fetch하여 상태로 설정한다.
  * @return 팀장과 팀원 데이터를 반환하는 상태를 반환
  */
-const useTeamFetch = () => {
+const useTeam = () => {
   const [leaders, setLeaders] = useState<User[]>([]);
   const [members, setMembers] = useState<User[]>([]);
 
@@ -45,4 +45,4 @@ const useTeamFetch = () => {
   };
 };
 
-export default useTeamFetch;
+export default useTeam;

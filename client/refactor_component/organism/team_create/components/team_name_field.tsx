@@ -8,7 +8,7 @@
  */
 import FormField from "client/refactor_component/molecule/form_field/form_field";
 import React from "react";
-import { TeamNameFieldProps } from "../interface/team.interface";
+import { TeamNameFieldProps } from "../props/team.interface";
 
 /**
  * @brief 팀 이름을 입력받는 필드 컴포넌트

@@ -9,7 +9,7 @@
 import React from "react";
 import Button from "client/refactor_component/atom/button/button";
 import * as styles from "../../../styles/team/team.css";
-import { TeamButtonProps } from "../../../components/team/interface/team.interface";
+import { TeamButtonProps } from "../../organism/team_create/props/team.interface";
 /**
  * @brief 팀 생성 버튼 컴포넌트
  * @details 팀 생성 폼을 제출하는 버튼을 제공하며, 사용자가 클릭할 때 `handleSubmit` 함수가 호출됩니다.

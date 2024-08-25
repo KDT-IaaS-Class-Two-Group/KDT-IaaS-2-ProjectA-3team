@@ -7,9 +7,9 @@
  * @date 2024-08-23
  */
 
-import { User } from "../interface/team.interface";
-import fetchCheckTeamNameExists from "../service/checkTeamNameExist/fetchCheckTeamNameExists";
-import fetchSaveTeamData from "../service/saveTeamData/fetchSaveTeamData";
+import { User } from "../props/team.interface";
+import fetchCheckTeamNameExists from "../service/check_team_name_exist/fetch_check_team_name_exists";
+import fetchSaveTeamData from "../service/save_team_data/fetch_save_team_data";
 
 /**
  * @brief 폼 제출 처리 함수

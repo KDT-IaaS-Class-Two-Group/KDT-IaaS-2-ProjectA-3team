@@ -7,7 +7,7 @@
  * @date 2024-08-23
  */
 import { useState } from "react";
-import { User } from "../interface/team.interface";
+import { User } from "../props/team.interface";
 
 /**
  * @brief 팀 생성 폼의 상태를 관리하고 팀원/팀장을 추가/제거하는 훅
