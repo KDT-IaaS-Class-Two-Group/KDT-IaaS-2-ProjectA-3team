@@ -4,6 +4,7 @@ import * as styles from "../../styles/notice/notice.css";
 import { centeredflexrowcontainergap } from "client/styles/standardcontainer.css";
 import { ListNotice } from "./noticeMainContentModule/interfaceType";
 import fetchNotices from "./noticeMainContentModule/fetchNotice";
+import Tag from "client/refactor_component/atom/tag/tag";
 
 /**
  * * Function : NoticeMainContent
@@ -39,12 +40,16 @@ const NoticeMainContent = () => {
                 className={styles.uploadbutton}
               >
                 <div className={styles.noticelengh}>
-                  <p className={styles.TagSize}>
-                    {index + 1 + (currentPage - 1) * itemsPerPage + "."}
-                  </p>
-                  <p className={styles.pTagTitletext}>{notice.title}</p>
-                  <p className={styles.TagSize}>{notice.user_id}</p>
-                  <p className={styles.TagSize}>{notice.createdAt}</p>
+                  <Tag
+                    className={styles.TagSize}
+                    content={`${index + 1 + (currentPage - 1) * itemsPerPage}.`}
+                  />
+                  <Tag
+                    className={styles.pTagTitletext}
+                    content={notice.title}
+                  />
+                  <Tag className={styles.TagSize} content={notice.user_id} />
+                  <Tag className={styles.TagSize} content={notice.createdAt} />
                 </div>
               </Link>
             </div>
