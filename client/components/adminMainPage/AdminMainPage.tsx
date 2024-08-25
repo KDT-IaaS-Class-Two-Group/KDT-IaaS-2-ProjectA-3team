@@ -14,7 +14,6 @@ import {
   projectHeader,
   projectTitle,
 } from "client/styles/admin/admindashboard.css";
-import Project from "client/components/auth_Component/project/project";
 import PendingUser from "client/components/MemberVerification/utils/PendingUser";
 import StateUsers from "client/components/StateUsers";
 import Attendance from "client/components/attendance";
@@ -34,6 +33,7 @@ import DBGUI from "../dbGUI/databaseGUI";
 import { tdn } from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
 import NoticeMainPage from "../../pages/noticeMain";
+import Project from "client/refactor_component/template/project/project";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }
