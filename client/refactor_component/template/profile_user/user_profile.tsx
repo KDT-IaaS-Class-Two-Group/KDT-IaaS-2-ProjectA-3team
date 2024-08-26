@@ -1,7 +1,7 @@
 /**
  * @file user_profile.tsx
  * @brief 이 파일은 사용자 개인 정보를 조회하고 수정할 수 있는 컴포넌트를 포함하고 있습니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
  */
@@ -19,19 +19,19 @@ import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 // 모듈
-import { handleEditClick } from "../../organism/profile_user/hook/handleEditClick";
-import { handleUpdateUser } from "../../organism/profile_user/service/handleUpdateUser";
-import { handleDisableBio } from "../../organism/profile_user/hook/handleDisableBio";
-import { handleFieldChange } from "../../organism/profile_user/hook/handleFieldChange";
-import { handleBioChange } from "../../organism/profile_user/hook/handleBioChange";
-import { handleCancelEdit } from "../../organism/profile_user/hook/handleCancelEdit";
-import { handleSave } from "../../organism/profile_user/utils/handleSave";
+import { handleEditClick } from "../../organism/profile_usera/hook/handleEditClick";
+import { handleUpdateUser } from "../../organism/profile_usera/service/handleUpdateUser";
+import { handleDisableBio } from "../../organism/profile_usera/hook/handleDisableBio";
+import { handleFieldChange } from "../../organism/profile_usera/hook/handleFieldChange";
+import { handleBioChange } from "../../organism/profile_usera/hook/handleBioChange";
+import { handleCancelEdit } from "../../organism/profile_usera/hook/handleCancelEdit";
+import { handleSave } from "../../organism/profile_usera/utils/handleSave";
 import {
   User,
   Profile,
   UserPersonalProps,
-} from "../../organism/profile_user/props/user.props";
-import { fetchUsers } from "../../organism/profile_user/service/fetchUsers";
+} from "../../organism/profile_usera/props/user.props";
+import { fetchUsers } from "../../organism/profile_usera/service/fetchUsers";
 
 import FormField from "../../molecule/form_field/form_field";
 import Button from "../../atom/button/button";

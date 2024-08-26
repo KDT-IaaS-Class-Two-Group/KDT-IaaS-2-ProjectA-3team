@@ -7,29 +7,31 @@
  */
 
 // import { User } from "../../organism/profile_user/props/user.props";
-import { User as ProfileUser } from '../profile_user/props/user.props';
-import { User as LookupUser } from '../user_lookup/props/user.props';
+import { User as ProfileUser } from "../profile_usera/props/user.props";
+import { User as LookupUser } from "../user_lookup/props/user.props";
 
 /**
  * @function handleSave
  * @brief 사용자 정보를 서버에 저장하는 함수
  * @details 이 함수는 제공된 사용자 정보 목록을 JSON 형식으로 변환하여 지정된 서버 엔드포인트로 POST 요청을 보낸다.
  *          요청의 응답 상태를 확인하고, 성공 여부에 따라 콘솔에 메시지를 출력한다.
- * 
+ *
  * @param {User[]} users - 저장할 사용자 정보 목록
- * 
+ *
  * @return {Promise<void>} - 함수가 비동기적으로 작업을 수행하며, 반환 값은 없음
- * 
+ *
  * @throws {Error} - 요청이 실패하거나 서버에서 오류가 발생한 경우 예외를 던진다.
- * 
+ *
  * @example
  * // 사용자 정보를 저장할 때
  * const users: User[] = [...]; // 사용자 목록을 정의
  * handleSave(users);
- * 
+ *
  * @note 사용자 정보 저장 작업은 비동기로 처리되며, 요청이 성공하면 콘솔에 성공 메시지가 출력된다.
  */
-export const handleSave = async (users: ProfileUser[] | LookupUser[]): Promise<void> => {
+export const handleSave = async (
+  users: ProfileUser[] | LookupUser[]
+): Promise<void> => {
   try {
     const response = await fetch("http://localhost:3001/getUser/all", {
       method: "POST",
