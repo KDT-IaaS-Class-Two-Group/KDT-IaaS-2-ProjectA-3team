@@ -18,7 +18,7 @@ import {
   listtable,
   pendinglist,
 } from "client/styles/users/attendancestyle.css";
-import AdminMainContent from "client/refactor_component/template/adminMainPage/AdminMainPage";
+import AdminMainContent from "client/refactor_component/template/admin_main_content/admin_main_content";
 
 import * as styles from "../../styles/sideproject/sideproject.css";
 

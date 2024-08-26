@@ -7,7 +7,7 @@ import {
 import { fullRowSection } from "client/styles/admin/greet/greet.css";
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
 import MainHeader from "client/components/common/header/mainheader";
-import AdminMainContent from "client/refactor_component/template/adminMainPage/AdminMainPage";
+import AdminMainContent from "client/refactor_component/template/admin_main_content/admin_main_content";
 
 const Dash: React.FC = () => {
   // 함수 선언
