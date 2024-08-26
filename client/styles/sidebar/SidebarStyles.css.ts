@@ -1,6 +1,13 @@
 /* SidebarStyles.css */
 import { style } from "@vanilla-extract/css";
 import { Colors, FontSize, Spacing, ViewHeightSpacing } from "../standard.css";
+export const maincontent = style({
+  flexGrow: 1, // 남은 공간을 채우도록 설정
+  padding: Spacing.medium, // 내부 여백 설정
+  backgroundColor: Colors.BackgroundDefault, // 배경색 설정
+  overflowY: "auto", // 세로 스크롤 허용
+  height: "100%", // 전체 높이를 차지하도록 설정
+});
 
 export const mainpagecontainer = style({
   display: "flex",
