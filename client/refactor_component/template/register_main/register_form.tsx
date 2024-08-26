@@ -1,4 +1,4 @@
-import useRegisterHooks from "../../organism/register_main/hook/registerHooks";
+import useRegisterHooks from "../../organism/register_main/hook/use.registerHooks";
 
 import {
   registerForm,
