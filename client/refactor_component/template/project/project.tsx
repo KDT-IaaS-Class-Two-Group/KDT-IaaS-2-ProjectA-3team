@@ -17,20 +17,20 @@ import {
   projectTableCell,
   projectTableHeader,
 } from "client/styles/admin/project/project.css";
-import { formatDate } from "../../organism/project/utils/dateUtils";
+import { formatDate } from "../../organism/project/utils/date_utils";
 import { calculateProgress } from "../../organism/project/utils/progressUtils";
 
 /**
  * @function Project
  * @brief 프로젝트 목록을 표시하는 컴포넌트
  * @description 이 컴포넌트는 서버에서 프로젝트 데이터를 가져와 상위 5개의 프로젝트를 테이블 형식으로 표시합니다. 각 프로젝트는 팀 이름, 프로젝트 이름, 기간, 그리고 진행 상황을 포함합니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
- * 
+ *
  * @component
  * @returns {JSX.Element} 프로젝트 목록을 포함하는 JSX 엘리먼트
- * 
+ *
  * @example
  * // Project 컴포넌트를 렌더링하는 예제
  * <Project />
