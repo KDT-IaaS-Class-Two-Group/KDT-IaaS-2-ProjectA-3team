@@ -3,7 +3,7 @@ import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
 import Logo from "../common/logo/Logo";
 import UserSelection from "../../refactor_component/template/team/team";
-import AdminMainContent from "../adminMainPage/AdminMainPage";
+import AdminMainContent from "../../refactor_component/template/adminMainPage/AdminMainPage";
 import ProjectView from "../project/info";
 import NoticeMainPage from "../../pages/noticeMain";
 import DBGUI from "../dbGUI/databaseGUI";

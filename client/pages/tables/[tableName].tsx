@@ -18,7 +18,7 @@ import {
   listtable,
   pendinglist,
 } from "client/styles/users/attendancestyle.css";
-import AdminMainContent from "client/components/adminMainPage/AdminMainPage";
+import AdminMainContent from "client/refactor_component/template/adminMainPage/AdminMainPage";
 
 import * as styles from "../../styles/sideproject/sideproject.css";
 
@@ -174,7 +174,7 @@ const TablePage: React.FC = () => {
       <AdminSidebar onMenuItemClick={handleMenuClick} />
       <div className={contentcontainer}>
         <div>
-          <MainHeader/>
+          <MainHeader />
           <div className={pagemainmain}>
             <div className={pagemaincontainer}>
               <div className={pagemaintext}>Table: {tableName}</div>
