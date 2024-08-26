@@ -28,11 +28,7 @@ const CardSection: React.FC<CardSectionProps> = ({
 }) => {
   return (
     <Card container_style={sectionClassName}>
-      <CardHeader
-        title={title}
-        buttonText={buttonText}
-        onButtonClick={onClick}
-      />
+      <CardHeader title={title} onButtonClick={onClick} />
       <div className={cardContent}>{children}</div>
     </Card>
   );
