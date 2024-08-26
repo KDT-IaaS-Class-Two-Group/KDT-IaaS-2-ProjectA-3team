@@ -1,24 +1,24 @@
-import useRegisterHooks from "../../organism/register/hook/registerHooks";
+import useRegisterHooks from "../../organism/register_main/hook/registerHooks";
 
 import {
   registerForm,
   formGroup,
   label,
   input,
-} from "../../../../client/styles/info/register.css";
+} from "../../../styles/info/register.css";
 import { buttonLinkClone } from "client/styles/info/index.css";
 
 /**
  * @function RegisterForm
  * @brief 회원가입 폼 컴포넌트
  * @description 사용자가 회원가입 정보를 입력할 수 있는 폼을 제공하는 컴포넌트입니다. 사용자는 사용자 이름, ID, 비밀번호, 비밀번호 확인, 이메일, 전화번호, 생년월일, 주소를 입력할 수 있으며, 'sign up' 버튼을 클릭하여 회원가입을 진행할 수 있습니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
- * 
+ *
  * @component
  * @returns {JSX.Element} 회원가입 폼을 포함하는 JSX 엘리먼트
- * 
+ *
  * @example
  * // RegisterForm 컴포넌트를 렌더링하는 예제
  * <RegisterForm />

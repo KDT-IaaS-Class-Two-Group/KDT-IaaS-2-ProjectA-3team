@@ -1,4 +1,4 @@
-import RegisterForm from "../refactor_component/template/register/registerForm";
+import RegisterForm from "../refactor_component/template/register_main/registerForm";
 import * as styles from "../styles/info/index.css";
 const RegisterPage: React.FC = () => {
   return (
