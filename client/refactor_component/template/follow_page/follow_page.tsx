@@ -9,7 +9,7 @@
 
 import React from "react";
 import { useFollowPage } from "../../organism/follow_page/hook/use_follow_page";
-import { handleFollow } from "client/refactor_component/organism/follow_page/service/handle_follow";
+import { handleFollow } from "client/refactor_component/organism/follow_page/service/fetch_handle_follow";
 // "../../organism/follow_page/service/handleFollow";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";

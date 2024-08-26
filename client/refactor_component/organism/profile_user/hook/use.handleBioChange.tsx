@@ -31,4 +31,3 @@ export const handleBioChange = (
   // 이전 상태의 맵을 복사하여 새로운 맵을 생성한 후, 주어진 userId에 대해 새로운 bio 값을 설정합니다.
   setBios((prevBios) => new Map(prevBios).set(userId, value));
 };
-

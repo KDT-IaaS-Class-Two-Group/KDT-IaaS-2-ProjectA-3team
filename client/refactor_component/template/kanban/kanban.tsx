@@ -7,8 +7,8 @@
  */
 
 import React from "react";
-import { KanbanProps } from "../../organism/kanban/props/user.props";
-import { useKanban } from "../../organism/kanban/hook/use_kanban";
+import { KanbanProps } from "../../organism/kanban_board/props/user.props";
+import { useKanban } from "../../organism/kanban_board/hook/use_kanban";
 import {
   IssueContainer,
   KanbanListContainer,
