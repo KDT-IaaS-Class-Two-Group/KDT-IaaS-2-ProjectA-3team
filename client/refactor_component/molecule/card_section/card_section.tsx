@@ -2,6 +2,7 @@ import Card from "client/refactor_component/atom/card/card";
 import React from "react";
 import CardHeader from "../card_header/card_header";
 import Button from "client/refactor_component/atom/button/button";
+import CardSectionProps from "./props/card_section.props";
 const CardSection: React.FC<CardSectionProps> = ({
   sectionClassName,
   title,
