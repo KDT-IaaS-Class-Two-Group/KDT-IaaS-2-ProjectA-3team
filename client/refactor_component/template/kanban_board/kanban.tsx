@@ -7,8 +7,8 @@
  */
 
 import React from "react";
-import { KanbanProps } from "../../organism/kanban/props/user.props";
-import { useKanban } from "../../organism/kanban/hook/use_kanban";
+import { KanbanProps } from "../../organism/kanban_board/props/user.props";
+import { useKanban } from "../../organism/kanban_board/hook/use_kanban";
 import {
   IssueContainer,
   KanbanListContainer,
@@ -19,6 +19,9 @@ import {
  * @brief Kanban 보드에서 이슈를 표시하는 컴포넌트
  * @details 이 컴포넌트는 주어진 사용자 ID를 사용하여 이슈를 가져오고, 이를 Kanban 보드에 표시한다. 로딩 상태와 오류 메시지를 처리하며, 이슈가 없을 경우 적절한 메시지를 표시한다.
  *
+ * @author @zoeznm
+ * @date 2024-08-25
+ * 
  * @param {KanbanProps} props - 컴포넌트에 전달되는 속성
  * @param {string} props.user_id - 이슈를 가져올 사용자의 ID
  *

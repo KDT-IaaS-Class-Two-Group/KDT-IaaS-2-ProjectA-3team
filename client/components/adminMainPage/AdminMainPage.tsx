@@ -148,12 +148,12 @@ import DBGUI from "../dbGUI/databaseGUI";
 import { tdn } from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
 import NoticeMainPage from "../../pages/noticeMain";
-import Project from "client/refactor_component/template/project/project";
+import Project from "client/refactor_component/template/project_table/project";
 import Card from "client/refactor_component/atom/card/card";
 import CardHeader from "client/refactor_component/molecule/card_header/card_header";
 import withCardSection from "client/refactor_component/organism/card/utils/with_card_section";
 import PendingUserLook from "client/refactor_component/template/user_approval/pending_user_approval";
-import { Admin } from "mongodb";
+// import { Admin } from "mongodb";
 interface AdminMainContentProps {
   onClick: (component: React.ReactNode) => void;
 }

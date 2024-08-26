@@ -17,8 +17,8 @@ import {
   projectTableCell,
   projectTableHeader,
 } from "client/styles/admin/project/project.css";
-import { formatDate } from "../../organism/project/utils/date_utils";
-import { calculateProgress } from "../../organism/project/utils/progressUtils";
+import { formatDate } from "../../organism/project_table/utils/date_utils";
+import { calculateProgress } from "../../organism/project_table/utils/progressUtils";
 
 /**
  * @function Project

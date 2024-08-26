@@ -7,7 +7,7 @@
  * @date 2024-08-25
  */
 
-import { User, Profile } from "../interface/usertypes"; // User와 Profile 타입이 정의된 파일의 경로를 맞추세요"
+import { User, Profile } from "../interface/usertype.interface"; // User와 Profile 타입이 정의된 파일의 경로를 맞추세요"
 
 /**
  * @function fetchUsers

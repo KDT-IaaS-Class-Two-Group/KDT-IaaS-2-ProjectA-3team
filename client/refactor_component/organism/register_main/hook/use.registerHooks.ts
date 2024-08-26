@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import fetchRegisterData from '../service/fetchRegisterData';
+import fetchRegisterData from '../service/fetch_fetchRegisterData';
 import { PendingUser } from '../interface/PendingData.interface';
 import * as validate from 'client/model/validator/validateRegisterData';
 import { useRouter } from 'next/router';

@@ -7,7 +7,7 @@
  * @date 2024-08-25
  */
 
-import { User } from "../interface/usertypes";
+import { User } from "../interface/usertype.interface";
 
 /**
  * @function handleUpdateUser
