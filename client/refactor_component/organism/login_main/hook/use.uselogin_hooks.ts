@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import fetchLogin from '../service/fetchLoginData';
+import fetchLogin from '../service/fetch_fetchLoginData';
 import * as validate from 'client/model/validator/validateRegisterData';
 
 /**

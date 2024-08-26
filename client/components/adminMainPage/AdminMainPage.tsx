@@ -33,7 +33,7 @@ import DBGUI from "../dbGUI/databaseGUI";
 import { tdn } from "client/styles/templatebutton.css";
 import { projectitletext } from "client/styles/admin/project/project.css";
 import NoticeMainPage from "../../pages/noticeMain";
-import Project from "client/refactor_component/template/project/project";
+import Project from "client/refactor_component/template/project_table/project";
 interface AdminMainContentProps {
   onclick: (component: React.ReactNode) => void;
 }

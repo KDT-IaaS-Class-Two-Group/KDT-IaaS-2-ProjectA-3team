@@ -1,16 +1,27 @@
 import React from "react";
-import useLoginHooks from "../../organism/login/hook/loginHooks";
+import useLoginHooks from "../../organism/login_main/hook/use.uselogin_hooks";
 import Input from "../../atom/login_input/login_input"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
 import Button from "../../atom/button/button"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
 import * as styles from "../../../styles/info/index.css";
 
 /**
- * * Function : LoginForm
- * 작성자 : @naviadev / 2024-07-31
- * 편집자 : @dalramjwi / 2024-08-07
- * Issue :
  * @function LoginForm
- * @description : 로그인 Form
+ * @brief 사용자가 로그인할 수 있는 폼을 렌더링합니다.
+ * @description 사용자가 ID와 비밀번호를 입력하여 로그인할 수 있는 폼을 제공합니다. "Enter" 키를 눌러 로그인하거나, "sign in" 버튼을 클릭하여 로그인 요청을 처리할 수 있습니다.
+ *
+ * @author @zoeznm
+ * @date 2024-08-25
+ *
+ * @component
+ *
+ * @returns {JSX.Element} 로그인 폼 컴포넌트를 반환합니다.
+ *
+ * @example
+ * // LoginForm 컴포넌트를 렌더링합니다.
+ * <LoginForm />
+ *
+ * @note
+ * 이 컴포넌트는 로그인 성공 후의 동작이나 상태 관리는 포함하지 않습니다. 해당 기능은 `useLoginHooks`에서 처리됩니다.
  */
 const LoginForm: React.FC = () => {
   const { setId, setPassword, handleLogin, isLoggedIn } = useLoginHooks();
