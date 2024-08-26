@@ -9,6 +9,8 @@ import { dbbuttonstyle } from "client/styles/databaseGUI/maindbgui.css";
 
 interface ButtonProps {
   onClick?: () => void;
+  button_text?: string;
+  button_style?: string;
   link?: string;
   children?: React.ReactNode;
 }
