@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import { UserSearch } from "../common/nav/UserSearch";
-import Logo from "../common/logo/Logo";
+import Logo from "client/refactor_component/template/logo/logo";
 import UserSelection from "../../refactor_component/template/team/team";
 import AdminMainContent from "../../refactor_component/template/admin_main_content/admin_main_content";
 import ProjectView from "../project/info";
