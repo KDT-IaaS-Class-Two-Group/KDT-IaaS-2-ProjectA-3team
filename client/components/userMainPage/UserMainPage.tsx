@@ -18,7 +18,7 @@ import {
   usernoticesection, // 사용자 알림 섹션 스타일
   usersection, // 사용자 섹션의 기본 스타일
 } from "client/styles/users/userdashboard.css";
-import CalendarComponent from "../Calendar/calendar"; // 캘린더 기능을 제공하는 컴포넌트를 임포트합니다.
+import CalendarComponent from "client/refactor_component/molecule/calendar/calendar"; // 캘린더 기능을 제공하는 컴포넌트를 임포트합니다.
 import NoticeBoard from "../Notice/NoticeBoard"; // 공지사항 게시판 컴포넌트를 임포트합니다.
 import { Button } from "../common/elements/button"; // 공통 버튼 컴포넌트를 임포트하여 재사용합니다.
 import { useEffect, useState } from "react"; // React의 내장 훅, 상태 관리 및 사이드 이펙트 처리를 위해 사용합니다.
