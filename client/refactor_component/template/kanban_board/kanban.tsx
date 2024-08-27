@@ -21,7 +21,7 @@ import {
  *
  * @author @zoeznm
  * @date 2024-08-25
- * 
+ *
  * @param {KanbanProps} props - 컴포넌트에 전달되는 속성
  * @param {string} props.user_id - 이슈를 가져올 사용자의 ID
  *
@@ -30,6 +30,7 @@ import {
  * @example
  * // KanbanComponent를 사용하는 예제
  * <KanbanComponent user_id="12345" />
+ *
  *
  * @note `useKanban` 훅을 사용하여 이슈 데이터를 비동기로 가져오며, 로딩 상태와 오류 처리를 포함한다.
  */
