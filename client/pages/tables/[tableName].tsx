@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useFetchTableData } from "../../hooks/useFetchTableData";
 import AdminSidebar from "./../../components/SideBar/AdminSidebar";
-import MainHeader from "client/components/common/header/mainheader";
+import MainHeader from "client/refactor_component/template/dash_board/dash_board";
 import {
   contentcontainer,
   mainpagecontainer,

@@ -6,7 +6,8 @@ import {
   mainpagecontainer,
   section,
 } from "client/styles/admin/admindashboard.css";
-import MainHeader from "client/components/common/header/mainheader";
+import MainHeader from "client/refactor_component/template/dash_board/dash_board";
+// import MainHeader from "client/components/common/header/mainheader";
 import UserMainContent from "client/refactor_component/template/main_content/user/user_main_content";
 
 const UserHome: React.FC = () => {

@@ -6,7 +6,7 @@ import {
 } from "client/styles/admin/admindashboard.css";
 import { fullRowSection } from "client/styles/admin/greet/greet.css";
 import AdminSidebar from "../../components/SideBar/AdminSidebar";
-import MainHeader from "client/components/common/header/mainheader";
+import MainHeader from "client/refactor_component/template/dash_board/dash_board";
 import AdminMainContent from "client/refactor_component/template/main_content/admin/admin_main_content";
 
 const Dash: React.FC = () => {
