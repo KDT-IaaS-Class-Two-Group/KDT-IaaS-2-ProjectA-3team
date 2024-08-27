@@ -10,7 +10,8 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
 
 import { tdn } from "client/styles/templatebutton.css";
-import ProjectCheckComponent from "../__userHome/project";
+// import ProjectCheckComponent from "client/refactor_component/template/project_check/project_check_pate";
+import ProjectCheckComponent from "client/components/__userHome/project";
 
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;

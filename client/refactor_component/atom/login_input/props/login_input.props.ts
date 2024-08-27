@@ -12,7 +12,7 @@ import { ChangeEvent, KeyboardEvent } from "react";
 export default interface InputProps {
   id: string; // 입력 필드의 ID
   type: string; // 입력 필드의 타입 (예: text, password)
-  value: string; // 입력 필드의 현재 값
+  value?: string; // 입력 필드의 현재 값
   onChange: (e: ChangeEvent<HTMLInputElement>) => void; // 값 변경 핸들러
   placeholder?: string; // 입력 필드의 placeholder 텍스트 (선택 사항)
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void; // 키보드 입력 핸들러 (선택 사항)

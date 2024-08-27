@@ -45,7 +45,6 @@ const LoginForm: React.FC = () => {
           placeholder="id"
           onChange={(e) => setId(e.target.value)}
           onKeyDown={handleKeyDown}
-          value={""}
           className={styles.input}
         />
       </div>
@@ -57,7 +56,6 @@ const LoginForm: React.FC = () => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleKeyDown}
-          value={""}
           className={styles.input}
         />
       </div>
