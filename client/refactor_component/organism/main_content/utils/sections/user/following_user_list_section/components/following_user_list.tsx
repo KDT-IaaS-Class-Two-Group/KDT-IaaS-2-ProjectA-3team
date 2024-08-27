@@ -8,7 +8,7 @@ interface FollowingUserListProps {
 }
 
 const FollowingUserList: React.FC<FollowingUserListProps> = ({
-  followingUsers,
+  followingUsers=[],
 }) => {
   return (
     <>
