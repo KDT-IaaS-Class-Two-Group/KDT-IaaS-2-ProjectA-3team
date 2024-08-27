@@ -5,7 +5,7 @@ import { section } from "client/styles/admin/admindashboard.css";
 import { favsection } from "client/styles/users/userdashboard.css";
 import FollowingUserList from "./components/following_user_list";
 const FollowingUserListSection = withCardSection(FollowingUserList, {
-  sectionClassName: `${section} ${favsection}`,
+  sectionClassName: ``,
   title: "Following Users",
   buttonText: "View Users",
   onClick: (props: MainContentProps) => {

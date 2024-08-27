@@ -1,17 +1,17 @@
-import { FollowingUserProps } from "client/refactor_component/organism/main_content/props/main_content.props";
 import { followerlist } from "client/styles/notice/notice.css";
 import { favsection, usersection } from "client/styles/users/userdashboard.css";
-import React from "react";
+import React, { Fragment } from "react";
+import FollowingUserProps from "../props/following_user.props";
 
 interface FollowingUserListProps {
   followingUsers: FollowingUserProps[];
 }
 
 const FollowingUserList: React.FC<FollowingUserListProps> = ({
-  followingUsers=[],
+  followingUsers = [],
 }) => {
   return (
-    <>
+    <Fragment>
       <div className={`${usersection} ${favsection}`}>
         <div className={followerlist}>
           {followingUsers[0]?.username || "No followed users"}
@@ -27,7 +27,7 @@ const FollowingUserList: React.FC<FollowingUserListProps> = ({
           {followingUsers[2]?.username || "No followed users"}
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 
