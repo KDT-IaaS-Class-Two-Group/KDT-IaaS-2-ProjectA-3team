@@ -1,6 +1,6 @@
 import withCardSection from "client/refactor_component/organism/card/utils/with_card_section";
 import React from "react";
-import AdminMainContentProps from "../../../props/admin_main_content.props";
+import MainContentProps from "../../../../props/main_content.props";
 import { section } from "client/styles/admin/admindashboard.css";
 import { requestSection } from "client/styles/admin/requests/requests.css";
 import PendingUsersList from "client/components/PendingUsersList";
@@ -10,7 +10,7 @@ const UserPendingSection = withCardSection(PendingUsersList, {
   sectionClassName: `${section} ${requestSection}`,
   title: "User Sign up Management",
   buttonText: "View Pending Users",
-  onClick: (props: AdminMainContentProps) => {
+  onClick: (props: MainContentProps) => {
     props.onClick(<PendingUserLook />);
     return null;
   },

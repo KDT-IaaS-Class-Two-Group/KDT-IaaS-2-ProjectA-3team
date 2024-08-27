@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
 import AdminSidebar from "../SideBar/AdminSidebar";
-import AdminMainContent from "../../refactor_component/template/admin_main_content/admin_main_content";
+import AdminMainContent from "../../refactor_component/template/main_content/admin/admin_main_content";
 import MainHeader from "../common/header/mainheader";
 import {
   pagemaincontainer,
