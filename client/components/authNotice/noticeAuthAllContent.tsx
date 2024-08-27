@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
 import AdminSidebar from "../SideBar/AdminSidebar";
-import AdminMainContent from "../adminMainPage/AdminMainPage";
+import AdminMainContent from "../../refactor_component/template/admin_main_content/admin_main_content";
 import MainHeader from "../common/header/mainheader";
-import { pagemaincontainer, pagemainmain, pagemaintext } from "client/styles/team/teampage.css";
+import {
+  pagemaincontainer,
+  pagemainmain,
+  pagemaintext,
+} from "client/styles/team/teampage.css";
 import * as styles from "../../styles/notice/notice.css";
 import { centeredflexrowcontainer } from "client/styles/standardcontainer.css";
 import { ListNotice } from "./noticeAuthContentModule/interfaceType";
-import fetchNotices from "./noticeAuthAllContentModule/fetchNotice"
+import fetchNotices from "./noticeAuthAllContentModule/fetchNotice";
 
 const NoticeAuthAllContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // admin 서버에서 건너오는 게시물 데이터
@@ -52,9 +56,14 @@ const NoticeAuthAllContent = () => {
                 {userList.length > 0 ? (
                   userList.map((notice, index) => (
                     <div key={notice._id}>
-                      <Link href={`/noticeAuth/${notice._id}`} className={styles.uploadbutton}>
+                      <Link
+                        href={`/noticeAuth/${notice._id}`}
+                        className={styles.uploadbutton}
+                      >
                         <div className={styles.noticelengh}>
-                          <p className={styles.TagSize}>{index + 1 + (currentPage - 1) * itemsPerPage}</p>
+                          <p className={styles.TagSize}>
+                            {index + 1 + (currentPage - 1) * itemsPerPage}
+                          </p>
                           <p className={styles.pTagTitletext}>{notice.title}</p>
                           <p className={styles.TagSize}>{notice.user_id}</p>
                           <p className={styles.TagSize}>{notice.createdAt}</p>

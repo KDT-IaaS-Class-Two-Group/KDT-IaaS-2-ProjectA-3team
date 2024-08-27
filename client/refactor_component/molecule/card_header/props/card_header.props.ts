@@ -1,7 +1,4 @@
 export default interface CardHeaderProps {
-  title: string;
-  button_style: string;
-  onButtonClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  button_text?: string; // optional로 설정
-  children?: React.ReactNode; // 버튼 내용으로 사용할 수 있는 children 추가
+  title: string; // 카드 헤더의 타이틀
+  onButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void; // 버튼 클릭 이벤트 핸들러
 }

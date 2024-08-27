@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import * as styles from "../../styles/notice/notice.css";
 import send from "./noticePageModule/fetchSendNotice";
-import Input from "client/refactor_component/atom/input/input";
+import Input from "client/refactor_component/atom/notice_input/notice_input";
 import Button from "client/refactor_component/atom/button/button";
-import TextArea from "client/refactor_component/atom/text_area/text_area";
+import TextArea from "client/refactor_component/atom/notice_textarea/notice_textarea";
 
 /**
  * * Function : RegisterForm
@@ -39,22 +39,23 @@ const NoticeBoard: React.FC = () => {
       </div>
       <div className={styles.wrtiePage}>
         <div className={styles.checksize}>
-          <input
+          <Input
+            id="title"
             type="text"
             value={state}
             onChange={(ele) => setState(ele.target.value)}
             placeholder="글 제목"
-            className={styles.inputSize}
+            style={styles.inputSize}
           />
         </div>
         <div className={styles.testsize}>
-          <textarea
+          <TextArea
             value={stateContent}
             onChange={(ele) => setStateContent(ele.target.value)}
             name="content"
             id="content"
             placeholder="글 내용"
-            className={styles.textareaSize}
+            style={styles.textareaSize}
           />
         </div>
       </div>{" "}

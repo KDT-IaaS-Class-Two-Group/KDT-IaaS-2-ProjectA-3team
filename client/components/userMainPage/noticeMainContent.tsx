@@ -5,7 +5,7 @@ import { centeredflexrowcontainergap } from "client/styles/standardcontainer.css
 import { ListNotice } from "./noticeMainContentModule/interfaceType";
 import fetchNotices from "./noticeMainContentModule/fetchNotice";
 import Tag from "client/refactor_component/atom/tag/tag";
-
+import Button from "client/refactor_component/atom/button/button";
 /**
  * * Function : NoticeMainContent
  * 작성자 : @yun-21 / 2024-08-01
@@ -61,14 +61,13 @@ const NoticeMainContent = () => {
       <div className={centeredflexrowcontainergap}>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
-            <button
+            <Button
               key={page}
+              button_text={page.toString()}
+              button_style={styles.pagebutton}
               onClick={() => handlePageChange(page)}
               disabled={currentPage === page}
-              className={styles.pagebutton}
-            >
-              {page}
-            </button>
+            />
           )
         )}
       </div>
