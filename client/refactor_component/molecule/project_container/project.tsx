@@ -1,7 +1,7 @@
 // molecules/ProjectInfoComponent.tsx
 import React from "react";
-import { itemContainer, HeaderContainer } from "client/refactor_component/atom/Date/style/Data.css";
-import { formatDate } from "client/refactor_component/atom/Date/date";
+import { itemContainer, HeaderContainer } from "client/refactor_component/atom/date/style/Data.css";
+import { formatDate } from "client/refactor_component/atom/date/date";
 import  ProjectInfoProps  from "./props/project.props";
 
 const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({

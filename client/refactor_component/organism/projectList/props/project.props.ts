@@ -1,5 +1,5 @@
 // src/organism/projectList/ProjectList.interface.ts
-import  ProjectData  from "client/refactor_component/atom/Date/props/date.props";
+import  ProjectData  from "client/refactor_component/atom/date/props/date.props";
 
 export interface ProjectListProps {
   projects: ProjectData[];

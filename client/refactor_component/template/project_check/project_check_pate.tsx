@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import fetchCheckProject from "../../organism/projectList/service/fetch_check_project";
 import ProjectList from "../../organism/projectList/project_list";
-import  ProjectData  from "../../atom/Date/props/date.props";
+import  ProjectData  from "../../atom/date/props/date.props";
 import  ProjectCheckPageProps  from "../../organism/projectList/props/project_session.props"; // Organism에서 인터페이스 가져오기
 
 const ProjectCheckPage: React.FC<ProjectCheckPageProps> = ({
