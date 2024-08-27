@@ -7,7 +7,7 @@ import {
   section,
 } from "client/styles/admin/admindashboard.css";
 import MainHeader from "client/components/common/header/mainheader";
-import UserMainContent from "client/components/userMainPage/UserMainPage";
+import UserMainContent from "client/refactor_component/template/main_content/user/user_main_content";
 
 const UserHome: React.FC = () => {
   // 사이드바에서 선택된 메뉴에 따라 표시할 컴포넌트 상태
