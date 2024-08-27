@@ -1,6 +1,6 @@
 import AttendanceSection from "client/refactor_component/organism/main_content/utils/sections/admin/attendance_section/attendance_section";
 import DatabaseGUISection from "client/refactor_component/organism/main_content/utils/sections/admin/database_gui_section/database_gui_section";
-import NoticeBoardSection from "client/refactor_component/organism/main_content/utils/sections/common/notice_board_section/notice_board_section";
+import AdminNoticeBoardSection from "client/refactor_component/organism/main_content/utils/sections/admin/admin_notice_board_section/admin_notice_board_section";
 import ProjectSection from "client/refactor_component/organism/main_content/utils/sections/admin/project_section/project_section";
 import UserPendingSection from "client/refactor_component/organism/main_content/utils/sections/admin/user_pending_section/user_pending_section";
 import UserRequestSection from "client/refactor_component/organism/main_content/utils/sections/admin/user_request_section/user_request_section";
@@ -15,7 +15,7 @@ const AdminMainContent: React.FC<{
       <UserRequestSection onClick={onclick} />
       <UserPendingSection onClick={onclick} />
       <AttendanceSection onClick={onclick} />
-      <NoticeBoardSection onClick={onclick} />
+      <AdminNoticeBoardSection onClick={onclick} />
       <DatabaseGUISection onClick={onclick} />
     </div>
   );
