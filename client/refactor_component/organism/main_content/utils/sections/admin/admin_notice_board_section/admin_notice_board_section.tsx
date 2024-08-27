@@ -5,7 +5,7 @@ import { section } from "client/styles/admin/admindashboard.css";
 import NoticeBoard from "client/components/Notice/NoticeBoard";
 import { noticeBoardSection } from "client/styles/admin/noticeBoard/noticeboard.css";
 import NoticeMainPage from "client/pages/noticeMain";
-const NoticeBoardSection = withCardSection(NoticeBoard, {
+const AdminNoticeBoardSection = withCardSection(NoticeBoard, {
   sectionClassName: `${section} ${noticeBoardSection}`,
   title: "Notice Board",
   buttonText: "View Notices",
@@ -14,4 +14,4 @@ const NoticeBoardSection = withCardSection(NoticeBoard, {
     return null;
   },
 });
-export default NoticeBoardSection;
+export default AdminNoticeBoardSection;
