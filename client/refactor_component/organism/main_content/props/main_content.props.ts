@@ -1,3 +1,3 @@
-export default interface AdminMainContentProps {
+export default interface MainContentProps {
   onClick: (component: React.ReactNode) => void;
 }

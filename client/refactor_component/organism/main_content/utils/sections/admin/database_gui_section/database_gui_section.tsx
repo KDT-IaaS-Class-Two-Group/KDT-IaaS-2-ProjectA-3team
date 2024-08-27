@@ -1,6 +1,6 @@
 import withCardSection from "client/refactor_component/organism/card/utils/with_card_section";
 import React from "react";
-import AdminMainContentProps from "../../../props/admin_main_content.props";
+import MainContentProps from "../../../../props/main_content.props";
 import { section } from "client/styles/admin/admindashboard.css";
 import DBGUI from "client/components/dbGUI/databaseGUI";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
@@ -10,7 +10,7 @@ const DatabaseGUISection = withCardSection(DatabaseGUI, {
   sectionClassName: `${section} ${databaseGUISection}`,
   title: "Database GUI",
   buttonText: "View Database",
-  onClick: (props: AdminMainContentProps) => {
+  onClick: (props: MainContentProps) => {
     props.onClick(<DBGUI />);
     return null;
   },
