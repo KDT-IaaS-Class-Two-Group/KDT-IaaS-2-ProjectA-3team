@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import Text from "client/refactor_component/atom/Text/Text";
+import Text from "client/refactor_component/atom/Text/text";
 import { titletext, admintext } from "client/styles/admin/greet/greet.css";
 
 interface UserInfoProps {
