@@ -1,6 +1,6 @@
 import { useState } from "react";
 import fetchCreateIssue from "../service/fetchCreateIssue";
-import { AddIssueProps } from "../interface/props/addIssue.props";
+import { AddIssueProps } from "../props/addIssue.props";
 
 const AddIssueComponent: React.FC<AddIssueProps> = ({ project_name , onClose}) => {
   const [data, setData] = useState("");
