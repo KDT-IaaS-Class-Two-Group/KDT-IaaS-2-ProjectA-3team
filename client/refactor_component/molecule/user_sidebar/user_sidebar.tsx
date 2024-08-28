@@ -9,7 +9,8 @@
 
 import React from "react";
 import MenuItem from "client/components/MenuItem/MenuItem"; // MenuItem 컴포넌트 가져오기
-import ProjectCheckComponent from "client/components/__userHome/project"; // 프로젝트 조회 컴포넌트 가져오기
+// import ProjectCheckComponent from "client/components/__userHome/project"; // 프로젝트 조회 컴포넌트 가져오기
+import ProjectCheckComponent from "client/refactor_component/template/project_check/project_check_pate";
 import NoticeMainPage from "client/pages/noticeMain"; // 게시판 페이지 가져오기
 import UserPersonal from "client/refactor_component/template/profile_user/user_profile"; // 사용자 개인정보 조회 컴포넌트 가져오기
 import * as styles from "../../../styles/sidebar/SidebarStyles.css"; // 스타일 파일 가져오기

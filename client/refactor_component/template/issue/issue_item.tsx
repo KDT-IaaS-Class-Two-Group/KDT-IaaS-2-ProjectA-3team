@@ -1,10 +1,10 @@
 // template/issue/IssueComponent.tsx
 import React, { useState, useEffect } from "react";
-import { AddIssueProps } from "client/refactor_component/molecule/issue/props/addIssue.props";
+import { AddIssueProps } from "client/refactor_component/molecule/issue/props/add_issue.props";
 import { Issue } from "client/refactor_component/molecule/issue/props/issue.interface";
-import { fetchGetIssue } from "client/refactor_component/molecule/issue/service/fetchGetIssue";
+import { fetchGetIssue } from "client/refactor_component/molecule/issue/service/fetch_get_issue";
 import Modal from "client/components/modal/modal";
-import AddIssueComponent from "client/refactor_component/molecule/issue/item/addIssueComponent";
+import AddIssueComponent from "client/refactor_component/molecule/issue/add_issue_component";
 import { blueButton } from "client/styles/templatebutton.css";
 import IssueList from "client/refactor_component/organism/issue/issue_item";
 
