@@ -1,8 +1,8 @@
 import React from "react";
 import useLoginHooks from "../../organism/login_main/hook/use.uselogin_hooks";
-import Input from "../../atom/login_input/login_input"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
 import Button from "../../atom/button/button"; // 컴포넌트 경로는 프로젝트 구조에 따라 조정하세요
 import * as styles from "../../../styles/info/index.css";
+import Input from "client/refactor_component/atom/input/input";
 
 /**
  * @function LoginForm
