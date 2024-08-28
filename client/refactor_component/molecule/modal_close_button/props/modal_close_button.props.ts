@@ -1,3 +1,3 @@
-export default interface ModalButtonContainerProps {
+export default interface ModalCloseButtonProps {
   onClose: () => void;
 }
