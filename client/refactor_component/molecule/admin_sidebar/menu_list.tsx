@@ -1,4 +1,5 @@
 /**
+ * !!마찬가지로, Link와 관련된 로직, 로직 수정 필요
  * @file menu_list.tsx
  * @brief 메뉴 목록 컴포넌트 파일
  * @details 이 파일은 여러 메뉴 아이템을 나열하는 `MenuList` 컴포넌트를 정의한다.
