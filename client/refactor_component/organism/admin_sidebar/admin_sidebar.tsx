@@ -1,10 +1,8 @@
-
-
 // organism/admin_sidebar/admin_sidebar.tsx
 import React, { useState, useEffect } from "react";
-import Sidebar from '../../molecule/admin_sidebar/Sidebar';
+import Sidebar from "../../molecule/admin_sidebar/sidebar";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
-import * as styles from '../../../styles/sidebar/SidebarStyles.css';
+import * as styles from "../../../styles/sidebar/SidebarStyles.css";
 import AdminSidebarProps from "./props/admin_sidebar.props";
 
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
