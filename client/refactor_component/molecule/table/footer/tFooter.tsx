@@ -1,5 +1,5 @@
 import { flexRender } from "@tanstack/react-table";
-import TfootProps from "./props/tFooter";
+import TfootProps from "./props/tFooterProps";
 
 const Tfoot = <TData,>({ footerGroups }: TfootProps<TData>) => {
   return (
