@@ -1,7 +1,6 @@
 import React from "react";
-import Ul from "client/atoms/ul";
-import ListItemWithLink from "client/refactor_component/molecule/list_item_with_link/ListItemWithButton";
-
+import Ul from "client/refactor_component/atom/ul/ul";
+import ListItemWithLink from "client/refactor_component/molecule/list_link/list_link";
 interface Table {
   table_name: string;
 }

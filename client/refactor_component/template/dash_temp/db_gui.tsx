@@ -21,7 +21,7 @@ const DbGui: React.FC = () => {
       <DBGUIList
         tables={tables}
         ul_style={styles.ulliststlye}
-        li_style={styles.astyle}
+        li_style={""}
         link_style={styles.astyle}
       />
     </div>

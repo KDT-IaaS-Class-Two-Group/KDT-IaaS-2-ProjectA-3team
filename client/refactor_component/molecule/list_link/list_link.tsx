@@ -1,5 +1,5 @@
 import React from "react";
-import Li from "client/atoms/li";
+import Li from "client/refactor_component/atom/li/li";
 import Link from "client/refactor_component/atom/link/link";
 import ListItemWithLinkProps from "./prpos/list_link.props";
 

@@ -17,7 +17,8 @@ import ProjectInfoBottomContainer from "./style/projectInfoBottom.css";
 import Issue from "./interface/issue.interface";
 import IssueList from "./item/issueList";
 import { StackResult } from "./interface/stackResult.interface";
-import IssueComponent from "../issue/issue";
+// import IssueComponent from "../issue/issue";
+import IssueComponent from "client/refactor_component/template/issue/issue_item";
 
 const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   const [memberData, setMemberData] = useState([]);

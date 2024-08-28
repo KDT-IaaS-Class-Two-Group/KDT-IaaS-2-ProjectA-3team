@@ -21,15 +21,18 @@ const Input: React.FC<InputProps> = ({
   type,
   value,
   onChange,
+  onKeyDown,
   placeholder,
+  className,
 }) => {
   return (
     <input
-      className="" // [ ] input 기본 스타일 정의 필요
+      className={className} // [ ] input 기본 스타일 정의 필요
       id={id} // input 요소의 ID
       type={type} // input 요소의 타입 (예: text, password)
       value={value} // input 요소의 현재 값
       onChange={onChange} // 값이 변경될 때 호출되는 함수
+      onKeyDown={onKeyDown}
       placeholder={placeholder} // placeholder 텍스트
     />
   );

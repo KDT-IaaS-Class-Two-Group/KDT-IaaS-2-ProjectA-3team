@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={button_style} // 버튼 스타일을 적용
+      className={button_style||""} // 버튼 스타일을 적용
       onClick={onClick} // 클릭 이벤트 핸들러
       disabled={disabled} // 버튼 비활성화 여부
     >

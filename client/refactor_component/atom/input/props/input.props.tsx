@@ -4,5 +4,7 @@ export default interface InputProps {
   type: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder : string;
+  className?: string;
 }
