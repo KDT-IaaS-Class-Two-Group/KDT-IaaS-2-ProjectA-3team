@@ -1,6 +1,6 @@
 import { useState } from "react";
 import fetchCreateIssue from "../service/fetch_create_issue";
-import { AddIssueProps } from "../props/addIssue.props";
+import { AddIssueProps } from "../props/add_issue.props";
 
 const AddIssueComponent: React.FC<AddIssueProps> = ({
   project_name,
