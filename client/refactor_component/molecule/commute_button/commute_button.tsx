@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CommuteButtonProps } from "./props/commute_button.props";
 import postFetchData from "client/service/postFetch";
+import Button from "client/refactor_component/atom/button/button";
 
 const CommuteButton: React.FC<CommuteButtonProps> = ({ user_id }) => {
   const [status, setStatus] = useState("");
@@ -32,7 +33,7 @@ const CommuteButton: React.FC<CommuteButtonProps> = ({ user_id }) => {
   return (
     <div>
       <div>
-        <button
+        <Button
           onClick={() =>
             handleClockAction(
               "clockin",
@@ -40,10 +41,10 @@ const CommuteButton: React.FC<CommuteButtonProps> = ({ user_id }) => {
               "출근 처리에 실패했습니다."
             )
           }
-        >
-          출근
-        </button>
-        <button
+          button_text="출근"
+          button_style=""
+        />
+        <Button
           onClick={() =>
             handleClockAction(
               "clockout",
@@ -51,9 +52,9 @@ const CommuteButton: React.FC<CommuteButtonProps> = ({ user_id }) => {
               "퇴근 처리에 실패했습니다."
             )
           }
-        >
-          퇴근
-        </button>
+          button_text="퇴근"
+          button_style=""
+        />
       </div>
       {status && <p>{status}</p>}
     </div>
