@@ -30,6 +30,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   id,
   placeholder,
   className,
+  children,
 }) => {
   return (
     <textarea
@@ -39,7 +40,9 @@ const TextArea: React.FC<TextAreaProps> = ({
       id={id}
       placeholder={placeholder}
       className={className} // 스타일 클래스 이름
-    />
+    >
+      {children}
+    </textarea>
   );
 };
 
