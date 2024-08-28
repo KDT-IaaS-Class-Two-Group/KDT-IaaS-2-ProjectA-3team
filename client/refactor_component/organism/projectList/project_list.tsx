@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectInfoComponent from "../../molecule/project_container/project_info_component";
+import ProjectInfoComponent from "../../molecule/project_info_component/project_info_component";
 import { ProjectListProps } from "./props/project.props";
 
 const ProjectList: React.FC<ProjectListProps> = ({
