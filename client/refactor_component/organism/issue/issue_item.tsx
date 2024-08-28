@@ -1,6 +1,6 @@
 // organism/issue/IssueList.tsx
 import React from "react";
-import { Issue } from "client/components/issue/interface/issue.interface";
+import { Issue } from "client/refactor_component/molecule/issue/props/issue.interface";
 import IssueItem from "client/refactor_component/molecule/issue/issue_item";
 import { ListContainer } from "client/components/project_info/style/projectInfoContainer.css"; 
 
