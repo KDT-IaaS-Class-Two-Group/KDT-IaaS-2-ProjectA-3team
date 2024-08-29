@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { greenButton, blueButton } from "client/styles/templatebutton.css";
 import * as styles from "../../../styles/notice/notice.css";
 import retrieveComment from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_retrieve"
 import { ListComment } from "client/refactor_component/molecule/notice_comment/interface/list_comment";
@@ -8,8 +7,9 @@ import commentSend from "client/refactor_component/molecule/notice_comment/hook/
 import commentUpdate from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_update";
 import commentDelete from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_delete";
 import CommentWrite from "client/refactor_component/molecule/notice_comment/comment_write"
-import CommentEditing from "client/refactor_component/molecule/notice_comment/comment_editing";
-import Edit from "client/refactor_component/molecule/notice_comment/comment_edit";
+import CommentList from "client/refactor_component/organism/notice_comment/comment_list";
+import CommentPages from "client/refactor_component/molecule/notice_comment/comment_pages"
+
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [comment, setComment] = useState("");
@@ -59,53 +59,22 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         />
       </div>
       <div className={styles.commentcontent}>
-        {commentList.length > 0 ? (
-          commentList.map((comment) => (
-            <div key={comment._id}>
-              {editState[comment._id] ? (
-                <CommentEditing
-                  comment={comment}
-                  updateComment={updateComment}
-                  setCommentList={setCommentList}
-                />
-              ) : (
-                <div className={styles.commentinnercontent}>
-                  <div>
-                    <div className={styles.commentcreate}>
-                      <div className={styles.comment}>{comment.content}</div>
-                      <div>
-                        <div>{comment.userId}</div>
-                        <div>{comment.createdAt}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <Edit
-                    commentId={comment._id}
-                    setEditState={setEditState}
-                    deleteComment={deleteComment} />
-                </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <div>댓글 없음</div>
-        )}
+        <CommentList
+          commentList={commentList}
+          editState={editState}
+          setEditState={setEditState}
+          updateComment={updateComment}
+          setCommentList={setCommentList}
+          deleteComment={deleteComment}
+        />
       </div>
-      {/* 페이징 버튼 UI */}
-      {/* <div>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-          (page) => (
-            <Button
-              key={page}
-              button_text={page.toString()} // 페이지 번호를 문자열로 설정
-              button_style={currentPage === page ? `${greenButton}` : greenButton}
-              onClick={() => handlePageChange(page)} // 페이지 변경 함수 호출
-              disabled={currentPage === page} // 현재 페이지인 경우 버튼 비활성화
-            // 버튼 스타일은 부모 컴포넌트에서 설정
-            />
-          )
-        )}
-      </div> */}
+      <div>
+        <CommentPages
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
+      </div>
     </>
   );
 };
