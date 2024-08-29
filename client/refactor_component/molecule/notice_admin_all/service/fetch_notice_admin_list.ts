@@ -1,4 +1,4 @@
-import { ListNotice } from "../interface/notice_admin_all_prop";
+import { ListNotice } from "../interface/notice_admin_all.interface";
 
 const fetchNotices = (currentPage: number, itemsPerPage: number,setUserList: React.Dispatch<React.SetStateAction<ListNotice[]>>, setTotalPages: React.Dispatch<React.SetStateAction<number>>) => {
   return fetch(
