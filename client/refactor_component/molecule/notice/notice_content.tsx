@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-
-interface NoticeContentProps {
-  apiEndpoint: string;
-}
+import NoticeContentProps from "./props/notice_content.props";
 
 interface ListNotice {
   _id: string;
