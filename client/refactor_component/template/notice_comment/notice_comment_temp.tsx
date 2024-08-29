@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as styles from "../../../styles/notice/notice.css";
-import retrieveComment from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_retrieve"
+import retrieveComment from "client/refactor_component/molecule/notice_comment/service/fetch_comment_retrieve"
 import { ListComment } from "client/refactor_component/molecule/notice_comment/interface/list_comment";
 import { CommentFormProps } from "client/refactor_component/molecule/notice_comment/interface/comment_form_props";
-import commentSend from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_send";
-import commentUpdate from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_update";
-import commentDelete from "client/refactor_component/molecule/notice_comment/hook/fetch_comment_delete";
+import commentSend from "client/refactor_component/molecule/notice_comment/service/fetch_comment_send";
+import commentUpdate from "client/refactor_component/molecule/notice_comment/service/fetch_comment_update";
+import commentDelete from "client/refactor_component/molecule/notice_comment/service/fetch_comment_delete";
 import CommentWrite from "client/refactor_component/molecule/notice_comment/comment_write"
 import CommentList from "client/refactor_component/organism/notice_comment/comment_list";
 import CommentPages from "client/refactor_component/molecule/notice_comment/comment_pages"

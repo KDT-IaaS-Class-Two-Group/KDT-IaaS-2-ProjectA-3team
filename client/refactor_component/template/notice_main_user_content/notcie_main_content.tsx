@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ListNotice } from "client/refactor_component/molecule/notice_main_user_content/interface/notice_main_interface";
-import fetchNotices from "client/refactor_component/molecule/notice_main_user_content/hook/fetch_notcie_main";
+import fetchNotices from "client/refactor_component/molecule/notice_main_user_content/service/fetch_notcie_main";
 import NoticeContent from "client/refactor_component/organism/notice_main_user_content/notice_link_pages";
 
 /**

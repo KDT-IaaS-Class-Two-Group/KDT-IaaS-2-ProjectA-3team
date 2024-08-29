@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as styles from "../../../styles/notice/notice.css";
-import send from "client/refactor_component/molecule/notice_write/hook/fetch_notice_write";
+import send from "client/refactor_component/molecule/notice_write/service/fetch_notice_write";
 import SendBtn from "client/refactor_component/molecule/notice_write/notice_write_btn";
 import BackBtn from "client/refactor_component/molecule/notice_write/notice_write_back_btn";
 import TitleInput from "client/refactor_component/molecule/notice_write/notice_write_input";
