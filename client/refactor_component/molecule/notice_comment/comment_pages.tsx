@@ -20,7 +20,7 @@ const Pages: React.FC<PagesProps> = ({
           <Button
             key={page}
             button_text={page.toString()} // 페이지 번호를 문자열로 설정
-            button_style={currentPage === page ? `${greenButton}` : greenButton}
+            button_style={greenButton}
             onClick={() => handlePageChange(page)} // 페이지 변경 함수 호출
             disabled={currentPage === page} // 현재 페이지인 경우 버튼 비활성화
           />
