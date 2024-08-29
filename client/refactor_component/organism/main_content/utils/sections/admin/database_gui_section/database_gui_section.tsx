@@ -2,7 +2,7 @@ import withCardSection from "client/refactor_component/organism/card/utils/with_
 import React from "react";
 import MainContentProps from "../../../../props/main_content.props";
 import { section } from "client/styles/admin/admindashboard.css";
-import DBGUI from "client/components/dbGUI/databaseGUI";
+import DBGUI from "client/refactor_component/template/dash_temp/db_gui";
 import { databaseGUISection } from "client/styles/admin/databaseGUI/databasegui.css";
 import DatabaseGUI from "client/components/DatabaseGuI";
 

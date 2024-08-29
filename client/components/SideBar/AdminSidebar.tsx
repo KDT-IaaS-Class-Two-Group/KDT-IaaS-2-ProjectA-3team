@@ -6,7 +6,7 @@ import UserSelection from "../../refactor_component/template/team/team";
 import AdminMainContent from "../../refactor_component/template/main_content/admin/admin_main_content";
 import ProjectView from "../project/info";
 import NoticeMainPage from "../../pages/noticeMain";
-import DBGUI from "../dbGUI/databaseGUI";
+import DBGUI from "client/refactor_component/template/dash_temp/db_gui";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import Link from "next/link";
 import router, { Router } from "next/router";

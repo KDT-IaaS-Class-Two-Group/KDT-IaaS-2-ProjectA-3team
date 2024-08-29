@@ -52,7 +52,12 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     <>
       <div className={styles.commentcreate}>
         <div>
-          <TextArea className={styles.commenttext} children={comment} />
+          <TextArea
+            value={comment}                       // 상태 변수를 `value`로 전달
+            onChange={(e) => setComment(e.target.value)} // 입력이 변경될 때 상태 업데이트
+            placeholder="댓글을 작성하세요."
+            className={styles.commenttext}        // 스타일 클래스 적용
+          />
         </div>
         <div>
           <Button
@@ -69,9 +74,18 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
               {editState[comment._id] ? (
                 <div className={styles.commentcreate}>
                   <TextArea
-                    className={styles.commenttext}
-                    children={comment.content}
-                  />
+                    value={comment.content} // 상태 변수 comment의 content 속성 전달
+                    placeholder="댓글 수정하세요." // placeholder 텍스트 설정
+                    onChange={(e) => {
+                      const newContent = e.target.value;
+                      setCommentList((prevList) => prevList.map((c) => c._id === comment._id
+                        ? { ...c, content: newContent }
+                        : c
+                      )
+                      );
+                    } }
+                    className={styles.commenttext} 
+                    />
                   <Button
                     button_text="수정 완료"
                     button_style={blueButton}
@@ -119,7 +133,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         )}
       </div>
       {/* 페이징 버튼 UI */}
-      <div>
+      {/* <div>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <Button
@@ -128,11 +142,11 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
               button_style={currentPage === page ? `${greenButton}` : greenButton}
               onClick={() => handlePageChange(page)} // 페이지 변경 함수 호출
               disabled={currentPage === page} // 현재 페이지인 경우 버튼 비활성화
-              // 버튼 스타일은 부모 컴포넌트에서 설정
+            // 버튼 스타일은 부모 컴포넌트에서 설정
             />
           )
         )}
-      </div>
+      </div> */}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import type { status } from "client/components/issue/interface/type/status.type";
+import type { status } from "../type/status.type";
 
 // Issue 인터페이스 정의
 export interface Issue {

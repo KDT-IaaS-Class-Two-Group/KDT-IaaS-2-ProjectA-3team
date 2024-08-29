@@ -1,7 +1,7 @@
 import ModalBackdrop from "client/refactor_component/atom/back_drop/back_drop";
-import ModalButtonContainer from "client/refactor_component/molecule/modal_close_button/modal_close_button";
 import ModalContent from "client/refactor_component/molecule/modal_content/modal_content";
 import ModalProps from "../props/modal.props";
+import ModalCloseButton from "client/refactor_component/molecule/modal_close_button/modal_close_button";
 
 /**
  * @param ModalProps, CardProps
@@ -19,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return (
     <ModalBackdrop onClick={handleBackdropClick}>
       <ModalContent>
-        <ModalButtonContainer onClose={onClose}></ModalButtonContainer>
+        <ModalCloseButton onClose={onClose}></ModalCloseButton>
         {children}
       </ModalContent>
     </ModalBackdrop>
