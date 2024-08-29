@@ -11,7 +11,7 @@ import {
 } from "client/styles/team/teampage.css";
 import * as styles from "../../../styles/notice/notice.css";
 import { centeredflexrowcontainer } from "client/styles/standardcontainer.css";
-import { ListNotice } from "client/refactor_component/molecule/notice_admin_all/interface/notice_admin_all_prop"
+import { ListNotice } from "client/refactor_component/molecule/notice_admin_all/interface/notice_admin_all.interface"
 import fetchNotices from "client/refactor_component/molecule/notice_admin_all/service/fetch_notice_admin_list";
 import PTag from "client/refactor_component/atom/tag/tag";
 import Button from "client/refactor_component/atom/button/button";
