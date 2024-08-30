@@ -8,9 +8,9 @@ import { NoticeService } from '../../../notice.service';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-@ApiTags('Notice API')
+@ApiTags('Notice User API')
 @Controller('notices')
-export class NoticeController {
+export class NoticeUserController {
   constructor(private readonly noticeService: NoticeService) {}
 
   //사용자게시판 fetch
