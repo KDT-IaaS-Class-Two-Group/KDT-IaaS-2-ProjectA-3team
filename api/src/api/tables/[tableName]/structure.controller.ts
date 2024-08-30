@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { TableService } from '../../../database/table.service';
+import { TableService } from '../../../database/infrastructure/table.service';
 
 @Controller('api/tables/:tableName/structure')
 export class StructureController {

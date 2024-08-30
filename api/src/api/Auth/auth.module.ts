@@ -5,17 +5,15 @@ import { RegisterController } from './register/presentation/register.controller'
 import { RegisterService } from './register/register.service';
 import { LogoutController } from './login/presentation/logout.controller';
 
-import { DatabaseService } from 'src/database/database.service';
+import { DatabaseService } from 'src/database/infrastructure/database.service';
 import { VerifySessionController } from './verify/verifySession.controller';
-import PendingUserRepository from 'src/database/pending_users.repository';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import PendingUserRepository from 'src/database/application/pending_users.repository';
+import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 
 import { NoticeModule } from './notice/notice.module';
 
 @Module({
-  imports: [
-    NoticeModule,
-  ],
+  imports: [NoticeModule],
   controllers: [
     LoginController,
     RegisterController,

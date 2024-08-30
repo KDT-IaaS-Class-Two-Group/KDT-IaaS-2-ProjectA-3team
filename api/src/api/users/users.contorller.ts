@@ -10,7 +10,7 @@ import {
   Query, // Query 파라미터 사용을 위해 추가
 } from '@nestjs/common';
 import { Request } from 'express';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 
 @Controller('/getUser')
 export class UsersController {
