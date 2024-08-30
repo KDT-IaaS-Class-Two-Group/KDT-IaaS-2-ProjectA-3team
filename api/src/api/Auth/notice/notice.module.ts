@@ -7,6 +7,7 @@ import { NoticeMainController } from './presentation/controllers/crud/main_notic
 import { NoticeUserController } from './presentation/controllers/user/notice_user_lookup.controller';
 
 import { NoticeService } from './notice.service';
+import { DbConnect } from './infrastructure/database/db_connect/db_connect';
 
 
 @Module({
@@ -19,6 +20,7 @@ import { NoticeService } from './notice.service';
   ],
   providers: [
     NoticeService,
+    DbConnect,
   ],
 })
 export class NoticeModule {}
