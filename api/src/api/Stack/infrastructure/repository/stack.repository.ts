@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 import { Stack } from '../../domain/entities/stack.entity';
 import { TABLE_NAME } from 'src/api/common/enum/table/table.enum';
 import { QUERY_PLACEHOLDER } from 'src/api/common/enum/query/query.enum';
