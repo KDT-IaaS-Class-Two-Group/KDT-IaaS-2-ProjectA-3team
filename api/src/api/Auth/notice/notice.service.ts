@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MongoClient, ObjectId } from 'mongodb';
 import { Pool } from 'pg';
-import { NoticeDTO, CommentDTO } from '../../../../../shared/DTO/DbDTO';
+import { NoticeDTO } from './presentation/dto/notice.dto';
+import { CommentDTO } from './presentation/dto/comment.dto';
 import { dateSet } from './utils/dateUtils';
 
 @Injectable()
