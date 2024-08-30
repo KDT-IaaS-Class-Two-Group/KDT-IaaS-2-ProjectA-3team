@@ -7,11 +7,11 @@ import { NoticeService } from '../../../../notice.service';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-@Controller()
-@ApiTags('Notice API')
-export class NoticeController {
+@Controller('homenotice')
+@ApiTags('Notice Home API')
+export class NoticeHomeController {
   constructor(private readonly noticeService: NoticeService) {}
-  @Get('homeusernotice')
+  @Get('user')
   @ApiOperation({
     summary: '홈 사용자 공지사항 조회',
     description:
@@ -21,7 +21,7 @@ export class NoticeController {
     return await this.noticeService.homeUserNotices();
   }
 
-  @Get('homeauthnotice')
+  @Get('auth')
   @ApiOperation({
     summary: '홈 관리자 공지사항 조회',
     description:

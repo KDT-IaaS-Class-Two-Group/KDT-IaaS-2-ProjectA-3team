@@ -9,7 +9,7 @@ const UserNoticeSection: React.FC = () => {
   return (
     <div className={noticesection}>
       <div className={noticesubtext}>USER</div>
-      <NoticeContent apiEndpoint="/homeusernotice" />
+      <NoticeContent apiEndpoint="/homenotice/user" />
     </div>
   );
 };
