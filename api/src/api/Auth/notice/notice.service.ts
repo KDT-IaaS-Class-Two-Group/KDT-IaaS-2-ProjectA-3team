@@ -3,7 +3,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 import { Pool } from 'pg';
 import { NoticeDTO } from './presentation/dto/notice.dto';
 import { CommentDTO } from './presentation/dto/comment.dto';
-import { dateSet } from './utils/dateUtils';
+import { dateSet } from './infrastructure/utils/dateUtils';
 
 @Injectable()
 export class NoticeService {

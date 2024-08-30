@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CheckPendingUsers } from './pending_users/application/services/checkPendingUser';
-import { SetDefalutRole } from './pending_users/application/services/setDefaultRole';
+import { SetDefaultRole } from './pending_users/application/services/setDefaultRole';
 import { MigrationUserData } from './pending_users/application/services/migrationUserData';
 import { DeleteUsers } from './pending_users/application/services/deleteUsers';
 import { PendingUsersController } from './pending_users/presentation/pendingUsers.controller';
@@ -12,7 +12,7 @@ import { UserRepository } from '../common/infrastructure/Repository/Users.reposi
 
 const application = [
   CheckPendingUsers,
-  SetDefalutRole,
+  SetDefaultRole,
   MigrationUserData,
   DeleteUsers,
 ];
