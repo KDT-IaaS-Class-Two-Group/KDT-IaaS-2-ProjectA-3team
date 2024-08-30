@@ -21,7 +21,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 @Controller('comments')
 export class NoticeCommentController {
   constructor(private readonly noticeService: NoticeService) {}
-  @Get(':postid')
+  @Get(':postId')
   @ApiOperation({
     summary: '사용자 댓글 조회',
     description:
@@ -41,7 +41,7 @@ export class NoticeCommentController {
     );
   }
 
-  @Post(':postid')
+  @Post(':postId')
   @ApiOperation({
     summary: '댓글 작성',
     description: '지정된 게시물에 댓글을 작성하는 엔드포인트.',
