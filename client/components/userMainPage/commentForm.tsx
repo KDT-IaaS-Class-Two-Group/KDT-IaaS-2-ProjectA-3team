@@ -32,7 +32,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     fetchComment(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
   }, [postId, currentPage]); // currentPage가 변경될 때마다 fetch
 
-  const sendComment = () => {
+  const sendComment = (postId: string) => {
     commentSend(postId, comment, setComment, fetchComment);
   };
 
@@ -63,7 +63,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
           <Button
             button_text="댓글 작성"
             button_style={greenButton}
-            onClick={sendComment}
+            onClick={() => sendComment(postId)}
           />
         </div>
       </div>
