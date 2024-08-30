@@ -5,6 +5,9 @@ import { ROLE_COLUMNS } from '../../data/RoleColumns.enum';
 
 @Injectable()
 export class EmployeeRepository {
+  findEmployeeById(user_id: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly qb: QueryBuilder) {}
 
   async setEmpolyeeUser(user_id: string) {

@@ -6,10 +6,10 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { CheckPendingUsers } from './services/checkPendingUser';
-import { SetDefalutRole } from './services/setDefaultRole';
-import { MigrationUserData } from './services/migrationUserData';
-import { DeleteUsers } from './services/deleteUsers';
+import { CheckPendingUsers } from '../application/services/checkPendingUser';
+import { SetDefaultRole } from '../application/services/setDefaultRole';
+import { MigrationUserData } from '../application/services/migrationUserData';
+import { DeleteUsers } from '../application/services/deleteUsers';
 import { PendingUserDTO } from '../../../common/infrastructure/DTO/pendingUsers';
 
 import { RES_ERROR_MSG } from '../../../common/enum/message/error/responseErrorMessage.enum';
@@ -20,7 +20,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 export class PendingUsersController {
   constructor(
     private readonly checkPendingUsers: CheckPendingUsers,
-    private readonly setDefaultRole: SetDefalutRole,
+    private readonly setDefaultRole: SetDefaultRole,
     private readonly migrationUserData: MigrationUserData,
     private readonly deleteUsers: DeleteUsers,
   ) {}
