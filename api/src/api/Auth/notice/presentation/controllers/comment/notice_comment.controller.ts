@@ -17,11 +17,11 @@ import { NoticeService } from '../../../notice.service';
 import { CommentDTO } from 'src/api/Auth/notice/presentation/dto/comment.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-@Controller()
-@ApiTags('Notice API')
-export class NoticeController {
+@ApiTags('Notice Comment API')
+@Controller('comments')
+export class NoticeCommentController {
   constructor(private readonly noticeService: NoticeService) {}
-  @Get('usercomment/:postid')
+  @Get(':postid')
   @ApiOperation({
     summary: '사용자 댓글 조회',
     description:
@@ -41,7 +41,7 @@ export class NoticeController {
     );
   }
 
-  @Post('comments/:postid')
+  @Post(':postid')
   @ApiOperation({
     summary: '댓글 작성',
     description: '지정된 게시물에 댓글을 작성하는 엔드포인트.',
@@ -56,7 +56,7 @@ export class NoticeController {
     return await this.noticeService.createComment(postId, commentDTO, user_id);
   }
 
-  @Put('comments/:postId')
+  @Put(':postId')
   @ApiOperation({
     summary: '댓글 수정',
     description: '지정된 게시물의 댓글을 수정하는 엔드포인트.',
@@ -72,7 +72,7 @@ export class NoticeController {
     return this.noticeService.updateComment(postId, content, user_id, role);
   }
 
-  @Delete('comments/:postId')
+  @Delete(':postId')
   @ApiOperation({
     summary: '댓글 삭제',
     description: '지정된 게시물의 댓글을 삭제하는 엔드포인트.',
