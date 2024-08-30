@@ -12,9 +12,12 @@ import {
 
 import { Request } from 'express';
 
-import { NoticeService } from './notice.service';
+import { NoticeService } from '../../notice.service';
 
-import { NoticeDTO, CommentDTO } from '@shared/DTO/DbDTO';
+import { NoticeDTO } from 'src/api/Auth/notice/presentation/dto/notice.dto';
+
+import { CommentDTO } from 'src/api/Auth/notice/presentation/dto/comment.dto';
+
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller()
@@ -38,11 +41,11 @@ export class NoticeController {
     return await this.noticeService.getNotices(pageNumber, limitNumber);
   }
 
-  //관리자게시판 fetch (게시판 main 5개)
+  //관리자게시판 fetch (게시판 main 3개)
   @Get('authnotices')
   @ApiOperation({
-    summary: '관리자 게시판 공지사항 조회 (메인 5개)',
-    description: '관리자 게시판의 공지사항을 메인에서 5개 조회하는 엔드포인트.',
+    summary: '관리자 게시판 공지사항 조회 (메인 3개)',
+    description: '관리자 게시판의 공지사항을 메인에서 3개 조회하는 엔드포인트.',
   })
   async getAuthNotices() {
     return await this.noticeService.getAuthNotices();
@@ -65,7 +68,6 @@ export class NoticeController {
   }
 
   //게시물 작성 fetch
-
   @Post('send')
   @ApiOperation({
     summary: '공지사항 작성',
