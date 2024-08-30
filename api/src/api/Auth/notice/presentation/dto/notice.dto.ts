@@ -1,8 +1,8 @@
 /**
  * * Class : NoticeDTO
  * 작성자 : @yun-21 / 2024-07-31
- * 편집자 : @yun-21 / 2024-07-31
- * Issue : yun-21
+ * 편집자 : @yun-21 / 2024-08-30
+ * Issue : 
  * @class NoticeDTO
 
 
@@ -24,18 +24,5 @@ export class NoticeDTO {
     this.user_id = user_id;
     this.role = role;
     this.updatedAt = updatedAt;
-  }
-}
-export class CommentDTO {
-  postId: string;
-  userId: string;
-  content: string;
-  createdAt: string;
-
-  constructor(postId: string, userId: string, content: string, createdAt: string) {
-    this.postId = postId;
-    this.userId = userId;
-    this.content = content;
-    this.createdAt = createdAt;
   }
 }
