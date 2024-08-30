@@ -5,9 +5,10 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { RegisterService } from './register.service';
+import { RegisterService } from '../register.service';
 import { PendingUserDTO } from '@shared/DTO/SharedDTO';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+
 /**
  * * Class : RegisterController
  * 작성자 : @naviadev / 2024-07-31
@@ -27,6 +28,33 @@ export class RegisterController {
     summary: '회원가입',
     description:
       '사용자 회원가입 요청을 처리하는 엔드포인트이다. 중복 여부를 확인한 후 회원가입을 진행.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: '회원가입 성공',
+    schema: {
+      example: { message: '성공' },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: '잘못된 요청 데이터',
+    schema: {
+      example: {
+        statusCode: 400,
+        message: 'Bad Request',
+      },
+    },
+  })
+  @ApiResponse({
+    status: 500,
+    description: '서버 에러',
+    schema: {
+      example: {
+        statusCode: 500,
+        message: 'Server Error',
+      },
+    },
   })
   async register(@Body() data: PendingUserDTO) {
     try {
