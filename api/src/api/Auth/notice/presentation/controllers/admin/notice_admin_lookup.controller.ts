@@ -8,12 +8,12 @@ import { NoticeService } from '../../../notice.service';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-@Controller()
-@ApiTags('Notice API')
-export class NoticeController {
+@ApiTags('Notice Admin API')
+@Controller('authnotice')
+export class NoticeAdminController {
   constructor(private readonly noticeService: NoticeService) {}
     //관리자게시판 fetch (게시판 main 3개)
-    @Get('authnotices')
+    @Get()
     @ApiOperation({
       summary: '관리자 게시판 공지사항 조회 (메인 3개)',
       description: '관리자 게시판의 공지사항을 메인에서 3개 조회하는 엔드포인트.',
@@ -23,7 +23,7 @@ export class NoticeController {
     }
   
     //관리자게시판 fetch (관리자 총 게시판)
-    @Get('authallnotices')
+    @Get('all')
     @ApiOperation({
       summary: '관리자 게시판 공지사항 조회 (모든 게시판)',
       description:
