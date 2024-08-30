@@ -16,9 +16,9 @@ import { NoticeDTO } from 'src/api/Auth/notice/presentation/dto/notice.dto';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-@Controller()
-@ApiTags('Notice API')
-export class NoticeController {
+@Controller('notice')
+@ApiTags('Notice Main API')
+export class NoticeMainController {
   constructor(private readonly noticeService: NoticeService) {}
   //게시물 작성 fetch
   @Post('send')
@@ -33,7 +33,7 @@ export class NoticeController {
     return await this.noticeService.createNotice(noticeDTO, user_id, role);
   }
 
-  @Put('notice/:id')
+  @Put(':id')
   @ApiOperation({
     summary: '공지사항 수정',
     description: '지정된 ID의 공지사항을 수정하는 엔드포인트.',
@@ -49,7 +49,7 @@ export class NoticeController {
     return await this.noticeService.updateNotice(id, noticeDTO, user_id, role);
   }
 
-  @Delete('notice/:id')
+  @Delete(':id')
   @ApiOperation({
     summary: '공지사항 삭제',
     description: '지정된 ID의 공지사항을 삭제하는 엔드포인트.',
