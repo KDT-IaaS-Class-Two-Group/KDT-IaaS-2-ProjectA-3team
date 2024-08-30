@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from './infrastructure/database.service';
-import { PendingUserDTO } from '../../../shared/DTO/SharedDTO';
+import { DatabaseService } from '../infrastructure/database.service';
+import { UserDTO } from '../../../../shared/DTO/SharedDTO';
 
 @Injectable()
-class PendingUserRepository {
-  private readonly tableName: string = 'pending_users';
+class UsersRepository {
+  private readonly tableName: string = 'users';
   constructor(private readonly dbService: DatabaseService) {}
 
   async findAll() {
@@ -22,11 +22,19 @@ class PendingUserRepository {
     return result.rows[0];
   }
 
-  async InsertNewUser(userData: PendingUserDTO) {
-    // user_id | username | birth_date | address | phone | email | password
-
-    const { user_id, username, birth_date, address, phone, email, password } =
-      userData;
+  async InsertNewUser(userData: UserDTO) {
+    const {
+      user_id,
+      username,
+      birth_date,
+      address,
+      phone,
+      email,
+      password,
+      // role_name,
+      // salary,
+      // field_name,
+    } = userData;
 
     const params = [
       user_id,
@@ -36,20 +44,27 @@ class PendingUserRepository {
       phone,
       email,
       password,
+      // role_name,
+      // salary,
+      // field_name,
     ];
 
     const text = `
       INSERT INTO ${this.tableName} (
-          user_id,
-          username,
-          birth_date,
-          address,
-          phone,
-          email,
-          password
+        user_id,
+        username,
+        birth_date,
+        address,
+        phone,
+        email,
+        password,
       ) VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
-
+    /** 제외된 항목 - 추후 추가
+     * role_name,
+        salary,
+        field_name
+     */
     try {
       await this.dbService.query(text, params);
     } catch (error) {
@@ -59,4 +74,4 @@ class PendingUserRepository {
   }
 }
 
-export default PendingUserRepository;
+export default UsersRepository;

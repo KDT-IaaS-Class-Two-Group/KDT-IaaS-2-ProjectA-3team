@@ -1,5 +1,5 @@
 import { Controller, Put, Param, Body } from '@nestjs/common';
-import { TableService } from '../../../../database/table.service';
+import { TableService } from '../../../../database/infrastructure/table.service';
 
 @Controller('api/tables/:tableName/rows/:rowId')
 export class RowController {
@@ -12,7 +12,9 @@ export class RowController {
     @Body() rowData: any,
   ) {
     if (!['stack', 'field'].includes(tableName)) {
-      throw new Error('Only "stack" and "field" tables are allowed for updating rows.');
+      throw new Error(
+        'Only "stack" and "field" tables are allowed for updating rows.',
+      );
     }
     return this.tableService.updateRow(tableName, rowId, rowData);
   }

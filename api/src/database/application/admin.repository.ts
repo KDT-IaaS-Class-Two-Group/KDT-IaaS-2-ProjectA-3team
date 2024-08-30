@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from './infrastructure/database.service';
-import { UserDTO } from '../../../shared/DTO/SharedDTO';
+import { DatabaseService } from '../infrastructure/database.service';
+import { UserDTO } from '../../../../shared/DTO/SharedDTO';
 
 @Injectable()
 class AdminRepository {

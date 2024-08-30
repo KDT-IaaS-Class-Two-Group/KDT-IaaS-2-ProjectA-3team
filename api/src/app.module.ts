@@ -10,7 +10,7 @@ import { RowsController } from './api/tables/[tableName]/rows/rows.controller';
 import { RowController } from './api/tables/[tableName]/rows/row.controller';
 import { TablesController } from './api/tables/[tableName]/tables.controller';
 import { DatabaseService } from './database/infrastructure/database.service';
-import { TableService } from './database/table.service';
+import { TableService } from './database/infrastructure/table.service';
 import { AccountModule } from './api/Account/Account.module';
 import { ProjectModule } from './api/project/project.module';
 import { TeamModule } from './api/Team/team.module';
