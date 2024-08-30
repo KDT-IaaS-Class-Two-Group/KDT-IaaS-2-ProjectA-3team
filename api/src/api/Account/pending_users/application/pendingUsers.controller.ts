@@ -6,10 +6,10 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { CheckPendingUsers } from '../application/services/checkPendingUser';
-import { SetDefalutRole } from '../application/services/setDefaultRole';
-import { MigrationUserData } from '../application/services/migrationUserData';
-import { DeleteUsers } from '../application/services/deleteUsers';
+import { CheckPendingUsers } from './services/checkPendingUser';
+import { SetDefalutRole } from './services/setDefaultRole';
+import { MigrationUserData } from './services/migrationUserData';
+import { DeleteUsers } from './services/deleteUsers';
 import { PendingUserDTO } from '../../../common/infrastructure/DTO/pendingUsers';
 
 import { RES_ERROR_MSG } from '../../../common/enum/message/error/responseErrorMessage.enum';
