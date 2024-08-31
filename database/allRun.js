@@ -9,14 +9,6 @@ exec('node dist/notice/comment/user/create.bundle.js', (err, stdout, stderr) => 
   console.log(`Output: ${stdout}`);
 });
 
-exec('node dist/notice/comment/user/insert.bundle.js', (err, stdout, stderr) => {
-  if (err) {
-    console.error(`Error executing file: ${err}`);
-    return;
-  }
-  console.log(`Output: ${stdout}`);
-});
-
 exec('node dist/notice/post/user/create.bundle.js', (err, stdout, stderr) => {
   if (err) {
     console.error(`Error executing file: ${err}`);
@@ -25,23 +17,7 @@ exec('node dist/notice/post/user/create.bundle.js', (err, stdout, stderr) => {
   console.log(`Output: ${stdout}`);
 });
 
-exec('node dist/notice/post/user/insert.bundle.js', (err, stdout, stderr) => {
-  if (err) {
-    console.error(`Error executing file: ${err}`);
-    return;
-  }
-  console.log(`Output: ${stdout}`);
-});
-
 exec('node dist/notice/post/auth/create.bundle.js', (err, stdout, stderr) => {
-  if (err) {
-    console.error(`Error executing file: ${err}`);
-    return;
-  }
-  console.log(`Output: ${stdout}`);
-});
-
-exec('node dist/notice/post/auth/insert.bundle.js', (err, stdout, stderr) => {
   if (err) {
     console.error(`Error executing file: ${err}`);
     return;
