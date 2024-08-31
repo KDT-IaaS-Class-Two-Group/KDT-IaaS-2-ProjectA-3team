@@ -2,7 +2,7 @@ import { ListNotice } from "../noticeAuthContentModule/interfaceType";
 
 const fetchNotices = (currentPage: number, itemsPerPage: number,setUserList: React.Dispatch<React.SetStateAction<ListNotice[]>>, setTotalPages: React.Dispatch<React.SetStateAction<number>>) => {
   return fetch(
-    `http://localhost:3001/authallnotices?page=${currentPage}&limit=${itemsPerPage}`
+    `http://localhost:3001/authnotice/all?page=${currentPage}&limit=${itemsPerPage}`
   )
     .then((response) => {
       return response.json();

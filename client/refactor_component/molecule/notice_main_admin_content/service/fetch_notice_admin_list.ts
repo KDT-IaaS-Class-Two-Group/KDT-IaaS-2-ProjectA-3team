@@ -1,7 +1,7 @@
 import { ListNotice } from "../interface/notice_admin_props";
 
 const fetchNotices = (setAuthList: React.Dispatch<React.SetStateAction<ListNotice[]>>) => {
-  return fetch("http://localhost:3001/authnotices")
+  return fetch("http://localhost:3001/authnotice")
     .then((response) => {
       return response.json();
     })

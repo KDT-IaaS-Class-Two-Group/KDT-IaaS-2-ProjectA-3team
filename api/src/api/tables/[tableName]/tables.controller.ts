@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { TableService } from '../../../database/table.service';
+import { TableService } from '../../../database/infrastructure/table.service';
 import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('api/tables')

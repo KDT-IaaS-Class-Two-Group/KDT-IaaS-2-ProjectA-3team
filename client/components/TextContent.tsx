@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import * as styles from "../styles/notice/notice.css";
 import { tdn } from "client/styles/templatebutton.css";
 import { hovertextstyle } from "client/styles/notice/mainnotice.css";
 interface ListNotice {
@@ -23,7 +22,7 @@ const NoticeMainContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // empolyee 서버에서 건너오는 게시물 데이터
   useEffect(() => {
     const fetchNotices = () => {
-      fetch(`http://localhost:3001/homeusernotice`)
+      fetch(`http://localhost:3001/homenotice/user`)
         .then((response) => {
           return response.json();
         })

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SessionDTO, UserDTO } from '@shared/DTO/SharedDTO';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 
 /**
  *

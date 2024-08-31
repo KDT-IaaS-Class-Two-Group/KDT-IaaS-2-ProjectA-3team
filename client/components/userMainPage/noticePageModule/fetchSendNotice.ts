@@ -1,5 +1,5 @@
 const send = (state:string, stateContent:string) => {
-  return fetch("http://localhost:3001/send", {
+  return fetch("http://localhost:3001/notice/send", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

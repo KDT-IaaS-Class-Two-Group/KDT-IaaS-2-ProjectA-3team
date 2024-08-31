@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import PendingUserRepository from 'src/database/pending_users.repository';
+import PendingUserRepository from 'src/database/application/pending_users.repository';
 import { PendingUserDTO } from '@shared/DTO/SharedDTO';
 /**
  * * Class : RegisterService

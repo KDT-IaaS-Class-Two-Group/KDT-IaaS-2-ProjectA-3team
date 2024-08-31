@@ -7,7 +7,7 @@ const retrieveComment = (
   setCommentList: React.Dispatch<React.SetStateAction<ListComment[]>>,
   setTotalPages: React.Dispatch<React.SetStateAction<number>>,) => {
   return fetch(
-    `http://localhost:3001/usercomment/${postId}?page=${currentPage}&limit=${itemsPerPage}`
+    `http://localhost:3001/comments/${postId}?page=${currentPage}&limit=${itemsPerPage}`
   )
     .then((response) => response.json())
     .then((data: { comments: ListComment[]; totalPages: number }) => {

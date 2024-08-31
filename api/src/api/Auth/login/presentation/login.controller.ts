@@ -18,8 +18,8 @@ import {
 } from '@nestjs/swagger';
 
 import { UserDTO } from '@shared/DTO/SharedDTO';
-import { LoginService } from './login.service';
-import { REDIRECT_PATH } from './Enum/REDIRECT_PATH.enum';
+import { LoginService } from '../login.service';
+import { REDIRECT_PATH } from '../Enum/REDIRECT_PATH.enum';
 /**
  * * Class : LoginController
  * 작성자 : @naviadev / 2024-07-31

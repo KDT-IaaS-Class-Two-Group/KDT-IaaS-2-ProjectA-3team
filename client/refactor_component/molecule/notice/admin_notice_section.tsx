@@ -9,7 +9,7 @@ const AdminNoticeSection: React.FC = () => {
   return (
     <div className={noticesection}>
       <div className={noticemaintext}>MANAGER</div>
-      <NoticeContent apiEndpoint="/homeauthnotice" />
+      <NoticeContent apiEndpoint="/homenotice/auth" />
     </div>
   );
 };
