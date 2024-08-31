@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DbConnect } from '../../database/db_connect/db_connect';
+import { Collection } from 'mongodb';
 
 @Injectable()
 export class MongoQuery {
@@ -16,7 +17,21 @@ export class MongoQuery {
     return mongo_obj_id;
   }
 
-  async mongoFind(collectionName, findType, filter, update, option) {
-    return collectionName[findType](filter, update, option);
+  async mongoFind(mongoCollection: Collection, filter) {
+    const result = mongoCollection.findOne(filter);
+    return result;
+  }
+  async mongoFindAndUpdate(
+    mongoCollection: Collection<Document>,
+    filter,
+    update,
+    option,
+  ) {
+    const result = await mongoCollection.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    );
+    return result;
   }
 }

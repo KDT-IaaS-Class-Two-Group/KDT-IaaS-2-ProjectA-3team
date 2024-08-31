@@ -130,23 +130,15 @@ export class NoticeService {
         'noticeAuthTable',
       );
 
-      const userNotice = await this.mongoQuery.mongoFind(
-        mongoUserCollection,
-        'findOne',
-        { _id: new ObjectId(id) },
-        undefined,
-        undefined,
-      );
+      const userNotice = await this.mongoQuery.mongoFind(mongoUserCollection, {
+        _id: new ObjectId(id),
+      });
       let authNotice = null;
 
       if (!userNotice) {
-        authNotice = await this.mongoQuery.mongoFind(
-          mongoAuthCollection,
-          'findOne',
-          { _id: new ObjectId(id) },
-          undefined,
-          undefined,
-        );
+        authNotice = await this.mongoQuery.mongoFind(mongoAuthCollection, {
+          _id: new ObjectId(id),
+        });
       }
 
       if (userNotice) {
@@ -159,9 +151,8 @@ export class NoticeService {
           };
 
           if (user_id === userNotice.user_id) {
-            await this.mongoQuery.mongoFind(
+            await this.mongoQuery.mongoFindAndUpdate(
               mongoUserCollection,
-              'findOneAndUpdate',
               { _id: new ObjectId(id) },
               { $set: updateSet },
               { returnDocument: 'after' },
@@ -183,9 +174,8 @@ export class NoticeService {
         }
       } else if (authNotice) {
         if (role === 'admin' || role === 'sub_admin') {
-          await this.mongoQuery.mongoFind(
+          await this.mongoQuery.mongoFindAndUpdate(
             mongoAuthCollection,
-            'findOneAndUpdate',
             { _id: new ObjectId(id) },
             { $set: noticeDTO },
             { returnDocument: 'after' },
@@ -210,13 +200,9 @@ export class NoticeService {
         'noticeTable',
       );
       // 사용자 컬렉션에서 notice 찾기
-      const notice = await this.mongoQuery.mongoFind(
-        mongoUserCollection,
-        'findOne',
-        { _id: new ObjectId(id) },
-        undefined,
-        undefined,
-      );
+      const notice = await this.mongoQuery.mongoFind(mongoUserCollection, {
+        _id: new ObjectId(id),
+      });
 
       if (role === 'employee' || role === 'leader') {
         const noticeUserId = notice.user_id;
@@ -334,19 +320,15 @@ export class NoticeService {
       CommentDTO,
       'comments',
     );
-    const id = await this.mongoQuery.mongoFind(
-      mongoCollection,
-      'findOne',
-      { _id: new ObjectId(postId) },
-      undefined,
-      undefined,
-    );
+    const id = await this.mongoQuery.mongoFind(mongoCollection, {
+      _id: new ObjectId(postId),
+    });
     if (user_id === id.userId) {
       const result = await mongoCollection.updateOne(
         { _id: new ObjectId(postId) },
         { $set: { content } },
       );
-      return result.modifiedCount > 0;
+      return result.modifiedCount > 0; //update하면 true반환
     }
     return 'false';
   }
@@ -357,13 +339,9 @@ export class NoticeService {
       CommentDTO,
       'comments',
     );
-    const id = await this.mongoQuery.mongoFind(
-      mongoCollection,
-      'findOne',
-      { _id: new ObjectId(postId) },
-      undefined,
-      undefined,
-    );
+    const id = await this.mongoQuery.mongoFind(mongoCollection, {
+      _id: new ObjectId(postId),
+    });
     if (user_id === id.userId || role === 'admin' || role === 'sub_admin') {
       const result = await mongoCollection.deleteOne({
         _id: new ObjectId(postId),

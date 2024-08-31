@@ -15,7 +15,12 @@ export class CommentDTO {
   content: string;
   createdAt: string;
 
-  constructor(postId: string, userId: string, content: string, createdAt: string) {
+  constructor(
+    postId: string,
+    userId: string,
+    content: string,
+    createdAt: string,
+  ) {
     this.postId = postId;
     this.userId = userId;
     this.content = content;

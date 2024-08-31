@@ -17,7 +17,14 @@ export class NoticeDTO {
   role: string;
   updatedAt: string;
 
-  constructor(title: string, content: string, createdAt: string, user_id: string, role: string, updatedAt: string) {
+  constructor(
+    title: string,
+    content: string,
+    createdAt: string,
+    user_id: string,
+    role: string,
+    updatedAt: string,
+  ) {
     this.title = title;
     this.content = content;
     this.createdAt = createdAt;
