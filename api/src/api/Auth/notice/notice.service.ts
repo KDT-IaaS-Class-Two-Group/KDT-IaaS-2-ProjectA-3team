@@ -326,7 +326,8 @@ export class NoticeService {
       _id: new ObjectId(postId),
     });
     if (user_id === id.userId) {
-      const result = await mongoCollection.updateOne(
+      const result = await this.mongoQuery.mongoUpdate(
+        mongoCollection,
         { _id: new ObjectId(postId) },
         { $set: { content } },
       );

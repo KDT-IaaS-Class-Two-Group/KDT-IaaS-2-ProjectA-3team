@@ -38,4 +38,8 @@ export class MongoQuery {
   async mongoDelete(mongoCollection: Collection, id) {
     return await mongoCollection.deleteOne(id);
   }
+
+  async mongoUpdate(mongoCollection: Collection, id, set) {
+    return await mongoCollection.updateOne(id, set);
+  }
 }
