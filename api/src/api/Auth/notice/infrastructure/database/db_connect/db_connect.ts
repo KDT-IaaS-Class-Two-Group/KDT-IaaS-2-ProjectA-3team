@@ -2,7 +2,7 @@ import { OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { MongoClient } from 'mongodb';
 import { Pool } from 'pg';
 
-export class DbConnect implements OnModuleInit, OnModuleDestroy{
+export class DbConnect implements OnModuleInit, OnModuleDestroy {
   public readonly client = new MongoClient('mongodb://localhost:27017');
   public readonly pgPool = new Pool({
     user: process.env.DB_USER,

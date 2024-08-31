@@ -8,7 +8,7 @@ import { NoticeUserController } from './presentation/controllers/user/notice_use
 
 import { NoticeService } from './notice.service';
 import { DbConnect } from './infrastructure/database/db_connect/db_connect';
-
+import { MongoQuery } from './infrastructure/database/db_query/mongo_query';
 
 @Module({
   controllers: [
@@ -18,9 +18,6 @@ import { DbConnect } from './infrastructure/database/db_connect/db_connect';
     NoticeMainController,
     NoticeUserController,
   ],
-  providers: [
-    NoticeService,
-    DbConnect,
-  ],
+  providers: [NoticeService, DbConnect, MongoQuery],
 })
 export class NoticeModule {}
