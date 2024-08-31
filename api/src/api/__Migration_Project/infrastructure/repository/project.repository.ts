@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 import { TABLE_NAME } from 'src/api/common/enum/table/table.enum';
 import { SERVICE_ERROR } from 'src/api/common/enum/message/error/serviceErrorMessage';
-import { Stack } from 'src/api/project/DTO/stack.DTO';
+import { Stack } from '../../presentation/DTO/stack.dto';
 import { RelationTeamUsers } from '../../presentation/DTO/relationTeamUsers.dto';
 import { Project } from '../../domain/entities/project.entity';
 /**

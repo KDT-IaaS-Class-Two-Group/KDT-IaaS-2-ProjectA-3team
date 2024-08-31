@@ -1,4 +1,4 @@
-import { ProjectDTO } from 'src/api/project/DTO/project.DTO';
+import { ProjectDTO } from '../../presentation/dto/project.dto';
 
 /**
  * * Class : CreateProjectCommand

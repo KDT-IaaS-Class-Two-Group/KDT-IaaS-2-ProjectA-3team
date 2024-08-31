@@ -1,4 +1,4 @@
-import { Stack } from 'src/api/project/DTO/stack.DTO';
+import { Stack } from '../../presentation/DTO/stack.dto';
 import { ProjectName } from '../../domain/value-object/project_name.vo';
 
 export class AddStackCommand {
