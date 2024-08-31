@@ -15,4 +15,8 @@ export class MongoQuery {
     const mongo_obj_id = result.insertedId.toString();
     return mongo_obj_id;
   }
+
+  async mongoFind(collectionName, findType, filter, update, option) {
+    return collectionName[findType](filter, update, option);
+  }
 }
