@@ -15,6 +15,11 @@ export class NoticeService {
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     const { pgPool } = this.dbConnect;
     if (role === 'employee' || role === 'leader') {
+      const collection = await this.mongoQuery.mongoConnect(
+        'notice',
+        NoticeDTO,
+        'noticeTable',
+      );
       const currentDate = new Date();
       const custom = dateSet(currentDate);
       const noticeData = {
@@ -24,9 +29,7 @@ export class NoticeService {
         role,
       };
       const mongo_obj_id = await this.mongoQuery.mongoInsert(
-        'notice',
-        NoticeDTO,
-        'noticeTable',
+        collection,
         noticeData,
       );
       //pg 백로그 데이터 삽입 (사실 이게 반복으로 사용되면 함수를 하나 만들어두자)
@@ -40,6 +43,11 @@ export class NoticeService {
       ]);
       return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
     } else if (role === 'admin' || role === 'sub_admin') {
+      const collection = await this.mongoQuery.mongoConnect(
+        'notice',
+        NoticeDTO,
+        'noticeAuthTable',
+      );
       const currentDate = new Date();
       const custom = dateSet(currentDate);
       const noticeData = {
@@ -48,21 +56,17 @@ export class NoticeService {
         user_id,
         role,
       };
-      await this.mongoQuery.mongoInsert(
-        'notice',
-        NoticeDTO,
-        'noticeAuthTable',
-        noticeData,
-      );
+      await this.mongoQuery.mongoInsert(collection, noticeData);
       return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
     }
   }
 
   async getNotices(page: number, limit: number) {
-    const { client } = this.dbConnect;
-    const mongoCollection = client
-      .db('notice')
-      .collection<NoticeDTO>('noticeTable');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      NoticeDTO,
+      'noticeTable',
+    );
     const notices = await mongoCollection
       .find()
       .sort({ _id: -1 })
@@ -78,20 +82,21 @@ export class NoticeService {
   }
 
   async getAuthNotices() {
-    const { client } = this.dbConnect;
-    const mongoCollection = client
-      .db('notice')
-      .collection<NoticeDTO>('noticeAuthTable');
-
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      NoticeDTO,
+      'noticeAuthTable',
+    );
     // 최신순으로 3개만 반환
     return await mongoCollection.find().sort({ _id: -1 }).limit(3).toArray();
   }
 
   async getAuthAllNotices(page: number, limit: number) {
-    const { client } = this.dbConnect;
-    const mongoCollection = client
-      .db('notice')
-      .collection<NoticeDTO>('noticeAuthTable');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      NoticeDTO,
+      'noticeAuthTable',
+    );
     const notices = await mongoCollection
       .find()
       .sort({ _id: -1 })
@@ -112,12 +117,18 @@ export class NoticeService {
     user_id: string,
     role: string,
   ) {
-    const { client, pgPool } = this.dbConnect;
+    const { pgPool } = this.dbConnect;
     try {
-      const mongoDd = client.db('notice');
-      const mongoUserCollection = mongoDd.collection<NoticeDTO>('noticeTable');
-      const mongoAuthCollection =
-        mongoDd.collection<NoticeDTO>('noticeAuthTable');
+      const mongoUserCollection = await this.mongoQuery.mongoConnect(
+        'notice',
+        NoticeDTO,
+        'noticeTable',
+      );
+      const mongoAuthCollection = await this.mongoQuery.mongoConnect(
+        'notice',
+        NoticeDTO,
+        'noticeAuthTable',
+      );
 
       const userNotice = await mongoUserCollection.findOne({
         _id: new ObjectId(id),
@@ -179,11 +190,13 @@ export class NoticeService {
   }
 
   async deleteNotice(id: string, user_id: string, role: string) {
-    const { client, pgPool } = this.dbConnect;
+    const { pgPool } = this.dbConnect;
     try {
-      const mongoDd = client.db('notice');
-      const mongoUserCollection = mongoDd.collection<NoticeDTO>('noticeTable');
-
+      const mongoUserCollection = await this.mongoQuery.mongoConnect(
+        'notice',
+        NoticeDTO,
+        'noticeTable',
+      );
       // 사용자 컬렉션에서 notice 찾기
       const notice = await mongoUserCollection.findOne({
         _id: new ObjectId(id),
@@ -218,7 +231,11 @@ export class NoticeService {
         // 관리자 역할일 때
         if (!notice) {
           // 사용자의 notice가 없으면 관리자 테이블에서 찾기
-          const mongoAuthCollection = mongoDd.collection('noticeAuthTable');
+          const mongoAuthCollection = await this.mongoQuery.mongoConnect(
+            'notice',
+            NoticeDTO,
+            'noticeAuthTable',
+          );
           const authResult = await mongoAuthCollection.deleteOne({
             _id: new ObjectId(id),
           });
@@ -248,9 +265,11 @@ export class NoticeService {
   }
 
   async getUserhNotices(postId: string, page: number, limit: number) {
-    const { client } = this.dbConnect;
-    const mongoDatabase = client.db('notice');
-    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      CommentDTO,
+      'comments',
+    );
     const totalCount = await mongoCollection.countDocuments({ postId });
     const result = await mongoCollection
       .find({ postId })
@@ -263,9 +282,12 @@ export class NoticeService {
   }
 
   async createComment(postId: string, commentDTO: CommentDTO, user_id: string) {
-    const { client, pgPool } = this.dbConnect;
-    const mongoDatabase = client.db('notice');
-    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      CommentDTO,
+      'comments',
+    );
+    const { pgPool } = this.dbConnect;
     const sessionId = user_id;
     const userResult = await pgPool.query(
       `SELECT user_id FROM users WHERE user_id = $1`,
@@ -291,9 +313,11 @@ export class NoticeService {
     role: string,
   ) {
     console.log(role);
-    const { client } = this.dbConnect;
-    const mongoDatabase = client.db('notice');
-    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      CommentDTO,
+      'comments',
+    );
     const id = await mongoCollection.findOne({ _id: new ObjectId(postId) });
     if (user_id === id.userId) {
       const result = await mongoCollection.updateOne(
@@ -306,9 +330,11 @@ export class NoticeService {
   }
 
   async deleteComment(postId: string, user_id: string, role: string) {
-    const { client } = this.dbConnect;
-    const mongoDatabase = client.db('notice');
-    const mongoCollection = mongoDatabase.collection<CommentDTO>('comments');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      CommentDTO,
+      'comments',
+    );
     const id = await mongoCollection.findOne({ _id: new ObjectId(postId) });
     if (user_id === id.userId || role === 'admin' || role === 'sub_admin') {
       const result = await mongoCollection.deleteOne({
@@ -320,20 +346,22 @@ export class NoticeService {
   }
 
   async homeUserNotices() {
-    const { client } = this.dbConnect;
-    const mongoCollection = client
-      .db('notice')
-      .collection<NoticeDTO>('noticeTable');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      NoticeDTO,
+      'noticeTable',
+    );
 
     // 최신순으로 5개만 반환
     return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
   }
 
   async homeAuthNotices() {
-    const { client } = this.dbConnect;
-    const mongoCollection = client
-      .db('notice')
-      .collection<NoticeDTO>('noticeAuthTable');
+    const mongoCollection = await this.mongoQuery.mongoConnect(
+      'notice',
+      NoticeDTO,
+      'noticeAuthTable',
+    );
 
     // 최신순으로 5개만 반환
     return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
