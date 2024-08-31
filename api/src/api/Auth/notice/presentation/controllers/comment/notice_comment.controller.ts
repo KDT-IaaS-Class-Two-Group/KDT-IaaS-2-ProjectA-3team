@@ -28,7 +28,7 @@ export class NoticeCommentController {
       '지정된 게시물에 대한 사용자 댓글을 페이지네이션하여 조회하는 엔드포인트.',
   })
   async getUserComment(
-    @Param('postid') postId: string,
+    @Param('postId') postId: string,
     @Query('page') page: string = '1',
     @Query('limit') limit: string = '3',
   ) {
@@ -47,7 +47,7 @@ export class NoticeCommentController {
     description: '지정된 게시물에 댓글을 작성하는 엔드포인트.',
   })
   async createComment(
-    @Param('postid') postId: string,
+    @Param('postId') postId: string,
     @Body() commentDTO: CommentDTO,
     @Req() req: Request,
   ) {
