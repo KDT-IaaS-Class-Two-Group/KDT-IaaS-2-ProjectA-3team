@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 import { TABLE_NAME } from 'src/api/common/enum/table/table.enum';
 import { SERVICE_ERROR } from 'src/api/common/enum/message/error/serviceErrorMessage';
 import { Stack } from 'src/api/project/DTO/stack.DTO';
