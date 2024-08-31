@@ -5,6 +5,7 @@ import { ProjectCommandController } from './presentation/interface/project.comma
 import { ProjectQueryController } from './presentation/interface/project.query.controller';
 import { ProjectCommandHandler } from './application/command/handler/project_command.handler';
 import { ProjectQueryHandler } from './application/query/handler/project_query.handler';
+import { ProjectRepository } from './infrastructure/repository/project.repository';
 
 @Module({
   imports: [],
@@ -14,6 +15,7 @@ import { ProjectQueryHandler } from './application/query/handler/project_query.h
     DatabaseService,
     ProjectCommandHandler,
     ProjectQueryHandler,
+    ProjectRepository,
   ],
 })
 export class ProjectModule {}
