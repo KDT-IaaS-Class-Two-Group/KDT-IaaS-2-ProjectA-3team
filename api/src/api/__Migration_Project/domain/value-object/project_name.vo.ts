@@ -20,4 +20,8 @@ export class ProjectName {
   private isValid(value: string): boolean {
     return value.length > 0 && value.length <= 255;
   }
+
+  getValue() {
+    return this.value;
+  }
 }
