@@ -207,9 +207,10 @@ export class NoticeService {
       if (role === 'employee' || role === 'leader') {
         const noticeUserId = notice.user_id;
         if (user_id === noticeUserId) {
-          const result = await mongoUserCollection.deleteOne({
-            _id: new ObjectId(id),
-          });
+          const result = await this.mongoQuery.mongoDelete(
+            mongoUserCollection,
+            { _id: new ObjectId(id) },
+          );
           if (result.deletedCount === 0) {
             throw new NotFoundException('Notice not found in user table');
           }
@@ -238,9 +239,10 @@ export class NoticeService {
             NoticeDTO,
             'noticeAuthTable',
           );
-          const authResult = await mongoAuthCollection.deleteOne({
-            _id: new ObjectId(id),
-          });
+          const authResult = await this.mongoQuery.mongoDelete(
+            mongoAuthCollection,
+            { _id: new ObjectId(id) },
+          );
 
           if (authResult.deletedCount === 0) {
             throw new NotFoundException('Notice not found in auth table');
@@ -249,10 +251,10 @@ export class NoticeService {
           return `삭제 성공`;
         } else {
           // 관리자 역할이지만 사용자 테이블에서 notice가 존재하면
-          const userResult = await mongoUserCollection.deleteOne({
-            _id: new ObjectId(id),
-          });
-
+          const userResult = await this.mongoQuery.mongoDelete(
+            mongoUserCollection,
+            { _id: new ObjectId(id) },
+          );
           if (userResult.deletedCount === 0) {
             throw new NotFoundException('Notice not found in auth table');
           }
@@ -343,7 +345,7 @@ export class NoticeService {
       _id: new ObjectId(postId),
     });
     if (user_id === id.userId || role === 'admin' || role === 'sub_admin') {
-      const result = await mongoCollection.deleteOne({
+      const result = await this.mongoQuery.mongoDelete(mongoCollection, {
         _id: new ObjectId(postId),
       });
       return result.deletedCount > 0;
@@ -357,7 +359,6 @@ export class NoticeService {
       NoticeDTO,
       'noticeTable',
     );
-
     // 최신순으로 5개만 반환
     return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
   }
@@ -368,7 +369,6 @@ export class NoticeService {
       NoticeDTO,
       'noticeAuthTable',
     );
-
     // 최신순으로 5개만 반환
     return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
   }

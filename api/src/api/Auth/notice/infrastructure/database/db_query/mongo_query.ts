@@ -34,4 +34,8 @@ export class MongoQuery {
     );
     return result;
   }
+
+  async mongoDelete(mongoCollection: Collection, id) {
+    return await mongoCollection.deleteOne(id);
+  }
 }
