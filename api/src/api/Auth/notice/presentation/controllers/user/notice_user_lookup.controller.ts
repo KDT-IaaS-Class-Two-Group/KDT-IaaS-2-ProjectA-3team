@@ -1,13 +1,13 @@
 import { Controller, Get, Query } from '@nestjs/common';
 
-import { NoticeService } from '../../../application/notice.service';
+import { NoticeReadService } from '../../../application/notice_service/notice_read.service';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @ApiTags('Notice User API')
 @Controller('notices')
 export class NoticeUserController {
-  constructor(private readonly noticeService: NoticeService) {}
+  constructor(private readonly noticeReadService: NoticeReadService) {}
 
   //사용자게시판 fetch
   @Get()
@@ -22,6 +22,6 @@ export class NoticeUserController {
   ) {
     const pageNumber = parseInt(page, 10); // 10진수로 변환
     const limitNumber = parseInt(limit, 10); // 10진수로 변환
-    return await this.noticeService.getNotices(pageNumber, limitNumber);
+    return await this.noticeReadService.getNotices(pageNumber, limitNumber);
   }
 }
