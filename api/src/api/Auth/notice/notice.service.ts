@@ -5,15 +5,16 @@ import { CommentDTO } from './presentation/dto/comment.dto';
 import { dateSet } from './infrastructure/utils/dateUtils';
 import { DbConnect } from './infrastructure/database/db_connect/db_connect';
 import { MongoQuery } from './infrastructure/database/db_query/mongo_query';
+import { PostQuery } from './infrastructure/database/db_query/postgres_query';
 
 @Injectable()
 export class NoticeService {
   constructor(
     private readonly dbConnect: DbConnect,
     private readonly mongoQuery: MongoQuery,
+    private readonly postQuery: PostQuery,
   ) {}
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
-    const { pgPool } = this.dbConnect;
     if (role === 'employee' || role === 'leader') {
       const collection = await this.mongoQuery.mongoConnect(
         'notice',
@@ -32,9 +33,14 @@ export class NoticeService {
         collection,
         noticeData,
       );
-      //pg 백로그 데이터 삽입 (사실 이게 반복으로 사용되면 함수를 하나 만들어두자)
-      const insert = `INSERT INTO notice_back_log (user_id, title, content, mongo_obj_id, created_at) VALUES ($1, $2, $3, $4, $5)`;
-      await pgPool.query(insert, [
+      const rowData = [
+        'user_id',
+        'title',
+        'content',
+        'mongodb_doc_id',
+        'created_at',
+      ];
+      await this.postQuery.postInsert('notice_back_log', rowData, [
         user_id,
         noticeDTO.title,
         noticeDTO.content,
@@ -117,7 +123,6 @@ export class NoticeService {
     user_id: string,
     role: string,
   ) {
-    const { pgPool } = this.dbConnect;
     try {
       const mongoUserCollection = await this.mongoQuery.mongoConnect(
         'notice',
@@ -159,15 +164,27 @@ export class NoticeService {
             );
 
             const mongodb_doc_id = userNotice._id.toString();
-            const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`;
-            await pgPool.query(insert, [
+            const rowData = [
+              'user_id',
+              'title',
+              'content',
+              'mongodb_doc_id',
+              'created_at',
+              'updated_at',
+            ];
+            const insertData = [
               user_id,
               noticeDTO.title,
               noticeDTO.content,
               mongodb_doc_id,
               userNotice.createdAt,
               custom,
-            ]);
+            ];
+            await this.postQuery.postInsert(
+              'notice_back_log',
+              rowData,
+              insertData,
+            );
             return `수정 성공`;
           }
           return `수정 실패`;
@@ -192,7 +209,6 @@ export class NoticeService {
   }
 
   async deleteNotice(id: string, user_id: string, role: string) {
-    const { pgPool } = this.dbConnect;
     try {
       const mongoUserCollection = await this.mongoQuery.mongoConnect(
         'notice',
@@ -217,15 +233,28 @@ export class NoticeService {
           const mongodb_doc_id = notice._id.toString();
           const DeleteDate = new Date();
           const custom = dateSet(DeleteDate);
-          const insert = `INSERT INTO notice_back_log (user_id, title, content, mongodb_doc_id, created_at, deleted_at) VALUES ($1, $2, $3, $4, $5, $6)`;
-          await pgPool.query(insert, [
+          const rowData = [
+            'user_id',
+            'title',
+            'content',
+            'mongodb_doc_id',
+            'created_at',
+            'updated_at',
+            'deleted_at',
+          ];
+          const insertData = [
             user_id,
             notice.title,
             notice.content,
             mongodb_doc_id,
             notice.createdAt,
             custom,
-          ]);
+          ];
+          await this.postQuery.postInsert(
+            'notice_back_log',
+            rowData,
+            insertData,
+          );
           return `삭제 성공`;
         } else {
           return `삭제 실패`;
@@ -291,12 +320,7 @@ export class NoticeService {
       CommentDTO,
       'comments',
     );
-    const { pgPool } = this.dbConnect;
-    const sessionId = user_id;
-    const userResult = await pgPool.query(
-      `SELECT user_id FROM users WHERE user_id = $1`,
-      [sessionId],
-    );
+    const userResult = await this.postQuery.postSelect(user_id);
     const userId = userResult.rows[0].user_id;
     const currentDate = new Date();
     const custom = dateSet(currentDate);
