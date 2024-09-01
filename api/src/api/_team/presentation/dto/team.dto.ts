@@ -8,8 +8,8 @@ export class TeamDTO {
   description: string;
 
   @IsString()
-  team_leader: string;
+  team_leader: { [key: string]: string };
 
   @IsString()
-  team_members: string;
+  team_members: { [key: string]: string }[];
 }
