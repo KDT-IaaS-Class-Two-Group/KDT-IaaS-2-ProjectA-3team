@@ -23,7 +23,6 @@ import { NoticeModule } from './notice/notice.module';
   providers: [
     LoginService,
     RegisterService,
-
     DatabaseService,
     PendingUserRepository,
     QueryBuilder,
