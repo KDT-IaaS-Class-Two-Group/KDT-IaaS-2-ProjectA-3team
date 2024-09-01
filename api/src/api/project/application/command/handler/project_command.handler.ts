@@ -1,6 +1,6 @@
-import { ProjectRepository } from 'src/api/__Migration_Project/infrastructure/repository/project.repository';
+import { ProjectRepository } from 'src/api/project/infrastructure/repository/project.repository';
 import { CreateProjectCommand } from '../project_create.command';
-import { Project } from 'src/api/__Migration_Project/domain/entities/project.entity';
+import { Project } from 'src/api/project/domain/entities/project.entity';
 import { Injectable } from '@nestjs/common';
 import { AddStackCommand } from '../add_stack.command';
 @Injectable()
