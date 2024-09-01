@@ -47,7 +47,11 @@ export class NoticeService {
   }
 
   async getAuthNotices() {
-    return await this.noticeRead.noticeAuthRead(NoticeDTO, 3);
+    return await this.noticeRead.noticeAuthRead(
+      NoticeDTO,
+      'noticeAuthTable',
+      3,
+    );
   }
 
   async getAuthAllNotices(page: number, limit: number) {
@@ -316,22 +320,14 @@ export class NoticeService {
   }
 
   async homeUserNotices() {
-    const mongoCollection = await this.mongoQuery.mongoConnect(
-      'notice',
-      NoticeDTO,
-      'noticeTable',
-    );
-    // 최신순으로 5개만 반환
-    return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
+    return await this.noticeRead.noticeAuthRead(NoticeDTO, 'noticeTable', 5);
   }
 
   async homeAuthNotices() {
-    const mongoCollection = await this.mongoQuery.mongoConnect(
-      'notice',
+    return await this.noticeRead.noticeAuthRead(
       NoticeDTO,
       'noticeAuthTable',
+      5,
     );
-    // 최신순으로 5개만 반환
-    return await mongoCollection.find().sort({ _id: -1 }).limit(5).toArray();
   }
 }

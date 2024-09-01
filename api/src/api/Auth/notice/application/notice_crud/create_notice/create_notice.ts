@@ -8,7 +8,7 @@ export class NoticeCreate {
     private readonly mongoQuery: MongoQuery,
     private readonly postQuery: PostQuery,
   ) {}
-  async noticeCreate(noticeDTO, tableName, dateSet, user_id, role) {
+  async noticeCreate(noticeDTO, tableName: string, dateSet, user_id, role) {
     try {
       const collection = await this.mongoQuery.mongoConnect(
         'notice',
