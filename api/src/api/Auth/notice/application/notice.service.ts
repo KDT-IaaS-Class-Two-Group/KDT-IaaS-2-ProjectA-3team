@@ -5,7 +5,8 @@ import { CommentDTO } from '../presentation/dto/comment.dto';
 import { dateSet } from '../infrastructure/utils/dateUtils';
 import { MongoQuery } from '../infrastructure/database/db_query/mongo_query';
 import { PostQuery } from '../infrastructure/database/db_query/postgres_query';
-import { NoticeCreate } from './notice_crud/create_notice/user_create_notice';
+import { NoticeCreate } from './notice_crud/create_notice/create_notice';
+import { NoticeRead } from './notice_crud/read_notice/read_notice';
 
 @Injectable()
 export class NoticeService {
@@ -13,6 +14,7 @@ export class NoticeService {
     private readonly mongoQuery: MongoQuery,
     private readonly postQuery: PostQuery,
     private readonly noticeCreate: NoticeCreate,
+    private readonly noticeRead: NoticeRead,
   ) {}
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     if (role === 'employee' || role === 'leader') {
@@ -35,53 +37,27 @@ export class NoticeService {
   }
 
   async getNotices(page: number, limit: number) {
-    const mongoCollection = await this.mongoQuery.mongoConnect(
-      'notice',
+    const { notices, totalPages } = await this.noticeRead.noticeRead(
       NoticeDTO,
       'noticeTable',
+      page,
+      limit,
     );
-    const notices = await mongoCollection
-      .find()
-      .sort({ _id: -1 })
-      .skip((page - 1) * limit) // 페이지 계산
-      .limit(limit) // 페이지당 항목 수
-      .toArray();
-    // 총 항목 수를 가져오기 위해 전체 항목 수 쿼리
-    const totalCount = await mongoCollection.countDocuments();
-    // 총 페이지 수 계산
-    const totalPages = Math.ceil(totalCount / limit);
-
-    return { notices, totalPages }; // notices와 totalPages 반환
+    return { notices, totalPages };
   }
 
   async getAuthNotices() {
-    const mongoCollection = await this.mongoQuery.mongoConnect(
-      'notice',
-      NoticeDTO,
-      'noticeAuthTable',
-    );
-    // 최신순으로 3개만 반환
-    return await mongoCollection.find().sort({ _id: -1 }).limit(3).toArray();
+    return await this.noticeRead.noticeAuthRead(NoticeDTO, 3);
   }
 
   async getAuthAllNotices(page: number, limit: number) {
-    const mongoCollection = await this.mongoQuery.mongoConnect(
-      'notice',
+    const { notices, totalPages } = await this.noticeRead.noticeRead(
       NoticeDTO,
       'noticeAuthTable',
+      page,
+      limit,
     );
-    const notices = await mongoCollection
-      .find()
-      .sort({ _id: -1 })
-      .skip((page - 1) * limit) // 페이지 계산
-      .limit(limit) // 페이지당 항목 수
-      .toArray();
-    // 총 항목 수를 가져오기 위해 전체 항목 수 쿼리
-    const totalCount = await mongoCollection.countDocuments();
-    // 총 페이지 수 계산
-    const totalPages = Math.ceil(totalCount / limit);
-
-    return { notices, totalPages }; // notices와 totalPages 반환
+    return { notices, totalPages };
   }
 
   async updateNotice(

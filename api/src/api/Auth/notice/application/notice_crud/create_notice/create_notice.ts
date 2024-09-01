@@ -1,6 +1,8 @@
+import { Injectable } from '@nestjs/common';
 import { MongoQuery } from 'src/api/Auth/notice/infrastructure/database/db_query/mongo_query';
 import { PostQuery } from 'src/api/Auth/notice/infrastructure/database/db_query/postgres_query';
 
+@Injectable()
 export class NoticeCreate {
   constructor(
     private readonly mongoQuery: MongoQuery,
@@ -41,7 +43,7 @@ export class NoticeCreate {
           custom,
         ]);
         return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
-      } else {
+      } else if (tableName === 'noticeAuthTable') {
         await this.mongoQuery.mongoInsert(collection, noticeData);
         return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
       }

@@ -10,6 +10,8 @@ import { NoticeService } from './application/notice.service';
 import { DbConnect } from './infrastructure/database/db_connect/db_connect';
 import { MongoQuery } from './infrastructure/database/db_query/mongo_query';
 import { PostQuery } from './infrastructure/database/db_query/postgres_query';
+import { NoticeCreate } from './application/notice_crud/create_notice/create_notice';
+import { NoticeRead } from './application/notice_crud/read_notice/read_notice';
 
 @Module({
   controllers: [
@@ -19,6 +21,13 @@ import { PostQuery } from './infrastructure/database/db_query/postgres_query';
     NoticeMainController,
     NoticeUserController,
   ],
-  providers: [NoticeService, DbConnect, MongoQuery, PostQuery],
+  providers: [
+    NoticeService,
+    DbConnect,
+    MongoQuery,
+    PostQuery,
+    NoticeCreate,
+    NoticeRead,
+  ],
 })
 export class NoticeModule {}
