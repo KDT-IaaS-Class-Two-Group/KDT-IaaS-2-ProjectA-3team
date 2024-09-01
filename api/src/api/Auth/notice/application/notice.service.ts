@@ -7,6 +7,7 @@ import { MongoQuery } from '../infrastructure/database/db_query/mongo_query';
 import { PostQuery } from '../infrastructure/database/db_query/postgres_query';
 import { NoticeCreate } from './notice_crud/create_notice/create_notice';
 import { NoticeRead } from './notice_crud/read_notice/read_notice';
+import { Role } from '../Enum/role.enum';
 
 @Injectable()
 export class NoticeService {
@@ -17,7 +18,7 @@ export class NoticeService {
     private readonly noticeRead: NoticeRead,
   ) {}
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
-    if (role === 'employee' || role === 'leader') {
+    if (role === Role.Employee || role === Role.Leader) {
       await this.noticeCreate.noticeCreate(
         noticeDTO,
         'noticeTable',
@@ -25,7 +26,7 @@ export class NoticeService {
         user_id,
         role,
       );
-    } else if (role === 'admin' || role === 'sub_admin') {
+    } else if (role === Role.Admin || role === Role.SubAdmin) {
       await this.noticeCreate.noticeCreate(
         noticeDTO,
         'noticeAuthTable',
@@ -94,7 +95,7 @@ export class NoticeService {
       }
 
       if (userNotice) {
-        if (role === 'employee' || role === 'leader') {
+        if (role === Role.Employee || role === Role.Leader) {
           const currentDate = new Date();
           const custom = dateSet(currentDate);
           const updateSet = {
@@ -137,7 +138,7 @@ export class NoticeService {
           return `수정 실패`;
         }
       } else if (authNotice) {
-        if (role === 'admin' || role === 'sub_admin') {
+        if (role === Role.Admin || role === Role.SubAdmin) {
           await this.mongoQuery.mongoFindAndUpdate(
             mongoAuthCollection,
             { _id: new ObjectId(id) },
@@ -167,7 +168,7 @@ export class NoticeService {
         _id: new ObjectId(id),
       });
 
-      if (role === 'employee' || role === 'leader') {
+      if (role === Role.Employee || role === Role.Leader) {
         const noticeUserId = notice.user_id;
         if (user_id === noticeUserId) {
           const result = await this.mongoQuery.mongoDelete(
@@ -206,7 +207,7 @@ export class NoticeService {
         } else {
           return `삭제 실패`;
         }
-      } else if (role === 'admin' || role === 'sub_admin') {
+      } else if (role === Role.Admin || role === Role.SubAdmin) {
         // 관리자 역할일 때
         if (!notice) {
           // 사용자의 notice가 없으면 관리자 테이블에서 찾기
@@ -275,13 +276,7 @@ export class NoticeService {
     return result.insertedId;
   }
 
-  async updateComment(
-    postId: string,
-    content: string,
-    user_id: string,
-    role: string,
-  ) {
-    console.log(role);
+  async updateComment(postId: string, content: string, user_id: string) {
     const mongoCollection = await this.mongoQuery.mongoConnect(
       'notice',
       CommentDTO,
@@ -310,7 +305,11 @@ export class NoticeService {
     const id = await this.mongoQuery.mongoFind(mongoCollection, {
       _id: new ObjectId(postId),
     });
-    if (user_id === id.userId || role === 'admin' || role === 'sub_admin') {
+    if (
+      user_id === id.userId ||
+      role === Role.Admin ||
+      role === Role.SubAdmin
+    ) {
       const result = await this.mongoQuery.mongoDelete(mongoCollection, {
         _id: new ObjectId(postId),
       });

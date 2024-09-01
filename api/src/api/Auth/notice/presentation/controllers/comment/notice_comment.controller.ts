@@ -68,8 +68,7 @@ export class NoticeCommentController {
   ) {
     const session = req.session.user;
     const user_id = session?.user_id;
-    const role = session?.role_name;
-    return this.noticeService.updateComment(postId, content, user_id, role);
+    return this.noticeService.updateComment(postId, content, user_id);
   }
 
   @Delete(':postId')

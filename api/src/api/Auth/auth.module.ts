@@ -6,7 +6,7 @@ import { RegisterService } from './register/register.service';
 import { LogoutController } from './login/presentation/logout.controller';
 
 import { DatabaseService } from 'src/database/infrastructure/database.service';
-import { VerifySessionController } from './verify/verifySession.controller';
+import { VerifySessionController } from './verify/presentation/verifySession.controller';
 import PendingUserRepository from 'src/database/application/pending_users.repository';
 import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 
