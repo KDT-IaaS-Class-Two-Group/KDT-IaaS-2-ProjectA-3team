@@ -10,16 +10,16 @@ import {
 
 import { Request } from 'express';
 
-import { NoticeService } from '../../../../application/notice.service';
+import { NoticeCUDService } from '../../../../application/notice_service/notice_cud.service';
 
-import { NoticeDTO } from 'src/api/Auth/notice/presentation/dto/notice.dto';
+import { NoticeDTO } from '../../../dto/notice.dto';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller('notice')
 @ApiTags('Notice Main API')
 export class NoticeMainController {
-  constructor(private readonly noticeService: NoticeService) {}
+  constructor(private readonly noticeCUDService: NoticeCUDService) {}
   //게시물 작성 fetch
   @Post('send')
   @ApiOperation({
@@ -30,7 +30,7 @@ export class NoticeMainController {
     const session = req.session.user;
     const user_id = session?.user_id;
     const role = session?.role_name;
-    return await this.noticeService.createNotice(noticeDTO, user_id, role);
+    return await this.noticeCUDService.createNotice(noticeDTO, user_id, role);
   }
 
   @Put(':id')
@@ -46,7 +46,12 @@ export class NoticeMainController {
     const session = req.session.user;
     const user_id = session?.user_id;
     const role = session?.role_name;
-    return await this.noticeService.updateNotice(id, noticeDTO, user_id, role);
+    return await this.noticeCUDService.updateNotice(
+      id,
+      noticeDTO,
+      user_id,
+      role,
+    );
   }
 
   @Delete(':id')
@@ -58,6 +63,6 @@ export class NoticeMainController {
     const session = req.session.user;
     const user_id = session?.user_id;
     const role = session?.role_name;
-    return await this.noticeService.deleteNotice(id, user_id, role);
+    return await this.noticeCUDService.deleteNotice(id, user_id, role);
   }
 }
