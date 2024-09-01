@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import UsersRepository from 'src/database/application/users.repository';
-import { DatabaseService } from 'src/database/infrastructure/database.service';
-import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
+import UsersRepository from 'src/database/users.repository';
+import { DatabaseService } from 'src/database/database.service';
+import { QueryBuilder } from 'src/database/queryBuilder';
 import { UsersController } from './users.contorller';
 UsersRepository;
 @Module({

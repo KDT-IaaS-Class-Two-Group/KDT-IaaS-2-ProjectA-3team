@@ -17,8 +17,8 @@ import {
 import { fetchCheckUsers } from "../../organism/check_profile_user/service/fetch_check_users";
 
 // Custom Li and Ul components
-import Li from "../../../atoms/li";
-import Ul from "../../../atoms/ul";
+import Li from "client/refactor_component/atom/li/li";
+import Ul from "client/refactor_component/atom/ul/ul";
 import Button from "client/refactor_component/atom/button/button";
 
 /**
