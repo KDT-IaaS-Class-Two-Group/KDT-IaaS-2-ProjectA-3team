@@ -8,23 +8,48 @@ export class NoticeRead {
     private readonly mongoQuery: MongoQuery,
     private readonly postQuery: PostQuery,
   ) {}
-  async noticeRead(noticeDTO, tableName, page, limit) {
+  async noticeRead(noticeDTO, tableName, page, limit, postId?) {
     const mongoCollection = await this.mongoQuery.mongoConnect(
       'notice',
       noticeDTO,
       tableName,
     );
-    const notices = await mongoCollection
-      .find()
-      .sort({ _id: -1 })
-      .skip((page - 1) * limit) // 페이지 계산
-      .limit(limit) // 페이지당 항목 수
-      .toArray();
-    // 총 항목 수를 가져오기 위해 전체 항목 수 쿼리
-    const totalCount = await mongoCollection.countDocuments();
-    // 총 페이지 수 계산
-    const totalPages = Math.ceil(totalCount / limit);
-    return { notices, totalPages }; // notices와 totalPages 반환
+    if (tableName === 'comments') {
+      const result = await mongoCollection
+        .find({ postId })
+        .sort({ _id: -1 })
+        .skip((page - 1) * limit) // 페이지 계산
+        .limit(limit) // 페이지당 항목 수
+        .toArray();
+      // 총 항목 수를 가져오기 위해 전체 항목 수 쿼리
+      const totalCount = await mongoCollection.countDocuments({ postId });
+      // 총 페이지 수 계산
+      const totalPages = Math.ceil(totalCount / limit);
+      return { result, totalPages }; // notices와 totalPages 반환
+    } else {
+      const notices = await mongoCollection
+        .find()
+        .sort({ _id: -1 })
+        .skip((page - 1) * limit) // 페이지 계산
+        .limit(limit) // 페이지당 항목 수
+        .toArray();
+      // 총 항목 수를 가져오기 위해 전체 항목 수 쿼리
+      const totalCount = await mongoCollection.countDocuments();
+      // 총 페이지 수 계산
+      const totalPages = Math.ceil(totalCount / limit);
+      return { notices, totalPages }; // notices와 totalPages 반환
+    }
+    // const notices = await mongoCollection
+    //   .find()
+    //   .sort({ _id: -1 })
+    //   .skip((page - 1) * limit) // 페이지 계산
+    //   .limit(limit) // 페이지당 항목 수
+    //   .toArray();
+    // // 총 항목 수를 가져오기 위해 전체 항목 수 쿼리
+    // const totalCount = await mongoCollection.countDocuments();
+    // // 총 페이지 수 계산
+    // const totalPages = Math.ceil(totalCount / limit);
+    // return { notices, totalPages }; // notices와 totalPages 반환
   }
 
   async noticeAuthRead(noticeDTO, limit) {

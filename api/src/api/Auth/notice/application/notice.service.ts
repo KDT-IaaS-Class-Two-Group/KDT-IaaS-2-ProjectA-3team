@@ -241,20 +241,14 @@ export class NoticeService {
   }
 
   async getUserhNotices(postId: string, page: number, limit: number) {
-    const mongoCollection = await this.mongoQuery.mongoConnect(
-      'notice',
+    const { result, totalPages } = await this.noticeRead.noticeRead(
       CommentDTO,
       'comments',
+      page,
+      limit,
+      postId,
     );
-    const totalCount = await mongoCollection.countDocuments({ postId });
-    const result = await mongoCollection
-      .find({ postId })
-      .sort({ _id: -1 })
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .toArray();
-    const totalPages = Math.ceil(totalCount / limit);
-    return { comments: result, totalPages };
+    return { result, totalPages };
   }
 
   async createComment(postId: string, commentDTO: CommentDTO, user_id: string) {
