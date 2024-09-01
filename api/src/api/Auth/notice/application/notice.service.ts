@@ -1,69 +1,36 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
-import { NoticeDTO } from './presentation/dto/notice.dto';
-import { CommentDTO } from './presentation/dto/comment.dto';
-import { dateSet } from './infrastructure/utils/dateUtils';
-import { DbConnect } from './infrastructure/database/db_connect/db_connect';
-import { MongoQuery } from './infrastructure/database/db_query/mongo_query';
-import { PostQuery } from './infrastructure/database/db_query/postgres_query';
+import { NoticeDTO } from '../presentation/dto/notice.dto';
+import { CommentDTO } from '../presentation/dto/comment.dto';
+import { dateSet } from '../infrastructure/utils/dateUtils';
+import { MongoQuery } from '../infrastructure/database/db_query/mongo_query';
+import { PostQuery } from '../infrastructure/database/db_query/postgres_query';
+import { NoticeCreate } from './notice_crud/create_notice/user_create_notice';
 
 @Injectable()
 export class NoticeService {
   constructor(
-    private readonly dbConnect: DbConnect,
     private readonly mongoQuery: MongoQuery,
     private readonly postQuery: PostQuery,
+    private readonly noticeCreate: NoticeCreate,
   ) {}
   async createNotice(noticeDTO: NoticeDTO, user_id: string, role: string) {
     if (role === 'employee' || role === 'leader') {
-      const collection = await this.mongoQuery.mongoConnect(
-        'notice',
-        NoticeDTO,
+      await this.noticeCreate.noticeCreate(
+        noticeDTO,
         'noticeTable',
-      );
-      const currentDate = new Date();
-      const custom = dateSet(currentDate);
-      const noticeData = {
-        ...noticeDTO,
-        createdAt: custom, // 현재 날짜와 시간 추가
+        dateSet,
         user_id,
         role,
-      };
-      const mongo_obj_id = await this.mongoQuery.mongoInsert(
-        collection,
-        noticeData,
       );
-      const rowData = [
-        'user_id',
-        'title',
-        'content',
-        'mongodb_doc_id',
-        'created_at',
-      ];
-      await this.postQuery.postInsert('notice_back_log', rowData, [
-        user_id,
-        noticeDTO.title,
-        noticeDTO.content,
-        mongo_obj_id,
-        custom,
-      ]);
-      return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
     } else if (role === 'admin' || role === 'sub_admin') {
-      const collection = await this.mongoQuery.mongoConnect(
-        'notice',
-        NoticeDTO,
+      await this.noticeCreate.noticeCreate(
+        noticeDTO,
         'noticeAuthTable',
-      );
-      const currentDate = new Date();
-      const custom = dateSet(currentDate);
-      const noticeData = {
-        ...noticeDTO,
-        createdAt: custom, // 현재 날짜와 시간 추가
+        dateSet,
         user_id,
         role,
-      };
-      await this.mongoQuery.mongoInsert(collection, noticeData);
-      return `${noticeDTO.title} 게시물이 만들어졌습니다.`;
+      );
     }
   }
 

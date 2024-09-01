@@ -10,7 +10,7 @@ import {
 
 import { Request } from 'express';
 
-import { NoticeService } from '../../../../notice.service';
+import { NoticeService } from '../../../../application/notice.service';
 
 import { NoticeDTO } from 'src/api/Auth/notice/presentation/dto/notice.dto';
 

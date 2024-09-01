@@ -6,7 +6,7 @@ import { NoticeHomeController } from './presentation/controllers/crud/home_notic
 import { NoticeMainController } from './presentation/controllers/crud/main_notice/notice_cud.controller';
 import { NoticeUserController } from './presentation/controllers/user/notice_user_lookup.controller';
 
-import { NoticeService } from './notice.service';
+import { NoticeService } from './application/notice.service';
 import { DbConnect } from './infrastructure/database/db_connect/db_connect';
 import { MongoQuery } from './infrastructure/database/db_query/mongo_query';
 import { PostQuery } from './infrastructure/database/db_query/postgres_query';

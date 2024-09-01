@@ -4,7 +4,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { NoticeService } from '../../../notice.service';
+import { NoticeService } from '../../../application/notice.service';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 

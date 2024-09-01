@@ -12,7 +12,7 @@ import {
 
 import { Request } from 'express';
 
-import { NoticeService } from '../../../notice.service';
+import { NoticeService } from '../../../application/notice.service';
 
 import { CommentDTO } from 'src/api/Auth/notice/presentation/dto/comment.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
