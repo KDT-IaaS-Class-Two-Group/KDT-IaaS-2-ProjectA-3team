@@ -68,7 +68,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         </div>
       </div>
       <div className={styles.commentcontent}>
-        {commentList.length > 0 ? (
+        {commentList && commentList.length > 0 ? (
           commentList.map((comment) => (
             <div key={comment._id}>
               {editState[comment._id] ? (

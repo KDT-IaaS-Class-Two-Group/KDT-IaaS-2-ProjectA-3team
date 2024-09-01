@@ -11,16 +11,15 @@ import {
 } from '@nestjs/common';
 
 import { Request } from 'express';
-
-import { NoticeService } from '../../../application/notice.service';
-
-import { CommentDTO } from 'src/api/Auth/notice/presentation/dto/comment.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CommentDTO } from '../../dto/comment.dto';
+import { NoticeCommentService } from '../../../application/notice_service/comment_crud.service';
 
 @ApiTags('Notice Comment API')
 @Controller('comments')
 export class NoticeCommentController {
-  constructor(private readonly noticeService: NoticeService) {}
+  constructor(private readonly noticeCommentService: NoticeCommentService) {}
+
   @Get(':postId')
   @ApiOperation({
     summary: '사용자 댓글 조회',
@@ -34,7 +33,7 @@ export class NoticeCommentController {
   ) {
     const pageNumber = parseInt(page, 10); // 10진수로 변환
     const limitNumber = parseInt(limit, 10); // 10진수로 변환
-    return await this.noticeService.getUserhNotices(
+    return await this.noticeCommentService.getUserhNotices(
       postId,
       pageNumber,
       limitNumber,
@@ -53,7 +52,11 @@ export class NoticeCommentController {
   ) {
     const session = req.session.user;
     const user_id = session?.user_id;
-    return await this.noticeService.createComment(postId, commentDTO, user_id);
+    return await this.noticeCommentService.createComment(
+      postId,
+      commentDTO,
+      user_id,
+    );
   }
 
   @Put(':postId')
@@ -68,7 +71,7 @@ export class NoticeCommentController {
   ) {
     const session = req.session.user;
     const user_id = session?.user_id;
-    return this.noticeService.updateComment(postId, content, user_id);
+    return this.noticeCommentService.updateComment(postId, content, user_id);
   }
 
   @Delete(':postId')
@@ -80,6 +83,6 @@ export class NoticeCommentController {
     const session = req.session.user;
     const user_id = session?.user_id;
     const role = session?.role_name;
-    return this.noticeService.deleteComment(postId, user_id, role);
+    return this.noticeCommentService.deleteComment(postId, user_id, role);
   }
 }
