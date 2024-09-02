@@ -15,6 +15,8 @@ import { ListNotice } from "client/refactor_component/molecule/notice_admin_all/
 import fetchNotices from "client/refactor_component/molecule/notice_admin_all/service/fetch_notice_admin_list";
 import PTag from "client/refactor_component/atom/tag/tag";
 import Button from "client/refactor_component/atom/button/button";
+import AdminAllNoticeTitlePtag from "client/refactor_component/molecule/notice_admin_all/notice_admin_title_tags";
+import AdminAllNoticeContentPtag from "client/refactor_component/molecule/notice_admin_all/notice_admin_content_tags";
 
 const NoticeAuthAllContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // admin 서버에서 건너오는 게시물 데이터
@@ -48,12 +50,13 @@ const NoticeAuthAllContent = () => {
           <div className={pagemaincontainer}>
             <div className={pagemaintext}>관리자 게시물</div>{" "}
             <div className={styles.noticecontent}>
-              <div className={styles.title}>
+              <AdminAllNoticeTitlePtag/>
+              {/* <div className={styles.title}>
                 <PTag className={styles.TagSize} content={"Number"} />
                 <PTag className={styles.pTagTitle} content={"Title"} />
                 <PTag className={styles.TagSize} content={"Author"} />
                 <PTag className={styles.TagSize} content={"Creation Date"} />
-              </div>
+              </div> */}
               <div className={styles.usercontentdiv}>
                 {userList.length > 0 ? (
                   userList.map((notice, index) => (
@@ -62,13 +65,13 @@ const NoticeAuthAllContent = () => {
                         href={`/noticeAuth/${notice._id}`}
                         className={styles.uploadbutton}
                       >
-                        <div className={styles.noticelengh}>
-
+                        <AdminAllNoticeContentPtag notice={notice} index={index}/>
+                        {/* <div className={styles.noticelengh}>
                           <PTag className={styles.TagSize} content={`${index} + 1 + (currentPage - 1) * itemsPerPage`} />
                           <PTag className={styles.pTagTitletext} content={notice.title} />
                           <PTag className={styles.TagSize} content={notice.user_id} />
                           <PTag className={styles.TagSize} content={notice.createdAt} />
-                        </div>
+                        </div> */}
                       </Link>
                     </div>
                   ))

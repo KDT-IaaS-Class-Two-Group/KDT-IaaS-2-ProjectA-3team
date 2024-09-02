@@ -2,7 +2,7 @@ import React from "react";
 import PTag from "client/refactor_component/atom/tag/tag";
 import * as styles from "../../../styles/notice/notice.css";
 
-const AdminAllNoticePtag: React.FC = () => {
+const AdminAllNoticeTitlePtag: React.FC = () => {
   return (
     <div className={styles.title}>
       <PTag className={styles.TagSize} content={"Number"} />
@@ -13,4 +13,4 @@ const AdminAllNoticePtag: React.FC = () => {
   );
 };
 
-export default AdminAllNoticePtag;
+export default AdminAllNoticeTitlePtag;
