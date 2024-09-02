@@ -49,12 +49,6 @@ const NoticeAuthAllContent = () => {
             <div className={pagemaintext}>관리자 게시물</div>{" "}
             <div className={styles.noticecontent}>
               <AdminAllNoticeTitlePtag/>
-              {/* <div className={styles.title}>
-                <PTag className={styles.TagSize} content={"Number"} />
-                <PTag className={styles.pTagTitle} content={"Title"} />
-                <PTag className={styles.TagSize} content={"Author"} />
-                <PTag className={styles.TagSize} content={"Creation Date"} />
-              </div> */}
               <div className={styles.usercontentdiv}>
                 {userList.length > 0 ? (
                   userList.map((notice, index) => (
@@ -64,12 +58,6 @@ const NoticeAuthAllContent = () => {
                         className={styles.uploadbutton}
                       >
                         <AdminAllNoticeContentPtag notice={notice} index={index}/>
-                        {/* <div className={styles.noticelengh}>
-                          <PTag className={styles.TagSize} content={`${index} + 1 + (currentPage - 1) * itemsPerPage`} />
-                          <PTag className={styles.pTagTitletext} content={notice.title} />
-                          <PTag className={styles.TagSize} content={notice.user_id} />
-                          <PTag className={styles.TagSize} content={notice.createdAt} />
-                        </div> */}
                       </Link>
                     </div>
                   ))
@@ -77,21 +65,6 @@ const NoticeAuthAllContent = () => {
                   <div>게시물 없음</div>
                 )}
                 <AdminAllNoticePageBtn totalPages={totalPages} handlePageChange={handlePageChange} currentPage={currentPage}/>
-                {/* 페이징 버튼 UI */}
-                {/* <div className={centeredflexrowcontainer}>
-                  {Array.from(
-                    { length: totalPages },
-                    (_, index) => index + 1
-                  ).map((page) => (
-                    <Button
-                      key={page}
-                      button_style={styles.pagebutton}
-                      onClick={() => handlePageChange(page)}
-                      disabled={currentPage === page}
-                      button_text={page.toString()}
-                      />
-                  ))} 
-                </div> */}
               </div>
             </div>
           </div>
