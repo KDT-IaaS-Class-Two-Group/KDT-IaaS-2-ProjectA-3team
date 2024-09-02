@@ -10,13 +10,11 @@ import {
   pagemaintext,
 } from "client/styles/team/teampage.css";
 import * as styles from "../../../styles/notice/notice.css";
-import { centeredflexrowcontainer } from "client/styles/standardcontainer.css";
 import { ListNotice } from "client/refactor_component/molecule/notice_admin_all/interface/notice_admin_all.interface"
 import fetchNotices from "client/refactor_component/molecule/notice_admin_all/service/fetch_notice_admin_list";
-import PTag from "client/refactor_component/atom/tag/tag";
-import Button from "client/refactor_component/atom/button/button";
 import AdminAllNoticeTitlePtag from "client/refactor_component/molecule/notice_admin_all/notice_admin_title_tags";
 import AdminAllNoticeContentPtag from "client/refactor_component/molecule/notice_admin_all/notice_admin_content_tags";
+import AdminAllNoticePageBtn from "client/refactor_component/molecule/notice_admin_all/notice_admin_btn";
 
 const NoticeAuthAllContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // admin 서버에서 건너오는 게시물 데이터
@@ -78,8 +76,9 @@ const NoticeAuthAllContent = () => {
                 ) : (
                   <div>게시물 없음</div>
                 )}
+                <AdminAllNoticePageBtn totalPages={totalPages} handlePageChange={handlePageChange} currentPage={currentPage}/>
                 {/* 페이징 버튼 UI */}
-                <div className={centeredflexrowcontainer}>
+                {/* <div className={centeredflexrowcontainer}>
                   {Array.from(
                     { length: totalPages },
                     (_, index) => index + 1
@@ -91,8 +90,8 @@ const NoticeAuthAllContent = () => {
                       disabled={currentPage === page}
                       button_text={page.toString()}
                       />
-                  ))}
-                </div>
+                  ))} 
+                </div> */}
               </div>
             </div>
           </div>
