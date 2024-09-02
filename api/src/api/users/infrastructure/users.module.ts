@@ -1,12 +1,17 @@
-// infrastructure/users.module.ts
 import { Module } from '@nestjs/common';
-import { UsersController } from '../presentation/users.controller';
+import { UserManagementController } from '../presentation/user_controller/user_controller';
 import { UserCommandHandler } from '../application/command/handler/userCommand.handler';
 import { UserQueryHandler } from '../application/query/handler/userQuery.handler';
-import { QueryBuilder } from 'src/database/queryBuilder';
+import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
+import { DatabaseService } from 'src/database/infrastructure/database.service'; // DatabaseService 임포트
 
 @Module({
-  controllers: [UsersController],
-  providers: [UserCommandHandler, UserQueryHandler, QueryBuilder],
+  controllers: [UserManagementController],
+  providers: [
+    UserCommandHandler,
+    UserQueryHandler,
+    QueryBuilder,
+    DatabaseService,
+  ],
 })
 export class UsersModule {}

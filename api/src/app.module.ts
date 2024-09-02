@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { LoggingMiddleware } from './middleware/logger.middleware';
 import { AuthModule } from './api/Auth/auth.module';
-import { UsersModule } from './api/users/users.module';
+import { UsersModule } from './api/users/infrastructure/users.module';
 import { StructureController } from './api/tables/[tableName]/structure.controller';
 import { DataController } from './api/tables/[tableName]/data.controller';
 import { RowsController } from './api/tables/[tableName]/rows/rows.controller';
