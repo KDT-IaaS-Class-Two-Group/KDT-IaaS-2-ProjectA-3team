@@ -157,9 +157,9 @@ export class NoticeCommentService {
         });
         return result.deletedCount > 0; // 삭제 성공 여부 반환
       }
-      return 'false';
+      return 'false'; // 권한이 없으면 false 반환
     } catch {
-      console.error('comment delete error');
+      console.error('comment delete error'); //에러처리
     }
   }
 }
