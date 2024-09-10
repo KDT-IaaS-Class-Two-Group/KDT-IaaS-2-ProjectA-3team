@@ -9,18 +9,21 @@ import {
 } from '@nestjs/common';
 
 import { Request } from 'express';
-
 import { NoticeCUDService } from '../../../../application/notice_service/notice_cud.service';
-
 import { NoticeDTO } from '../../../dto/notice.dto';
-
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-@Controller('notice')
 @ApiTags('Notice Main API')
+@Controller('notice')
 export class NoticeMainController {
   constructor(private readonly noticeCUDService: NoticeCUDService) {}
-  //게시물 작성 fetch
+
+  /**
+   * 공지사항을 작성하여 데이터베이스에 저장합니다.
+   * @param {NoticeDTO} noticeDTO - 작성할 공지사항의 데이터.
+   * @param {Request} req - 요청 객체, 사용자 세션 정보 포함.
+   * @returns {Promise<any>} - 공지사항 작성 결과를 반환합니다.
+   */
   @Post('send')
   @ApiOperation({
     summary: '공지사항 작성',
@@ -33,6 +36,13 @@ export class NoticeMainController {
     return await this.noticeCUDService.createNotice(noticeDTO, user_id, role);
   }
 
+  /**
+   * 지정된 ID의 공지사항을 수정합니다.
+   * @param {string} id - 수정할 공지사항의 ID.
+   * @param {NoticeDTO} noticeDTO - 수정할 공지사항의 데이터.
+   * @param {Request} req - 요청 객체, 사용자 세션 정보 포함.
+   * @returns {Promise<any>} - 공지사항 수정 결과를 반환합니다.
+   */
   @Put(':id')
   @ApiOperation({
     summary: '공지사항 수정',
@@ -54,6 +64,12 @@ export class NoticeMainController {
     );
   }
 
+  /**
+   * 지정된 ID의 공지사항을 삭제합니다.
+   * @param {string} id - 삭제할 공지사항의 ID.
+   * @param {Request} req - 요청 객체, 사용자 세션 정보 포함.
+   * @returns {Promise<any>} - 공지사항 삭제 결과를 반환합니다.
+   */
   @Delete(':id')
   @ApiOperation({
     summary: '공지사항 삭제',

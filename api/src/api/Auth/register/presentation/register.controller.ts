@@ -31,21 +31,6 @@ import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 export class RegisterController {
   constructor(private readonly registerService: RegisterService) {}
 
-  /**
-   * @function register
-   * @description 사용자 회원가입 요청을 처리합니다. 중복 여부를 확인하고, 회원가입을 진행합니다.
-   *
-   * @param {PendingUserDTO} data - 회원가입에 필요한 사용자 데이터입니다.
-   *
-   * @returns {Promise<{ message: string }>} 성공적으로 회원가입이 처리된 경우 반환되는 메시지 객체입니다.
-   *
-   * @throws {HttpException} 잘못된 요청 데이터나 서버 에러 발생 시 예외를 발생시킵니다.
-   *
-   * @example
-   * const data = { user_id: 'example', ... };
-   * const response = await registerController.register(data);
-   * console.log(response.message); // '성공'
-   */
   @Post()
   @ApiOperation({
     summary: '회원가입',
@@ -79,6 +64,22 @@ export class RegisterController {
       },
     },
   })
+
+  /**
+   * @function register
+   * @description 사용자 회원가입 요청을 처리합니다. 중복 여부를 확인하고, 회원가입을 진행합니다.
+   *
+   * @param {PendingUserDTO} data - 회원가입에 필요한 사용자 데이터입니다.
+   *
+   * @returns {Promise<{ message: string }>} 성공적으로 회원가입이 처리된 경우 반환되는 메시지 객체입니다.
+   *
+   * @throws {HttpException} 잘못된 요청 데이터나 서버 에러 발생 시 예외를 발생시킵니다.
+   *
+   * @example
+   * const data = { user_id: 'example', ... };
+   * const response = await registerController.register(data);
+   * console.log(response.message); // '성공'
+   */
   async register(@Body() data: PendingUserDTO): Promise<{ message: string }> {
     try {
       await this.registerService.register(data);
