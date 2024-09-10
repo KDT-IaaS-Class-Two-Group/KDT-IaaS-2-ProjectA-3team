@@ -17,7 +17,6 @@ import { StackModule } from './api/Stack/stack.module';
 import { IssueModule } from './api/issue/issue.module';
 import { ProjectModule } from './api/project/project.module';
 import { TeamModule } from './api/_team/team.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot(),

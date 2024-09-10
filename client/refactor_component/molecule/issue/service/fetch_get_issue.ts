@@ -24,3 +24,23 @@ export const fetchGetIssue = async (project_name: string): Promise<any> => {
   // 변환된 JSON 데이터 반환
   return result;
 };
+export const fetchAddIssue = async (issueData: {
+  project_name: string;
+  issue_title: string;
+  issue_description: string;
+}): Promise<any> => {
+  // 이슈 데이터를 서버에 전달할 POST 요청
+  const response = await fetch(`http://localhost:3001/issue/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(issueData),
+  });
+
+  // 서버의 응답을 JSON으로 변환
+  const result = await response.json();
+
+  // 변환된 JSON 데이터 반환
+  return result;
+};

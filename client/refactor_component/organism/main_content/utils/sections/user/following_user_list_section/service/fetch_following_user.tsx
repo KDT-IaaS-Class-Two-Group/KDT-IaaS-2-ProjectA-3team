@@ -4,9 +4,7 @@ const fetchFollowingList = async (
 ): Promise<FollowingUserProps[]> => {
   setLoading(true);
   try {
-    const response = await fetch(
-      `http://localhost:3001/getUser/followingList`,
-      {
+    const response = await fetch("http://localhost:3001/user/follow/followingList",{
         method: "GET",
         headers: {
           "Content-Type": "application/json",

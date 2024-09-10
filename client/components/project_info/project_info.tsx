@@ -76,7 +76,9 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
           </div>
 
           <div>
-            <IssueComponent project_name={project_name}></IssueComponent>
+            <IssueComponent project_name={project_name} onClose={function (): void {
+              throw new Error("Function not implemented.");
+            } }></IssueComponent>
           </div>
         </div>
       </div>

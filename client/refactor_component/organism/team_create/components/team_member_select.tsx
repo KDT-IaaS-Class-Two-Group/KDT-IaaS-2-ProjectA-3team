@@ -43,28 +43,33 @@ const MemberSelect: React.FC<MemberSelectionProps> = ({
         {selectedMembers.map((member) => member.user_id).join(", ") || "없음"}
       </p>
       <Ul ul_style={pageul}>
-        {members.map((user) => (
-          <Li key={user.user_id} li_style={pagetextsub}>
-            <strong>ID :</strong> {user.user_id}
-            <Button
-              button_text="추가"
-              button_style={yellowButton}
-              onClick={() => addMember(user)}
-            />
-            {selectedMembers.some(
-              (member) => member.user_id === user.user_id
-            ) && (
+        {Array.isArray(members) && members.length > 0 ? (
+          members.map((user) => (
+            <Li key={user.user_id} li_style={pagetextsub}>
+              <strong>ID :</strong> {user.user_id}
               <Button
-                button_text="삭제"
+                button_text="추가"
                 button_style={yellowButton}
-                onClick={() => removeMember(user)}
+                onClick={() => addMember(user)}
               />
-            )}
-          </Li>
-        ))}
+              {selectedMembers.some(
+                (member) => member.user_id === user.user_id
+              ) && (
+                <Button
+                  button_text="삭제"
+                  button_style={yellowButton}
+                  onClick={() => removeMember(user)}
+                />
+              )}
+            </Li>
+          ))
+        ) : (
+          <p>팀원 목록이 비어있습니다.</p>
+        )}
       </Ul>
     </div>
   );
 };
+
 
 export default MemberSelect;

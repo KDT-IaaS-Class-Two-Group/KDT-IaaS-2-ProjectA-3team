@@ -15,8 +15,8 @@ const fetchLeadersAndMembers = async () => {
   try {
     //비동기적으로 병렬 API 실행
     const [leadersResponse, membersResponse] = await Promise.all([
-      fetch("http://localhost:3001/getUser/leaders"),
-      fetch("http://localhost:3001/getUser/members"),
+      fetch("http://localhost:3001/user/leaders"),
+      fetch("http://localhost:3001/user/members"),
     ]);
     //JSON으로 변환
     const leadersData = await leadersResponse.json();

@@ -13,7 +13,7 @@ export const UserSearch: React.FC = () => {
   useEffect(() => {
     const fetchSessionData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/getUser/session", {
+        const response = await fetch("http://localhost:3001/login/session", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const UserSearch: React.FC = () => {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3001/getUser/all", {
+        const response = await fetch("http://localhost:3001/user/all", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const UserSearch: React.FC = () => {
           const data = await response.json();
           // 여기서 사용자가 팔로우하고 있는지 여부를 서버에서 받아와 설정
           const followingResponse = await fetch(
-            "http://localhost:3001/getUser/followingList",
+            "http://localhost:3001/user/follow/followingList",
             {
               method: "GET",
               headers: {
@@ -125,7 +125,7 @@ export const UserSearch: React.FC = () => {
     if (confirmFollow) {
       try {
         const response = await fetch(
-          `http://localhost:3001/getUser/${isFollowing ? "unfollow" : "follow"}`,
+          `http://localhost:3001/user/follow/${isFollowing ? "unfollow" : "follow"}`,
           {
             method: "POST",
             headers: {

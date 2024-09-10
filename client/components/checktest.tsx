@@ -16,7 +16,7 @@ const CheckUsersCount: React.FC = () => {
     const fetchUserCount = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/getUser/checkusers/count"
+          "http://localhost:3001/user/checkusers/count"
         );
 
         if (!response.ok) {

@@ -16,7 +16,7 @@ const fetchCheckTeamNameExists = async (name: string): Promise<boolean> => {
   try {
     // 팀 이름 확인을 위해 서버에 POST 요청 전송
     const response = await fetch(
-      "http://localhost:3001/getUser/checkTeamName",
+      "http://localhost:3001/user/checkTeamName",
       {
         method: "POST",
         headers: {

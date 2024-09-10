@@ -75,7 +75,7 @@ export class LoginController {
        * 
        * {
           name : "aasdf"
-          level : 5 -> 5에 맞는 response -> Client -> Component
+          level : 5 -> 5에 맞는 response -> Client -> Component 
           Https Redis 고려 나중에 aws -> Request , Javascript로 쿠키 접근이 불가능하도록 수정. 암호화된 Session 식별자.
           ->
         }

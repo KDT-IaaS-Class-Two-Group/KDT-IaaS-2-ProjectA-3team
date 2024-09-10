@@ -37,26 +37,31 @@ const TeamLeaderSelect: React.FC<LeaderSelectProps> = ({
     <div className={pageteamtext}>
       <p>팀장: {selectedLeader ? selectedLeader.user_id : "없음"}</p>
       <Ul ul_style={pageul}>
-        {leaders.map((user) => (
-          <Li key={user.user_id} li_style={pagetextsub}>
-            <strong>ID :</strong> {user.user_id}
-            <Button
-              button_text="추가"
-              button_style={yellowButton}
-              onClick={() => addLeader(user)}
-            />
-            {selectedLeader && selectedLeader.user_id === user.user_id && (
+        {Array.isArray(leaders) && leaders.length > 0 ? (
+          leaders.map((user) => (
+            <Li key={user.user_id} li_style={pagetextsub}>
+              <strong>ID :</strong> {user.user_id}
               <Button
-                button_text="삭제"
+                button_text="추가"
                 button_style={yellowButton}
-                onClick={removeLeader}
+                onClick={() => addLeader(user)}
               />
-            )}
-          </Li>
-        ))}
+              {selectedLeader && selectedLeader.user_id === user.user_id && (
+                <Button
+                  button_text="삭제"
+                  button_style={yellowButton}
+                  onClick={removeLeader}
+                />
+              )}
+            </Li>
+          ))
+        ) : (
+          <p>팀장 목록이 비어있습니다.</p>
+        )}
       </Ul>
     </div>
   );
 };
 
 export default TeamLeaderSelect;
+
