@@ -21,8 +21,11 @@ const PTags: React.FC<NoticeTagsProps> = ({ index, title, userId, createdAt }) =
     <div className={styles.noticelengh}>
       {/* 공지사항 인덱스 표시 */}
       <PTag className={styles.TagSize} content={`${index + 1}.`} />
+      {/* 공지사항 제목 표시 */}
       <PTag className={styles.pTagTitletext} content={title} />
+      {/* 공지사항 작성자 ID 표시 */}
       <PTag className={styles.TagSize} content={userId} />
+      {/* 공지사항 작성일 표시 */}
       <PTag className={styles.TagSize} content={createdAt} />
     </div>
   );
