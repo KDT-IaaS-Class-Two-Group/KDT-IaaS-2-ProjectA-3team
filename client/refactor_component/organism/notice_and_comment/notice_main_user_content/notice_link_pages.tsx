@@ -8,13 +8,13 @@ import { ListNotice } from "client/refactor_component/molecule/notice_and_commen
  * @property {ListNotice[]} userList - 게시물 리스트
  * @property {number} currentPage - 현재 페이지 번호
  * @property {number} totalPages - 총 페이지 수
- * @property {(page: number) => void} onPageChange - 페이지 변경 시 호출되는 함수
+ * @property {(page: number) => void} pageChange - 페이지 변경 시 호출되는 함수
  */
 interface NoticeContentProps {
   userList: ListNotice[];
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  pageChange: (page: number) => void;
 }
 
 /**
@@ -24,7 +24,7 @@ interface NoticeContentProps {
  * @param {NoticeContentProps} userList - 게시물 리스트
  * @param {NoticeContentProps} currentPage - 현재 페이지 번호
  * @param {NoticeContentProps} totalPages - 총 페이지 수
- * @param {NoticeContentProps} onPageChange - 페이지 변경 시 호출되는 함수
+ * @param {NoticeContentProps} pageChange - 페이지 변경 시 호출되는 함수
  * 
  * @returns 사용자 게시물 목록과 페이지네이션을 렌더링하는 JSX 요소
  */
@@ -32,14 +32,14 @@ const NoticeContent: React.FC<NoticeContentProps> = ({
   userList,
   currentPage,
   totalPages,
-  onPageChange,
+  pageChange,
 }) => {
   return (
     <>
       {/* 게시물 리스트 */}
       <LinkList userList={userList} currentPage={currentPage} />
       {/* 페이지네이션 */}
-      <Pages totalPages={totalPages} currentPage={currentPage} onPageChange={onPageChange} />
+      <Pages totalPages={totalPages} currentPage={currentPage} pageChange={pageChange} />
     </>
   );
 };
