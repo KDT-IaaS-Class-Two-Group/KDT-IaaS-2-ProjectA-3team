@@ -82,6 +82,7 @@ const NoticeAuthAllContent = () => {
                         href={`/noticeAuth/${notice._id}`}
                         className={styles.uploadbutton}
                       >
+                        {/* 게시물 리스트 */}
                         <AdminAllNoticeContentPtag notice={notice} index={index}/>
                       </Link>
                     </div>
@@ -89,6 +90,7 @@ const NoticeAuthAllContent = () => {
                 ) : (
                   <div>게시물 없음</div>
                 )}
+                {/* 페이지네이션 */}
                 <AdminAllNoticePageBtn totalPages={totalPages} pageChange={pageChange} currentPage={currentPage}/>
               </div>
             </div>
