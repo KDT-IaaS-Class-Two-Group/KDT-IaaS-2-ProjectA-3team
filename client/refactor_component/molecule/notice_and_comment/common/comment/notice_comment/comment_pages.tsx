@@ -5,7 +5,7 @@ import { greenButton } from "client/styles/templatebutton.css";
 interface PagesProps {
   totalPages: number;
   currentPage: number;
-  handlePageChange: (page: number) => void;
+  pageChange: (page: number) => void;
 }
 
 /**
@@ -17,14 +17,14 @@ interface PagesProps {
  * @param {Object} props - 컴포넌트의 props
  * @param {number} props.totalPages - 총 페이지 수
  * @param {number} props.currentPage - 현재 페이지 번호
- * @param {(page: number) => void} props.handlePageChange - 페이지를 변경하는 함수
+ * @param {(page: number) => void} props.pageChange - 페이지를 변경하는 함수
  * 
  * @returns {JSX.Element} - 페이지 네비게이션 버튼 목록을 포함하는 JSX 엘리먼트를 반환합니다.
  */
 const Pages: React.FC<PagesProps> = ({
   totalPages,
   currentPage,
-  handlePageChange,
+  pageChange,
 }) => {
   return (
     <>
@@ -34,7 +34,7 @@ const Pages: React.FC<PagesProps> = ({
             key={page}
             button_text={page.toString()} // 페이지 번호를 문자열로 설정
             button_style={greenButton}
-            onClick={() => handlePageChange(page)} // 페이지 변경 함수 호출
+            onClick={() => pageChange(page)} // 페이지 변경 함수 호출
             disabled={currentPage === page} // 현재 페이지인 경우 버튼 비활성화
           />
         )
