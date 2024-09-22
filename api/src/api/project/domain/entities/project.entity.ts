@@ -53,20 +53,24 @@ export class Project {
     team_name: string;
   }): Project {
     //프로젝트 이름 검증
-    const validatedProjectName = new ProjectName(obj.project_name);
-    //프로젝트 시작일 검증
-    const validatedStartDate = new ProjectStartDate(obj.project_start_date);
-    //프로젝트 마감일 검증
-    const validatedEndDate = new ProjectEndDate(obj.project_end_date);
-    //프로젝트 할당 팀 이름 검증
-    const validatedTeamName = new TeamName(obj.team_name);
+    try {
+      const validatedProjectName = new ProjectName(obj.project_name);
+      //프로젝트 시작일 검증
+      const validatedStartDate = new ProjectStartDate(obj.project_start_date);
+      //프로젝트 마감일 검증
+      const validatedEndDate = new ProjectEndDate(obj.project_end_date);
+      //프로젝트 할당 팀 이름 검증
+      const validatedTeamName = new TeamName(obj.team_name);
 
-    // 주어진 값들을 VO 객체로 변환함으로써 도메인은 검증된 값들만 사용할 수 있게 됨.
-    return new Project(
-      validatedProjectName,
-      validatedStartDate,
-      validatedEndDate,
-      validatedTeamName,
-    );
+      // 주어진 값들을 VO 객체로 변환함으로써 도메인은 검증된 값들만 사용할 수 있게 됨.
+      return new Project(
+        validatedProjectName,
+        validatedStartDate,
+        validatedEndDate,
+        validatedTeamName,
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
