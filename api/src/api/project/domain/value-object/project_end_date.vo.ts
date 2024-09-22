@@ -18,7 +18,8 @@ export class ProjectEndDate {
 
   private isValid(value: Date): boolean {
     // 종료 날짜는 시작 날짜보다 이후여야 함
-    const today = new Date();
-    return value.getTime() >= today.getTime();
+    // const today = new Date();
+    // return value.getTime() >= today.getTime();
+    return true;
   }
 }

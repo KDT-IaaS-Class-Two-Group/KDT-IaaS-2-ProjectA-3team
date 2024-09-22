@@ -18,9 +18,10 @@ export class ProjectStartDate {
   }
 
   private isValid(value: Date): boolean {
-    // 현재 날짜보다 이전이면 유효하지 않음
-    const today = new Date();
-    return value.getTime() >= today.getTime();
+    // const today = new Date();
+
+    // return value.getTime() >= today.getTime();
+    return true;
   }
 }
 
