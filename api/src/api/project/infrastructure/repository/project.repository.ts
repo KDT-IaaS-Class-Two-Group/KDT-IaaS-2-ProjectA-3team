@@ -22,10 +22,23 @@ export class ProjectRepository {
    * @param ProjectData : 프로젝트 도메인 객체.
    * @returns : bool타입 반환으로 성공 여부를 처리할 수 있도록 작성
    */
+
   async createProject(ProjectData: Project) {
     try {
+      // VO에서 기본 데이터 타입으로 값을 추출합니다.
+      const projectName = ProjectData.getProjectName().value;
+      const projectStartDate = ProjectData.getProjectStartDate().value; // Date 객체 또는 string으로 변환
+      const projectEndDate = ProjectData.getProjectEndDate().value; // Date 객체 또는 string으로 변환
+      const teamName = ProjectData.getProjectTeamName().value;
+
+      // 기본 데이터 타입으로 변환된 값들을 사용하여 쿼리를 실행
       await this.queryBuilder
-        .INSERT(TABLE_NAME.__PROJECT, ProjectData)
+        .INSERT(TABLE_NAME.__PROJECT, {
+          project_name: projectName,
+          project_start_date: projectStartDate,
+          project_end_date: projectEndDate,
+          team_name: teamName,
+        })
         .execution();
       return true;
     } catch (error) {
