@@ -28,7 +28,7 @@ export class TeamRepository {
     }
   }
 
-  async InsertMemeber(team_name: string, teamMemeber: TeamMemberDTO) {
+  async InsertMember(team_name: string, teamMemeber: TeamMemberDTO) {
     console.log(team_name);
     const { team_leader, team_members } = teamMemeber;
 
@@ -43,15 +43,24 @@ export class TeamRepository {
         .execution();
     }
 
-    team_members.forEach((memberObject) => {
-      this.qb
-        .INSERT(TABLE_NAME.__RELATION_TEAM_USERS, {
-          team_name,
-          user_id: memberObject.user_id,
-          role_name: ROLE_COLUMNS.__LEVEL_1,
-        })
-        .execution();
-    });
+    // team_members 유효성 검사
+    if (!team_members || !Array.isArray(team_members)) {
+      console.error('팀 멤버가 정의되지 않았거나 배열이 아닙니다.');
+      return { message: '팀 멤버를 추가할 수 없습니다.' }; // 적절한 오류 메시지 반환
+    }
+
+    // 각 팀 멤버 추가
+    await Promise.all(
+      team_members.map(async (memberObject) => {
+        await this.qb
+          .INSERT(TABLE_NAME.__RELATION_TEAM_USERS, {
+            team_name,
+            user_id: memberObject.user_id,
+            role_name: ROLE_COLUMNS.__LEVEL_1,
+          })
+          .execution();
+      }),
+    );
 
     return { message: SUCCESS_MESSAGE.__CREATE_TEAM };
   }

@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from "react";
-
 
 interface User {
   user_id: string;
@@ -99,9 +97,10 @@ function UserSelection() {
       return;
     }
 
+    // 팀 데이터를 서버로 전송하기 전, description이 제대로 포함되었는지 확인하는 로그
     const teamData = {
       team_name: teamName,
-      description: teamDescription,
+      description: teamDescription,  // description 값 확인
       teamLeader: selectedLeader
         ? {
             user_id: selectedLeader.user_id,
@@ -111,6 +110,8 @@ function UserSelection() {
         user_id: member.user_id,
       })),
     };
+
+    console.log("Submitting team data:", teamData);  // 팀 데이터 확인
 
     try {
       const response = await fetch("http://localhost:3001/team/save", {
@@ -193,11 +194,16 @@ function UserSelection() {
       <div>
         <label htmlFor="teamDescription">팀 특징 서술:</label>
         <textarea
-          id="teamDescription"
-          name="teamDescription"
-          value={teamDescription}
-          onChange={(e) => setTeamDescription(e.target.value)}
-        />
+  id="teamDescription"
+  name="teamDescription"
+  value={teamDescription}  // 상태와 연결된 value
+  onChange={(e) => {
+    console.log("Description changed: ", e.target.value);  // 값 확인
+    setTeamDescription(e.target.value);  // 상태 업데이트
+  }}
+/>
+
+
       </div>
       <button onClick={handleSubmit}>전송</button>
     </div>

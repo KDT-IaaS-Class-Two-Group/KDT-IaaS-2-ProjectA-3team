@@ -8,19 +8,30 @@ export class PostTeamCommandHandler {
 
   async execute(command: PostTeamCommand) {
     const { team_name, description, team_members, team_leader } = command;
-    const result = this.repository.checkTeamName(command.team_name);
+
     // 중복 검사
+    const result = await this.repository.checkTeamName(team_name); // await 추가
     if (result) {
+      console.log(`Team with name ${team_name} already exists.`);
       return false;
     }
 
-    const saveTeamResult = this.repository.saveTeam({ team_name, description });
+    // 팀 저장
+    console.log('Saving team with description:', description);
+    const saveTeamResult = await this.repository.saveTeam({
+      team_name,
+      description,
+    }); // await 추가
+
     // 팀원 추가
     if (saveTeamResult) {
-      this.repository.InsertMemeber(team_name, {
+      console.log('Inserting team members:', team_members);
+      await this.repository.InsertMember(team_name, {
         team_leader,
         team_members,
-      });
+      }); // await 추가
     }
+
+    return true;
   }
 }
