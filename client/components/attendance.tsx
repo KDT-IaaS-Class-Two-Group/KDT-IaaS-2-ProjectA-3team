@@ -21,15 +21,13 @@ const Attendance: React.FC = () => {
   >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
   useEffect(() => {
     const now = new Date();
     console.log("현재 시간:", now.toLocaleString("ko-KR"));
-
     const fetchAttendanceRecords = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/getUser/attendance/random",
+          "http://localhost:3001/user/attendance/random",
           {
             method: "GET",
             headers: {

@@ -29,7 +29,7 @@ const useFetchCheckProfile = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3001/getUser/checkprofile");
+      const response = await fetch("http://localhost:3001/user/checkprofile");
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

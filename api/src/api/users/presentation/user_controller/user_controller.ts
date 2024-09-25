@@ -16,7 +16,14 @@ import { RejectChangesDto } from './dto/user_reject.dto';
 @Controller('/user')
 export class UserManagementController {
   constructor(private readonly queryBuilder: QueryBuilder) {}
-
+  private nonePasswordObject = [
+    'user_id',
+    'username',
+    'birth_date',
+    'address',
+    'phone',
+    'email',
+  ];
   @Post('/insert')
   async insertUser(@Body() data: InsertUserDto): Promise<any> {
     const { username, birth_date, address, phone, email, password, user_id } =
@@ -226,6 +233,35 @@ export class UserManagementController {
       );
     }
   }
+  @Get('/checkprofile')
+  async getCheckProfile(): Promise<any> {
+    try {
+      const checkUsers = await this.queryBuilder
+        .SELECT('checkusers')
+        .execution();
+      return checkUsers;
+    } catch (error) {
+      console.error('Error fetching user profiles:', error);
+      throw new HttpException(
+        'Failed to fetch user profiles',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  @Get('/pending')
+  async CheckPendingUser(): Promise<any> {
+    const obj = await this.queryBuilder
+      .SELECT('pending_users', this.nonePasswordObject)
+      .execution();
+    return obj;
+  }
+  @Get('/fields')
+  async GetFields(): Promise<any> {
+    const fields = await this.queryBuilder
+      .SELECT('field', 'field_name')
+      .execution();
+    return fields;
+  }
   @Get('/checkusers/count')
   async getCheckUsersCount(): Promise<any> {
     try {
@@ -239,6 +275,29 @@ export class UserManagementController {
       console.error('Error fetching user count:', error);
       throw new HttpException(
         'Failed to fetch user count',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  @Get('/attendance/random')
+  async getRandomAttendanceRecords(): Promise<any> {
+    try {
+      const records = await this.queryBuilder
+        .SELECT('work_table', [
+          'work_table.user_id',
+          'users.username',
+          'work_table.startTime AS clockInTime', // startTime 컬럼
+          'work_table.endTime AS clockOutTime', // endTime 컬럼
+        ])
+        .JOIN('users', 'work_table.user_id = users.user_id') // JOIN
+        .ORDER_BY('RANDOM()')
+        .LIMIT(3)
+        .execution();
+      return records;
+    } catch (error) {
+      console.error('Error fetching attendance records:', error); // 에러 로그 추가
+      throw new HttpException(
+        'Failed to fetch attendance records',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

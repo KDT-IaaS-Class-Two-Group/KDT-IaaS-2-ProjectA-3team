@@ -10,7 +10,7 @@ import { DatabaseService } from './database.service';
  * @param private readonly databaseService: DatabaseService
  * @description TableService 클래스는 데이터베이스 테이블과 상호작용하는 다양한 기능을 제공하는 서비스이다. 이 클래스는 주로 테이블의 데이터 조회, 추가, 업데이트, 삭제 및 테이블 구조 조회 기능을 제공한다.
  */
-
+@Injectable()
 export class TableService {
   // DatabaseService를 의존성으로 주입받아 이 클래스 내에서 사용합니다.
   /**

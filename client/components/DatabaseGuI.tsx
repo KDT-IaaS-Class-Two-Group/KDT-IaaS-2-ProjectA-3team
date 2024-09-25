@@ -30,13 +30,20 @@ const DBGUI: React.FC = () => {
         const data: Table[] = await response.json();
         setTables(data);
       } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchTables();
   }, []);
+  
+  
 
   if (loading) {
     return <div>Loading...</div>;

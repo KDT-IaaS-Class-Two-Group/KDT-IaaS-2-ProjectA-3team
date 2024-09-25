@@ -21,8 +21,8 @@ import { User,Field } from "../props/user.props";
 export const fetchUsers = async (): Promise<[User[], string[]]> => {
   try {
     const [userResponse, fieldResponse] = await Promise.all([
-      fetch("http://localhost:3001/getUser/pending"),
-      fetch("http://localhost:3001/getUser/fields"),
+      fetch("http://localhost:3001/user/pending"),
+      fetch("http://localhost:3001/user/fields"),
     ]);
 
     if (!userResponse.ok || !fieldResponse.ok) {

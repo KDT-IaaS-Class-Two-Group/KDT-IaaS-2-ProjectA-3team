@@ -49,8 +49,8 @@ export class AttendanceController {
         .LIstUP(
           'work_table',
           { endTime: now },
-          'user_id = $2 AND endTime IS NULL',
-          [userId], // 여기서 올바른 userId가 전달되어야 함
+          'user_id = $1 AND endTime IS NULL', // $2 대신 $1로 수정
+          [userId],
         )
         .execution();
 
@@ -74,12 +74,12 @@ export class AttendanceController {
   async getRandomAttendanceRecords(): Promise<any> {
     const records = await this.queryBuilder
       .SELECT('work_table', [
-        'work_table.user_id',
-        'users.username',
-        'work_table.startTime AS clockInTime',
-        'work_table.endTime AS clockOutTime',
+        'work_table."user_id"',
+        'users."username"',
+        'work_table."startTime" AS clockInTime',
+        'work_table."endTime" AS clockOutTime',
       ])
-      .JOIN('users', 'work_table.user_id = users.user_id')
+      .JOIN('users', 'work_table."user_id" = users."user_id"')
       .ORDER_BY('RANDOM()')
       .LIMIT(3)
       .execution();
