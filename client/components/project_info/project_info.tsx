@@ -38,11 +38,11 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
       try {
         const res = await fetchProjectInfo(project_name);
         if (res !== undefined) {
-          await setMemberData(res.member);
-          await setProjectStack(res.stack);
+          setMemberData(res.member);
+          setProjectStack(res.stack);
         }
       } catch (error) {
-        console.error("프로젝트 동기 실패:", error);
+        console.error("프로젝트 동기화 실패:", error);
       }
     };
 
@@ -52,7 +52,7 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   return (
     <div className={ProjectInfoSection}>
       <div className={MemeberContainer}>
-        <MemberInfoItem memberData={memberData}></MemberInfoItem>
+        <MemberInfoItem memberData={memberData} />
       </div>
 
       <div className={ProjectInfoContainer}>
@@ -69,16 +69,23 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
               onClose={onClose}
               onOpen={onOpen}
               isOpen={isOpen}
-            ></AddStackButton>
-            {projectStack.map((stack, index) => {
-              return <p>{stack.stack_name}</p>;
-            })}
+            />
+
+            {/* 프로젝트 스택 리스트 */}
+            {projectStack && projectStack.length > 0 ? (
+              projectStack.map((stack, index) => (
+                <p key={index}>{stack.stack_name}</p>
+              ))
+            ) : (
+              <p>스택 정보가 없습니다.</p>
+            )}
           </div>
 
           <div>
-            <IssueComponent project_name={project_name} onClose={function (): void {
-              throw new Error("Function not implemented.");
-            } }></IssueComponent>
+            <IssueComponent
+              project_name={project_name}
+              onClose={() => {}}
+            />
           </div>
         </div>
       </div>
