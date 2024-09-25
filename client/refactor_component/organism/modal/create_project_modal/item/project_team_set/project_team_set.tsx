@@ -5,8 +5,8 @@ import { flexrowcontainer } from "client/styles/standardcontainer.css";
 import Button from "client/refactor_component/atom/button/button";
 
 import { Dispatch, SetStateAction } from "react";
-import TeamList from "client/refactor_component/molecule/team_list/team_ul";
 import fetchTeamList from "../../service/fetch_get_team";
+import TeamList from "client/refactor_component/molecule/team_list/team_list";
 
 export interface ProjectSetTeamProps {
   handleNext: () => void;
