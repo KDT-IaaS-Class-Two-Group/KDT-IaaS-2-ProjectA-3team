@@ -23,7 +23,7 @@ const Attendance: React.FC = () => {
     const fetchAttendanceRecords = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/getUser/attendance/random",
+          "http://localhost:3001/user/attendance/random",
           {
             method: "GET",
             headers: {

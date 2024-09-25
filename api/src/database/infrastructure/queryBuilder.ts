@@ -117,7 +117,7 @@ export class QueryBuilder {
    * @returns {QueryBuilder} - 체이닝을 위해 현재 QueryBuilder 인스턴스를 반환
    */
   INSERT(tableName: string, data: { [key: string]: any }) {
-    this.RESET();
+    this.reset();
     const columns = Object.keys(data);
 
     // Date 객체는 그대로 전달, 문자열로 변환하지 않음
@@ -127,7 +127,10 @@ export class QueryBuilder {
 
     const placeholders = columns.map((_, index) => `$${index + 1}`).join(', ');
 
-    this.queryString = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`;
+    // 컬럼명을 쌍따옴표로 감싸 대소문자 구분
+    const quotedColumns = columns.map((col) => `"${col}"`).join(', ');
+
+    this.queryString = `INSERT INTO "${tableName}" (${quotedColumns}) VALUES (${placeholders}) RETURNING *`;
     this.params = values;
     return this;
   }
@@ -167,7 +170,14 @@ export class QueryBuilder {
     this.params = values; // 여러 매개변수를 처리
     return this;
   }
-
+  /**
+   * @method reset
+   * @description 현재 쿼리 문자열과 매개변수를 초기화합니다.
+   */
+  reset() {
+    this.queryString = '';
+    this.params = [];
+  }
   /**
    * @method JOIN
    * @description JOIN 절을 추가합니다.
@@ -212,15 +222,19 @@ export class QueryBuilder {
     tableName: string,
     data: { [key: string]: any },
     condition: string,
-    conditionParams: any[],
+    conditionParams: any[] = [],
   ) {
-    this.RESET();
+    this.reset();
     const columns = Object.keys(data);
-    const placeholders = columns
-      .map((col, index) => `${col} = $${index + 1}`)
+
+    const setClause = columns
+      .map((col, index) => `"${col}" = $${index + 1}`)
       .join(', ');
-    this.queryString = `UPDATE ${tableName} SET ${placeholders} WHERE ${condition}`;
-    this.params = [...Object.values(data), ...conditionParams];
+
+    const values = Object.values(data);
+
+    this.queryString = `UPDATE "${tableName}" SET ${setClause} WHERE ${condition} RETURNING *`;
+    this.params = [...values, ...conditionParams];
     return this;
   }
 }

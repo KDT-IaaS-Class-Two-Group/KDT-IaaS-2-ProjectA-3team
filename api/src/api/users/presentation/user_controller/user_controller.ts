@@ -286,8 +286,8 @@ export class UserManagementController {
         .SELECT('work_table', [
           'work_table.user_id',
           'users.username',
-          'work_table.startTime AS clockInTime', // startTime 컬럼
-          'work_table.endTime AS clockOutTime', // endTime 컬럼
+          '"work_table"."startTime" AS "clockInTime"', // 쌍따옴표 추가
+          '"work_table"."endTime" AS "clockOutTime"', // 쌍따옴표 추가
         ])
         .JOIN('users', 'work_table.user_id = users.user_id') // JOIN
         .ORDER_BY('RANDOM()')

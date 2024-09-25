@@ -4,7 +4,6 @@ import {
   Body,
   HttpException,
   HttpStatus,
-  Get,
 } from '@nestjs/common';
 import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 import { ClockInDto } from './dto/clock_in.dto';
@@ -22,8 +21,8 @@ export class AttendanceController {
     try {
       await this.queryBuilder
         .INSERT('work_table', {
-          user_id: userId,
-          startTime: now,
+          user_id: userId, // 정확한 컬럼명 'user_id' 사용
+          startTime: now, // 정확한 컬럼명 'startTime' 사용
         })
         .execution();
 
@@ -46,13 +45,13 @@ export class AttendanceController {
 
     try {
       const result = await this.queryBuilder
-        .LIstUP(
-          'work_table',
-          { endTime: now },
-          'user_id = $1 AND endTime IS NULL', // $2 대신 $1로 수정
-          [userId],
-        )
-        .execution();
+  .LIstUP(
+    'work_table',
+    { endTime: now }, // 정확한 컬럼명 'endTime' 사용
+    'user_id = $2 AND "endTime" IS NULL', // 매개변수 인덱스를 $2로 변경
+    [userId],
+  )
+  .execution();
 
       console.log('Update result:', result);
 
@@ -68,22 +67,5 @@ export class AttendanceController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-  }
-
-  @Get('/random')
-  async getRandomAttendanceRecords(): Promise<any> {
-    const records = await this.queryBuilder
-      .SELECT('work_table', [
-        'work_table."user_id"',
-        'users."username"',
-        'work_table."startTime" AS clockInTime',
-        'work_table."endTime" AS clockOutTime',
-      ])
-      .JOIN('users', 'work_table."user_id" = users."user_id"')
-      .ORDER_BY('RANDOM()')
-      .LIMIT(3)
-      .execution();
-
-    return records;
   }
 }

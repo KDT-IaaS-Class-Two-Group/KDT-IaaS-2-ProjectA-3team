@@ -21,7 +21,7 @@ const ClockInButton: React.FC<ClockInButtonProps> = ({ userId }) => {
 
   const handleClockIn = async () => {
     try {
-      const response = await fetch("http://localhost:3001/getUser/clockin", {
+      const response = await fetch("http://localhost:3001/attendance/clockin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const ClockInButton: React.FC<ClockInButtonProps> = ({ userId }) => {
 
   const handleClockOut = async () => {
     try {
-      const response = await fetch("http://localhost:3001/getUser/clockout", {
+      const response = await fetch("http://localhost:3001/attendance/clockout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

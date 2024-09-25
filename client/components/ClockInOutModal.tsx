@@ -18,7 +18,7 @@ const ClockInOutModal: React.FC<ClockInOutModalProps> = ({
 
   const handleClockIn = async () => {
     try {
-      const response = await fetch("http://localhost:3001/getUser/clockin", {
+      const response = await fetch("http://localhost:3001/attendance/clockin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
