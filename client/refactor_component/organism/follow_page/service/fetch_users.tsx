@@ -18,7 +18,7 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
  * @throws {Error} 서버 요청 실패 시 오류를 발생시킵니다.
  */
 export const fetchUsers = async (): Promise<User[]> => {
-  const response = await fetch(`${REQUEST_URL.__LOGIN}/getUser/all`, {
+  const response = await fetch(`${REQUEST_URL.__LOGIN}/user/all`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -45,13 +45,13 @@ export class AttendanceController {
 
     try {
       const result = await this.queryBuilder
-  .LIstUP(
-    'work_table',
-    { endTime: now }, // 정확한 컬럼명 'endTime' 사용
-    'user_id = $2 AND "endTime" IS NULL', // 매개변수 인덱스를 $2로 변경
-    [userId],
-  )
-  .execution();
+        .LIstUP(
+          'work_table',
+          { endTime: now }, // 정확한 컬럼명 'endTime' 사용
+          'user_id = $2 AND "endTime" IS NULL', // 매개변수 인덱스를 $2로 변경
+          [userId],
+        )
+        .execution();
 
       console.log('Update result:', result);
 

@@ -208,7 +208,29 @@ export class UserManagementController {
       );
     }
   }
+  @Get('/roles') // 모든 역할을 가져오는 새로운 API
+  async getAllRoles(): Promise<any> {
+    console.log('Fetching all roles from role table');
+    try {
+      const rolesQuery = await this.queryBuilder
+        .SELECT('role', ['role_name'])
+        .execution();
 
+      if (rolesQuery.length > 0) {
+        console.log('Roles found:', rolesQuery);
+        return rolesQuery;
+      } else {
+        console.log('No roles found in role table');
+        throw new HttpException('No roles found', HttpStatus.NOT_FOUND);
+      }
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+      throw new HttpException(
+        'Internal Server Error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
   // 모든 사용자 데이터를 조회하는 엔드포인트 추가
   @Get('/all')
   async getAllUsers(): Promise<any> {
