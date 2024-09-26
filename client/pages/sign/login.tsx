@@ -1,5 +1,5 @@
 import LoginForm from "client/refactor_component/template/login_main/loginForm";
-import * as styles from "../styles/info/index.css";
+import * as styles from "../../styles/info/index.css";
 
 const LoginPage: React.FC = () => {
   return (
