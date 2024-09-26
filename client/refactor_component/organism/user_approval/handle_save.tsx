@@ -7,8 +7,8 @@
  */
 
 // import { User } from "../../organism/profile_user/props/user.props";
-import { User as ProfileUser } from '../profile_user/interface/usertype.interface';
-import { User as LookupUser } from '../user_lookup/props/user.props';
+import { User as ProfileUser } from "../profile_user/interface/usertype.interface";
+import { User as LookupUser } from "../user_lookup/props/user.props";
 
 /**
  * @function handleSave
