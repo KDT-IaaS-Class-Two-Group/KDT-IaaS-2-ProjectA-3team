@@ -21,7 +21,7 @@ import React from "react";
  * @param {React.Dispatch<React.SetStateAction<Map<string, string>>>} setBios - 상태 업데이트 함수로, 사용자 ID와 bio를 매핑하는 맵을 설정합니다.
  * 
  * @example
- * handleBioChange("user123", "새로운 bio 내용", setBios);
+ * handleBioChange("user123", "새로운 bio 내용", setBios)a;
  */
 export const handleBioChange = (
   userId: string,
