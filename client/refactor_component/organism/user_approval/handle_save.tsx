@@ -7,7 +7,7 @@
  */
 
 // import { User } from "../../organism/profile_user/props/user.props";
-import { User as ProfileUser } from "../profile_user/interface/usertype.interface";
+import { User as profileUser } from "../profile_user/interface/usertype.interface";
 import { User as LookupUser } from "../user_lookup/props/user.props";
 
 /**
@@ -30,10 +30,10 @@ import { User as LookupUser } from "../user_lookup/props/user.props";
  * @note 사용자 정보 저장 작업은 비동기로 처리되며, 요청이 성공하면 콘솔에 성공 메시지가 출력된다.
  */
 export const handleSave = async (
-  users: ProfileUser[] | LookupUser[]
+  users: profileUser[] | LookupUser[]
 ): Promise<void> => {
   try {
-    const response = await fetch("http://localhost:3001/getUser/all", {
+    const response = await fetch("http://localhost:3001/user/all", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

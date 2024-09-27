@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { fullRowSection, titlecontainer, titletext } from "client/styles/admin/greet/greet.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import UserInfo from "client/refactor_component/molecule/info/user_info";
-import Text from "client/refactor_component/atom/Text/Text";
+import Text from "client/refactor_component/atom/text/text";
 
 interface SessionData {
   user_id: string;

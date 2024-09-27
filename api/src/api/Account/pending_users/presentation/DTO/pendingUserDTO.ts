@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 /**
@@ -21,4 +21,46 @@ export class PendingUserDTO {
   @IsNotEmpty()
   @IsString()
   readonly user_id: string;
+
+  /**
+   * @property {number} salary - 사용자의 월급.
+   * @description 사용자의 월급을 나타냅니다.
+   * @example 5000
+   */
+  @ApiProperty({
+    description: '사용자의 월급',
+    example: 5000,
+    required: false, // 선택적 필드
+  })
+  @IsOptional()
+  @IsNumber()
+  readonly salary?: number;
+
+  /**
+   * @property {string} field_name - 사용자의 분야.
+   * @description 사용자의 분야를 나타냅니다.
+   * @example 'Engineering'
+   */
+  @ApiProperty({
+    description: '사용자의 분야',
+    example: 'Engineering',
+    required: false, // 선택적 필드
+  })
+  @IsOptional()
+  @IsString()
+  readonly field_name?: string;
+
+  /**
+   * @property {string} role_name - 사용자의 권한.
+   * @description 사용자의 권한을 나타냅니다.
+   * @example 'employee'
+   */
+  @ApiProperty({
+    description: '사용자의 권한',
+    example: 'employee',
+    required: false, // 선택적 필드
+  })
+  @IsOptional()
+  @IsString()
+  readonly role_name?: string;
 }

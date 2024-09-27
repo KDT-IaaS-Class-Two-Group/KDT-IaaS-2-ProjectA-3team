@@ -24,6 +24,22 @@ export interface User {
   role_name?: string;
   field_name?: string;
 }
+/**
+ * @interface UserItemProps
+ * @brief 사용자 정보를 기반으로 승인 및 취소 기능을 담당하는 컴포넌트의 props 정의
+ * @details 이 인터페이스는 사용자 정보와 승인/취소 함수의 타입을 정의한다.
+ *
+ * @property {number} index - 사용자 인덱스
+ * @property {User} item - 사용자 정보 객체
+ * @property {(index: number, item: User) => Promise<void>} onApprove - 사용자를 승인하는 함수
+ * @property {(index: number, item: User) => Promise<void>} onCancel - 사용자를 취소하는 함수
+ */
+export interface UserItemProps {
+  index: number;
+  item: User;
+  onApprove: (index: number, item: User) => Promise<void>;
+  onCancel: (index: number, item: User) => Promise<void>;
+}
 
 /**
  * @interface Field
