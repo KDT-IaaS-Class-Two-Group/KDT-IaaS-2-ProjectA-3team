@@ -11,7 +11,7 @@ import React from "react";
 import * as styles from "../../../styles/sidebar/SidebarStyles.css";
 import LogoImage from "client/refactor_component/atom/logo/logo_image";
 import LogoContentProps from "./props/logo.props";
-import Text from "client/refactor_component/atom/Text/text";
+import Text from "client/refactor_component/atom/ttext/text";
 
 /**
  * @brief 로고와 텍스트를 포함하는 콘텐츠 컴포넌트
