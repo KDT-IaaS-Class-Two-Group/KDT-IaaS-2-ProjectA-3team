@@ -22,16 +22,26 @@ const fetchSaveTeamData = async (teamData: any): Promise<any> => {
         "Content-Type": "application/json",
       },
       // 요청 본문에 팀 데이터 포함
-      body: JSON.stringify(teamData),
+      // body: JSON.stringify(teamData),
+      //임시로 더미 값 테스트중 -!!테스트
+      //team 이름 중복이면 값이 안들어가기 때문에 팀 이름 바꿔가면서 테스트 필요
+      body: JSON.stringify({
+        team_name: "sadfsadfsdaf",
+        description: "임시테스트",
+        teamLeader: ["user003"],
+        teamMembers: ["user004"],
+      }),
     });
 
     // 응답이 성공적이지 않으면 오류 발생
     if (!response.ok) {
       throw new Error("팀 정보 저장 실패");
     }
-
+    console.log(teamData);
+    console.log(teamData.teamLeader);
     // 응답을 JSON으로 변환하여 결과 반환
     const result = await response.json();
+    console.log(result);
     return result; // 서버에서 반환된 결과 데이터 반환
   } catch (error) {
     // 오류 발생 시 콘솔에 에러 메시지 출력하고 에러 던짐
