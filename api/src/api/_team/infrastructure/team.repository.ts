@@ -29,7 +29,8 @@ export class TeamRepository {
   }
 
   async InsertMember(team_name: string, teamMemeber: TeamMemberDTO) {
-    console.log(team_name);
+    console.log('team name ', team_name);
+    console.log('team member ', teamMemeber);
     const { team_leader, team_members } = teamMemeber;
 
     // 팀장 저장
