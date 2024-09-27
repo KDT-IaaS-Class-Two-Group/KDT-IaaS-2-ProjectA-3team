@@ -10,7 +10,7 @@
 
 import React from "react";
 import CardHeaderProps from "./props/card_header.props";
-import Text from "client/refactor_component/atom/ttext/text";
+import Text from "client/refactor_component/atom/text/text";
 import { cardHeader, section } from "client/styles/admin/admindashboard.css";
 import CardButton from "../card_button/card_button";
 import { projectitletext } from "client/styles/admin/project/project.css";

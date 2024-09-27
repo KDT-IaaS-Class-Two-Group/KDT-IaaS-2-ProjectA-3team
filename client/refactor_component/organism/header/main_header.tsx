@@ -1,9 +1,13 @@
 // MainHeader.tsx
 import React, { useEffect, useState } from "react";
-import { fullRowSection, titlecontainer, titletext } from "client/styles/admin/greet/greet.css";
+import {
+  fullRowSection,
+  titlecontainer,
+  titletext,
+} from "client/styles/admin/greet/greet.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import UserInfo from "client/refactor_component/molecule/info/user_info";
-import Text from "client/refactor_component/atom/ttext/text";
+import Text from "client/refactor_component/atom/text/text";
 
 interface SessionData {
   user_id: string;
@@ -42,7 +46,10 @@ const MainHeader: React.FC = () => {
     <div className={fullRowSection}>
       <div className={titlecontainer}>
         {sessionData ? (
-          <UserInfo userId={sessionData.user_id} roleName={sessionData.role_name} />
+          <UserInfo
+            userId={sessionData.user_id}
+            roleName={sessionData.role_name}
+          />
         ) : (
           <Text content="Loading..." className={titletext} />
         )}
