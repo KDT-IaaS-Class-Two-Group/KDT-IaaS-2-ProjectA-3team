@@ -1,5 +1,5 @@
 import RegisterForm from "client/refactor_component/template/register_main/register_form";
-import * as styles from "../styles/info/index.css";
+import * as styles from "../../styles/info/index.css";
 const RegisterPage: React.FC = () => {
   return (
     <div className={styles.container}>

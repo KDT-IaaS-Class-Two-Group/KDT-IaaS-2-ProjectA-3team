@@ -7,14 +7,14 @@ const MainPage: React.FC = () => {
       <div>
         <div className={styles.backcontainer}>
           <div className={styles.login}>
-            <img src="/delan.png" title="delan_logo"/>
+            <img src="/delan.png" title="delan_logo" />
             <h1 className={styles.heading}>DelaN</h1>
           </div>
           <div className={styles.buttoncontainer}>
-            <Link href="/login">
+            <Link href="/sign/login">
               <button className={styles.buttonLink}>Sign in</button>
             </Link>
-            <Link href="/register">
+            <Link href="/sign/register">
               <button className={styles.buttonLink}>Sign up</button>
             </Link>
           </div>
