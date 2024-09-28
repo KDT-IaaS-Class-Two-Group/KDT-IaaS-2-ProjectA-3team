@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
-import { UserSearch } from "../common/nav/UserSearch";
+import UserSearchPage from "client/refactor_component/template/nav/user_search_template";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../../refactor_component/template/main_content/user/user_main_content";
 import NoticeMainPage from "../../pages/noticeMain";
@@ -109,7 +109,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
             </ul>
           </nav>
         </div>
-        <UserSearch />
+        <UserSearchPage />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as styles from "../../styles/sidebar/SidebarStyles.css";
-import { UserSearch } from "../common/nav/UserSearch";
+import UserSearchPage from "client/refactor_component/template/nav/user_search_template";
 import Logo from "client/refactor_component/template/logo/logo";
 import UserSelection from "../../refactor_component/template/team/team";
 import AdminMainContent from "../../refactor_component/template/main_content/admin/admin_main_content";
@@ -98,7 +98,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onMenuItemClick }) => {
             </ul>
           </nav>
         </div>
-        <UserSearch />
+        <UserSearchPage />
       </div>
     </div>
   );
