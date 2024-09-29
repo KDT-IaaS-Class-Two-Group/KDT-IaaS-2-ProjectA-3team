@@ -6,7 +6,9 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 import { InsertUserDto } from './dto/user_controller.dto';
 import { UpdateUserDto } from './dto/update_user.dto';
@@ -374,5 +376,39 @@ export class UserManagementController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+  @Get('/userpersonal')
+  async UserPersonal(@Req() req: Request): Promise<any> {
+    const userId = req.session.user?.user_id;
+
+    if (userId) {
+      try {
+        const obj = await this.queryBuilder
+          .SELECT('users', [
+            'user_id',
+            'username',
+            'birth_date',
+            'address',
+            'phone',
+            'email',
+          ])
+          .WHERE('user_id = $1', [userId])
+          .execution();
+        return obj;
+      } catch (error) {
+        console.error('Server error occurred:', error);
+        throw new HttpException(
+          'Server error occurred',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    } else {
+      throw new HttpException('No session ID found', HttpStatus.UNAUTHORIZED);
+    }
+  }
+  @Get('/userprofile')
+  async UserProfile(): Promise<any> {
+    const obj = await this.queryBuilder.SELECT('Profile').execution();
+    return obj;
   }
 }

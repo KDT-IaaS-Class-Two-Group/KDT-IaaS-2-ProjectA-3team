@@ -7,7 +7,11 @@
  * @date 2024-08-25
  */
 
-import { User, Profile } from "../interface/usertype.interface"; // User와 Profile 타입이 정의된 파일의 경로를 맞추세요"
+
+// fetchUsers.tsx 파일 내 경로 수정
+import { User, Profile } from "../interface/use.interface";
+
+
 
 /**
  * @function fetchUsers
@@ -30,10 +34,10 @@ export const fetchUsers = async (
 ): Promise<void> => {
   try {
     const [userResponse, profileResponse] = await Promise.all([
-      fetch("http://localhost:3001/getUser/userpersonal", {
+      fetch("http://localhost:3001/user/userpersonal", {
         credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
       }),
-      fetch("http://localhost:3001/getUser/userprofile", {
+      fetch("http://localhost:3001/user/userprofile", {
         credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
       }),
     ]);
