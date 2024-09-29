@@ -16,7 +16,7 @@
 const fetchSaveTeamData = async (teamData: any): Promise<any> => {
   try {
     // 팀 데이터를 저장하기 위해 서버에 POST 요청 전송
-    const response = await fetch("http://localhost:3001/team/save", {
+    const response = await fetch("http://localhost:3001/user/saveTeam", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ const fetchSaveTeamData = async (teamData: any): Promise<any> => {
       //임시로 더미 값 테스트중 -!!테스트
       //team 이름 중복이면 값이 안들어가기 때문에 팀 이름 바꿔가면서 테스트 필요
       body: JSON.stringify({
-        team_name: "sadfsadfsdaf",
+        team_name: "sadfsadfsaf",
         description: "임시테스트",
         teamLeader: ["user003"],
         teamMembers: ["user004"],

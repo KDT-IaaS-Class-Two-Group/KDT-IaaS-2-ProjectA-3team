@@ -79,35 +79,51 @@ export class UserManagementController {
       // 팀 이름이 이미 존재하는지 확인
       const teamExists = await this.queryBuilder
         .SELECT('Team', 'team_name')
-        .WHERE('team_name = $1', team_name)
+        .WHERE('team_name = $1', [team_name])
         .execution();
 
       if (teamExists.length > 0) {
-        // 팀 이름이 이미 존재하는 경우
         return { error: '팀 이름이 이미 존재합니다.' };
       }
 
       // 팀 정보 저장
       await this.queryBuilder
-        .INSERT('Team', {
+        .INSERT('team', {
           team_name,
           description,
         })
         .execution();
 
       // 팀장 저장
-      if (teamLeader) {
-        await this.queryBuilder
-          .INSERT('relation_team_users', {
-            team_name,
-            user_id: teamLeader.user_id,
-            role_name: 'leader',
-          })
-          .execution();
+      console.log('팀장 데이터:', teamLeader); // teamLeader가 객체인지 확인
+      if (typeof teamLeader === 'string') {
+        console.log(
+          'teamLeader는 문자열입니다. user_id 필드를 찾을 수 없습니다.',
+        );
+      } else if (teamLeader && teamLeader.user_id) {
+        console.log('teamLeader 객체 확인:', teamLeader); // teamLeader가 객체인 경우
+      } else {
+        console.log('teamLeader가 null이거나 잘못된 형식입니다.');
       }
+
+      if (!teamLeader || !teamLeader.user_id) {
+        return { error: '팀장의 user_id가 없습니다.' };
+      }
+
+      await this.queryBuilder
+        .INSERT('relation_team_users', {
+          team_name,
+          user_id: teamLeader.user_id,
+          role_name: 'leader',
+        })
+        .execution();
 
       // 팀원 저장
       for (const member of teamMembers) {
+        console.log('팀원 user_id:', member.user_id); // 팀원의 user_id 콘솔 출력
+        if (!member.user_id) {
+          return { error: `팀원의 user_id가 없습니다: ${member}` };
+        }
         await this.queryBuilder
           .INSERT('relation_team_users', {
             team_name,
@@ -123,6 +139,7 @@ export class UserManagementController {
       return { error: '팀 정보 저장 실패' };
     }
   }
+
   @Post('/update')
   async updateUser(@Body() data: UpdateUserDto): Promise<any> {
     const { user_id, ...fields } = data;

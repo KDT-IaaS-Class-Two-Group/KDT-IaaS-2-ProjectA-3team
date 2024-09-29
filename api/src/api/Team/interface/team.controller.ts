@@ -72,10 +72,23 @@ export class TeamController {
   })
   async saveTeam(@Body() data, @Res() response: Response) {
     try {
-      this.insertTeam.saveTeamData(data);
+      console.log('Saving team with data:', data); // 데이터 확인 로그
+
+      // 팀과 팀 멤버 저장을 처리하는 서비스 호출
+      const result = await this.insertTeam.saveTeamData(data);
+
+      if (!result) {
+        return response
+          .status(HttpStatus.CONFLICT)
+          .json({ message: 'Team name already exists' });
+      }
+
       return response.json({ message: 'success' });
     } catch (error) {
-      response.status(HttpStatus.UNAUTHORIZED);
+      console.error('Error while saving team:', error);
+      return response
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Error' });
     }
   }
 }

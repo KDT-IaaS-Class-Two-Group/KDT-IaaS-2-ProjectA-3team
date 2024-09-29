@@ -35,18 +35,19 @@ export class TeamCommandController {
     description: '권한이 없는 요청에 대한 응답이다.',
   })
   @Post('/save')
-  async saveTeam(@Body() data: TeamDTO, @Res() response: Response) {
-    const command = new PostTeamCommand(
-      data.team_name,
-      data.description,
-      data.team_leader,
-      data.team_members,
-    );
-    try {
-      this.saveTeamHandler.execute(command);
-      return response.json({ message: 'success' });
-    } catch (error) {
-      response.status(HttpStatus.UNAUTHORIZED);
-    }
+async saveTeam(@Body() data: TeamDTO, @Res() response: Response) {
+  const command = new PostTeamCommand(
+    data.team_name,
+    data.description,
+    data.team_leader,
+    data.team_members,
+  );
+  try {
+    this.saveTeamHandler.execute(command);
+    return response.json({ message: 'success' });
+  } catch (error) {
+    response.status(HttpStatus.UNAUTHORIZED);
   }
+}
+
 }
