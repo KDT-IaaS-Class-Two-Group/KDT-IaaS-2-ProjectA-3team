@@ -10,17 +10,22 @@ import {
 interface AttendanceRecord {
   user_id: string;
   username: string;
-  clockintime: string; // camelCase로 수정
-  clockouttime?: string; // camelCase로 수정
+  clockInTime: string;  // 대문자 I
+  clockOutTime?: string; // 대문자 O
 }
-// clockouttime
 
 const Attendance: React.FC = () => {
-  const [attendanceRecords, setAttendanceRecords] = useState<
-    AttendanceRecord[]
-  >([]);
+  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+  // 시간 포맷팅 함수
+  const formatTime = (timeString: string | undefined): string => {
+    if (!timeString) return "퇴근 기록 없음";
+    const date = new Date(timeString);
+    return isNaN(date.getTime()) ? "시간 형식 오류" : date.toLocaleString("ko-KR");
+  };
+
   useEffect(() => {
     const now = new Date();
     console.log("현재 시간:", now.toLocaleString("ko-KR"));
@@ -38,13 +43,10 @@ const Attendance: React.FC = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched data:", data); // 데이터 확인
+          console.log("Fetched data:", data);
           setAttendanceRecords(data);
         } else {
-          console.error(
-            "Failed to fetch attendance records",
-            response.statusText
-          );
+          console.error("Failed to fetch attendance records", response.statusText);
         }
       } catch (error) {
         console.error("Error fetching attendance records:", error);
@@ -69,9 +71,13 @@ const Attendance: React.FC = () => {
       <div>
         <ul className={listinitial}>
           {attendanceRecords.map((record, index) => {
+            const clockInTime = formatTime(record.clockInTime);  // 필드명 변경
+            const clockOutTime = formatTime(record.clockOutTime); // 필드명 변경
+
             console.log("Record:", record);
-            console.log(record.user_id);
-            console.log(new Date(record.clockintime).toLocaleString("ko-KR"));
+            console.log("출근 시간:", clockInTime);
+            console.log("퇴근 시간:", clockOutTime);
+
             return (
               <li
                 key={`${record.user_id}-${index}`}
@@ -81,14 +87,10 @@ const Attendance: React.FC = () => {
                   <strong>이름:</strong> {record.username}
                 </p>
                 <p>
-                  <strong>출근 시간:</strong>{" "}
-                  {new Date(record.clockintime).toLocaleString("ko-KR")}
+                  <strong>출근 시간:</strong> {clockInTime}
                 </p>
                 <p className={listline}>
-                  <strong>퇴근 시간:</strong>{" "}
-                  {record.clockouttime
-                    ? new Date(record.clockouttime).toLocaleString("ko-KR")
-                    : "퇴근 기록 없음"}
+                  <strong>퇴근 시간:</strong> {clockOutTime}
                 </p>
               </li>
             );
