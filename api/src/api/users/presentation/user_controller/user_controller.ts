@@ -7,6 +7,8 @@ import {
   HttpException,
   HttpStatus,
   Req,
+  Param,
+  Patch,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
@@ -14,9 +16,9 @@ import { InsertUserDto } from './dto/user_controller.dto';
 import { UpdateUserDto } from './dto/update_user.dto';
 import { AcceptChangesDto } from './dto/user_change.dto';
 import { RejectChangesDto } from './dto/user_reject.dto';
-
 @Controller('/user')
 export class UserManagementController {
+  todoService: any;
   constructor(private readonly queryBuilder: QueryBuilder) {}
   private nonePasswordObject = [
     'user_id',
@@ -410,5 +412,100 @@ export class UserManagementController {
   async UserProfile(): Promise<any> {
     const obj = await this.queryBuilder.SELECT('Profile').execution();
     return obj;
+  }
+  @Get('/:issue_id/todos')
+  async getTodos(@Param('issue_id') issue_id: string): Promise<any> {
+    try {
+      const todos = await this.queryBuilder
+        .SELECT('todos', ['todo_id', 'description', 'iscomplete']) // 칼럼 이름 소문자로 변경
+        .WHERE('issue_id = $1', [issue_id])
+        .execution();
+
+      if (todos.length === 0) {
+        throw new HttpException(
+          'No ToDos found for this issue',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      return todos;
+    } catch (error) {
+      console.error('Error fetching ToDo list:', error);
+      throw new HttpException(
+        'Failed to fetch ToDos',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  // 2. 특정 이슈에 할 일 추가
+  @Post('/:issue_id/todos')
+  async addTodo(
+    @Param('issue_id') issue_id: string,
+    @Body('description') description: string,
+  ): Promise<any> {
+    if (!description) {
+      throw new HttpException(
+        'Description is required',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    try {
+      await this.queryBuilder
+        .INSERT('todos', {
+          issue_id,
+          description,
+          iscomplete: false,
+        })
+        .execution();
+
+      return { message: 'ToDo added successfully' };
+    } catch (error) {
+      console.error('Error adding ToDo:', error);
+      throw new HttpException(
+        'Failed to add ToDo',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  // 3. 할 일을 완료 처리
+  @Patch('/todos/:todo_id/complete')
+  async completeTodoTask(@Param('todo_id') todo_id: string): Promise<any> {
+    console.log(`Completing ToDo with ID: ${todo_id}`);
+    // todo_id를 사용해서 데이터를 업데이트 또는 처리
+    const updatedTodo = await this.todoService.completeTodo(todo_id);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Todo completed successfully',
+      data: updatedTodo,
+    };
+  }
+
+  // 4. 할 일 삭제
+  @Delete('/todos/:todo_id')
+  async deleteTodoTask(@Param('todo_id') todo_id: string): Promise<any> {
+    try {
+      const result = await this.queryBuilder
+        .DELETE('todos', 'todo_id = $1', [todo_id])
+        .execution();
+
+      if (result.length === 0) {
+        throw new HttpException(
+          'ToDo not found or already deleted',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      return { message: 'ToDo deleted successfully' };
+    } catch (error) {
+      console.error('Error deleting ToDo:', error);
+      throw new HttpException(
+        'Failed to delete ToDo',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
