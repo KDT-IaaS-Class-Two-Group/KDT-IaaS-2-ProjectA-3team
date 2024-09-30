@@ -78,8 +78,6 @@ export class Issue {
   }
 
   getUserId() {
-    if (this.user_id !== null) {
-      return this.user_id.value;
-    }
+    return this.user_id ? this.user_id.value : null; // null을 명확히 반환
   }
 }

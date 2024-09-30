@@ -1,47 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { AddIssueProps } from "client/refactor_component/molecule/issue/props/add_issue.props";
-import { Issue } from "client/refactor_component/molecule/issue/props/issue.interface";
-import { fetchGetIssue, fetchAddIssue } from "client/refactor_component/molecule/issue/service/fetch_get_issue";
+import { fetchGetIssue } from "client/refactor_component/molecule/issue/service/fetch_get_issue";
 import Modal from "client/components/modal/modal";
 import AddIssueComponent from "client/refactor_component/molecule/issue/add_issue_component";
 import { blueButton } from "client/styles/templatebutton.css";
 import IssueList from "client/refactor_component/organism/issue/issue_item";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import { Issue } from "client/refactor_component/molecule/issue/props/issue.interface";
+interface SessionData {
+  user_id: string;
+  role_name: string;
+}
+
+
 
 const IssueComponent: React.FC<AddIssueProps> = ({ project_name }) => {
-  const [issue, setIssue] = useState<Issue[]>([]);
+  const [issue, setIssue] = useState<Issue[]>([]); // Issue 타입으로 정의
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [sessionData, setSessionData] = useState<SessionData | null>(null);
+
+  // 세션 데이터 가져오기
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      try {
+        const response = await fetch(`${REQUEST_URL.__LOGIN}/session`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.session) {
+            setSessionData(data.session); // 세션 데이터 설정
+          } else {
+            console.error("세션 데이터가 비어 있습니다.");
+          }
+        } else {
+          console.error("세션 데이터를 가져오는 데 실패했습니다: ", response.statusText);
+        }
+      } catch (error) {
+        console.error("세션 데이터를 가져오는 중 오류가 발생했습니다:", error);
+      }
+    };
+
+    fetchSessionData();
+  }, []);
 
   const onOpen = () => {
     setOpen(true);
   };
+
   const onClose = () => {
     setOpen(false);
-  };
-
-  // 새로운 테스트 이슈 추가
-  const addTestIssue = async () => {
-    const testIssue = {
-      project_name,
-      issue_title: "테스트 이슈",
-      issue_description: "이것은 테스트 이슈입니다.",
-    };
-
-    try {
-      const result = await fetchAddIssue(testIssue); // 새로운 이슈 생성
-      console.log("Test Issue Added: ", result);
-      await fetchData(); // 이슈 리스트 새로고침
-    } catch (error) {
-      console.error("이슈 추가 실패:", error);
-    }
   };
 
   const fetchData = async () => {
     try {
       const result = await fetchGetIssue(project_name);
-      console.log(result);
       setIssue(result);
     } catch (error) {
-      console.error("이슈 읽어오기 실패:", error);
+      console.error("이슈 데이터를 가져오는 데 실패했습니다:", error);
     }
   };
 
@@ -50,19 +71,23 @@ const IssueComponent: React.FC<AddIssueProps> = ({ project_name }) => {
   }, [project_name, isOpen]);
 
   return (
-    <div className={""}>
+    <div>
       <div>
-        <button className={blueButton} onClick={onOpen}>issue추가</button>
-        <button className={blueButton} onClick={addTestIssue}>테스트 이슈 추가</button> {/* 테스트 이슈 추가 버튼 */}
+        <button className={blueButton} onClick={onOpen}>issue 추가</button>
       </div>
 
       <IssueList issues={issue} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
-        <AddIssueComponent
-          project_name={project_name}
-          onClose={onClose}
-        ></AddIssueComponent>
+        {sessionData ? (
+          <AddIssueComponent
+            project_name={project_name}
+            user_id={sessionData.user_id}  // 세션의 user_id 전달
+            onClose={onClose}
+          />
+        ) : (
+          <p>세션 데이터를 불러오는 중입니다...</p>
+        )}
       </Modal>
     </div>
   );

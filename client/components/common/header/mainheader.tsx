@@ -49,6 +49,7 @@ const MainHeader: React.FC = () => {
           <>
             <p className={titletext}>Hello {sessionData.user_id}</p>
             <p className={admintext}>Permission: {sessionData.role_name}</p>
+            console.log(sessionData.user_id)
           </>
         ) : (
           <p className={titletext}>Loading...</p>

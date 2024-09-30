@@ -16,12 +16,13 @@ export class IssueRepository {
   constructor(private readonly qb: QueryBuilder) {}
 
   async createIssue(issue: Issue): Promise<void> {
+    console.log('Inserting issue with user_id:', issue.getUserId()); // user_id 확인
     await this.qb
       .INSERT(TABLE_NAME.__ISSUE, {
         issue_name: issue.getIssueName(),
         status: issue.getStatus(),
         project_name: issue.getProjectName(),
-        user_id: issue.getUserId(),
+        user_id: issue.getUserId() || null, // user_id가 null인 경우 처리
       })
       .execution();
   }
@@ -51,6 +52,8 @@ export class IssueRepository {
       .SELECT(TABLE_NAME.__ISSUE)
       .WHERE('project_name ILIKE $1', [`%${project_name}%`])
       .execution();
+
+    console.log('Fetched rows:', rows); // 데이터 확인용 로그
 
     return rows.map((row) =>
       Issue.create(

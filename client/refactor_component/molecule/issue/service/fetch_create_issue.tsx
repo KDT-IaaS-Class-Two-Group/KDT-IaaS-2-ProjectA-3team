@@ -16,23 +16,32 @@
  * @return {Promise<boolean>} 요청이 성공할 경우 `true`, 실패 시 오류를 발생시킴
  * @throws {Error} 요청 실패 시 오류를 발생시킴
  */
-const fetchCreateIssue = async (
-  project_name: string,
-  issue_name: string
-): Promise<boolean> => {
-  const response = await fetch("http://localhost:3001/issue/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ project_name, issue_name }),
-  });
+const fetchCreateIssue = async (project_name: string, issue_name: string, user_id: string) => {
+  const newIssue = {
+    project_name,
+    issue_name,
+    user_id, // user_id를 함께 전달
+  };
 
-  if (!response.ok) {
-    throw new Error("Fetch 실패 - POST issue");
+  try {
+    const response = await fetch("http://localhost:3001/issue/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newIssue),
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      console.error("이슈 생성 실패:", response.statusText);
+      return false;
+    }
+  } catch (error) {
+    console.error("이슈 생성 중 오류:", error);
+    throw error;
   }
-
-  return true;
 };
 
 export default fetchCreateIssue;

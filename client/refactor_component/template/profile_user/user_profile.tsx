@@ -19,19 +19,20 @@ import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 // 모듈
-import { handleEditClick } from "../../organism/profile_user/hook/use.handleEditClick";
-import { handleUpdateUser } from "../../organism/profile_user/service/handleUpdateUser";
-import { handleDisableBio } from "../../organism/profile_user/hook/use.handleDisableBio";
-import { handleFieldChange } from "../../organism/profile_user/hook/use.handleFieldChange";
-import { handleBioChange } from "../../organism/profile_user/hook/use.handleBioChange";
-import { handleCancelEdit } from "../../organism/profile_user/hook/use.handleCancelEdit";
-import { handleSave } from "../../organism/profile_user/utils/handleSave";
+import { handleEditClick } from "client/refactor_component/organism/Profile_user/hook/use.handleEditClick";
+import { handleUpdateUser } from "client/refactor_component/organism/Profile_user/service/handleUpdateUser";
+import { handleDisableBio } from "client/refactor_component/organism/Profile_user/hook/use.handleDisableBio";
+import { handleFieldChange } from "client/refactor_component/organism/Profile_user/hook/use.handleFieldChange";
+import { handleBioChange } from "client/refactor_component/organism/Profile_user/hook/use.handleBioChange";
+import { handleCancelEdit } from "client/refactor_component/organism/Profile_user/hook/use.handleCancelEdit";
+import { handleSave } from "client/refactor_component/organism/user_approval/handle_save";
 import {
   User,
   Profile,
   UserPersonalProps,
-} from "../../organism/profile_user/interface/usertype.interface";
-import { fetchUsers } from "../../organism/profile_user/service/fetchUsers";
+} from "../../organism/Profile_user/interface/use.interface";
+// ../../organism/profile_user/interface/usertype.interface
+import { fetchUsers } from "client/refactor_component/organism/Profile_user/service/fetchUsers";
 
 import FormField from "../../molecule/form_field/form_field";
 import Button from "../../atom/button/button";
@@ -223,13 +224,7 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     {!disabledUsers.get(user.user_id) && (
                       <>
                         <div className={buttonparent}>
-                          <Button
-                            button_text="자기소개 비활성화"
-                            button_style={styles.greenButton}
-                            onClick={() =>
-                              handleDisableBio(user.user_id, setDisabledUsers)
-                            }
-                          />
+                          
                           <Button
                             button_text="개인 정보 수정"
                             button_style={styles.yellowButton}
