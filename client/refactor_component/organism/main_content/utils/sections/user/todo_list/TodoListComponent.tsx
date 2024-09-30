@@ -58,6 +58,53 @@ const TodoListComponent: React.FC<TodoListComponentProps> = ({ issueId }) => {
     }
   };
 
+  // 할 일을 완료 처리하는 함수
+// 할 일을 완료 처리하는 함수
+const handleCompleteTodo = async (todoId: string) => {
+  try {
+    const response = await fetch(`http://localhost:3001/user/todos/${todoId}/complete`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      // todos 상태를 직접 업데이트하여 불필요한 GET 요청을 줄임
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.todo_id === todoId ? { ...todo, isComplete: true } : todo
+        )
+      );
+    } else {
+      console.error('Failed to complete todo.');
+    }
+  } catch (error) {
+    console.error('Error completing todo:', error);
+  }
+};
+
+
+
+// 할 일을 삭제하는 함수
+const handleDeleteTodo = async (todoId: string) => {
+  try {
+    const response = await fetch(`http://localhost:3001/user/todos/${todoId}`, { // 경로 수정
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      fetchTodos(); // 삭제 후 최신 목록 다시 불러오기
+    } else {
+      console.error('Failed to delete todo.');
+    }
+  } catch (error) {
+    console.error('Error deleting todo:', error);
+  }
+};
+
+
+
   if (loading) {
     return <div>Loading ToDo items...</div>;
   }
@@ -77,6 +124,10 @@ const TodoListComponent: React.FC<TodoListComponentProps> = ({ issueId }) => {
         {todos.map((todo, index) => (
           <li key={todo.todo_id || `temp-${index}`}>
             {todo.description} - {todo.isComplete ? 'Completed' : 'Pending'}
+            {!todo.isComplete && (
+              <button onClick={() => handleCompleteTodo(todo.todo_id)}>Complete</button>
+            )}
+            <button onClick={() => handleDeleteTodo(todo.todo_id)}>Delete</button>
           </li>
         ))}
       </ul>

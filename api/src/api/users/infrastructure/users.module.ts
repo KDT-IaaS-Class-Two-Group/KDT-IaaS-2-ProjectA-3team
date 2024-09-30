@@ -6,6 +6,7 @@ import { UserQueryHandler } from '../application/query/handler/userQuery.handler
 import { QueryBuilder } from 'src/database/infrastructure/queryBuilder';
 import { DatabaseService } from 'src/database/infrastructure/database.service';
 import { AttendanceController } from '../presentation/Attendance/attendance_controller';
+import { TodoService } from 'src/database/infrastructure/Todo.Service';
 
 @Module({
   controllers: [
@@ -18,6 +19,7 @@ import { AttendanceController } from '../presentation/Attendance/attendance_cont
     UserQueryHandler,
     QueryBuilder,
     DatabaseService,
+    TodoService,
   ],
   exports: [QueryBuilder, DatabaseService],
 })

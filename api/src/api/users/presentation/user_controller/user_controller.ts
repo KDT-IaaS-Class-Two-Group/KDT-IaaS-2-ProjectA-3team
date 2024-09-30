@@ -16,10 +16,13 @@ import { InsertUserDto } from './dto/user_controller.dto';
 import { UpdateUserDto } from './dto/update_user.dto';
 import { AcceptChangesDto } from './dto/user_change.dto';
 import { RejectChangesDto } from './dto/user_reject.dto';
+import { TodoService } from 'src/database/infrastructure/Todo.Service';
 @Controller('/user')
 export class UserManagementController {
-  todoService: any;
-  constructor(private readonly queryBuilder: QueryBuilder) {}
+  constructor(
+    private readonly queryBuilder: QueryBuilder,
+    private readonly todoService: TodoService, // todoService 주입
+  ) {}
   private nonePasswordObject = [
     'user_id',
     'username',
