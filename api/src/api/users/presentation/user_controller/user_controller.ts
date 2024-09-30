@@ -491,15 +491,27 @@ export class UserManagementController {
   @Delete('/todos/:todo_id')
   async deleteTodoTask(@Param('todo_id') todo_id: string): Promise<any> {
     try {
-      const result = await this.queryBuilder
-        .DELETE('todos', 'todo_id = $1', [todo_id])
+      // todo_id가 존재하는지 먼저 확인
+      const existingTodo = await this.queryBuilder
+        .SELECT('todos')
+        .WHERE('todo_id = $1', [todo_id])
         .execution();
 
-      if (result.length === 0) {
+      if (existingTodo.length === 0) {
         throw new HttpException(
           'ToDo not found or already deleted',
           HttpStatus.NOT_FOUND,
         );
+      }
+
+      // 할 일 삭제
+      const result = await this.queryBuilder
+        .DELETE('todos', 'todo_id = $1', [todo_id])
+        .execution();
+
+      // affectedRows 또는 rowCount를 체크하여 성공적인 삭제 여부 확인
+      if (result.rowCount === 0) {
+        throw new HttpException('Failed to delete ToDo', HttpStatus.NOT_FOUND);
       }
 
       return { message: 'ToDo deleted successfully' };

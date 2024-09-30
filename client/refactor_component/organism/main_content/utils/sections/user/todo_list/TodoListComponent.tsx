@@ -85,25 +85,30 @@ const handleCompleteTodo = async (todoId: string) => {
 };
 
 
-
+const [isDeleting, setIsDeleting] = useState(false);
 // 할 일을 삭제하는 함수
 const handleDeleteTodo = async (todoId: string) => {
+  if (isDeleting) return; // 이미 삭제 중인 경우 중복 실행 방지
+  setIsDeleting(true); // 삭제 중으로 상태 변경
+
   try {
-    const response = await fetch(`http://localhost:3001/user/todos/${todoId}`, { // 경로 수정
+    const response = await fetch(`http://localhost:3001/user/todos/${todoId}`, {
       method: 'DELETE',
     });
 
     if (response.ok) {
-      fetchTodos(); // 삭제 후 최신 목록 다시 불러오기
+      setTodos((prevTodos) =>
+        prevTodos.filter((todo) => todo.todo_id !== todoId)
+      );
     } else {
       console.error('Failed to delete todo.');
     }
   } catch (error) {
     console.error('Error deleting todo:', error);
+  } finally {
+    setIsDeleting(false); // 삭제 완료 후 다시 활성화
   }
 };
-
-
 
   if (loading) {
     return <div>Loading ToDo items...</div>;
