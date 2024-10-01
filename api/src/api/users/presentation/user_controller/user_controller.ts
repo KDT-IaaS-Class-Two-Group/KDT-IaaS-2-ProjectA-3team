@@ -31,6 +31,12 @@ export class UserManagementController {
     'phone',
     'email',
   ];
+  private roleHierarchy: { [key: string]: number } = {
+    admin: 1,
+    leader: 2,
+    sub_admin: 3,
+    employee: 4,
+  };
   @Post('/insert')
   async insertUser(@Body() data: InsertUserDto): Promise<any> {
     const { username, birth_date, address, phone, email, password, user_id } =
@@ -257,24 +263,48 @@ export class UserManagementController {
   }
   // 모든 사용자 데이터를 조회하는 엔드포인트 추가
   @Get('/all')
-  async getAllUsers(): Promise<any> {
+  async getAllUsers(@Req() req: Request): Promise<any> {
     try {
+      // 현재 로그인한 사용자의 세션에서 user_id와 role을 가져옴
+      const sessionUserId = req.session?.user?.user_id;
+      const sessionUserRole = req.session?.user?.role_name;
+
+      if (!sessionUserId || !sessionUserRole) {
+        throw new HttpException(
+          'User session not found',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      // 현재 로그인한 사용자의 역할 계층 값을 가져옴
+      const currentUserRoleLevel = this.roleHierarchy[sessionUserRole] || 100;
+
+      // 모든 사용자의 역할 정보를 JOIN하여 가져옴
       const users = await this.queryBuilder
-        .SELECT('users', [
-          'user_id',
-          'username',
-          'birth_date',
-          'address',
-          'phone',
-          'email',
-        ])
+        .SELECT('users', ['users.user_id', 'users.username', 'role.role_name'])
+        .JOIN(
+          `(SELECT user_id, role_name FROM admin_role_users
+          UNION ALL
+          SELECT user_id, role_name FROM leader_role_users
+          UNION ALL
+          SELECT user_id, role_name FROM sub_admin_role_users
+          UNION ALL
+          SELECT user_id, role_name FROM employee_role_users) as role`,
+          'users.user_id = role.user_id',
+        )
         .execution();
 
-      return users; // 조회된 사용자 데이터를 반환
+      // 현재 사용자의 권한보다 같거나 낮은 권한의 사용자만 필터링
+      const filteredUsers = users.filter((user: any) => {
+        const userRoleLevel = this.roleHierarchy[user.role_name] || 100;
+        return userRoleLevel >= currentUserRoleLevel;
+      });
+
+      return filteredUsers;
     } catch (error) {
       console.error('Error fetching users:', error);
       throw new HttpException(
-        'Failed to fetch user data',
+        'Failed to fetch users',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

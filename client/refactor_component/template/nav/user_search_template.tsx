@@ -74,10 +74,13 @@ const UserSearchPage: React.FC = () => {
             const followingData = await followingResponse.json();
             const followingIds = new Set(followingData.map((user: any) => user.user_id));
 
-            const usersWithFollowing = data.map((user: any) => ({
-              ...user,
-              isFollowing: followingIds.has(user.user_id),
-            }));
+            // 자신의 권한보다 낮거나 같은 사용자만 필터링
+            const usersWithFollowing = data
+              .filter((user: any) => compareRoles(currentUserRole, user.role_name || "employee") >= 0)
+              .map((user: any) => ({
+                ...user,
+                isFollowing: followingIds.has(user.user_id),
+              }));
 
             setUsers(usersWithFollowing); // 전체 사용자 목록 설정
             setFilteredUsers(usersWithFollowing.slice(0, 10)); // 처음 10명의 사용자 필터링
@@ -94,7 +97,7 @@ const UserSearchPage: React.FC = () => {
 
     fetchSessionData(); // 세션 데이터 가져오기
     fetchUsers(); // 사용자 목록 가져오기
-  }, []);
+  }, [currentUserRole]);
 
   // 검색어 입력 처리
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
