@@ -7,8 +7,8 @@
  * @date 2024-08-25
  */
 
-import { User } from "../interface/usertype.interface";
-
+import { User } from "../interface/use.interface";
+// ../interface/usertype.interface
 /**
  * @function handleUpdateUser
  * @brief 사용자의 정보를 업데이트하는 비동기 함수
@@ -31,7 +31,7 @@ export const handleUpdateUser = async (
       ...editFields,
     };
 
-    const response = await fetch("http://localhost:3001/getUser/insertuser", {
+    const response = await fetch("http://localhost:3001/user/insert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

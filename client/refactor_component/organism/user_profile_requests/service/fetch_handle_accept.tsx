@@ -14,7 +14,7 @@
  */
 export const handleAccept = async (user_id: string) => {
   try {
-    const response = await fetch("http://localhost:3001/getUser/accept", {
+    const response = await fetch("http://localhost:3001/user/accept", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
