@@ -7,9 +7,11 @@
     "storage"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "start": "npm run start --workspaces=server"
-  },
+  "build": "npm run build:client && npm run build:api",
+  "build:client": "npm run build --workspace=client",
+  "build:api": "npm run build --workspace=api",
+  "start": "npm run start --workspace=api"
+},
   "keywords": [],
   "author": "Team Zootopia",
   "license": "ISC",
