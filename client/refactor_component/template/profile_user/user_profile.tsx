@@ -20,19 +20,19 @@ import { blueButton, yellowButton } from "client/styles/templatebutton.css";
 
 // 모듈
 import { handleEditClick } from "client/refactor_component/organism/Profile_user/hook/use.handleEditClick";
-import { handleUpdateUser } from "client/refactor_component/organism/Profile_user/service/handleUpdateUser";
-import { handleDisableBio } from "client/refactor_component/organism/Profile_user/hook/use.handleDisableBio";
-import { handleFieldChange } from "client/refactor_component/organism/Profile_user/hook/use.handleFieldChange";
-import { handleBioChange } from "client/refactor_component/organism/Profile_user/hook/use.handleBioChange";
-import { handleCancelEdit } from "client/refactor_component/organism/Profile_user/hook/use.handleCancelEdit";
+import { handleUpdateUser } from "client/refactor_component/organism/profile_use/service/handleUpdateUser";
+import { handleDisableBio } from "client/refactor_component/organism/profile_use/hook/use.handleDisableBio";
+import { handleFieldChange } from "client/refactor_component/organism/profile_use/hook/use.handleFieldChange";
+import { handleBioChange } from "client/refactor_component/organism/profile_use/hook/use.handleBioChange";
+import { handleCancelEdit } from "client/refactor_component/organism/profile_use/hook/use.handleCancelEdit";
 import { handleSave } from "client/refactor_component/organism/user_approval/handle_save";
 import {
   User,
   Profile,
   UserPersonalProps,
-} from "../../organism/Profile_user/interface/use.interface";
+} from "../../organism/profile_use/interface/use.interface";
 // ../../organism/profile_user/interface/usertype.interface
-import { fetchUsers } from "client/refactor_component/organism/Profile_user/service/fetchUsers";
+import { fetchUsers } from "client/refactor_component/organism/profile_use/service/fetchUsers";
 
 import FormField from "../../molecule/form_field/form_field";
 import Button from "../../atom/button/button";

@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { User } from "../interface/use.interface";
+import { User } from "../interface/usertype.interface";
 // ../interface/usertype.interface
 
 /**
