@@ -1,11 +1,22 @@
 import * as style from "client/styles/pending/pending_component.css";
 
+// UserItem 타입 정의 (실제 데이터 구조에 맞게 수정 필요)
+interface UserItem {
+  id: string;
+  name: string;
+  role: string;
+  salary: number;
+  field: string;
+}
+
+
+
 interface UserItemProps {
-  item: { [key: string]: any };
+  item: UserItem;
   index: number;
-  onApprove: (index: number, item: { [key: string]: any }) => void;
-  onCancel: (index: number, item: { [key: string]: any }) => void;
-  onInputChange: (index: number, field: string, value: any) => void;
+  onApprove: (index: number, item: UserItem) => void;
+  onCancel: (index: number, item: UserItem) => void;
+  onInputChange: (index: number, field: keyof UserItem, value: string | number) => void;
   roles: { value: string; label: string }[]; // 권한 목록
   fields: { value: string; label: string }[]; // 분야 목록
 }
@@ -37,7 +48,7 @@ const UserItem: React.FC<UserItemProps> = ({
           id={`salary-${index}`}
           placeholder="월급"
           value={item.salary || ""}
-          onChange={(e) => onInputChange(index, "salary", e.target.value)}
+          onChange={(e) => onInputChange(index, "salary", parseFloat(e.target.value))}
         />
       </div>
 
@@ -45,8 +56,8 @@ const UserItem: React.FC<UserItemProps> = ({
         <label htmlFor={`role-${index}`}>권한: </label>
         <select
           id={`role-${index}`}
-          value={item.role_name || ""}
-          onChange={(e) => onInputChange(index, "role_name", e.target.value)}
+          value={item.role || ""}  
+          onChange={(e) => onInputChange(index, "role", e.target.value)}
         >
           <option value="">권한 선택</option>
           {roles.map((role, i) => (
@@ -61,8 +72,8 @@ const UserItem: React.FC<UserItemProps> = ({
         <label htmlFor={`field-${index}`}>분야: </label>
         <select
           id={`field-${index}`}
-          value={item.field_name || ""}
-          onChange={(e) => onInputChange(index, "field_name", e.target.value)}
+          value={item.field || ""}  
+          onChange={(e) => onInputChange(index, "field", e.target.value)}
         >
           <option value="">분야 선택</option>
           {fields.map((field) => (

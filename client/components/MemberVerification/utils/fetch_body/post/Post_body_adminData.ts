@@ -1,5 +1,5 @@
-import { UserItem } from "client/components/MemberVerification/interface/UserItem.props.interface";
-export const AdminFetchBody = (item: UserItem) => {
+import { UseItem } from "client/components/MemberVerification/interface/UserItem.props.interface";
+export const AdminFetchBody = (item: UseItem) => {
   return {
     method: 'POST',
     headers: {

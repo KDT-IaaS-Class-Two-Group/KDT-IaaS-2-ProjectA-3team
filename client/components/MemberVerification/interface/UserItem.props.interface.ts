@@ -1,4 +1,4 @@
-export interface UserItem {
+export interface UseItem {
   id: string;
   name: string;
   role: string;
