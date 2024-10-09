@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import columns from "./utils/columns/project_table.columns";
-import TableComponentProps from "./utils/props/Project_table_Props";
+import TableComponentProps from "./utils/Props/Project_table_Props";
 import * as styles from "../../styles/sideproject/sideproject.css";
 
 const ProjectTableComponent: React.FC<TableComponentProps> = ({ data }) => {
