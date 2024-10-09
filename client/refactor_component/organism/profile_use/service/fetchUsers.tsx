@@ -9,7 +9,7 @@
 
 
 // fetchUsers.tsx 파일 내 경로 수정
-import { User, Profile } from "../interface/use.interface";
+import { User, Profile } from "../interface/usertype.interface";
 
 
 
