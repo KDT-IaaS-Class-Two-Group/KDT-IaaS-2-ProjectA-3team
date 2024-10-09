@@ -1,7 +1,8 @@
-export default interface CardHeaderProps {
+export default // props/card_header.props.ts
+interface CardHeaderProps {
   title: string;
-  onButtonClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  button_text?: string; // 이 속성이 필요하다면 추가하세요
-  button_style?: string; // 이 속성이 필요하다면 추가하세요
-  children?: React.ReactNode; // children 속성 추가
+  onButtonClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void; // 필수로 설정
+  button_text?: string; // 선택적 속성
+  button_style?: string; // 선택적 속성
+  children?: React.ReactNode; // children 속성
 }
