@@ -4,7 +4,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import Tbody from "client/refactor_component/molecule/table/body/tbody";
-import Tfoot from "client/refactor_component/molecule/table/footer/tFooter";
+import Tfoot from "client/refactor_component/molecule/table/footer/tfoot";
 import Thead from "client/refactor_component/molecule/table/header/thead";
 interface TableProps<TData> {
   data: [];
