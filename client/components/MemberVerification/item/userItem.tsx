@@ -1,35 +1,16 @@
-import * as style from "client/styles/pending/pending_component.css";
-
-// UserItem 타입 정의 (실제 데이터 구조에 맞게 수정 필요)
-interface UserItem {
-  id: string;
-  name: string;
-  role: string;
-  salary: number;
-  field: string;
-}
-
-
+import * as style from 'client/styles/pending/pending_component.css';
 
 interface UserItemProps {
-  item: UserItem;
+  item: { [key: string]: any };
   index: number;
-  onApprove: (index: number, item: UserItem) => void;
-  onCancel: (index: number, item: UserItem) => void;
-  onInputChange: (index: number, field: keyof UserItem, value: string | number) => void;
+  onApprove: (index: number, item: { [key: string]: any }) => void;
+  onCancel: (index: number, item: { [key: string]: any }) => void;
+  onInputChange: (index: number, field: string, value: any) => void;
   roles: { value: string; label: string }[]; // 권한 목록
   fields: { value: string; label: string }[]; // 분야 목록
 }
 
-const UserItem: React.FC<UserItemProps> = ({
-  item,
-  index,
-  onApprove,
-  onCancel,
-  onInputChange,
-  roles,
-  fields,
-}) => {
+const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel, onInputChange, roles, fields }) => {
   return (
     <div className={style.contentWrapper}>
       <h1>{index + 1}</h1>
@@ -41,6 +22,7 @@ const UserItem: React.FC<UserItemProps> = ({
         </div>
       ))}
 
+      {/* 월급 입력 필드 */}
       <div>
         <label htmlFor={`salary-${index}`}>월급: </label>
         <input
@@ -48,16 +30,17 @@ const UserItem: React.FC<UserItemProps> = ({
           id={`salary-${index}`}
           placeholder="월급"
           value={item.salary || ""}
-          onChange={(e) => onInputChange(index, "salary", parseFloat(e.target.value))}
+          onChange={(e) => onInputChange(index, 'salary', e.target.value)}
         />
       </div>
 
+      {/* 권한 선택 필드 */}
       <div>
         <label htmlFor={`role-${index}`}>권한: </label>
         <select
           id={`role-${index}`}
-          value={item.role || ""}  
-          onChange={(e) => onInputChange(index, "role", e.target.value)}
+          value={item.role_name || ""}
+          onChange={(e) => onInputChange(index, 'role_name', e.target.value)}
         >
           <option value="">권한 선택</option>
           {roles.map((role, i) => (
@@ -68,12 +51,13 @@ const UserItem: React.FC<UserItemProps> = ({
         </select>
       </div>
 
+      {/* 분야 선택 필드 */}
       <div>
         <label htmlFor={`field-${index}`}>분야: </label>
         <select
           id={`field-${index}`}
-          value={item.field || ""}  
-          onChange={(e) => onInputChange(index, "field", e.target.value)}
+          value={item.field_name || ""}
+          onChange={(e) => onInputChange(index, 'field_name', e.target.value)}
         >
           <option value="">분야 선택</option>
           {fields.map((field) => (
@@ -90,4 +74,5 @@ const UserItem: React.FC<UserItemProps> = ({
   );
 };
 
+// 수정된 부분: 중복된 default export 제거
 export default UserItem;
