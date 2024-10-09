@@ -8,7 +8,7 @@
  * @date 2024-08-25
  */
 
-import { User, EditFields } from "../interface/usertype.interface";
+import { User, EditFields } from "../interface/use.interface";
 
 /**
  * @function handleEditClick

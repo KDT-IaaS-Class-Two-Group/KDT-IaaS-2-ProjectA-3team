@@ -9,7 +9,8 @@
  */
 
 import React from "react";
-import { User } from "../interface/usertype.interface";
+import { User } from "../interface/use.interface";
+// ../interface/usertype.interface
 
 /**
  * @function handleFieldChange

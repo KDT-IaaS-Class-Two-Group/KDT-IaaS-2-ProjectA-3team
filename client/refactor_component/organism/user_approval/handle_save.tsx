@@ -7,7 +7,7 @@
  */
 
 // import { User } from "../../organism/profile_user/props/user.props";
-import { User as profileUser } from "../profile_user/interface/usertype.interface";
+import { User as profileUser } from "../Profile_user/interface/use.interface";
 import { User as LookupUser } from "../user_lookup/props/user.props";
 
 /**
