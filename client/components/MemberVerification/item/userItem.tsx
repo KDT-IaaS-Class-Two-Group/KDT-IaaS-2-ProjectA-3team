@@ -1,4 +1,4 @@
-import * as style from 'client/styles/pending/pending_component.css';
+import * as style from "client/styles/pending/pending_component.css";
 
 interface UserItemProps {
   item: { [key: string]: any };
@@ -10,7 +10,15 @@ interface UserItemProps {
   fields: { value: string; label: string }[]; // 분야 목록
 }
 
-const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel, onInputChange, roles, fields }) => {
+const UserItem: React.FC<UserItemProps> = ({
+  item,
+  index,
+  onApprove,
+  onCancel,
+  onInputChange,
+  roles,
+  fields,
+}) => {
   return (
     <div className={style.contentWrapper}>
       <h1>{index + 1}</h1>
@@ -22,7 +30,6 @@ const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel, o
         </div>
       ))}
 
-      {/* 월급 입력 필드 */}
       <div>
         <label htmlFor={`salary-${index}`}>월급: </label>
         <input
@@ -30,17 +37,16 @@ const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel, o
           id={`salary-${index}`}
           placeholder="월급"
           value={item.salary || ""}
-          onChange={(e) => onInputChange(index, 'salary', e.target.value)}
+          onChange={(e) => onInputChange(index, "salary", e.target.value)}
         />
       </div>
 
-      {/* 권한 선택 필드 */}
       <div>
         <label htmlFor={`role-${index}`}>권한: </label>
         <select
           id={`role-${index}`}
           value={item.role_name || ""}
-          onChange={(e) => onInputChange(index, 'role_name', e.target.value)}
+          onChange={(e) => onInputChange(index, "role_name", e.target.value)}
         >
           <option value="">권한 선택</option>
           {roles.map((role, i) => (
@@ -51,13 +57,12 @@ const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel, o
         </select>
       </div>
 
-      {/* 분야 선택 필드 */}
       <div>
         <label htmlFor={`field-${index}`}>분야: </label>
         <select
           id={`field-${index}`}
           value={item.field_name || ""}
-          onChange={(e) => onInputChange(index, 'field_name', e.target.value)}
+          onChange={(e) => onInputChange(index, "field_name", e.target.value)}
         >
           <option value="">분야 선택</option>
           {fields.map((field) => (
@@ -74,5 +79,4 @@ const UserItem: React.FC<UserItemProps> = ({ item, index, onApprove, onCancel, o
   );
 };
 
-// 수정된 부분: 중복된 default export 제거
 export default UserItem;

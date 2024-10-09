@@ -5,16 +5,18 @@ const noticeUpdate = (id: string, newTitle: string, newContent: string) => {
     credentials: "include",
     body: JSON.stringify({ title: newTitle, content: newContent }),
   })
-  .then(response => response.text())
-  .then(data => {
-    alert(data);
-    window.location.reload();
-  })
-  .catch(err => {
-    console.error(err);
-    alert("수정 중 오류 발생");
-    window.location.href = "/noticeMain";
-  });
+    .then((response) => {
+      return response.text(); // 괄호 추가
+    })
+    .then((data) => {
+      alert(data);
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("수정 중 오류 발생");
+      window.location.href = "/noticeMain";
+    });
 };
 
 export default noticeUpdate;

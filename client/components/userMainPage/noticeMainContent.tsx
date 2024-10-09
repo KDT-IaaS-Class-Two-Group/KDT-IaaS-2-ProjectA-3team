@@ -1,77 +1,49 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import * as styles from "../../styles/notice/notice.css";
-import { centeredflexrowcontainergap } from "client/styles/standardcontainer.css";
-import { ListNotice } from "./noticeMainContentModule/interfaceType";
-import fetchNotices from "./noticeMainContentModule/fetchNotice";
-import Tag from "client/refactor_component/atom/tag/tag";
-import Button from "client/refactor_component/atom/button/button";
-/**
- * * Function : NoticeMainContent
- * 작성자 : @yun-21 / 2024-08-01
- * 편집자 : @yun-21 / 2024-08-23
- * Issue : 
- * @function NoticeMainContent
- * @description 
+import { tdn } from "client/styles/templatebutton.css";
+import { hovertextstyle } from "client/styles/notice/mainnotice.css";
 
- */
+interface ListNotice {
+  _id: string;
+  title: string;
+  user_id: string;
+  createdAt: string;
+}
+
 const NoticeMainContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // empolyee 서버에서 건너오는 게시물 데이터
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
-  const itemsPerPage = 5; // 한 페이지당 항목 수
 
   useEffect(() => {
-    fetchNotices(currentPage, itemsPerPage, setUserList, setTotalPages);
-  }, [currentPage]);
+    const fetchNotices = () => {
+      fetch("http://localhost:3001/homenotice/user")
+        .then((response) => response.json())
+        .then((data: ListNotice[]) => setUserList(data))
+        .catch((err) => {
+          console.error("데이터를 가져오는 중 오류 발생:", err);
+        });
+    };
+    fetchNotices(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
+  }, []);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page); // 페이지 변경
-  };
+  const displayedNotices = userList.slice(0, 3);
 
   return (
-    <>
-      <div className={styles.usercontentdiv}>
-        {userList.length > 0 ? (
-          userList.map((notice, index) => (
-            <div key={notice._id}>
-              <Link
-                href={`/notice/${notice._id}`}
-                className={styles.uploadbutton}
-              >
-                <div className={styles.noticelengh}>
-                  <Tag
-                    className={styles.TagSize}
-                    content={`${index + 1 + (currentPage - 1) * itemsPerPage}.`}
-                  />
-                  <Tag
-                    className={styles.pTagTitletext}
-                    content={notice.title}
-                  />
-                  <Tag className={styles.TagSize} content={notice.user_id} />
-                  <Tag className={styles.TagSize} content={notice.createdAt} />
-                </div>
-              </Link>
-            </div>
-          ))
-        ) : (
-          <div>게시물 없음</div>
-        )}
-      </div>
-      <div className={centeredflexrowcontainergap}>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-          (page) => (
-            <Button
-              key={page}
-              button_text={page.toString()}
-              button_style={styles.pagebutton}
-              onClick={() => handlePageChange(page)}
-              disabled={currentPage === page}
-            />
-          )
-        )}
-      </div>
-    </>
+    <div>
+      {displayedNotices.length > 0 ? (
+        displayedNotices.map((notice, index) => (
+          <div key={notice._id}>
+            <Link href={`/notice/${notice._id}`} className={tdn}>
+              <div className={hovertextstyle}>
+                <p>{index + 1 + "."}</p>
+                <p>{notice.title}</p>
+              </div>
+            </Link>
+          </div>
+        ))
+      ) : (
+        <div>게시물 없음</div>
+      )}
+    </div>
   );
 };
 
