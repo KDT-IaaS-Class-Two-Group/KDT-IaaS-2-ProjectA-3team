@@ -8,7 +8,7 @@
  */
 
 import React from "react";
-import { User } from "../interface/usertypes";
+import { User } from "../interface/usertype.interface";
 
 /**
  * @function handleSave
