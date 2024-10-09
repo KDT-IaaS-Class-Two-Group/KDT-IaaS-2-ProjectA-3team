@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import getPendingUsers from "client/model/services/getPendingUsersData";
 
-export const usePendingUsers = () => {
+const usePendingUsers = () => {
   const [memberData, setMemberData] = useState<{ [key: string]: any }[]>([]);
 
   useEffect(() => {
@@ -18,3 +18,4 @@ export const usePendingUsers = () => {
 
   return [memberData, setMemberData] as const;
 };
+export default usePendingUsers;
