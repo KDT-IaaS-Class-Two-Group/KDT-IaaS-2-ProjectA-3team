@@ -8,7 +8,7 @@ export interface EditFields {
     email?: string;
     password?: string;
   }
-  
+  // a
   export interface Profile {
     user_id: string;
     bio: string;
