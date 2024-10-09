@@ -6,12 +6,15 @@
     "api",
     "storage"
   ],
+  "engines": {
+    "node": ">=18.18.2"
+  },
   "scripts": {
-  "build": "npm run build:client && npm run build:api",
-  "build:client": "npm run build --workspace=client",
-  "build:api": "npm run build --workspace=api",
-  "start": "npm run start --workspace=api"
-},
+    "build": "npm run build:client && npm run build:api",
+    "build:client": "npm run build --workspace=client",
+    "build:api": "npm run build --workspace=api",
+    "start": "npm run start --workspace=api"
+  },
   "keywords": [],
   "author": "Team Zootopia",
   "license": "ISC",
@@ -20,7 +23,7 @@
     "@types/babel__generator": "^7.6.8",
     "@types/jest": "^29.5.12",
     "@types/mongodb": "^4.0.7",
-    "@types/node": "^22.1.0",
+    "@types/node": "^18.18.2",
     "arkit": "^1.6.4",
     "dotenv": "^16.4.5",
     "eslint-plugin-prettier": "^5.2.1",

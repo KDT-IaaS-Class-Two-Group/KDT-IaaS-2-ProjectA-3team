@@ -17,6 +17,7 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    "quotes": ["error", "double", { "avoidEscape": true }],
     'prettier/prettier': [
       'error',
       {
