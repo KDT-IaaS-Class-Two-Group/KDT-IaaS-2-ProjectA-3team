@@ -1,21 +1,18 @@
-import { useState, useEffect } from "react";
-import getPendingUsers from "client/model/services/getPendingUsersData";
+import withCardSection from "client/refactor_component/organism/card/utils/with_card_section";
+import React from "react";
+import MainContentProps from "../../../../props/main_content.props";
+import { section } from "client/styles/admin/admindashboard.css";
+import { requestSection } from "client/styles/admin/requests/requests.css";
+import PendingUsersList from "client/components/PendingUsersList";
+import PendingUserLook from "client/refactor_component/template/user_approval/pending_user_approval";
 
-const usePendingUsers = () => {
-  const [memberData, setMemberData] = useState<{ [key: string]: any }[]>([]);
-
-  useEffect(() => {
-    const fetchPendingUsers = async () => {
-      try {
-        const users = await getPendingUsers();
-        setMemberData(users);
-      } catch (error) {
-        console.error("GET 요청 실패 : getPendingUserData", error);
-      }
-    };
-    fetchPendingUsers();
-  }, []);
-
-  return [memberData, setMemberData] as const;
-};
-export default usePendingUsers;
+const UserPendingSection = withCardSection(PendingUsersList, {
+  sectionClassName: `${section} ${requestSection}`,
+  title: "User Sign up Management",
+  buttonText: "View Pending Users",
+  onClick: (props: MainContentProps) => {
+    props.onClick(<PendingUserLook />);
+    return null;
+  },
+});
+export default UserPendingSection;

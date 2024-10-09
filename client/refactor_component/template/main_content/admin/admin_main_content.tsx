@@ -13,7 +13,7 @@ const AdminMainContent: React.FC<{
     <div className={maincontentcontainer}>
       <ProjectSection onClick={onclick} />
       <UserRequestSection onClick={onclick} />
-      <UserPendingSection onClick={onclick} />
+      <UserPendingSection onClick={onclick} /> {/* 수정된 컴포넌트 사용 */}
       <AttendanceSection onClick={onclick} />
       <AdminNoticeBoardSection onClick={onclick} />
       <DatabaseGUISection onClick={onclick} />
