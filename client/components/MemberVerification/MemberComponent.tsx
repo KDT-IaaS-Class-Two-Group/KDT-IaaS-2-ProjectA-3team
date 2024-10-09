@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import * as style from 'client/styles/pending/pending_component.css';
 import { approveHandler } from './services/approve/fetchApproveData';
 import { cancelHandler } from './services/cancel/fetchCancelData';
-import { usePendingUsers } from './hook/usePendingUser';
+import usePendingUsers from './hook/usePendingUser';
 import UserItem from './item/userItem';
-
+interface User{
+  id: number;
+  name: string;
+  role: string;
+  salary: number;
+}
 const MemberComponent: React.FC = () => {
   const [memberData, setMemberData] = usePendingUsers();
   const [roles, setRoles] = useState<{ value: string; label: string }[]>([]);
@@ -78,10 +83,13 @@ const MemberComponent: React.FC = () => {
 
   const handleInputChange = (index: number, field: string, value: any) => {
     const updatedData = [...memberData];
-    updatedData[index][field] = value;
+    updatedData[index] = {
+      ...updatedData[index],
+      [field]: value, // 타입 단언을 통해 안전성을 확보
+    };
     setMemberData(updatedData);
   };
-
+  
   if (loading) {
     return <div>로딩 중...</div>; // 로딩 중일 때 표시할 내용
   }
