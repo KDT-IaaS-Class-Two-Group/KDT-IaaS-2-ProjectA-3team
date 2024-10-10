@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as style from 'client/styles/pending/pending_component.css';
 import { approveHandler } from './services/approve/fetchApproveData';
 import { cancelHandler } from './services/cancel/fetchCancelData';
-import usePendingUsers from './hook/usePendingUser';
+import {usePendingUsers} from './hook/usePendingUser';
 import UserItem from './item/userItem';
 interface User{
   id: number;

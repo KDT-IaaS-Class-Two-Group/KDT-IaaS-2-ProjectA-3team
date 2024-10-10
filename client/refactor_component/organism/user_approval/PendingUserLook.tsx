@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as style from "client/styles/pending/pending_component.css";
 import { approveHandler } from "client/components/MemberVerification/services/approve/fetchApproveData";
 import { cancelHandler } from "client/components/MemberVerification/services/cancel/fetchCancelData";
-import { usePendingUsers } from "client/components/MemberVerification/hook/usePendingUser";
+import  {usePendingUsers}  from "client/components/MemberVerification/hook/usePendingUser";
 import UserItem from "client/components/MemberVerification/item/userItem";
 
 const pendingUser: React.FC = () => {
