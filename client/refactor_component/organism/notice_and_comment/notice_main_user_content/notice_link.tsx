@@ -1,7 +1,7 @@
 import React from "react";
 import LinkTag from "client/refactor_component/organism/notice_and_comment/notice_main_user_content/notice_link_ptag";
 import * as styles from "client/styles/notice/notice.css";
-import { ListNotice} from "client/refactor_component/molecule/notice_and_comment/user/notice_main_user_content/interface/notice_main_interface";
+import { ListNotice } from "client/refactor_component/molecule/notice_and_comment/user/notice_main_user_content/interface/notice_main_interface";
 
 /**
  * @interface NoticeListProps
@@ -17,10 +17,10 @@ interface NoticeListProps {
 /**
  * @function NoticeList
  * @description 전달된 게시물 리스트를 기반으로 게시물 항목을 각각의 링크 컴포넌트로 렌더링. 게시물이 없을 경우 "게시물 없음" 메시지를 표시
- * 
+ *
  * @param {NoticeListProps} userList - 게시물 객체 리스트
  * @param {NoticeListProps} currentPage - 현재 페이지 번호로, 게시물 리스트의 인덱싱에 사용
- * 
+ *
  * @returns 게시물 리스트를 화면에 보여주는 JSX 요소
  */
 const NoticeList: React.FC<NoticeListProps> = ({ userList, currentPage }) => {

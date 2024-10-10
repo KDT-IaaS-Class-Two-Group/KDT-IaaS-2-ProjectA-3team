@@ -13,10 +13,10 @@ const fetchProjectInfo = async (project_name: string) => {
       throw new Error(FETCH_ERROR.__FAILURE_GET_PROJECT_INFO);
     }
     const res_data: ProjectInfo = await res.json();
-    
+
     return res_data;
   } catch (error) {
     console.error(error);
   }
 };
-export default fetchProjectInfo
+export default fetchProjectInfo;

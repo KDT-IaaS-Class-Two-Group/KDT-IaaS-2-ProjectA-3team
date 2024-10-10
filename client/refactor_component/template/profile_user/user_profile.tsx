@@ -224,7 +224,6 @@ const UserPersonal: React.FC<UserPersonalProps> = ({ onSave }) => {
                     {!disabledUsers.get(user.user_id) && (
                       <>
                         <div className={buttonparent}>
-                          
                           <Button
                             button_text="개인 정보 수정"
                             button_style={styles.yellowButton}

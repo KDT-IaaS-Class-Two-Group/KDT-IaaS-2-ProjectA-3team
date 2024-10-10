@@ -71,5 +71,4 @@ const MemberSelect: React.FC<MemberSelectionProps> = ({
   );
 };
 
-
 export default MemberSelect;

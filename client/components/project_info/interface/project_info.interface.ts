@@ -1,5 +1,5 @@
-interface ProjectInfo{
-  member : [], 
-  stack : []
+interface ProjectInfo {
+  member: [];
+  stack: [];
 }
 export default ProjectInfo;

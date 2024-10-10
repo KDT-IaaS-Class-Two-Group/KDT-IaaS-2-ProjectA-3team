@@ -7,7 +7,7 @@
  */
 
 import { useState, useEffect } from "react";
-import { User } from "../props/user.props"; 
+import { User } from "../props/user.props";
 
 /**
  * @brief 사용자 검토 프로필 데이터를 가져오는 훅

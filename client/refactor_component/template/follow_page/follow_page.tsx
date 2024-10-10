@@ -1,10 +1,10 @@
 /**
  * @file follow_page.tsx
  * @brief 사용자 검색 및 팔로우 기능을 제공하는 페이지 컴포넌트입니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
- * 
+ *
  */
 
 import React from "react";
@@ -26,12 +26,12 @@ import Input from "../../atom/input/input";
 const FollowPage: React.FC = () => {
   // 커스텀 훅을 사용하여 상태 및 함수 관리
   const {
-    searchQuery,   ///< 사용자 검색어 상태
+    searchQuery, ///< 사용자 검색어 상태
     setSearchQuery, ///< 검색어를 업데이트하는 함수
-    users,         ///< 검색된 사용자 목록
-    handleSearch,  ///< 검색 버튼 클릭 시 호출되는 함수
-    loading,       ///< 검색 중 로딩 상태
-    sessionData,   ///< 현재 세션 데이터
+    users, ///< 검색된 사용자 목록
+    handleSearch, ///< 검색 버튼 클릭 시 호출되는 함수
+    loading, ///< 검색 중 로딩 상태
+    sessionData, ///< 현재 세션 데이터
   } = useFollowPage();
 
   return (
@@ -64,7 +64,12 @@ const FollowPage: React.FC = () => {
               button_text={user.isFollowing ? "언팔로우" : "팔로우"}
               button_style="" // 버튼 스타일을 적용
               onClick={() =>
-                handleFollow(user.user_id, user.isFollowing, sessionData, handleSearch)
+                handleFollow(
+                  user.user_id,
+                  user.isFollowing,
+                  sessionData,
+                  handleSearch
+                )
               }
             />
           </Li>

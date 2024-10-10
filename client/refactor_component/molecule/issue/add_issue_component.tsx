@@ -24,7 +24,11 @@ const AddIssueComponent: React.FC<AddIssueComponentProps> = ({
         onClick={async () => {
           try {
             // user_id를 이슈 생성 요청에 포함하여 전달
-            const response = await fetchCreateIssue(project_name, data, user_id);
+            const response = await fetchCreateIssue(
+              project_name,
+              data,
+              user_id
+            );
             if (response === true) {
               onClose(); // 이슈 생성 후 컴포넌트 닫기
               console.log("이슈가 성공적으로 생성되었습니다.");

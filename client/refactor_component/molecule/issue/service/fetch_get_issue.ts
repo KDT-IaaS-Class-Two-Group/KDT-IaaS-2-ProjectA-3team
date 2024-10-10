@@ -31,9 +31,9 @@ export const fetchAddIssue = async (issueData: {
 }): Promise<any> => {
   // 이슈 데이터를 서버에 전달할 POST 요청
   const response = await fetch(`http://localhost:3001/issue/create`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(issueData),
   });

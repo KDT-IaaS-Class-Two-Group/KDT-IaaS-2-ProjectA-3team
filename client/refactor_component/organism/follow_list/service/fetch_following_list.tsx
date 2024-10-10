@@ -8,7 +8,7 @@
  * @date 2024-08-25
  */
 
-import { User } from "../props/user.props"; 
+import { User } from "../props/user.props";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 /**
@@ -22,13 +22,16 @@ import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
  * @throws {Error} 요청이 실패할 경우 오류를 발생시킵니다.
  */
 export const fetchFollowingList = async (): Promise<User[]> => {
-  const response = await fetch(`http://localhost:3001${REQUEST_URL.FOLLOWING_LIST}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
-  });
+  const response = await fetch(
+    `http://localhost:3001${REQUEST_URL.FOLLOWING_LIST}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // 세션 기반 인증을 위한 쿠키 포함
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch following list");

@@ -1,5 +1,5 @@
 import React from "react";
-import  {usePendingUsers}  from "../../client/components/MemberVerification/hook/usePendingUser";
+import { usePendingUsers } from "../../client/components/MemberVerification/hook/usePendingUser";
 import {
   authmaintext,
   requestmaincontainer,

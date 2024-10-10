@@ -1,5 +1,10 @@
 import { ListNotice } from "./interfaceType";
-const fetchNotices = (currentPage:number, itemsPerPage:number, setUserList: React.Dispatch<React.SetStateAction<ListNotice[]>>, setTotalPages: React.Dispatch<React.SetStateAction<number>>) => {
+const fetchNotices = (
+  currentPage: number,
+  itemsPerPage: number,
+  setUserList: React.Dispatch<React.SetStateAction<ListNotice[]>>,
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>
+) => {
   return fetch(
     `http://localhost:3001/notices?page=${currentPage}&limit=${itemsPerPage}`
   )

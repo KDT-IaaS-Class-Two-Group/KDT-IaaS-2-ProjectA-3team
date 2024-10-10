@@ -2,7 +2,7 @@
  * @interface NoticeLinkProps
  * @description
  * 공지사항 링크 컴포넌트에 전달되는 프로퍼티를 정의합니다. 각 프로퍼티는 공지사항의 세부 정보를 포함합니다.
- * 
+ *
  * @param {string} noticeId - 공지사항의 고유 식별자입니다.
  * @param {number} index - 공지사항의 인덱스 번호입니다.
  * @param {string} title - 공지사항의 제목입니다.

@@ -1,5 +1,5 @@
-import React from 'react';
-import WriteButton from 'client/refactor_component/molecule/notice_and_comment/user/notice_main_footer/notice_footer';
+import React from "react";
+import WriteButton from "client/refactor_component/molecule/notice_and_comment/user/notice_main_footer/notice_footer";
 
 /**
  * @component NoticeMainFooter

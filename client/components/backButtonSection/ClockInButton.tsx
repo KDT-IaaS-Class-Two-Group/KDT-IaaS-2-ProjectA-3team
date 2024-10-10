@@ -46,14 +46,17 @@ const ClockInButton: React.FC<ClockInButtonProps> = ({ userId }) => {
 
   const handleClockOut = async () => {
     try {
-      const response = await fetch("http://localhost:3001/attendance/clockout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ userId }),
-      });
+      const response = await fetch(
+        "http://localhost:3001/attendance/clockout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ userId }),
+        }
+      );
 
       if (response.ok) {
         console.log("Clock out successful");

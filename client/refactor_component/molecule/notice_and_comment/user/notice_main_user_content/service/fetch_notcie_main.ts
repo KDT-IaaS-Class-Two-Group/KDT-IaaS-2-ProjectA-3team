@@ -2,7 +2,7 @@ import { ListNotice } from "../interface/notice_main_interface";
 /**
  * @function fetchNotices
  * @description
- * 현재 페이지와 아이템 수에 맞춰 공지 사항 목록을 서버에서 가져옵니다. 
+ * 현재 페이지와 아이템 수에 맞춰 공지 사항 목록을 서버에서 가져옵니다.
  * 데이터를 가져온 후 사용자 목록과 총 페이지 수를 업데이트합니다.
  *
  * @param {number} currentPage - 현재 페이지 번호
@@ -12,10 +12,11 @@ import { ListNotice } from "../interface/notice_main_interface";
  * @returns {Promise<void>} 서버에서 데이터를 가져와 상태를 업데이트하는 비동기 함수
  */
 const fetchNotices = (
-  currentPage:number,
-  itemsPerPage:number,
+  currentPage: number,
+  itemsPerPage: number,
   setUserList: React.Dispatch<React.SetStateAction<ListNotice[]>>,
-  setTotalPages: React.Dispatch<React.SetStateAction<number>>) => {
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>
+) => {
   return fetch(
     `http://localhost:3001/notices?page=${currentPage}&limit=${itemsPerPage}`
   )

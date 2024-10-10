@@ -15,17 +15,14 @@
 const fetchCheckTeamNameExists = async (name: string): Promise<boolean> => {
   try {
     // 팀 이름 확인을 위해 서버에 POST 요청 전송
-    const response = await fetch(
-      "http://localhost:3001/user/checkTeamName",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // 요청 본문에 팀 이름 포함
-        body: JSON.stringify({ team_name: name }),
-      }
-    );
+    const response = await fetch("http://localhost:3001/user/checkTeamName", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // 요청 본문에 팀 이름 포함
+      body: JSON.stringify({ team_name: name }),
+    });
 
     // 응답을 JSON으로 변환하여 결과 반환
     const result = await response.json();

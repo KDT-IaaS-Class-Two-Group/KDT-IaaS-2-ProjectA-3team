@@ -1,6 +1,8 @@
 import { ListNotice } from "./interfaceType";
 
-const fetchNotices = (setAuthList: React.Dispatch<React.SetStateAction<ListNotice[]>>) => {
+const fetchNotices = (
+  setAuthList: React.Dispatch<React.SetStateAction<ListNotice[]>>
+) => {
   return fetch("http://localhost:3001/authnotice")
     .then((response) => {
       return response.json();

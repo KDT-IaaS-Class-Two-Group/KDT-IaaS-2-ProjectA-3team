@@ -13,7 +13,7 @@ export const maincontainter = style({
 export const secondcontainer = style({
   marginTop: Spacing.large,
   borderRadius: Size.border,
-  width:"50%",
+  width: "50%",
   backgroundColor: Colors.BackgroundSecondary,
 });
 
@@ -35,11 +35,11 @@ export const listyle = style({
   justifyContent: "center",
   textAlign: "center",
 });
-export const divstyle = style ({
+export const divstyle = style({
   alignItems: "center",
   justifyContent: "center",
   textAlign: "center",
-})
+});
 // 버튼
 export const baseButton = style({
   padding: `${Spacing.small} ${Spacing.medium}`,

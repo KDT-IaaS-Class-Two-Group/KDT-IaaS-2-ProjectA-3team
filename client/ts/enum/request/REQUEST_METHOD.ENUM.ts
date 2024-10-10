@@ -1,4 +1,4 @@
 enum REQUEST_METHOD {
-  __GET = "GET"
+  __GET = "GET",
 }
 export default REQUEST_METHOD;

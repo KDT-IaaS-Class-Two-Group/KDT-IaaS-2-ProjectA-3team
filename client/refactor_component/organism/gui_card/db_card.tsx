@@ -3,7 +3,6 @@ import CardHeader from "client/refactor_component/molecule/card_header/card_head
 import DBGUI from "client/components/DatabaseGuI";
 import DatabaseGUICardProps from "./props/db_card.props";
 
-
 const DatabaseGUICard: React.FC<DatabaseGUICardProps> = ({
   onButtonClick,
   title,

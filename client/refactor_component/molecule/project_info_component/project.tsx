@@ -22,13 +22,11 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({ project, onClick }) => (
     <Header onClick={onClick} className={HeaderContainer}>
       {project.project_name}
     </Header>
-    <SubHeader >
-      Team | {project.team_name}
-    </SubHeader>
-    <Paragraph >
+    <SubHeader>Team | {project.team_name}</SubHeader>
+    <Paragraph>
       프로젝트 시작일 : {formatDate(project.project_start_date)}
     </Paragraph>
-    <Paragraph >
+    <Paragraph>
       프로젝트 마감일 : {formatDate(project.project_end_date)}
     </Paragraph>
   </div>

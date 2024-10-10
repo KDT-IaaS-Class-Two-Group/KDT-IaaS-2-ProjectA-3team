@@ -21,9 +21,7 @@ const NoticeAuthContent = () => {
   /**
    * @returns {JSX.Element} AuthListContent 컴포넌트로 게시물 리스트를 렌더링
    */
-  return (
-    <AuthListContent authList={authList} />
-  );
+  return <AuthListContent authList={authList} />;
 };
 
 export default NoticeAuthContent;

@@ -10,7 +10,7 @@
  * @interface User
  * @brief 사용자 정보를 정의하는 타입
  * @details 이 인터페이스는 사용자의 기본 정보와 선택적 속성을 포함한다.
- * 
+ *
  * @property {string} id - 사용자의 고유 ID
  * @property {string} username - 사용자의 사용자명
  * @property {number} [salary] - 사용자의 급여 (선택적)
@@ -45,7 +45,7 @@ export interface UserItemProps {
  * @interface Field
  * @brief 필드 정보를 정의하는 타입
  * @details 이 인터페이스는 필드의 이름을 포함한다.
- * 
+ *
  * @property {string} field_name - 필드의 이름
  */
 export interface Field {
@@ -56,7 +56,7 @@ export interface Field {
  * @interface UserLookupProps
  * @brief 사용자 정보를 저장하는 콜백 함수의 타입을 정의
  * @details 이 인터페이스는 사용자 정보를 저장하기 위한 콜백 함수의 타입을 정의한다.
- * 
+ *
  * @property {(users: User[]) => Promise<void>} onSave - 사용자 정보를 저장하는 콜백 함수
  */
 export interface UserLookupProps {

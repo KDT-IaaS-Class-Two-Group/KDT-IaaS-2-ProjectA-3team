@@ -10,7 +10,7 @@
  * @interface User
  * @brief 사용자 정보를 정의하는 인터페이스
  * @details 사용자의 개인 정보를 나타내는 데이터 구조로, 사용자 ID, 사용자 이름, 생일, 주소, 전화번호, 이메일, 비밀번호를 포함한다.
- * 
+ *
  * @property {string} user_id - 사용자의 고유 식별자
  * @property {string} username - 사용자의 이름
  * @property {string} birth_date - 사용자의 생일 (형식: YYYY-MM-DD)

@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { MongoClient, ObjectId } from "mongodb";
-import Post from './component/postComponent'; 
+import Post from "./component/postComponent";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {

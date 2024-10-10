@@ -1,4 +1,4 @@
-const send = (state:string, stateContent:string) => {
+const send = (state: string, stateContent: string) => {
   return fetch("http://localhost:3001/notice/send", {
     method: "POST",
     headers: {
@@ -7,7 +7,7 @@ const send = (state:string, stateContent:string) => {
     credentials: "include",
     body: JSON.stringify({ title: state, content: stateContent }),
   })
-    .then((response) =>response.text())
+    .then((response) => response.text())
     .then((data) => {
       console.log("Success", data);
     })

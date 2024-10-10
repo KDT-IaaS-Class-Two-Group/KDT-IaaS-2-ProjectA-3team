@@ -1,7 +1,7 @@
 // UserListPanel.tsx
-import React from 'react';
-import * as styles from '../../../styles/sidebar/SidebarStyles.css';
-import SearchBar from '../../molecule/nav/search_bar';  // SearchBar를 임포트
+import React from "react";
+import * as styles from "../../../styles/sidebar/SidebarStyles.css";
+import SearchBar from "../../molecule/nav/search_bar"; // SearchBar를 임포트
 
 interface UserListPanelProps {
   searchTerm: string;
@@ -20,14 +20,14 @@ const UserListPanel: React.FC<UserListPanelProps> = ({
 }) => (
   <div className={styles.userlistcontainer}>
     <div className={styles.userlisttitle}>User List</div>
-    
+
     {/* SearchBar 컴포넌트를 사용하여 검색 기능을 구현 */}
     <SearchBar
       searchTerm={searchTerm}
       onSearchChange={onSearchChange}
       onSearchKeyDown={onSearchKeyDown}
     />
-    
+
     <ul className={styles.userlist}>
       {users.length > 0 ? (
         users.map((user) => (

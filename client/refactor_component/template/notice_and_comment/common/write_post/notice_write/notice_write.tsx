@@ -43,9 +43,15 @@ const NoticeBoard: React.FC = () => {
       {/* 게시물 작성 */}
       <div className={styles.wrtiePage}>
         {/* 제목 input */}
-        <TitleInput value={state} onChange={(ele) => setState(ele.target.value)} />
+        <TitleInput
+          value={state}
+          onChange={(ele) => setState(ele.target.value)}
+        />
         {/* 내용 textarea */}
-        <ContentTextArea value={stateContent} onChange={(ele) => setStateContent(ele.target.value)} />
+        <ContentTextArea
+          value={stateContent}
+          onChange={(ele) => setStateContent(ele.target.value)}
+        />
       </div>{" "}
       {/* 전송버튼 */}
       <SendBtn onClick={dataSend} />

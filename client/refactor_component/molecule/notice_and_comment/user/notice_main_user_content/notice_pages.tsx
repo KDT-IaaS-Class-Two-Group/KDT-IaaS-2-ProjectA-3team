@@ -18,24 +18,30 @@ interface PagesProps {
 /**
  * @function Pages
  * @description
- * 페이지네이션 버튼을 렌더링하는 컴포넌트입니다. 
+ * 페이지네이션 버튼을 렌더링하는 컴포넌트입니다.
  * 총 페이지 수에 따라 버튼을 생성하고, 현재 페이지는 비활성화됩니다.
  *
  * @param {PagesProps} props - 페이지네이션 관련 속성을 받는 컴포넌트
  * @returns {JSX.Element} 페이지네이션 버튼을 포함한 JSX
  */
-const Pages: React.FC<PagesProps> = ({ totalPages, currentPage, pageChange }) => {
+const Pages: React.FC<PagesProps> = ({
+  totalPages,
+  currentPage,
+  pageChange,
+}) => {
   return (
     <div className={centeredflexrowcontainergap}>
-      {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-        <Button
-          key={page}
-          button_text={page.toString()} // 페이지 번호를 문자열로 변환
-          button_style={styles.pagebutton}
-          onClick={() => pageChange(page)} // 클릭 시 페이지 변경 함수 호출
-          disabled={currentPage === page} // 현재 페이지이면 버튼을 비활성화
-        />
-      ))}
+      {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+        (page) => (
+          <Button
+            key={page}
+            button_text={page.toString()} // 페이지 번호를 문자열로 변환
+            button_style={styles.pagebutton}
+            onClick={() => pageChange(page)} // 클릭 시 페이지 변경 함수 호출
+            disabled={currentPage === page} // 현재 페이지이면 버튼을 비활성화
+          />
+        )
+      )}
     </div>
   );
 };

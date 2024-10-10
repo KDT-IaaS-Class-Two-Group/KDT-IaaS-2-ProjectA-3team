@@ -9,7 +9,11 @@ interface ProfileProps {
   sessionData: { user_id: string; role_name: string } | null;
 }
 
-const Profile: React.FC<ProfileProps> = ({ userId, onMenuItemClick, sessionData }) => {
+const Profile: React.FC<ProfileProps> = ({
+  userId,
+  onMenuItemClick,
+  sessionData,
+}) => {
   return (
     <div className={styles.profilecontainer}>
       <div className={styles.profile}>

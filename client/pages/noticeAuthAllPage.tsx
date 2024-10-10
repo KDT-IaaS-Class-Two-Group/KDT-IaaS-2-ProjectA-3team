@@ -1,4 +1,4 @@
-import NoticeAuthAllContent from 'client/components/authNotice/noticeAuthAllContent';
+import NoticeAuthAllContent from "client/components/authNotice/noticeAuthAllContent";
 
 export default function render() {
   return (

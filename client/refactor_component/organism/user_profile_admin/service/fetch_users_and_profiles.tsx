@@ -6,19 +6,19 @@
  * @date 2024-08-25
  */
 
-import { User, Profile } from "../../user_profile_admin/props/user.props";  // 경로는 실제 위치로 변경
+import { User, Profile } from "../../user_profile_admin/props/user.props"; // 경로는 실제 위치로 변경
 
 /**
  * @function fetchUsersAndProfiles
  * @brief 사용자 및 프로필 정보를 조회하는 함수
  * @details 이 함수는 사용자 개인 정보와 사용자 프로필 정보를 동시에 조회하여 반환한다.
- * 
- * @return {Promise<{ users: User[]; profiles: Map<string, string> }>} 
+ *
+ * @return {Promise<{ users: User[]; profiles: Map<string, string> }>}
  *         - `users`: `User` 객체 배열로 사용자의 개인 정보를 포함한다.
  *         - `profiles`: `Map` 객체로 사용자 ID를 키로 하고 프로필 bio를 값으로 갖는다.
- * 
+ *
  * @throws {Error} HTTP 요청이 실패하거나 데이터 처리 중 오류가 발생할 수 있다.
- * 
+ *
  * @example
  * const { users, profiles } = await fetchUsersAndProfiles();
  * console.log(users); // 사용자 개인 정보 출력

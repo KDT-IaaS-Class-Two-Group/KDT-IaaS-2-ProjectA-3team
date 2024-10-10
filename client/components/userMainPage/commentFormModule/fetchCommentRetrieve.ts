@@ -5,7 +5,8 @@ const retrieveComment = (
   currentPage: number,
   itemsPerPage: number,
   setCommentList: React.Dispatch<React.SetStateAction<ListComment[]>>,
-  setTotalPages: React.Dispatch<React.SetStateAction<number>>,) => {
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>
+) => {
   return fetch(
     `http://localhost:3001/comments/${postId}?page=${currentPage}&limit=${itemsPerPage}`
   )
@@ -17,5 +18,5 @@ const retrieveComment = (
     .catch((err) => {
       console.error("데이터를 가져오는 중 오류 발생:", err);
     });
-}
+};
 export default retrieveComment;

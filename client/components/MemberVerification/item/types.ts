@@ -8,9 +8,8 @@ export interface User {
   field_name?: string;
   [key: string]: string | number | undefined; // 인덱스 시그니처 추가
 }
-  
-  export interface SelectOption {
-    value: string;
-    label: string;
-  }
-  
+
+export interface SelectOption {
+  value: string;
+  label: string;
+}

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { fetchProjectData } from '../service/fetchProjectData';
-import { Project } from '../interface/ProjectData.interface';
+import { useState } from "react";
+import { fetchProjectData } from "../service/fetchProjectData";
+import { Project } from "../interface/ProjectData.interface";
 
 const useCreateProjectModal = () => {
   // Modal On/Off 관리
@@ -8,13 +8,17 @@ const useCreateProjectModal = () => {
   // Modal 내부 페이지 전환
   const [step, setStep] = useState(1);
   // Project의 이름 상태 변수
-  const [projectName, setProjectName] = useState('');
+  const [projectName, setProjectName] = useState("");
   // 프로젝트 시작 날짜 및 마감 날짜 상태 변수
-  const [projectStartDate, setProjectStartDate] = useState<Date | undefined>(undefined);
-  const [projectEndDate, setProjectEndDate] = useState<Date | undefined>(undefined);
+  const [projectStartDate, setProjectStartDate] = useState<Date | undefined>(
+    undefined
+  );
+  const [projectEndDate, setProjectEndDate] = useState<Date | undefined>(
+    undefined
+  );
 
   // 팀 이름 설정
-  const [team, setTeam] = useState<string>('');
+  const [team, setTeam] = useState<string>("");
 
   // openModal: 모달을 열 때 호출
   const openModal = () => setIsOpen(true);
@@ -23,7 +27,7 @@ const useCreateProjectModal = () => {
   const closeModal = () => {
     setIsOpen(false);
     setStep(1);
-    setProjectName('');
+    setProjectName("");
     setProjectStartDate(undefined);
     setProjectEndDate(undefined);
   };
@@ -45,7 +49,7 @@ const useCreateProjectModal = () => {
       project_name: projectName,
       project_start_date: projectStartDate as Date,
       project_end_date: projectEndDate as Date,
-      team_name : team
+      team_name: team,
     };
     await fetchProjectData(projectData);
   };
@@ -59,7 +63,8 @@ const useCreateProjectModal = () => {
     openModal,
     closeModal,
     handleNext,
-    team, setTeam,
+    team,
+    setTeam,
     handleCreate,
     setProjectName,
     setProjectStartDate,

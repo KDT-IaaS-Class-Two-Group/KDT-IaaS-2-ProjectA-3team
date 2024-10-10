@@ -2,8 +2,8 @@ export const PedingUserFetchBody = () => {
   return {
     method: "GET",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    credentials: 'include' as RequestCredentials
+    credentials: "include" as RequestCredentials,
   };
 };

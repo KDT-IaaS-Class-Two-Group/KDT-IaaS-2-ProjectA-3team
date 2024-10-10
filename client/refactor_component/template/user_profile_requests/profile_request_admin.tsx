@@ -1,10 +1,10 @@
 /**
  * @file profile_request_admin.tsx
  * @brief 사용자 프로필 수정 요청을 처리하는 컴포넌트입니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
- * 
+ *
  */
 
 import React from "react";

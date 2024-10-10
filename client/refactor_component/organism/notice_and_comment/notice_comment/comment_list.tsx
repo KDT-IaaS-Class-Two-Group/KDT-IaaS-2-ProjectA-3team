@@ -7,7 +7,7 @@ import { ListComment } from "client/refactor_component/molecule/notice_and_comme
 /**
  * @interface CommentListProps
  * @description 댓글 리스트 컴포넌트에 필요한 속성들을 정의한 인터페이스
- * 
+ *
  * @property {ListComment[]} commentList - 댓글 리스트
  * @property {{ [key: string]: boolean }} editState - 댓글 수정 상태를 관리하는 객체
  * @property {React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>} setEditState - 댓글 수정 상태를 설정하는 함수
@@ -18,7 +18,9 @@ import { ListComment } from "client/refactor_component/molecule/notice_and_comme
 interface CommentListProps {
   commentList: ListComment[];
   editState: { [key: string]: boolean };
-  setEditState: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
+  setEditState: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >;
   updateComment: (commentId: string, newContent: string) => void;
   setCommentList: React.Dispatch<React.SetStateAction<ListComment[]>>;
   deleteComment: (commentId: string) => void;
@@ -26,7 +28,7 @@ interface CommentListProps {
 /**
  * @function CommentList
  * @description
- * 댓글 리스트를 화면에 표시하는 컴포넌트. 
+ * 댓글 리스트를 화면에 표시하는 컴포넌트.
  * 각 댓글은 수정 상태에 따라 '수정 모드'와 '보기 모드'로 나누어 렌더링되며,
  * 댓글이 없을 경우 '댓글 없음' 메시지를 표시합니다.
  *

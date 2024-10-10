@@ -6,7 +6,9 @@ const UserSearchPage: React.FC = () => {
   const [filteredUsers, setFilteredUsers] = useState<any[]>([]); // 필터링된 사용자 목록
   const [searchTerm, setSearchTerm] = useState(""); // 검색어
   const [currentUserRole, setCurrentUserRole] = useState<string>("employee"); // 현재 사용자의 역할, 기본값을 'employee'로 설정
-  const [sessionData, setSessionData] = useState<{ user_id: string } | null>(null);
+  const [sessionData, setSessionData] = useState<{ user_id: string } | null>(
+    null
+  );
 
   // 역할 계층 설정
   const roleHierarchy: { [key: string]: number } = {
@@ -72,11 +74,17 @@ const UserSearchPage: React.FC = () => {
 
           if (followingResponse.ok) {
             const followingData = await followingResponse.json();
-            const followingIds = new Set(followingData.map((user: any) => user.user_id));
+            const followingIds = new Set(
+              followingData.map((user: any) => user.user_id)
+            );
 
             // 자신의 권한보다 낮거나 같은 사용자만 필터링
             const usersWithFollowing = data
-              .filter((user: any) => compareRoles(currentUserRole, user.role_name || "employee") >= 0)
+              .filter(
+                (user: any) =>
+                  compareRoles(currentUserRole, user.role_name || "employee") >=
+                  0
+              )
               .map((user: any) => ({
                 ...user,
                 isFollowing: followingIds.has(user.user_id),
@@ -127,7 +135,9 @@ const UserSearchPage: React.FC = () => {
 
   // 팔로우/언팔로우 클릭 처리
   const handleUserClick = async (userId: string, isFollowing: boolean) => {
-    const confirmMessage = isFollowing ? "언팔로우 하겠습니까?" : "팔로우 하겠습니까?";
+    const confirmMessage = isFollowing
+      ? "언팔로우 하겠습니까?"
+      : "팔로우 하겠습니까?";
     const confirmFollow = window.confirm(confirmMessage);
 
     if (confirmFollow) {

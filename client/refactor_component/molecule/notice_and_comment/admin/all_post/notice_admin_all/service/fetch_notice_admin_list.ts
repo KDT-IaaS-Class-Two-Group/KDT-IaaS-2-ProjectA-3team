@@ -2,7 +2,7 @@ import { ListNotice } from "../interface/notice_admin_all.interface";
 
 /**
  * @function fetchNotices
- * @description 현재 페이지와 페이지당 항목 수를 기반으로 공지사항을 서버에서 가져오고, 
+ * @description 현재 페이지와 페이지당 항목 수를 기반으로 공지사항을 서버에서 가져오고,
  * 가져온 데이터를 상태로 업데이트하는 함수입니다.
  * @param {number} currentPage - 현재 페이지 번호입니다.
  * @param {number} itemsPerPage - 페이지당 항목 수입니다.
@@ -14,7 +14,8 @@ const fetchNotices = (
   currentPage: number,
   itemsPerPage: number,
   setUserList: React.Dispatch<React.SetStateAction<ListNotice[]>>,
-  setTotalPages: React.Dispatch<React.SetStateAction<number>>) => {
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>
+) => {
   return fetch(
     `http://localhost:3001/authnotice/all?page=${currentPage}&limit=${itemsPerPage}`
   )

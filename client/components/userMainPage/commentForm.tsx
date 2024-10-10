@@ -53,10 +53,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
       <div className={styles.commentcreate}>
         <div>
           <TextArea
-            value={comment}                       // 상태 변수를 `value`로 전달
+            value={comment} // 상태 변수를 `value`로 전달
             onChange={(e) => setComment(e.target.value)} // 입력이 변경될 때 상태 업데이트
             placeholder="댓글을 작성하세요."
-            className={styles.commenttext}        // 스타일 클래스 적용
+            className={styles.commenttext} // 스타일 클래스 적용
           />
         </div>
         <div>
@@ -78,14 +78,16 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                     placeholder="댓글 수정하세요." // placeholder 텍스트 설정
                     onChange={(e) => {
                       const newContent = e.target.value;
-                      setCommentList((prevList) => prevList.map((c) => c._id === comment._id
-                        ? { ...c, content: newContent }
-                        : c
-                      )
+                      setCommentList((prevList) =>
+                        prevList.map((c) =>
+                          c._id === comment._id
+                            ? { ...c, content: newContent }
+                            : c
+                        )
                       );
-                    } }
-                    className={styles.commenttext} 
-                    />
+                    }}
+                    className={styles.commenttext}
+                  />
                   <Button
                     button_text="수정 완료"
                     button_style={blueButton}

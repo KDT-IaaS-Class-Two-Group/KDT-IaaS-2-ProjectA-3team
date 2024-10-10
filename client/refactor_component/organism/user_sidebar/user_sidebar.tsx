@@ -63,10 +63,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuItemClick }) => {
   return (
     <div className={styles.sidebarcontainer}>
       <Logo onClick={handleLogoClick} />
-      <Profile 
-        userId={sessionData?.user_id} 
-        onMenuItemClick={handleMenuItemClick} 
-        sessionData={sessionData} 
+      <Profile
+        userId={sessionData?.user_id}
+        onMenuItemClick={handleMenuItemClick}
+        sessionData={sessionData}
       />
       <UserSearch />
     </div>

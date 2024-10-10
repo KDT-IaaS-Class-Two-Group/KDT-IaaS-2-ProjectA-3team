@@ -67,7 +67,6 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     commentUpdate(postId, newContent, fetchComment, setEditState);
   };
 
-
   /**
    * @function deleteComment
    * @description 댓글을 삭제하는 함수

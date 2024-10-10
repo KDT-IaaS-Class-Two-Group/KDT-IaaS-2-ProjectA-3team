@@ -6,7 +6,7 @@
  * @date 2024-08-25
  */
 
-import { User } from "../props/user.props"; 
+import { User } from "../props/user.props";
 
 /**
  * @brief 사용자 요청을 거부하는 함수

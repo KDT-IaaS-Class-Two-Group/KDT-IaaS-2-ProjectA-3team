@@ -14,7 +14,10 @@ interface ProjectGroupProps {
   onClick: (item: ProjectData) => void;
 }
 
-const ProjectGroup: React.FC<ProjectGroupProps> = ({ projectGroup, onClick }) => (
+const ProjectGroup: React.FC<ProjectGroupProps> = ({
+  projectGroup,
+  onClick,
+}) => (
   <div className={pagemaincontainer}>
     {Object.values(projectGroup)
       .flat()
@@ -23,7 +26,6 @@ const ProjectGroup: React.FC<ProjectGroupProps> = ({ projectGroup, onClick }) =>
           <ProjectInfo project={item} onClick={() => onClick(item)} />
         </div>
       ))}
-    
   </div>
 );
 

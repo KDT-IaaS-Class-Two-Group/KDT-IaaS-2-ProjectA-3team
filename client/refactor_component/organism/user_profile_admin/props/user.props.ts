@@ -10,7 +10,7 @@
  * @interface User
  * @brief 사용자 정보를 정의하는 타입
  * @details 이 인터페이스는 사용자의 개인 정보를 포함한다.
- * 
+ *
  * @property {string} user_id - 사용자의 고유 ID
  * @property {string} username - 사용자의 사용자명
  * @property {string} birth_date - 사용자의 생년월일 (형식: YYYY-MM-DD)
@@ -33,7 +33,7 @@ export interface User {
  * @interface Profile
  * @brief 사용자 프로필 정보를 정의하는 타입
  * @details 이 인터페이스는 사용자의 프로필 정보 (자기소개)를 포함한다.
- * 
+ *
  * @property {string} user_id - 사용자 고유 ID (외래 키)
  * @property {string} bio - 사용자 자기소개
  */
@@ -46,7 +46,7 @@ export interface Profile {
  * @interface UserPersonalProps
  * @brief 사용자 정보를 저장하는 콜백 함수의 타입을 정의
  * @details 이 인터페이스는 사용자 정보를 저장하기 위한 콜백 함수의 타입을 정의한다.
- * 
+ *
  * @property {(users: User[]) => Promise<void>} onSave - 사용자 정보를 저장하는 콜백 함수
  */
 export interface UserPersonalProps {

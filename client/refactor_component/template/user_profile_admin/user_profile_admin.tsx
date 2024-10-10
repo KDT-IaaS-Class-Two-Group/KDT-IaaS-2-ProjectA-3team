@@ -1,10 +1,10 @@
 /**
  * @file user_profile_admin.tsx
  * @brief 이 파일은 사용자 프로필을 조회하고 수정할 수 있는 사용자 개인 정보 컴포넌트를 포함하고 있습니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
- * 
+ *
  */
 
 import React, { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import {
   Profile,
   UserPersonalProps,
 } from "../../organism/user_profile_admin/props/user.props";
-import { fetchUsersAndProfiles } from "client/refactor_component/organism/user_profile_admin/service/fetch_users_and_profiles"; 
+import { fetchUsersAndProfiles } from "client/refactor_component/organism/user_profile_admin/service/fetch_users_and_profiles";
 import Ul from "../../atom/ul/ul";
 import Li from "../../atom/li/li";
 import Input from "../../atom/input/input";

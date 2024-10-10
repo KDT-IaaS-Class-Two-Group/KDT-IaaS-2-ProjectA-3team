@@ -5,10 +5,8 @@ import * as styles from "../../../styles/sidebar/SidebarStyles.css";
 interface SidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
 }
-const UserSidebar:React.FC<SidebarProps> = ({ onMenuItemClick }) => {
-  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
-    
-  );
+const UserSidebar: React.FC<SidebarProps> = ({ onMenuItemClick }) => {
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>();
 
   const handleMenuItemClick = (component: React.ReactNode) => {
     setCurrentComponent(component);
@@ -17,9 +15,7 @@ const UserSidebar:React.FC<SidebarProps> = ({ onMenuItemClick }) => {
   return (
     <div className={styles.mainpagecontainer}>
       <Sidebar onMenuItemClick={handleMenuItemClick} />
-      <div className={""}>
-        {currentComponent}
-      </div>
+      <div className={""}>{currentComponent}</div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 /**
  * @file use_loading.tsx
  * @brief 로딩 상태를 관리하는 커스텀 훅
- * @details 이 파일은 로딩 상태를 관리하는 `useLoading` 훅을 정의합니다. 
+ * @details 이 파일은 로딩 상태를 관리하는 `useLoading` 훅을 정의합니다.
  * 로딩 상태를 나타내는 `loading` 상태와 상태를 변경하는 `setLoading` 함수를 제공합니다.
  *
  * @author @zoeznm

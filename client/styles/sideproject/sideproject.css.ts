@@ -35,7 +35,7 @@ export const blueButton = style([
   {
     backgroundColor: Colors.StatusLightBlue,
     color: Colors.FontSecondary,
-    marginLeft:"44%",
+    marginLeft: "44%",
     ":hover": {
       backgroundColor: Colors.StatusBlue,
     },

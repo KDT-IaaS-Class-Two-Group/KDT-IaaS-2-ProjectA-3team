@@ -45,7 +45,7 @@ const ProjectCheckComponent: React.FC<ProjectCheckProps> = ({
             .map((item: ProjectData, subIndex) => (
               <div key={subIndex} className={itemContainer}>
                 <h1
-                className={HeaderContainer} 
+                  className={HeaderContainer}
                   onClick={() => {
                     onMenuItemClick(
                       <ProjectInfoComponent project_name={item.project_name} />

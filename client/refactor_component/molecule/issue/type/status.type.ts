@@ -1,1 +1,1 @@
-export type status = '대기' | '완료'
+export type status = "대기" | "완료";

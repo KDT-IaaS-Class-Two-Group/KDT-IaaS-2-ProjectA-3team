@@ -5,8 +5,8 @@ const postFetchData = async (stringfy: string, url: string) => {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: stringfy
+    body: stringfy,
   });
   return res;
-}
+};
 export default postFetchData;

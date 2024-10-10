@@ -39,11 +39,9 @@ const DBGUI: React.FC = () => {
         setLoading(false);
       }
     };
-  
+
     fetchTables();
   }, []);
-  
-  
 
   if (loading) {
     return <div>Loading...</div>;

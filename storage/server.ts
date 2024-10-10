@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 app.use(cors());
 

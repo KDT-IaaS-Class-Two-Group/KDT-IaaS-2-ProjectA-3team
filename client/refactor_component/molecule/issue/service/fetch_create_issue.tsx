@@ -16,7 +16,11 @@
  * @return {Promise<boolean>} 요청이 성공할 경우 `true`, 실패 시 오류를 발생시킴
  * @throws {Error} 요청 실패 시 오류를 발생시킴
  */
-const fetchCreateIssue = async (project_name: string, issue_name: string, user_id: string) => {
+const fetchCreateIssue = async (
+  project_name: string,
+  issue_name: string,
+  user_id: string
+) => {
   const newIssue = {
     project_name,
     issue_name,

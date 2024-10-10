@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Project from "client/ts/Interface/project.interface";
-import { fetchProjectData } from '../service/fetch_post_project';
+import { fetchProjectData } from "../service/fetch_post_project";
 
 /**
  * @author @naviadev
@@ -26,32 +26,36 @@ import { fetchProjectData } from '../service/fetch_post_project';
  */
 
 const useProjectState = () => {
-  /** 
-   * @brief 프로젝트 이름을 관리하는 상태값. 
+  /**
+   * @brief 프로젝트 이름을 관리하는 상태값.
    * @details 프로젝트 이름을 문자열로 저장한다.
    */
-  const [projectName, setProjectName] = useState<string>('');
+  const [projectName, setProjectName] = useState<string>("");
 
-  /** 
-   * @brief 프로젝트 시작 날짜를 관리하는 상태값. 
+  /**
+   * @brief 프로젝트 시작 날짜를 관리하는 상태값.
    * @details 프로젝트 시작 날짜를 `Date` 객체로 저장한다.
    */
-  const [projectStartDate, setProjectStartDate] = useState<Date | undefined>(undefined);
+  const [projectStartDate, setProjectStartDate] = useState<Date | undefined>(
+    undefined
+  );
 
-  /** 
-   * @brief 프로젝트 종료 날짜를 관리하는 상태값. 
+  /**
+   * @brief 프로젝트 종료 날짜를 관리하는 상태값.
    * @details 프로젝트 종료 날짜를 `Date` 객체로 저장한다.
    */
-  const [projectEndDate, setProjectEndDate] = useState<Date | undefined>(undefined);
+  const [projectEndDate, setProjectEndDate] = useState<Date | undefined>(
+    undefined
+  );
 
-  /** 
-   * @brief 선택된 팀을 관리하는 상태값. 
+  /**
+   * @brief 선택된 팀을 관리하는 상태값.
    * @details 선택된 팀의 이름을 문자열로 저장한다.
    */
-  const [team, setTeam] = useState<string>('');
+  const [team, setTeam] = useState<string>("");
 
-  /** 
-   * @brief 현재 프로젝트 설정 단계를 관리하는 상태값. 
+  /**
+   * @brief 현재 프로젝트 설정 단계를 관리하는 상태값.
    * @details 단계는 숫자로 표현되며, 각 숫자는 특정 프로젝트 설정 단계를 나타낸다.
    */
   const [step, setStep] = useState(1);

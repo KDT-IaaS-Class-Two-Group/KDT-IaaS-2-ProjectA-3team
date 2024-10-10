@@ -1,11 +1,11 @@
-import Project from "client/ts/Interface/project.interface"
+import Project from "client/ts/Interface/project.interface";
 export const projectMeta = (projectData: Project) => {
   return {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    credentials: 'include' as RequestCredentials,
-    body: JSON.stringify(projectData)
-  }
-}
+    credentials: "include" as RequestCredentials,
+    body: JSON.stringify(projectData),
+  };
+};

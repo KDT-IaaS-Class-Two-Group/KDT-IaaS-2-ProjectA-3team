@@ -1,3 +1,3 @@
 export default interface LogoProps {
-    onClick: () => void;
-  }
+  onClick: () => void;
+}

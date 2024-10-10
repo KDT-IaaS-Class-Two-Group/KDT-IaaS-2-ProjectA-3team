@@ -10,7 +10,7 @@ import {
   pagemaintext,
 } from "client/styles/team/teampage.css";
 import * as styles from "client/styles/notice/notice.css";
-import { ListNotice } from "client/refactor_component/molecule/notice_and_comment/admin/all_post/notice_admin_all/interface/notice_admin_all.interface"
+import { ListNotice } from "client/refactor_component/molecule/notice_and_comment/admin/all_post/notice_admin_all/interface/notice_admin_all.interface";
 import fetchNotices from "client/refactor_component/molecule/notice_and_comment/admin/all_post/notice_admin_all/service/fetch_notice_admin_list";
 import AdminAllNoticeTitlePtag from "client/refactor_component/molecule/notice_and_comment/admin/all_post/notice_admin_all/notice_admin_title_tags";
 import AdminAllNoticeContentPtag from "client/refactor_component/molecule/notice_and_comment/admin/all_post/notice_admin_all/notice_admin_content_tags";
@@ -26,7 +26,7 @@ const NoticeAuthAllContent = () => {
   const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
   const itemsPerPage = 8; // 한 페이지당 항목 수
 
-    /**
+  /**
    * @function useEffect
    * @description 현재 페이지에 해당하는 게시물 데이터를 fetchNotices를 이용해 불러온다.
    * @param {number} currentPage - 현재 페이지 번호
@@ -46,8 +46,8 @@ const NoticeAuthAllContent = () => {
   const pageChange = (page: number) => {
     setCurrentPage(page); // 페이지 변경
   };
-  
-    /**
+
+  /**
    * @function handleMenuClick
    * @description 사이드바 메뉴 클릭 시 해당 컴포넌트로 전환
    * @param {React.ReactNode} component - 렌더링할 컴포넌트
@@ -73,7 +73,7 @@ const NoticeAuthAllContent = () => {
             <div className={pagemaintext}>관리자 게시물</div>{" "}
             <div className={styles.noticecontent}>
               {/* 게시물 상단 제목 */}
-              <AdminAllNoticeTitlePtag/>
+              <AdminAllNoticeTitlePtag />
               <div className={styles.usercontentdiv}>
                 {userList.length > 0 ? ( // 게시물 있을 때 조건문
                   userList.map((notice, index) => (
@@ -83,7 +83,10 @@ const NoticeAuthAllContent = () => {
                         className={styles.uploadbutton}
                       >
                         {/* 게시물 리스트 */}
-                        <AdminAllNoticeContentPtag notice={notice} index={index}/>
+                        <AdminAllNoticeContentPtag
+                          notice={notice}
+                          index={index}
+                        />
                       </Link>
                     </div>
                   ))
@@ -91,7 +94,11 @@ const NoticeAuthAllContent = () => {
                   <div>게시물 없음</div>
                 )}
                 {/* 페이지네이션 */}
-                <AdminAllNoticePageBtn totalPages={totalPages} pageChange={pageChange} currentPage={currentPage}/>
+                <AdminAllNoticePageBtn
+                  totalPages={totalPages}
+                  pageChange={pageChange}
+                  currentPage={currentPage}
+                />
               </div>
             </div>
           </div>

@@ -12,8 +12,6 @@ interface SessionData {
   role_name: string;
 }
 
-
-
 const IssueComponent: React.FC<AddIssueProps> = ({ project_name }) => {
   const [issue, setIssue] = useState<Issue[]>([]); // Issue 타입으로 정의
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -39,7 +37,10 @@ const IssueComponent: React.FC<AddIssueProps> = ({ project_name }) => {
             console.error("세션 데이터가 비어 있습니다.");
           }
         } else {
-          console.error("세션 데이터를 가져오는 데 실패했습니다: ", response.statusText);
+          console.error(
+            "세션 데이터를 가져오는 데 실패했습니다: ",
+            response.statusText
+          );
         }
       } catch (error) {
         console.error("세션 데이터를 가져오는 중 오류가 발생했습니다:", error);
@@ -73,7 +74,9 @@ const IssueComponent: React.FC<AddIssueProps> = ({ project_name }) => {
   return (
     <div>
       <div>
-        <button className={blueButton} onClick={onOpen}>issue 추가</button>
+        <button className={blueButton} onClick={onOpen}>
+          issue 추가
+        </button>
       </div>
 
       <IssueList issues={issue} />
@@ -82,7 +85,7 @@ const IssueComponent: React.FC<AddIssueProps> = ({ project_name }) => {
         {sessionData ? (
           <AddIssueComponent
             project_name={project_name}
-            user_id={sessionData.user_id}  // 세션의 user_id 전달
+            user_id={sessionData.user_id} // 세션의 user_id 전달
             onClose={onClose}
           />
         ) : (

@@ -20,5 +20,3 @@ const noticeDelete = (id: string) => {
 };
 
 export default noticeDelete;
-
-

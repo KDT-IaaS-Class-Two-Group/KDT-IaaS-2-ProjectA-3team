@@ -14,7 +14,9 @@ interface SessionData {
 const ToDoListComponent: React.FC = () => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
   const [loadingSession, setLoadingSession] = useState(true); // 세션 로딩 상태 관리
-  const [filter, setFilter] = useState<"all" | "completed" | "in-progress">("all");
+  const [filter, setFilter] = useState<"all" | "completed" | "in-progress">(
+    "all"
+  );
 
   // 세션에서 user_id를 가져옴
   useEffect(() => {
@@ -54,7 +56,9 @@ const ToDoListComponent: React.FC = () => {
 
   const filteredIssues = issue.filter((item) => {
     if (filter === "all") return true;
-    return filter === "completed" ? item.status === "completed" : item.status === "in-progress";
+    return filter === "completed"
+      ? item.status === "completed"
+      : item.status === "in-progress";
   });
 
   return (
@@ -77,7 +81,10 @@ const ToDoListComponent: React.FC = () => {
               <h2>{item.issue_name}</h2>
               <p>상태: {item.status}</p>
               <p>프로젝트: {item.project_name}</p>
-              <input type="checkbox" defaultChecked={item.status === "completed"} />
+              <input
+                type="checkbox"
+                defaultChecked={item.status === "completed"}
+              />
               <p>사용자 ID: {item.user_id || "N/A"}</p>
             </div>
           ))

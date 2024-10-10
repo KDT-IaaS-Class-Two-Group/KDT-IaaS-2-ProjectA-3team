@@ -1,5 +1,5 @@
 export default interface LogoContentProps {
-    src: string;
-    alt: string;
-    text: string;
-  }
+  src: string;
+  alt: string;
+  text: string;
+}

@@ -22,7 +22,11 @@ import { projectitletext } from "client/styles/admin/project/project.css";
  * @param {CardHeaderProps} props 카드 헤더 컴포넌트가 받는 속성들 (title, onButtonClick)
  * @return div 요소 안에 스타일이 적용된 타이틀 텍스트와 버튼을 포함하여 반환
  */
-const CardHeader: React.FC<CardHeaderProps> = ({ title, onButtonClick, children }) => {
+const CardHeader: React.FC<CardHeaderProps> = ({
+  title,
+  onButtonClick,
+  children,
+}) => {
   return (
     <div className={section}>
       <div className={cardHeader}>

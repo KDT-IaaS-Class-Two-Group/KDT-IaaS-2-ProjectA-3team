@@ -3,7 +3,7 @@ import React from "react";
 import MenuItem from "client/components/MenuItem/MenuItem"; // Assume MenuItem is in the correct path
 import ProjectCheckComponent from "client/components/__userHome/project";
 import NoticeMainPage from "client/pages/noticeMain";
-import UserPersonal from "client/refactor_component/template/profile_user/user_profile"; 
+import UserPersonal from "client/refactor_component/template/profile_user/user_profile";
 import * as styles from "../../../styles/sidebar/SidebarStyles.css"; // Assume the correct path
 
 interface SidebarNavProps {
@@ -11,7 +11,10 @@ interface SidebarNavProps {
   sessionData: { user_id: string; role_name: string } | null;
 }
 
-const SidebarNav: React.FC<SidebarNavProps> = ({ onMenuItemClick, sessionData }) => {
+const SidebarNav: React.FC<SidebarNavProps> = ({
+  onMenuItemClick,
+  sessionData,
+}) => {
   return (
     <ul className={styles.menulist}>
       <MenuItem

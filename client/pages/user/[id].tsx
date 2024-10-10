@@ -11,13 +11,11 @@ import BackButton from "client/components/backButtonSection/backbutton";
 import { USERS_URL } from "client/ts/enum/url/USER_URL.enum";
 import { BUTTON_NAME } from "client/ts/enum/button_name/BUTTON_NAME.enum";
 
-
-
 // [ ] 테이블 만들기
 const UserHome: React.FC = () => {
   const router = useRouter();
   const { id, query } = router.query;
-   
+
   let projectName: string = "";
   if (id !== undefined && !Array.isArray(id)) {
     projectName = id;

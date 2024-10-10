@@ -4,7 +4,7 @@ import * as styles from "client/styles/notice/notice.css";
 /**
  * @interface pTagListProps
  * @description 개별 공지사항 항목의 정보를 나타내는 속성 인터페이스
- * 
+ *
  * @property {object} notice - 공지사항 객체로, 제목, 작성자, 생성일 포함
  * @property {string} notice.title - 공지사항 제목
  * @property {string} notice.user_id - 작성자 ID
@@ -24,17 +24,13 @@ interface pTagListProps {
 /**
  * @function pTagList
  * @description
- * 개별 공지사항 정보를 태그로 표현하는 컴포넌트입니다. 
+ * 개별 공지사항 정보를 태그로 표현하는 컴포넌트입니다.
  * 인덱스를 기반으로 리스트 번호를 생성하고, 공지사항의 제목, 작성자, 생성일을 표시합니다.
  *
  * @param {pTagListProps} props - 공지사항 정보와 관련된 속성을 전달받습니다.
  * @returns {JSX.Element} 각 공지사항 정보를 태그로 표시하는 JSX
  */
-const pTagList: React.FC<pTagListProps> = ({
-  notice,
-  index,
-  currentPage
-}) => {
+const pTagList: React.FC<pTagListProps> = ({ notice, index, currentPage }) => {
   return (
     <div className={styles.noticelengh}>
       <Tag

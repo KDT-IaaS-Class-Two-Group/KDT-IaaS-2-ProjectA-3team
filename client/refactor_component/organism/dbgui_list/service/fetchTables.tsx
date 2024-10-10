@@ -12,6 +12,6 @@ export const fetchTables = async (): Promise<Table[]> => {
     return data;
   } catch (err) {
     console.error("Error fetching tables:", err);
-    throw err;  // Error를 던져서 호출하는 쪽에서 처리할 수 있도록 함
+    throw err; // Error를 던져서 호출하는 쪽에서 처리할 수 있도록 함
   }
 };

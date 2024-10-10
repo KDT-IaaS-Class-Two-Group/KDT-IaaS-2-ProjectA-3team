@@ -1,4 +1,4 @@
 export default interface BackButtonProps {
-  url : string;
-  button_name : string;
+  url: string;
+  button_name: string;
 }

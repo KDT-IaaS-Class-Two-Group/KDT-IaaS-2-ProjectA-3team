@@ -20,31 +20,33 @@ const submitHanlde = async ({
   try {
     // 팀 데이터를 서버로 전송
     const response = await fetch("http://localhost:3001/user/saveTeam", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         team_name: teamName,
         description: teamDescription,
         teamLeader: selectedLeader ? { user_id: selectedLeader.user_id } : null, // 객체로 전달
-        teamMembers: selectedMembers.map(member => ({ user_id: member.user_id })), // 객체로 전달
+        teamMembers: selectedMembers.map((member) => ({
+          user_id: member.user_id,
+        })), // 객체로 전달
       }),
     });
 
     if (!response.ok) {
-      throw new Error('팀 생성 실패');
+      throw new Error("팀 생성 실패");
     }
 
     const result = await response.json();
-    console.log('서버 응답:', result);
+    console.log("서버 응답:", result);
 
     // 폼 초기화
     resetForm();
-    alert('팀이 성공적으로 생성되었습니다!');
+    alert("팀이 성공적으로 생성되었습니다!");
   } catch (error) {
-    console.error('팀 생성 중 오류 발생:', error);
-    alert('팀 생성에 실패했습니다.');
+    console.error("팀 생성 중 오류 발생:", error);
+    alert("팀 생성에 실패했습니다.");
   }
 };
 

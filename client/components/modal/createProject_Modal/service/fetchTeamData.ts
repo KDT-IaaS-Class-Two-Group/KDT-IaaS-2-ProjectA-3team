@@ -1,5 +1,5 @@
 import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
-import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM"
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 const fetchTeamList = async () => {
   try {
@@ -12,5 +12,5 @@ const fetchTeamList = async () => {
   } catch (error) {
     throw error;
   }
-}
+};
 export default fetchTeamList;

@@ -46,9 +46,7 @@ const IssueItem: React.FC<IssueItemProps> = ({ issue }) => {
       <h2>{issue.issue_name.value}</h2> {/* 이슈 이름 */}
       <p>Status: {issue.status.value}</p> {/* 이슈 상태 */}
       <p>Project: {issue.project_name.value}</p> {/* 프로젝트 이름 */}
-      {sessionData && (
-        <p>User ID: {sessionData.user_id}</p> 
-      )}
+      {sessionData && <p>User ID: {sessionData.user_id}</p>}
     </div>
   );
 };

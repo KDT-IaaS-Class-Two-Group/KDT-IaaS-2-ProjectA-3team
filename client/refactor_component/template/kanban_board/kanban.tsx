@@ -78,15 +78,12 @@ const KanbanComponent: React.FC<KanbanProps> = ({ user_id }) => {
               <h2>{item.issue_name}</h2>
               <p>Status: {item.status}</p>
               <p>Project: {item.project_name}</p>
-              {sessionData && (
-        <p>User ID: {sessionData.user_id}</p> 
-      )}
+              {sessionData && <p>User ID: {sessionData.user_id}</p>}
             </div>
           ))
         ) : (
           <p>No issues found.</p>
         )}
-        
       </div>
     </div>
   );

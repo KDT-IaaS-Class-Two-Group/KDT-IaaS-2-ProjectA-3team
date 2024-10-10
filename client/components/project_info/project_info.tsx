@@ -82,10 +82,7 @@ const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
           </div>
 
           <div>
-            <IssueComponent
-              project_name={project_name}
-              onClose={() => {}}
-            />
+            <IssueComponent project_name={project_name} onClose={() => {}} />
           </div>
         </div>
       </div>

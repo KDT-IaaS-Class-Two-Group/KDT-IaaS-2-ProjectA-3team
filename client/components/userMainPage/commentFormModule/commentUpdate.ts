@@ -1,4 +1,9 @@
-const commentUpdate = (postId: string, newContent: string, fetchComment: () => void, setEditState: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>) => {
+const commentUpdate = (
+  postId: string,
+  newContent: string,
+  fetchComment: () => void,
+  setEditState: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>
+) => {
   return fetch(`http://localhost:3001/comments/${postId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

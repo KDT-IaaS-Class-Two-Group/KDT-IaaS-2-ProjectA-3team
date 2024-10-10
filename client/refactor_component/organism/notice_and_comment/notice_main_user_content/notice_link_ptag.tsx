@@ -31,26 +31,20 @@ interface NoticeItemProps {
  * @param {NoticeItemProps} notice - 게시물 객체로, 공지사항의 ID, 제목, 작성자 ID, 생성일을 포함
  * @param {NoticeItemProps} index - 게시물 리스트 내에서의 순서
  * @param {NoticeItemProps} currentPage - 현재 페이지 번호, 페이징을 위한 변수
- * 
+ *
  * @returns 게시물의 제목, 작성자, 날짜 등을 표시하고, 공지사항 상세 페이지로 이동하는 링크를 제공하는 JSX 요소
  */
 const NoticeItem: React.FC<NoticeItemProps> = ({
   notice,
   index,
-  currentPage
+  currentPage,
 }) => {
   return (
     <div key={notice._id}>
       {/* 게시물 상세 페이지 이동 링크 */}
-      <Link
-        href={`/notice/${notice._id}`}
-        className={styles.uploadbutton}
-      >
+      <Link href={`/notice/${notice._id}`} className={styles.uploadbutton}>
         {/* 게시물 제목~ 리스트 */}
-        <PTagList
-          notice={notice}
-          index={index}
-          currentPage={currentPage} />
+        <PTagList notice={notice} index={index} currentPage={currentPage} />
       </Link>
     </div>
   );

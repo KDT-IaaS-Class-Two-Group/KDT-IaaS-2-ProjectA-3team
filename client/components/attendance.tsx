@@ -10,12 +10,14 @@ import {
 interface AttendanceRecord {
   user_id: string;
   username: string;
-  clockInTime: string;  // 대문자 I
+  clockInTime: string; // 대문자 I
   clockOutTime?: string; // 대문자 O
 }
 
 const Attendance: React.FC = () => {
-  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
+  const [attendanceRecords, setAttendanceRecords] = useState<
+    AttendanceRecord[]
+  >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
@@ -23,7 +25,9 @@ const Attendance: React.FC = () => {
   const formatTime = (timeString: string | undefined): string => {
     if (!timeString) return "퇴근 기록 없음";
     const date = new Date(timeString);
-    return isNaN(date.getTime()) ? "시간 형식 오류" : date.toLocaleString("ko-KR");
+    return isNaN(date.getTime())
+      ? "시간 형식 오류"
+      : date.toLocaleString("ko-KR");
   };
 
   useEffect(() => {
@@ -46,7 +50,10 @@ const Attendance: React.FC = () => {
           console.log("Fetched data:", data);
           setAttendanceRecords(data);
         } else {
-          console.error("Failed to fetch attendance records", response.statusText);
+          console.error(
+            "Failed to fetch attendance records",
+            response.statusText
+          );
         }
       } catch (error) {
         console.error("Error fetching attendance records:", error);
@@ -71,7 +78,7 @@ const Attendance: React.FC = () => {
       <div>
         <ul className={listinitial}>
           {attendanceRecords.map((record, index) => {
-            const clockInTime = formatTime(record.clockInTime);  // 필드명 변경
+            const clockInTime = formatTime(record.clockInTime); // 필드명 변경
             const clockOutTime = formatTime(record.clockOutTime); // 필드명 변경
 
             console.log("Record:", record);

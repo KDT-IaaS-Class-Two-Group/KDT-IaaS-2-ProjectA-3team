@@ -64,4 +64,3 @@ const TeamLeaderSelect: React.FC<LeaderSelectProps> = ({
 };
 
 export default TeamLeaderSelect;
-

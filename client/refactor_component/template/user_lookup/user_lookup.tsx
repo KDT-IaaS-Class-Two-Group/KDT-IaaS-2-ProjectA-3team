@@ -24,7 +24,7 @@ import {
  *
  * 이 컴포넌트는 사용자의 목록과 필드를 비동기적으로 불러와서 화면에 표시합니다. 사용자는
  * 각 사용자에 대해 월급, 권한, 분야를 수정할 수 있으며, 수정된 정보를 저장할 수 있습니다.
- * 
+ *
  * @author @zoeznm
  * @date 2024-08-25
  *
@@ -105,7 +105,6 @@ const UserLookup: React.FC<UserLookupProps> = ({ onSave }) => {
               onChange={(e) => handleInputChangeWrapper(index, e, "role_name")}
               options={roles} // 동적으로 가져온 roles 사용
               label="권한 : "
-              
             />
             <Select
               id={`field-${index}`}

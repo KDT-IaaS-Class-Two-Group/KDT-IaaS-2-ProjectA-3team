@@ -1,3 +1,3 @@
 export default interface AdminSidebarProps {
-    onMenuItemClick: (component: React.ReactNode) => void;
-  }
+  onMenuItemClick: (component: React.ReactNode) => void;
+}

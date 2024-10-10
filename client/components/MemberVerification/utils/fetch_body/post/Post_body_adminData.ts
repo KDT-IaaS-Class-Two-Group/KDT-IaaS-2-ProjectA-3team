@@ -1,10 +1,10 @@
-export const AdminFetchBody = (item : { [key: string]: any }) => {
+export const AdminFetchBody = (item: { [key: string]: any }) => {
   return {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    credentials: 'include' as RequestCredentials,
+    credentials: "include" as RequestCredentials,
     body: JSON.stringify(item),
   };
 };

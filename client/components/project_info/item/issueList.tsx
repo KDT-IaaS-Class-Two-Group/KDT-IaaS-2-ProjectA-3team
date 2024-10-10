@@ -5,7 +5,6 @@ interface IssueListProps {
 }
 
 const IssueList: React.FC<IssueListProps> = ({ issues }) => {
-  
   return (
     <div>
       <p>ㅁㄴㅇF</p>

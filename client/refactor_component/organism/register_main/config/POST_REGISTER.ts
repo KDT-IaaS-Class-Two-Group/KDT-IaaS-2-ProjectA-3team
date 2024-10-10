@@ -1,11 +1,11 @@
-import { PendingUser } from "../interface/PendingData.interface"
+import { PendingUser } from "../interface/PendingData.interface";
 
 export const POST_REGISTER_META = (userData: PendingUser) => {
   return {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
-  }
-}
+  };
+};
