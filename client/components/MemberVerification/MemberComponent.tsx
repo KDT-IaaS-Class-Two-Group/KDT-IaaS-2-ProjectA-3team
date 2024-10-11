@@ -4,12 +4,6 @@ import { approveHandler } from "./services/approve/fetchApproveData";
 import { cancelHandler } from "./services/cancel/fetchCancelData";
 import { usePendingUsers } from "./hook/usePendingUser";
 import UserItem from "./item/userItem";
-interface User {
-  id: number;
-  name: string;
-  role: string;
-  salary: number;
-}
 const MemberComponent: React.FC = () => {
   const [memberData, setMemberData] = usePendingUsers();
   const [roles, setRoles] = useState<{ value: string; label: string }[]>([]);

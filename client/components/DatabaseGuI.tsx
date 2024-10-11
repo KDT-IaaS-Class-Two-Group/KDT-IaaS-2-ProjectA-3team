@@ -1,15 +1,5 @@
-import {
-  dbbuttonstyle,
-  dblist,
-  dblistitem,
-} from "client/styles/databaseGUI/maindbgui.css";
-import {
-  userlist,
-  userlistitem,
-} from "client/styles/sidebar/SidebarStyles.css";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { tdn } from "client/styles/templatebutton.css";
+import { dblist, dblistitem } from "client/styles/databaseGUI/maindbgui.css";
 import { DBButton } from "./common/elements/button";
 interface Table {
   table_name: string;

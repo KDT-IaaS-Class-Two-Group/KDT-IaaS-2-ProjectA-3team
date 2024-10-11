@@ -4,9 +4,9 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as styles from "../../styles/sideproject/sideproject.css";
 import columns from "./utils/columns/project_table.columns";
 import TableComponentProps from "./utils/Props/Project_table_Props";
-import * as styles from "../../styles/sideproject/sideproject.css";
 
 const ProjectTableComponent: React.FC<TableComponentProps> = ({ data }) => {
   const table = useReactTable({

@@ -17,9 +17,8 @@ const columns = [
     header: () => "Project Name",
     cell: (info) => {
       const projectName = info.getValue();
-      const projectId = info.row.original.project_name;
       return (
-        <Link href={`user/project/[id]`} as={projectName}>
+        <Link href={"user/project/[id]"} as={projectName}>
           {projectName}
         </Link>
       );

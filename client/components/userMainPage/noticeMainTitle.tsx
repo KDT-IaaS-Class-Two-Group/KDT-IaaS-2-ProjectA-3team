@@ -1,7 +1,6 @@
-import { pagemaintext } from "client/styles/team/teampage.css";
 import React from "react";
 import Link from "next/link";
-import { flexrowcontainer } from "client/styles/standardcontainer.css";
+import { pagemaintext } from "client/styles/team/teampage.css";
 import { noticeheaderdiv } from "client/styles/notice/noticecomponent.css";
 import { blueButton, tdn } from "client/styles/templatebutton.css";
 

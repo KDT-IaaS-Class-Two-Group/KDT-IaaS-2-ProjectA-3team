@@ -1,16 +1,6 @@
-import {
-  centeredflexrowcontainer,
-  flexrowcontainer,
-} from "client/styles/standardcontainer.css";
-import {
-  cholbtn,
-  choltwediv,
-  purpleButton,
-  twebtn,
-  yellowButton,
-} from "client/styles/templatebutton.css";
-import { buttonparent } from "client/styles/users/attendancestyle.css";
 import React, { useState } from "react";
+import { centeredflexrowcontainer } from "client/styles/standardcontainer.css";
+import { cholbtn, choltwediv, twebtn } from "client/styles/templatebutton.css";
 
 interface ClockInButtonProps {
   userId: string;

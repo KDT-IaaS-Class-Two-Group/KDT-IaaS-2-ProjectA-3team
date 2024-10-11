@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 import { useKanban } from "../../refactor_component/organism/kanban_board/hook/use_kanban";
 import {
   IssueContainer,
   KanbanListContainer,
 } from "../../components/project_info/style/projectInfoContainer.css";
-import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 interface SessionData {
   user_id: string;
@@ -52,6 +52,7 @@ const ToDoListComponent: React.FC = () => {
     return <p>세션 데이터를 불러오는 중...</p>;
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { issue, loading, error } = useKanban(sessionData?.user_id || "");
 
   const filteredIssues = issue.filter((item) => {

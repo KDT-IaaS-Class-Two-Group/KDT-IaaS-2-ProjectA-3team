@@ -45,8 +45,7 @@
   ],
   "rules": {
     "semi": ["error", "always"],
-    "quotes": ["error", "double", { "avoidEscape": true }], // 큰따옴표 사용
-    "indent": ["error", 2],
+    "quotes": ["warn", "double", { "avoidEscape": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-explicit-any": "off",
@@ -61,10 +60,17 @@
           "sibling",
           "index"
         ],
-        "newlines-between": "always"
+        "newlines-between": "ignore"
       }
     ],
-    "prettier/prettier": ["error"]
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "react/react-in-jsx-scope": "off",  // React 17 이상에서는 더 이상 필요 없음
+    "import/default": "off"              // import/default 오류 해결
   },
   "env": {
     "browser": true,

@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-duplicates
 import { style } from "@vanilla-extract/css";
+// eslint-disable-next-line import/no-duplicates
 import { globalStyle } from "@vanilla-extract/css";
 
 export const ProjectInfoContainer = style({

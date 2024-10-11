@@ -1,6 +1,6 @@
 import { useState } from "react";
-import CommentForm from "../../../components/userMainPage/commentForm";
 import { greenButton } from "client/styles/templatebutton.css";
+import CommentForm from "../../../components/userMainPage/commentForm";
 import * as styles from "../../../styles/notice/notice.css";
 import noticeUpdate from "./postComponent/noticeUpdate";
 import noticeDelete from "./postComponent/noticeDelete";

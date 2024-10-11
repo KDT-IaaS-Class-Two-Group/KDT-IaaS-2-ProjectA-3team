@@ -1,17 +1,12 @@
 import React from "react";
-import TextOnlyNoticeUserContent from "../../../client/components/TextContent";
-import TextOnlyNoticeAuthContent from "../../../client/components/TextNoticeAuth";
-import { admintext, runtext } from "client/styles/admin/greet/greet.css";
 import {
   noticeboardsection,
   noticemaintext,
   noticesection,
   noticesubtext,
 } from "client/styles/notice/mainnotice.css";
-import {
-  profilecontainer,
-  userlistcontainer,
-} from "client/styles/sidebar/SidebarStyles.css";
+import TextOnlyNoticeAuthContent from "../../../client/components/TextNoticeAuth";
+import TextOnlyNoticeUserContent from "../../../client/components/TextContent";
 
 const NoticeBoard: React.FC = () => {
   return (

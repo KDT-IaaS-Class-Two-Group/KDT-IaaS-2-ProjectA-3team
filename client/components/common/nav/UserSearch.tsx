@@ -178,6 +178,14 @@ export const UserSearch: React.FC = () => {
                 key={user.user_id}
                 className={styles.userlistitem}
                 onClick={() => handleUserClick(user.user_id, user.isFollowing)}
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                role="button"
+                tabIndex={0}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleUserClick(user.user_id, user.isFollowing);
+                  }
+                }}
               >
                 {user.username} - {user.isFollowing ? "언팔로우" : "팔로우"}
               </li>

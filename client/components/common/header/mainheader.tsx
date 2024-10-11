@@ -5,7 +5,6 @@ import {
   titletext,
   admintext,
 } from "client/styles/admin/greet/greet.css";
-import { section } from "client/styles/admin/admindashboard.css";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 interface SessionData {

@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import { SetStateAction, Dispatch } from "react";
 import { flexcolcontainer } from "client/styles/standardcontainer.css";
 import { bold24Text, bold32Text } from "client/styles/standardtextsize.css";
-import { SetStateAction, Dispatch } from "react";
 import { projectgap, projectmodalbtn } from "../../style/modal.css";
 
 interface StepProps {

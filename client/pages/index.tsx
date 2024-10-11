@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import * as styles from "../styles/info/index.css";
 const MainPage: React.FC = () => {
@@ -7,7 +8,7 @@ const MainPage: React.FC = () => {
       <div>
         <div className={styles.backcontainer}>
           <div className={styles.login}>
-            <img src="/delan.png" title="delan_logo" />
+            <Image src="/delan.png" alt="" title="delan_logo" />
             <h1 className={styles.heading}>DelaN</h1>
           </div>
           <div className={styles.buttoncontainer}>

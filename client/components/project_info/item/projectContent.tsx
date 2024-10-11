@@ -1,5 +1,4 @@
 import { StackResult } from "../interface/stackResult.interface";
-import { MemberList } from "../style/memberList.css";
 interface ProjectInfoProps {
   project_name: string;
   projectStack: StackResult[];
@@ -16,7 +15,8 @@ const ProjectInfoItem: React.FC<ProjectInfoProps> = ({
   return (
     <div className={""}>
       <h1>{project_name}</h1>
-      {projectStack.map((stack: Stack, index) => {
+      {projectStack.map((stack: Stack) => {
+        // eslint-disable-next-line react/jsx-key
         return <p>{stack.stack_name}</p>;
       })}
     </div>

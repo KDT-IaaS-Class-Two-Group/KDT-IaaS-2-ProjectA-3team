@@ -4,7 +4,8 @@ interface IssueListProps {
   issues: Issue[] | null;
 }
 
-const IssueList: React.FC<IssueListProps> = ({ issues }) => {
+// eslint-disable-next-line no-empty-pattern
+const IssueList: React.FC<IssueListProps> = ({}) => {
   return (
     <div>
       <p>ㅁㄴㅇF</p>

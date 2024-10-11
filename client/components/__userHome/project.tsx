@@ -1,17 +1,13 @@
-import { Dispatch, SetStateAction, Key, useEffect, useState } from "react";
-import fetchCheckProject from "./service/fetchCheckProject";
-import { ProjectCheckProps } from "./interface/props/ProjectCheckProps.interface";
-import Link from "next/link";
-import ProjectView from "../project/info";
-import ProjectTestComponent from "../project/project_info.component";
+import { useEffect, useState } from "react";
 import {
   pagemaincontainer,
   pagemainmain,
 } from "client/styles/team/teampage.css";
+import ProjectInfoComponent from "../project_info/project_info";
+import fetchCheckProject from "./service/fetchCheckProject";
+import { ProjectCheckProps } from "./interface/props/ProjectCheckProps.interface";
 import { HeaderContainer, itemContainer } from "./style/itemStyle.css";
 import { formatDate } from "./service/formatDate";
-import ProjectInfoComponent from "../project_info/project_info";
-import { blueButton } from "client/styles/templatebutton.css";
 export interface ProjectData {
   project_id: number;
   project_name: string;
@@ -50,6 +46,18 @@ const ProjectCheckComponent: React.FC<ProjectCheckProps> = ({
                     onMenuItemClick(
                       <ProjectInfoComponent project_name={item.project_name} />
                     );
+                  }}
+                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                  role="button" // 버튼 역할 추가
+                  tabIndex={0} // 키보드 포커스 가능하게 설정
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      onMenuItemClick(
+                        <ProjectInfoComponent
+                          project_name={item.project_name}
+                        />
+                      );
+                    }
                   }}
                 >
                   {item.project_name}

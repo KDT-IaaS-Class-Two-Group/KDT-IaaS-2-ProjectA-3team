@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { greenButton, blueButton } from "client/styles/templatebutton.css";
+import Button from "client/refactor_component/atom/button/button";
+import TextArea from "client/refactor_component/atom/text_area/text_area";
 import * as styles from "../../styles/notice/notice.css";
 import retrieveComment from "./commentFormModule/fetchCommentRetrieve";
 import { ListComment } from "./commentFormModule/ListComment";
@@ -7,14 +9,12 @@ import { CommentFormProps } from "./commentFormModule/CommentFormProps";
 import commentSend from "./commentFormModule/fetchCommentSend";
 import commentUpdate from "./commentFormModule/commentUpdate";
 import commentDelete from "./commentFormModule/commentDelete";
-import Button from "client/refactor_component/atom/button/button";
-import TextArea from "client/refactor_component/atom/text_area/text_area";
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState<ListComment[]>([]); // 서버에서 건너오는 댓글 데이터
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
+  const [currentPage] = useState(1); // 현재 페이지
+  const [, setTotalPages] = useState(1); // 총 페이지 수
   const itemsPerPage = 3; // 한 페이지당 항목 수
   const [editState, setEditState] = useState<{ [key: string]: boolean }>({}); // 댓글 수정 상태
 
@@ -30,14 +30,11 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
 
   useEffect(() => {
     fetchComment(); // 컴포넌트가 처음 렌더링될 때 데이터 fetch
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId, currentPage]); // currentPage가 변경될 때마다 fetch
 
   const sendComment = (postId: string) => {
     commentSend(postId, comment, setComment, fetchComment);
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page); // 페이지 변경
   };
 
   const updateComment = (postId: string, newContent: string) => {

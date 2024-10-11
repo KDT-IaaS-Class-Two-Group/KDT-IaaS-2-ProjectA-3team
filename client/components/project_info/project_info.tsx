@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import IssueComponent from "client/refactor_component/template/issue/issue_item";
 import MemberInfoItem from "./item/membeList";
-import ProjectInfoItem from "./item/projectContent";
-import { MemberList } from "./style/memberList.css";
 import { ProjectInfoSection } from "./style/projectInfoSection.css";
 import { MemeberContainer } from "./style/memberListContainer.css";
 import {
@@ -10,20 +9,18 @@ import {
   ProjectInfoContainer,
 } from "./style/projectInfoContainer.css";
 import AddStackButton from "./item/addStackButton";
-import ProjectInfo from "./interface/project_info.interface";
 import fetchProjectInfo from "./service/fetchProjectInfo";
 import ProjectInfoProps from "./interface/props/projectInfo.props";
 import ProjectInfoBottomContainer from "./style/projectInfoBottom.css";
 import Issue from "./interface/issue.interface";
-import IssueList from "./item/issueList";
 import { StackResult } from "./interface/stackResult.interface";
 // import IssueComponent from "../issue/issue";
-import IssueComponent from "client/refactor_component/template/issue/issue_item";
 
 const ProjectInfoComponent: React.FC<ProjectInfoProps> = ({ project_name }) => {
   const [memberData, setMemberData] = useState([]);
   const [projectStack, setProjectStack] = useState<StackResult[]>([]);
-  const [issues, setIssues] = useState<Issue[]>([]);
+  // eslint-disable-next-line no-empty-pattern
+  const [] = useState<Issue[]>([]);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const onOpen = () => {

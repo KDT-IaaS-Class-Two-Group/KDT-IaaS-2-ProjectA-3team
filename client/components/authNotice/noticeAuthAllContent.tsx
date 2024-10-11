@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { mainpagecontainer } from "client/styles/admin/admindashboard.css";
-import AdminSidebar from "../SideBar/AdminSidebar";
-import AdminMainContent from "../../refactor_component/template/main_content/admin/admin_main_content";
-import MainHeader from "../common/header/mainheader";
 import {
   pagemaincontainer,
   pagemainmain,
   pagemaintext,
 } from "client/styles/team/teampage.css";
-import * as styles from "../../styles/notice/notice.css";
 import { centeredflexrowcontainer } from "client/styles/standardcontainer.css";
+import AdminSidebar from "../SideBar/AdminSidebar";
+import AdminMainContent from "../../refactor_component/template/main_content/admin/admin_main_content";
+import MainHeader from "../common/header/mainheader";
+import * as styles from "../../styles/notice/notice.css";
 import { ListNotice } from "./noticeAuthContentModule/interfaceType";
 import fetchNotices from "./noticeAuthAllContentModule/fetchNotice";
 
@@ -33,7 +33,7 @@ const NoticeAuthAllContent = () => {
   };
 
   // 상태 훅 설정
-  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+  const [, setCurrentComponent] = useState<React.ReactNode>(
     <AdminMainContent onclick={handleMenuClick} />
   );
 

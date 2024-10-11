@@ -1,14 +1,11 @@
-import useCreateProjectModal from "./hook/useCreateProject.modal";
+import { projectbuttoncontainer } from "client/styles/team/teampage.css";
 import Modal from "../modal";
+import * as styles from "../../../styles/sideproject/sideproject.css";
+import useCreateProjectModal from "./hook/useCreateProject.modal";
 import Step1 from "./item/step1";
 import Step2 from "./item/step2";
 import Step3 from "./item/step3";
 import Step4 from "./item/step4";
-import * as styles from "../../../styles/sideproject/sideproject.css";
-import {
-  projectbuttoncontainer,
-  teambuttoncontainer,
-} from "client/styles/team/teampage.css";
 
 interface CreateProjectModalProps {
   onProjectCreated: () => void;

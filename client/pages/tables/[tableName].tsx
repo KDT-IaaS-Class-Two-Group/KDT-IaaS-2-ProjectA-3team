@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useFetchTableData } from "../../hooks/useFetchTableData";
-import AdminSidebar from "./../../components/SideBar/AdminSidebar";
 import MainHeader from "client/refactor_component/template/dash_board/dash_board";
 import {
   contentcontainer,
@@ -14,15 +12,16 @@ import {
   pagemaintext,
 } from "client/styles/team/teampage.css";
 import {
-  listinitial,
   listtable,
   pendinglist,
 } from "client/styles/users/attendancestyle.css";
 import AdminMainContent from "client/refactor_component/template/main_content/admin/admin_main_content";
 
+import { blueButton } from "client/styles/templatebutton.css";
 import * as styles from "../../styles/sideproject/sideproject.css";
 
-import { blueButton } from "client/styles/templatebutton.css";
+import { useFetchTableData } from "../../hooks/useFetchTableData";
+import AdminSidebar from "./../../components/SideBar/AdminSidebar";
 
 interface Column {
   column_name: string;
@@ -165,7 +164,7 @@ const TablePage: React.FC = () => {
   };
 
   // 상태 훅 설정
-  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+  const [, setCurrentComponent] = useState<React.ReactNode>(
     <AdminMainContent onclick={handleMenuClick} />
   );
 

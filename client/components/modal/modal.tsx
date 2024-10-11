@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   modalBackdrop,
   modalContent,
@@ -17,6 +18,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   };
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div className={modalBackdrop} onClick={handleBackdropClick}>
       <div className={modalContent}>
         <div className={modalbtncontainer}>

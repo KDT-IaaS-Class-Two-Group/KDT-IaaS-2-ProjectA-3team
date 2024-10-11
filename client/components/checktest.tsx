@@ -1,16 +1,12 @@
+import React, { useEffect, useState } from "react";
 import {
   requestmaincontainer,
   requestmaintext,
 } from "client/styles/admin/requests/mainuserrequest.css";
-import {
-  centerbetweenflexrowcontainer,
-  flexrowcontainer,
-} from "client/styles/standardcontainer.css";
-import React, { useEffect, useState } from "react";
 
 const CheckUsersCount: React.FC = () => {
   const [userCount, setUserCount] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserCount = async () => {
@@ -24,7 +20,9 @@ const CheckUsersCount: React.FC = () => {
         }
         const data = await response.json();
         setUserCount(data.count);
-      } catch (err) {}
+      } catch (err) {
+        /* empty */
+      }
     };
 
     fetchUserCount();

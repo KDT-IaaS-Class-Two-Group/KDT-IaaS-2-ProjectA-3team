@@ -1,22 +1,16 @@
-import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
-import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+// eslint-disable-next-line import/no-duplicates
 import { SetStateAction, Dispatch } from "react";
+// eslint-disable-next-line import/no-duplicates
 import { useState, useEffect } from "react";
-import fetchTeamList from "../service/fetchTeamData";
 import { bold32Text } from "client/styles/standardtextsize.css";
 import { listinitial } from "client/styles/users/attendancestyle.css";
+import { flexrowcontainer } from "client/styles/standardcontainer.css";
 import {
-  projectgap,
   projectmodalbtn,
   projectpadding,
   teamlist,
 } from "../../style/modal.css";
-import { flexrowcontainer } from "client/styles/standardcontainer.css";
-import { blueButton } from "client/styles/templatebutton.css";
-interface Team {
-  team_name: string;
-  description: string;
-}
+import fetchTeamList from "../service/fetchTeamData";
 interface StepProps {
   handleNext: () => void;
   setTeam: Dispatch<SetStateAction<string>>;

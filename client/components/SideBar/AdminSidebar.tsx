@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import * as styles from "../../styles/sidebar/SidebarStyles.css";
+import Link from "next/link";
+import router from "next/router";
 import UserSearchPage from "client/refactor_component/template/nav/user_search_template";
 import Logo from "client/refactor_component/template/logo/logo";
+import DBGUI from "client/refactor_component/template/dash_temp/db_gui";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import UserSelection from "../../refactor_component/template/team/team";
 import AdminMainContent from "../../refactor_component/template/main_content/admin/admin_main_content";
 import ProjectView from "../project/info";
 import NoticeMainPage from "../../pages/noticeMain";
-import DBGUI from "client/refactor_component/template/dash_temp/db_gui";
-import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
-import Link from "next/link";
-import router, { Router } from "next/router";
 
 interface AdminSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
@@ -110,6 +110,7 @@ const MenuItem: React.FC<{
   link?: string;
 }> = ({ text, onClick, link }) => {
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <li className={styles.menuitem} onClick={onClick}>
       <span className={styles.menuitemicon}></span>
       {link ? (

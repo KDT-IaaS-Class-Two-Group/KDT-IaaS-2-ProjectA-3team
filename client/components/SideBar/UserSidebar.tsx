@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import * as styles from "../../styles/sidebar/SidebarStyles.css";
+import Link from "next/link";
 import UserSearchPage from "client/refactor_component/template/nav/user_search_template";
+import UserPersonal from "client/refactor_component/template/profile_user/user_profile";
+import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import ProjectCheckComponent from "client/components/__userHome/project";
+import * as styles from "../../styles/sidebar/SidebarStyles.css";
 import Logo from "../common/logo/Logo";
 import UserMainContent from "../../refactor_component/template/main_content/user/user_main_content";
 import NoticeMainPage from "../../pages/noticeMain";
-import UserPersonal from "client/refactor_component/template/profile_user/user_profile";
 // "../../refactor_component/template/profile_user/UserProfile";
-import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
-import Link from "next/link";
 
-import { tdn } from "client/styles/templatebutton.css";
 // import ProjectCheckComponent from "client/refactor_component/template/project_check/project_check_pate";
-import ProjectCheckComponent from "client/components/__userHome/project";
 
 interface UserSidebarProps {
   onMenuItemClick: (component: React.ReactNode) => void;
@@ -25,7 +24,7 @@ interface SessionData {
 const UserSidebar: React.FC<UserSidebarProps> = ({ onMenuItemClick }) => {
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
 
-  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(
+  const [, setCurrentComponent] = useState<React.ReactNode>(
     <UserMainContent onclick={onMenuItemClick} />
   );
 
@@ -132,6 +131,7 @@ const MenuItem: React.FC<{
     );
   } else {
     return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
       <li className={styles.menuitem} onClick={onClick}>
         <span className={styles.menuitemicon}></span>
         <span>{text}</span>
@@ -140,9 +140,12 @@ const MenuItem: React.FC<{
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ProjectView: React.FC = () => <div>프로젝트 조회 컴포넌트</div>;
 const KanbanBoard: React.FC = () => <div>칸반보드 컴포넌트</div>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NoticeBoard: React.FC = () => <div>게시판 컴포넌트</div>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserProfile: React.FC = () => <div>개인정보 조회 컴포넌트</div>;
 
 export default UserSidebar;

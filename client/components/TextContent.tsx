@@ -22,7 +22,7 @@ const NoticeMainContent = () => {
   const [userList, setUserList] = useState<ListNotice[]>([]); // empolyee 서버에서 건너오는 게시물 데이터
   useEffect(() => {
     const fetchNotices = () => {
-      fetch(`http://localhost:3001/homenotice/user`)
+      fetch("http://localhost:3001/homenotice/user")
         .then((response) => {
           return response.json();
         })

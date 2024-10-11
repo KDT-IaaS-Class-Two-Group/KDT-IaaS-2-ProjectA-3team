@@ -1,12 +1,7 @@
-import {
-  base24Text,
-  base32Text,
-  bold24Text,
-  bold32Text,
-} from "client/styles/standardtextsize.css";
 import { SetStateAction, Dispatch } from "react";
-import { projectmodalbtn } from "../../style/modal.css";
+import { bold24Text, bold32Text } from "client/styles/standardtextsize.css";
 import { flexrowcontainer } from "client/styles/standardcontainer.css";
+import { projectmodalbtn } from "../../style/modal.css";
 
 interface StepProps {
   projectName: string;

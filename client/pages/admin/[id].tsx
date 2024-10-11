@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import * as style from "client/styles/project/root.css";
 import Side from "client/components/userMainPage/basicDesign/userLeftContent";
-import Content from "client/components/userMainPage/basicDesign/mainHeader";
-import Link from "next/link";
-import CalendarComponent from "client/refactor_component/molecule/calendar/calendar";
-import { useRouter } from "next/router";
 import MainHeader from "client/refactor_component/template/dash_board/dash_board";
 import ProjectInfoComponent from "client/components/project_info/project_info";
 import BackButton from "client/components/backButtonSection/backbutton";
-import { USERS_URL } from "client/ts/enum/url/USER_URL.enum";
 import { BUTTON_NAME } from "client/ts/enum/button_name/BUTTON_NAME.enum";
 import { ADMIN_URL } from "client/ts/enum/url/ADMIN_URL.enum";
 
 // [ ] 테이블 만들기
 const UserHome: React.FC = () => {
   const router = useRouter();
-  const { id, query } = router.query;
+  const { id } = router.query;
 
   let projectName: string = "";
   if (id !== undefined && !Array.isArray(id)) {

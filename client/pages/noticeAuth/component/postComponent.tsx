@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { greenButton } from "client/styles/templatebutton.css";
-import * as styles from "../../../styles/notice/notice.css";
-import UserSidebar from "client/components/SideBar/UserSidebar";
 import { buttonparent } from "client/styles/users/attendancestyle.css";
+import * as styles from "../../../styles/notice/notice.css";
 import noticeUpdate from "../../notice/component/postComponent/noticeUpdate";
 import noticeDelete from "../../notice/component/postComponent/noticeDelete";
 

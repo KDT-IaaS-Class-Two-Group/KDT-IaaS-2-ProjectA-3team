@@ -1,10 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import {
-  blueButton,
-  plusButton,
-  purpleButton,
-} from "client/styles/templatebutton.css";
+import { plusButton } from "client/styles/templatebutton.css";
 import { dbbuttonstyle } from "client/styles/databaseGUI/maindbgui.css";
 
 interface ButtonProps {

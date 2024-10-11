@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { StackResult } from "../interface/stackResult.interface";
 import searchStacks from "../service/fetchSearchData";
 import fetchPostStack from "../service/fetchPostStack";
-import { Dispatch } from "react";
-import { SetStateAction } from "react";
+
 interface Stack_Props {
   project_name: string;
   onClose: () => void;
@@ -74,6 +73,7 @@ const StackSearch: React.FC<Stack_Props> = ({
         {results.length > 0 ? (
           <ul>
             {results.map((stack, index) => (
+              // eslint-disable-next-line react/jsx-key
               <div>
                 <li key={index}>
                   {stack.stack_name} ({stack.stack_type})

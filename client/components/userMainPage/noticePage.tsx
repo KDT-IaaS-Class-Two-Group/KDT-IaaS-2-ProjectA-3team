@@ -1,11 +1,11 @@
-import { greenButton } from "client/styles/templatebutton.css";
 import Link from "next/link";
 import React, { useState } from "react";
-import * as styles from "../../styles/notice/notice.css";
-import send from "./noticePageModule/fetchSendNotice";
+import { greenButton } from "client/styles/templatebutton.css";
 import Button from "client/refactor_component/atom/button/button";
 import TextArea from "client/refactor_component/atom/text_area/text_area";
 import Input from "client/refactor_component/atom/input/input";
+import * as styles from "../../styles/notice/notice.css";
+import send from "./noticePageModule/fetchSendNotice";
 
 /**
  * * Function : RegisterForm

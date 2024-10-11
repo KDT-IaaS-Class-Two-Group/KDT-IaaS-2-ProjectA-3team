@@ -2,6 +2,7 @@ import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
 
 const fetchTeamList = async () => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const res = await fetch(REQUEST_URL.__GET_TEAM_ALL);
     if (!res.ok) {

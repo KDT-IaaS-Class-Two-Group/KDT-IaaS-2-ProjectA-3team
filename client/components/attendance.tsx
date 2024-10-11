@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ClockInOutModal from "./modal/work.Modal";
-import { userlist } from "client/styles/sidebar/SidebarStyles.css";
 import {
   listinitial,
   listline,
   liststylemainattendance,
 } from "client/styles/users/attendancestyle.css";
+import ClockInOutModal from "./modal/work.Modal";
 
 interface AttendanceRecord {
   user_id: string;
@@ -62,11 +61,6 @@ const Attendance: React.FC = () => {
 
     fetchAttendanceRecords();
   }, []);
-
-  const handleOpenModal = (userId: string) => {
-    setSelectedUserId(userId);
-    setIsModalOpen(true);
-  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);

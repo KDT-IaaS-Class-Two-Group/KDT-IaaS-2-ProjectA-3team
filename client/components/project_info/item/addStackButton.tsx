@@ -1,10 +1,7 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import StackSearch from "./settingStack";
 import Modal from "client/components/modal/modal";
-import { useRouter } from "next/router";
-import StackButtonProps from "../interface/props/addStackButtonProps";
-import { button } from "client/styles/mainview.css";
 import { yellowButton } from "client/styles/templatebutton.css";
+import StackButtonProps from "../interface/props/addStackButtonProps";
+import StackSearch from "./settingStack";
 
 const AddStackButton: React.FC<StackButtonProps> = ({
   setProjectStack,

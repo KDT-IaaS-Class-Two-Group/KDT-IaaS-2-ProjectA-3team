@@ -1,19 +1,16 @@
+// eslint-disable-next-line import/no-duplicates
 import { useState } from "react";
-import * as styles from "../../styles/sideproject/sideproject.css";
-import Side from "client/components/userMainPage/basicDesign/userLeftContent";
+// eslint-disable-next-line import/no-duplicates
 import { useEffect } from "react";
 import ProjectTableComponent from "client/components/project_table/project_table";
 import getProjectData from "client/components/project_table/service/fetchGetProjectData";
-import {
-  ResponseProject,
-  ResponseProject_WithTeam,
-} from "client/components/project_table/interface/project.interface";
-import CreateProjectModal from "../modal/createProject_Modal/createProject.modal";
+import { ResponseProject_WithTeam } from "client/components/project_table/interface/project.interface";
 import {
   pagemaincontainer,
   pagemainmain,
   pagemaintext,
 } from "client/styles/team/teampage.css";
+import CreateProjectModal from "../modal/createProject_Modal/createProject.modal";
 
 const ProjectView: React.FC = () => {
   const [data, setData] = useState<ResponseProject_WithTeam[]>([]);

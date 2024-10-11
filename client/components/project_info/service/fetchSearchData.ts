@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { StackResult } from "../interface/stackResult.interface";
 import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
+import { StackResult } from "../interface/stackResult.interface";
 
 const searchStacks = async (
   searchQuery: string,

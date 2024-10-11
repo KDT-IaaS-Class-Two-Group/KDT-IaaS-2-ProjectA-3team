@@ -1,8 +1,6 @@
 import REQUEST_URL from "client/ts/enum/request/REQUEST_URL.ENUM";
-import ProjectInfo from "../interface/project_info.interface";
 import { FETCH_ERROR } from "client/ts/enum/error/FETCH_ERROR.enum";
-import { Dispatch, SetStateAction } from "react";
-import { StackResult } from "../interface/stackResult.interface";
+import ProjectInfo from "../interface/project_info.interface";
 
 const fetchProjectInfo = async (project_name: string) => {
   try {
