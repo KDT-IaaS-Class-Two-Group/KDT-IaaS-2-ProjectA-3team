@@ -9,7 +9,7 @@ const mainHeader: React.FC<mainProps> = ({ children }) => {
   return (
     <div className={styles.mainContentAll}>
       <div className={styles.mainContentHeader}>
-        <h1>Hello 토마토맛</h1>
+        <h1>Hello 토마토맛.</h1>
         <div>다크모드</div>
       </div>
       <div>
