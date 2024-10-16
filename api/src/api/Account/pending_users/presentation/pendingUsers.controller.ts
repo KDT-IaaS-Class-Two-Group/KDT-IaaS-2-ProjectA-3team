@@ -65,7 +65,10 @@ export class PendingUsersController {
       // 2. relation_users_field_name 테이블에 저장
       if (field_name) {
         await this.databaseService.query(
-          `INSERT INTO relation_users_field_name (user_id, field_name) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET field_name = $2`,
+          `INSERT INTO relation_users_field_name (user_id, field_name) 
+           VALUES ($1, $2) 
+           ON CONFLICT (user_id, field_name) 
+           DO UPDATE SET field_name = $2`,
           [user_id, field_name],
         );
       }
